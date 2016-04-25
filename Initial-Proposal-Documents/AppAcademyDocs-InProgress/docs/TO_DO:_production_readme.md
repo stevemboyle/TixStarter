@@ -1,17 +1,14 @@
 # TixStarter
 
-[TixStarter live][heroku] **NB:** This should be a link to your production site
+[TixStarter live][heroku]
 
 [heroku]: http://www.herokuapp.com
 
-**TixStarter is a full-stack web application for event ticketing.**
+TixStarter is a full-stack web application for event ticketing.
 
-**Backend**: Ruby on Rails
+**Backend**: Ruby on Rails | **Database**: PostgreSQL | **Frontend**: React.js with a Flux architectural framework
 
-**Database**: PostgreSQL
-
-**Frontend**: React.js with a Flux architectural framework
-
+TixStarter is a web application for creating events and buying tickets. Inspired by Kickstarter, events must achieve a revenue goal in order to be funded. The aesthetic design is inspired in part by TicketLeap, and in part by a desire to create a more beautiful ticketing app.
 
 ## Features & Implementation
 
