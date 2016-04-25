@@ -1,7 +1,6 @@
 # TixStarter
 ## Design Inspirations and Wireframes
 
-Until the images are updated, please refer to the TixStarter Wireframes and Design PDF.
 
 ## Home Page
 
