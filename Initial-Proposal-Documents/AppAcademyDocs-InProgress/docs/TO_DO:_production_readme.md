@@ -1,13 +1,15 @@
-# FresherNote
+# TixStarter
 
-[FresherNote live][heroku] **NB:** This should be a link to your production site
+[TixStarter live][heroku] **NB:** This should be a link to your production site
 
 [heroku]: http://www.herokuapp.com
 
-TixStarter is a full-stack web application for event ticketing.
+**TixStarter is a full-stack web application for event ticketing.**
 
 **Backend**: Ruby on Rails
+
 **Database**: PostgreSQL
+
 **Frontend**: React.js with a Flux architectural framework
 
 
