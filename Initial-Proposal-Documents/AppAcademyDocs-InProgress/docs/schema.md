@@ -11,7 +11,7 @@ image_url       | string    | not null
 video_url       | string    | not null
 user_id         | integer   | not null
 revenue_goal    | integer   | not null
-revenue_status  | integer   | not null
+revenue_status  | integer   | not null, default: 0
 
 ## showtimes
 column name     | data type | details
