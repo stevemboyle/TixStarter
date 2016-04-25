@@ -1,4 +1,7 @@
+
+
 # Phase 3: Notebooks and Tags (2 days)
+This document is still in progress. In the meantime, please refer to the ReadMe or the TixStarter Phases PDF for a description of the various phases. 
 
 ## Rails
 ### Models

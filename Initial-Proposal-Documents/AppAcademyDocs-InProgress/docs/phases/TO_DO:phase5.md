@@ -1,6 +1,7 @@
-#This document is still in progress. In the meantime, please refer to the ReadMe or the TixStarter Phases PDF for a description of the various phases. 
+
 
 # Phase 5: Reminders and Garbage Collection
+This document is still in progress. In the meantime, please refer to the ReadMe or the TixStarter Phases PDF for a description of the various phases. 
 
 ## Rails
 ### Models

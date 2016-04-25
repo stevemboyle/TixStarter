@@ -1,20 +1,23 @@
+
 # Phase 1: User Authentication, Note Model and JSON API
+This document is still in progress. In the meantime, please refer to the ReadMe or the TixStarter Phases PDF for a description of the various phases. 
 
 ## Rails
 ### Models
 * User
-* Note
+* Event
 
 ### Controllers
 * UsersController (create, new)
 * SessionsController (create, new, destroy)
-* Api::NotesController (create, destroy, index, show, update)
+* Api::EventsController (create, destroy, index, show, update)
 
 ### Views
 * users/new.html.erb
 * session/new.html.erb
-* notes/index.json.jbuilder
-* notes/show.json.jbuilder
+* events/index.json.jbuilder
+* events/show.json.jbuilder
+* events/_ events.json.jbuilder (Partial)
 
 ## Flux
 ### Views (React Components)

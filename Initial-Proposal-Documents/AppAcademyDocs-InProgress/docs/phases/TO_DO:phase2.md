@@ -1,4 +1,6 @@
+
 # Phase 2: Flux Architecture and Note CRUD (2 days)
+This document is still in progress. In the meantime, please refer to the ReadMe or the TixStarter Phases PDF for a description of the various phases. 
 
 ## Rails
 ### Models
@@ -21,9 +23,9 @@
 * ApiActions.receiveSingleNote
 * ApiActions.deleteNote
 * NoteActions.fetchAllNotes -> triggers ApiUtil
-* NoteActions.fetchSingleNote 
+* NoteActions.fetchSingleNote
 * NoteActions.createNote
-* NoteActions.editNote 
+* NoteActions.editNote
 * NoteActions.destroyNote
 
 ### ApiUtil
