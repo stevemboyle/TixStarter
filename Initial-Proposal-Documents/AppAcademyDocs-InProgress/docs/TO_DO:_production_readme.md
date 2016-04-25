@@ -4,7 +4,12 @@
 
 [heroku]: http://www.herokuapp.com
 
-FresherNote is a full-stack web application inspired by Evernote.  It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React.js with a Flux architectural framework on the frontend.  
+TixStarter is a full-stack web application for event ticketing.
+
+**Backend**: Ruby on Rails
+**Database**: PostgreSQL
+**Frontend**: React.js with a Flux architectural framework
+
 
 ## Features & Implementation
 
