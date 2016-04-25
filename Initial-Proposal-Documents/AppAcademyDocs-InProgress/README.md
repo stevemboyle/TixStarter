@@ -10,13 +10,16 @@ TixStarter is a web application for creating events and buying tickets. Inspired
 
 By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
+- Basic AppAcademy Features:
 - [ ] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
-- [ ] The minimally necessary features for an Evernote-inspired site: note creation and saving, note editing, and notes organized into notebooks
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README
+
+- TixStarter Specific Features:
+- [ ] CRUD functionality for Events, Showtimes, and Tickets
 
 ## Product Goals and Priorities
 
