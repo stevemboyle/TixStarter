@@ -58,7 +58,7 @@ TixStarter will allow users to do the following:
 - [ ] CRUD API for `Events` (`EventsController`)
 - [ ] jBuilder views for `Events`
 - [ ] setup Webpack & Flux scaffold
-- [ ] setup APIUtil to interact with the API
+- [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
 ### Phase 3: Flux Architecture and Router (0.5 Days)
