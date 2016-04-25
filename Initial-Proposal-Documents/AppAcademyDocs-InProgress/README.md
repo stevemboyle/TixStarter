@@ -6,7 +6,7 @@
 
 ## Minimum Viable Product
 
-TixStarter is a web application for creating events and buying tickets. Inspired by Kickstarter, events must achieve a revenue goal in order to be funded. The aesthetic design is inspired in part by TicketLeap, and in part by a desire to create a more beautiful ticketing app.
+TixStarter is a web application for creating `Events` and buying `Tickets`. Inspired by Kickstarter, `Events` must achieve a revenue goal in order to be funded. The aesthetic design is inspired in part by TicketLeap, and in part by a desire to create a more beautiful ticketing app.
 
 By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
@@ -21,8 +21,8 @@ By the end of Week 9, this app will, at a minimum, satisfy the following criteri
 
 * TixStarter Specific Features:
 
-- [ ] CRUD functionality for Events, Showtimes, and Tickets
-- [ ] A simulated process for "buying" tickets
+- [ ] CRUD functionality for Events, `Showtimes`, and Tickets
+- [ ] A simulated process for "buying" `Tickets`
 
 ## Product Goals and Priorities
 
@@ -30,10 +30,10 @@ TixStarter will allow users to do the following:
 
 - [ ] Create an account (MVP)
 - [ ] Sign In, Log Out, and Sign Up, including as a Guest/Demo User (MVP)
-- [ ] Create, read, edit, and delete events (MVP)
-- [ ] Create, read, edit, and delete showtimes for those events (MVP)
-- [ ] Create, read, edit, and delete tickets for those showtimes (MVP)
-- [ ] Simulate buying tickets (MVP)
+- [ ] Create, read, edit, and delete `Events` (MVP)
+- [ ] Create, read, edit, and delete `Showtimes` for those `Events` (MVP)
+- [ ] Create, read, edit, and delete `Tickets` for those `Showtimes` (MVP)
+- [ ] Simulate buying `Tickets` (MVP)
 
 ## Implementation Timeline
 
@@ -55,8 +55,8 @@ TixStarter will allow users to do the following:
 
 - [ ] create `Event` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for events (`EventController`)
-- [ ] jBuilder views for events
+- [ ] CRUD API for `Events` (`EventsController`)
+- [ ] jBuilder views for `Events`
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup APIUtil to interact with the API
 - [ ] test out API interaction in the console.
@@ -73,33 +73,33 @@ TixStarter will allow users to do the following:
   - [ ] `EventIndexItem`
   - [ ] `EventForm`
 
-### Phase 4: Showtimes (1 Day)
+### Phase 4: `Showtimes` (1 Day)
 
 **Targeted Completion Date:** Thursday
-**Objective:** Showtimes can be created, read, edited and destroyed through the API.
+**Objective:** ``Showtimes`` can be created, read, edited and destroyed through the API.
 
-  - [ ] Create Showtime model
+  - [ ] Create `Showtime` model
   - Build out API, Flux loop, and components for:
-    -  [ ] Showtime CRUD
-	   - [ ] Fetching Showtimes
-     - [ ] ShowtimesIndex
-     - [ ] ShowtimeIndexItem
-     - [ ] ShowtimeForm
-     - [ ] ShowtimeDetail
+    -  [ ] `Showtime` CRUD
+	   - [ ] Fetching `Showtimes`
+     - [ ] `ShowtimesIndex`
+     - [ ] `ShowtimeIndexItem`
+     - [ ] `ShowtimeForm`
+     - [ ] `ShowtimeDetail`
 
 ### Phase 5: Tickets (1 Day)
 
 **Targeted Completion Date:** Friday
-**Objective:** Tickets can be created, read, edited and destroyed through the API.
+**Objective:** `Tickets` can be created, read, edited and destroyed through the API.
 
-- [ ] Create Ticket model
+- [ ] Create `Ticket` model
 - Build out API, Flux loop, and components for:
-   - [ ] Ticket CRUD
-   - [ ] Fetching Tickets
-   - [ ] TicketsIndex
-   - [ ] TicketIndexItem
-   - [ ] TicketForm
-   - [ ] TicketDetail
+   - [ ] `Ticket` CRUD
+   - [ ] Fetching `Tickets`
+   - [ ] `TicketsIndex`
+   - [ ] `TicketIndexItem`
+   - [ ] `TicketForm`
+   - [ ] `TicketDetail`
 
 ### Phase 6: Aesthetics (4 days)
 
