@@ -3280,3 +3280,94 @@ Processing by Api::TicketsController#index as JSON
   Rendered api/tickets/_ticket.json.jbuilder (0.1ms)
   Rendered api/tickets/index.json.jbuilder (17.0ms)
 Completed 200 OK in 26ms (Views: 17.4ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/api/events/1/showtimes/1/tickets/1" for ::1 at 2016-04-26 12:24:32 -0700
+Processing by Api::TicketsController#show as JSON
+  Parameters: {"event_id"=>"1", "showtime_id"=>"1", "id"=>"1"}
+  [1m[36mTicket Load (0.4ms)[0m  [1mSELECT  "tickets".* FROM "tickets" WHERE "tickets"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered api/tickets/_ticket.json.jbuilder (0.1ms)
+  Rendered api/tickets/show.json.jbuilder (1.2ms)
+Completed 200 OK in 5ms (Views: 3.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/events/2/showtimes/1/tickets/1" for ::1 at 2016-04-26 12:24:36 -0700
+Processing by Api::TicketsController#show as JSON
+  Parameters: {"event_id"=>"2", "showtime_id"=>"1", "id"=>"1"}
+  [1m[35mTicket Load (0.5ms)[0m  SELECT  "tickets".* FROM "tickets" WHERE "tickets"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered api/tickets/_ticket.json.jbuilder (0.1ms)
+  Rendered api/tickets/show.json.jbuilder (0.7ms)
+Completed 200 OK in 4ms (Views: 2.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/api/events/1/showtimes/1/tickets/1" for ::1 at 2016-04-26 12:24:40 -0700
+Processing by Api::TicketsController#show as JSON
+  Parameters: {"event_id"=>"1", "showtime_id"=>"1", "id"=>"1"}
+  [1m[36mTicket Load (0.4ms)[0m  [1mSELECT  "tickets".* FROM "tickets" WHERE "tickets"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered api/tickets/_ticket.json.jbuilder (0.1ms)
+  Rendered api/tickets/show.json.jbuilder (0.8ms)
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 12:35:43 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.6ms)
+Completed 200 OK in 772ms (Views: 770.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 12:35:44 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 12:35:44 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 12:35:44 -0700
+
+
+Started GET "/assets/bundle.self-2ac5b34df9b0c07204e48f3f4c9b49dffbce805c72c1a9e5764e8b34da5e8fae.js?body=1" for ::1 at 2016-04-26 12:35:44 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 12:35:44 -0700
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 12:35:44 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[35mEvent Load (3.0ms)[0m  SELECT "events".* FROM "events"
+  Rendered api/events/_event.json.jbuilder (0.7ms)
+  Rendered api/events/index.json.jbuilder (6.9ms)
+Completed 200 OK in 11ms (Views: 8.0ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/api/session" for ::1 at 2016-04-26 12:35:44 -0700
+
+ActionController::RoutingError (No route matches [GET] "/api/session"):
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.text.erb (1.2ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.text.erb (13.8ms)
