@@ -13,3 +13,185 @@
  *= require_tree .
  *= require_self
  */
+ 
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  html {
+    padding: 0px;
+    height: 100%;
+    /*background-image: 'http://blogs-images.forbes.com/hollieslade/files/2014/03/High-Res-Heath.jpg';*/
+    /*background-image: url(pokemon_bg.jpg);*/
+    background-image: url(http://www.epicimmersive.com/tickets/wp-content/uploads/2016/04/Epics-Venue-for-September.jpg);
+    background-position: center center;
+    background-size: cover;
+    font-family: Helvetica, sans-serif;
+  }
+
+  body {
+   height: 100%;
+ }
+
+ #othermenu {
+   background-color: purple;
+   opacity: 0.5;
+ }
+
+ #othermenu p {
+   color: white;
+   font-size: 40px;
+ }
+
+ #tixstarter {
+   /* height: 100%; */
+   width: 80%;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 10px;
+
+     padding: px;
+   background-color: mintcream;
+   border: thin solid darkseagreen;
+   opacity: 0.99;
+ }
+
+ #tixstarter:after {
+   content: "";
+   display: block;
+   clear: both;
+ }
+
+ #tixstarter > div {
+   padding: 10px;
+   height: 100%;
+ }
+
+ #tixstarter > div:nth-child(2) {
+   width: 67%;
+   float: left;
+   padding: 0;
+ }
+
+ #tixstarter > div > div {
+   height: 100%;
+ /*   width: 33%; */
+   display:  inline-block;
+   overflow: auto;
+ }
+
+ .event-index-pane {
+   width: 33%;
+   float: left;
+   /*border: thin solid black;*/
+ }
+
+ .event-detail-pane {
+ /*   width: 50%; */
+   width: 100%;
+   float: left;
+   /*border: thin solid black;*/
+   padding: 10px;
+   /*border-left: thin dashed black;*/
+ }
+
+ .showtime-detail-pane {
+   width: 100%;
+   float: left;
+   /*border: thin solid black;*/
+   padding: 10px;
+ }
+
+
+ .event-list-item, .showtime-list-item {
+   border: thin solid red;
+   padding: 10px;
+   cursor: pointer;
+   list-style: none;
+   margin-bottom: 5px;
+   border-radius: 5px;
+   background: white;
+ }
+
+ .event-list-item:hover, .showtime-list-item:hover {
+   background-color: tomato;
+   color: white;
+ }
+
+ .new-event > div {
+   margin-bottom: 4px;
+ }
+
+ .new-event label {
+   display: inline-block;
+   width: 100px;
+   text-align: right;
+ }
+
+ .new-event input {
+   display: inline-block;
+   margin-left: 5px;
+ }
+
+ .new-event, .detail {
+   padding: 10px;
+   border: thick darkcyan dotted;
+   border-radius: 5px;
+   background: white;
+ }
+
+
+ .flavor {
+   font-size: .7em;
+   color: darkgrey;
+   margin-left: 100px;
+ }
+
+ .detail:after {
+   content: '';
+   clear:both;
+   display:block;
+ }
+
+ .new-event button {
+   padding: 5px;
+   border: 0;
+   color: white;
+   background-color: tomato;
+   border-radius: 5px;
+   cursor: pointer;
+   margin-left: 105px;
+ }
+
+ .showtime {
+   border: thin solid tomato;
+   padding: 4px;
+   border-radius: 2px;
+   margin: 2px;
+ }
+ .showtime:hover {
+   cursor: pointer;
+ }
+
+ .showtime-image {
+   margin-right: 5px;
+ }
+
+ .detail img {
+   float: left;
+   max-width: 300px;
+   max-height: 200px;
+ }
+
+ .type-selector {
+   margin-left: 5px;
+ }
+
+ .detail-header {
+   padding-top: 10px;
+ }

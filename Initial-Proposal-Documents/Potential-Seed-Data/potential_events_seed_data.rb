@@ -91,3 +91,26 @@ Event.create({
         revenue_goal: ,
         revenue_status: 0
         })
+
+Event.create({
+        title: "Fuerzabruta",
+        catchphrase: ,
+        description: ,
+        image_url: "",
+        video_url: ,
+        user_id: ,
+        revenue_goal: ,
+        revenue_status: 0
+        })
+
+
+Event.create({
+        title: "Black Watch",
+        catchphrase: ,
+        description: ,
+        image_url: "",
+        video_url: ,
+        user_id: ,
+        revenue_goal: ,
+        revenue_status: 0
+        })

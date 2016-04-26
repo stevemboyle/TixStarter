@@ -1,0 +1,32 @@
+{
+  "name": "TixStarter-Final-Project",
+  "version": "1.0.0",
+  "description": "== README",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevemboyle/TixStarter-Final-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.7.7",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.1.4",
+    "flux": "^2.1.1",
+    "react": "^0.14.2",
+    "react-addons-linked-state-mixin": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-router": "^2.0.0",
+    "webpack": "^1.13.0"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/stevemboyle/TixStarter-Final-Project/issues"
+  },
+  "homepage": "https://github.com/stevemboyle/TixStarter-Final-Project#readme"
+}
