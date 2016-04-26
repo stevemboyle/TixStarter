@@ -4,5 +4,5 @@ json.extract!(
     :showtime_id,
     :tier,
     :description,
-    :cost
+    :price
 )
