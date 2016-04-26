@@ -78,7 +78,7 @@ var LoginForm = React.createClass({
 
 					<section>
 						<label> Login
-							<input type="Radio" 
+							<input type="Radio"
 											name="action"
 											value="login"
 											onChange={this.setForm}/>

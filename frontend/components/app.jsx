@@ -2,6 +2,7 @@ var React = require('react');
 var EventForm = require('./events/form');
 var EventIndex = require('./events/index');
 // var LoginForm = require('./users/usersLoginForm');
+var LoginModal = require('./users/loginModal');
 var Modal = require("react-modal");
 
 //Mixins
@@ -12,15 +13,23 @@ module.exports = React.createClass({
   // mixins: [CurrentUserState],
 
   getInitialState: function(){
-     return({ modalOpen: false });
+     return({ signInModalOpen: false, signUpModalOpen: false });
    },
 
-   openModal: function(){
-     this.setState({ modalOpen: true });
+   openSignInModal: function(){
+     this.setState({ signInModalOpen: true });
    },
 
-   closeModal: function(){
-     this.setState({ modalOpen: false });
+   closeSignInModal: function(){
+     this.setState({ signInModalOpen: false });
+   },
+
+   openSignUpModal: function(){
+     this.setState({ signUpModalOpen: true });
+   },
+
+   closeSignUpModal: function(){
+     this.setState({ signUpModalOpen: false });
    },
 
   render: function () {
@@ -31,15 +40,32 @@ module.exports = React.createClass({
 
         <div id="othermenu">
           <p>hello</p>
-          <button onClick={this.openModal}>Open Me!</button>
+          <button onClick={this.openSignInModal}>Sign In</button>
+          <button onClick={this.openSignUpModal}>Sign Up</button>
         </div>
 
         <Modal
-          isOpen={this.state.modalOpen}
-          onRequestClose={this.closeModal}>
+          isOpen={this.state.signInModalOpen}
+          onRequestClose={this.closeSignInModal}>
 
-            <h2>Im a modal!</h2>
-            <p>modal modal modal modal modal</p>
+            <h2>Sign In!</h2>
+            <p>(The below component is LoginModal)</p>
+
+            <LoginModal />
+
+            <p>mooooooooodal!</p>
+
+        </Modal>
+
+        <Modal
+          isOpen={this.state.signUpModalOpen}
+          onRequestClose={this.closeSignUpModal}>
+
+            <h2>Sign Up!!</h2>
+            <p>(The below component is LoginModal)</p>
+
+            <LoginModal />
+
             <p>mooooooooodal!</p>
 
         </Modal>

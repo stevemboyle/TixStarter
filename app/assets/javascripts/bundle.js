@@ -25107,6 +25107,7 @@
 	var EventForm = __webpack_require__(219);
 	var EventIndex = __webpack_require__(232);
 	// var LoginForm = require('./users/usersLoginForm');
+	var LoginModal = __webpack_require__(282);
 	var Modal = __webpack_require__(262);
 
 	//Mixins
@@ -25119,15 +25120,23 @@
 	  // mixins: [CurrentUserState],
 
 	  getInitialState: function () {
-	    return { modalOpen: false };
+	    return { signInModalOpen: false, signUpModalOpen: false };
 	  },
 
-	  openModal: function () {
-	    this.setState({ modalOpen: true });
+	  openSignInModal: function () {
+	    this.setState({ signInModalOpen: true });
 	  },
 
-	  closeModal: function () {
-	    this.setState({ modalOpen: false });
+	  closeSignInModal: function () {
+	    this.setState({ signInModalOpen: false });
+	  },
+
+	  openSignUpModal: function () {
+	    this.setState({ signUpModalOpen: true });
+	  },
+
+	  closeSignUpModal: function () {
+	    this.setState({ signUpModalOpen: false });
 	  },
 
 	  render: function () {
@@ -25145,25 +25154,53 @@
 	        ),
 	        React.createElement(
 	          'button',
-	          { onClick: this.openModal },
-	          'Open Me!'
+	          { onClick: this.openSignInModal },
+	          'Sign In'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openSignUpModal },
+	          'Sign Up'
 	        )
 	      ),
 	      React.createElement(
 	        Modal,
 	        {
-	          isOpen: this.state.modalOpen,
-	          onRequestClose: this.closeModal },
+	          isOpen: this.state.signInModalOpen,
+	          onRequestClose: this.closeSignInModal },
 	        React.createElement(
 	          'h2',
 	          null,
-	          'Im a modal!'
+	          'Sign In!'
 	        ),
 	        React.createElement(
 	          'p',
 	          null,
-	          'modal modal modal modal modal'
+	          '(The below component is LoginModal)'
 	        ),
+	        React.createElement(LoginModal, null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signUpModalOpen,
+	          onRequestClose: this.closeSignUpModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Sign Up!!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '(The below component is LoginModal)'
+	        ),
+	        React.createElement(LoginModal, null),
 	        React.createElement(
 	          'p',
 	          null,
@@ -32652,12 +32689,25 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Modal = __webpack_require__(262);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired
+	  },
+
+	  getInitialState: function () {
+	    return { eventDetailModalOpen: false };
+	  },
+
+	  openEventDetailModal: function () {
+	    this.setState({ eventDetailModalOpen: true });
+	  },
+
+	  closeEventDetailModal: function () {
+	    this.setState({ eventDetailModalOpen: false });
 	  },
 
 	  showDetail: function () {
@@ -32669,21 +32719,50 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'li',
-	        { onClick: this.showDetail, className: 'event-list-item' },
+	        'div',
+	        null,
 	        React.createElement(
-	          'p',
-	          null,
+	          'li',
+	          { onClick: this.openEventDetailModal, className: 'event-list-item' },
 	          React.createElement(
-	            'b',
+	            'p',
 	            null,
-	            this.props.event.title
+	            React.createElement(
+	              'b',
+	              null,
+	              this.props.event.title
+	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.props.event.description
 	          )
-	        ),
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
 	        React.createElement(
-	          'p',
-	          null,
-	          this.props.event.description
+	          Modal,
+	          {
+	            isOpen: this.state.eventDetailModalOpen,
+	            onRequestClose: this.closeEventDetailModal },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Im a modal!'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'modal modal modal modal modal'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
+	          )
 	        )
 	      )
 	    );
@@ -35066,6 +35145,50 @@
 	  else this.add(className)
 	}
 
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
+	// var UserActions = require("../../actions/userActions");
+	// var CurrentUserState = require("../../mixins/currentUserState");
+
+	var LoginForm = React.createClass({
+		displayName: "LoginForm",
+
+
+		// mixins: [LinkedStateMixin, CurrentUserState],
+
+		// mixins: [CurrentUserState],
+
+		render: function () {
+			return React.createElement(
+				"div",
+				{ id: "login-form" },
+				React.createElement(
+					"form",
+					{ onSubmit: this.handleSubmit },
+					React.createElement(
+						"label",
+						null,
+						" Username:",
+						React.createElement("input", { type: "text" })
+					),
+					React.createElement(
+						"label",
+						null,
+						" Password:",
+						React.createElement("input", { type: "password" })
+					),
+					React.createElement("input", { type: "Submit", value: "Submit" })
+				)
+			);
+		}
+	});
+
+	module.exports = LoginForm;
 
 /***/ }
 /******/ ]);
