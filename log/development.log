@@ -7972,3 +7972,595 @@ Processing by Api::EventsController#index as JSON
   Rendered api/events/_event.json.jbuilder (0.2ms)
   Rendered api/events/index.json.jbuilder (3.7ms)
 Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:45:39 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 412ms (Views: 411.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:45:40 -0700
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:45:40 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:45:40 -0700
+
+
+Started GET "/assets/bundle.self-310465d61a163deb813d74b37d0f7513e50b1ef097ba5ab5d03ab2aa50a64cd5.js?body=1" for ::1 at 2016-04-26 14:45:40 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:45:40 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:45:40 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (1.6ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.4ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.3ms)
+  Rendered api/events/_event.json.jbuilder (4.0ms)
+  Rendered api/events/show.json.jbuilder (7.7ms)
+Completed 200 OK in 15ms (Views: 12.1ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:45:40 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[36mEvent Load (2.3ms)[0m  [1mSELECT "events".* FROM "events"[0m
+  Rendered api/events/_event.json.jbuilder (0.3ms)
+  Rendered api/events/index.json.jbuilder (5.0ms)
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:46:12 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 435ms (Views: 435.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:46:13 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:46:13 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:46:13 -0700
+
+
+Started GET "/assets/bundle.self-39de228858a648484994d074b8770b1cb129d6228df3a6a356e0abeb0e8f8191.js?body=1" for ::1 at 2016-04-26 14:46:13 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:46:13 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:46:13 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[35mEvent Load (0.7ms)[0m  SELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mShowtime Load (0.8ms)[0m  [1mSELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1[0m  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.2ms)
+  Rendered api/events/_event.json.jbuilder (4.9ms)
+  Rendered api/events/show.json.jbuilder (6.3ms)
+Completed 200 OK in 26ms (Views: 23.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:46:13 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[35mEvent Load (3.2ms)[0m  SELECT "events".* FROM "events"
+  Rendered api/events/_event.json.jbuilder (0.2ms)
+  Rendered api/events/index.json.jbuilder (5.6ms)
+Completed 200 OK in 12ms (Views: 6.3ms | ActiveRecord: 3.2ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:46:25 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 14ms (Views: 13.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:46:26 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:46:26 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:46:26 -0700
+
+
+Started GET "/assets/bundle.self-39de228858a648484994d074b8770b1cb129d6228df3a6a356e0abeb0e8f8191.js?body=1" for ::1 at 2016-04-26 14:46:26 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:46:26 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:46:26 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (2.4ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.9ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.4ms)
+  Rendered api/events/_event.json.jbuilder (4.7ms)
+  Rendered api/events/show.json.jbuilder (6.4ms)
+Completed 200 OK in 23ms (Views: 17.6ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:46:26 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[36mEvent Load (1.1ms)[0m  [1mSELECT "events".* FROM "events"[0m
+  Rendered api/events/_event.json.jbuilder (0.2ms)
+  Rendered api/events/index.json.jbuilder (4.5ms)
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:46:31 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 406ms (Views: 406.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:46:31 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:46:31 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:46:31 -0700
+
+
+Started GET "/assets/bundle.self-d16b58e24ac281a8720d6dbd9669fd92c82bc8718ff33044b552ac6d33f3b5b9.js?body=1" for ::1 at 2016-04-26 14:46:31 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:46:31 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:46:32 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[35mEvent Load (0.5ms)[0m  SELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mShowtime Load (0.4ms)[0m  [1mSELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1[0m  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.2ms)
+  Rendered api/events/_event.json.jbuilder (4.3ms)
+  Rendered api/events/show.json.jbuilder (20.2ms)
+Completed 200 OK in 36ms (Views: 33.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:46:32 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[35mEvent Load (1.9ms)[0m  SELECT "events".* FROM "events"
+  Rendered api/events/_event.json.jbuilder (0.4ms)
+  Rendered api/events/index.json.jbuilder (5.2ms)
+Completed 200 OK in 9ms (Views: 6.6ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:47:22 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 373ms (Views: 372.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:47:23 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:47:23 -0700
+
+
+Started GET "/assets/bundle.self-043ac4368ea6dd0c1e1fee33087c4546b3d4ede44aea99d7dd0e7cc711a97709.js?body=1" for ::1 at 2016-04-26 14:47:23 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:47:23 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:47:23 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:47:23 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.4ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.6ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.2ms)
+  Rendered api/events/_event.json.jbuilder (3.8ms)
+  Rendered api/events/show.json.jbuilder (4.7ms)
+Completed 200 OK in 17ms (Views: 15.0ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:47:23 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[36mEvent Load (4.8ms)[0m  [1mSELECT "events".* FROM "events"[0m
+  Rendered api/events/_event.json.jbuilder (0.3ms)
+  Rendered api/events/index.json.jbuilder (8.0ms)
+Completed 200 OK in 12ms (Views: 6.5ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:47:36 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 412ms (Views: 412.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:47:37 -0700
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:47:37 -0700
+
+
+Started GET "/assets/bundle.self-92eb1a6b6d1ca143572f502fbf75ea628e64ba128fcdf9626e60562ef8734638.js?body=1" for ::1 at 2016-04-26 14:47:37 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:47:37 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:47:37 -0700
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:47:37 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events"
+  Rendered api/events/_event.json.jbuilder (0.4ms)
+  Rendered api/events/index.json.jbuilder (3.3ms)
+Completed 200 OK in 14ms (Views: 12.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:47:37 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.3ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.6ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.5ms)
+  Rendered api/events/_event.json.jbuilder (5.6ms)
+  Rendered api/events/show.json.jbuilder (6.9ms)
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:48:03 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 376ms (Views: 375.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:48:04 -0700
+
+
+Started GET "/assets/bundle.self-7582877a8a9899219262bb275e4f502ea614973e229b11a457898080d4f1097f.js?body=1" for ::1 at 2016-04-26 14:48:04 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:48:04 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:48:04 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:48:04 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:48:04 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (1.0ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.3ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.2ms)
+  Rendered api/events/_event.json.jbuilder (3.3ms)
+  Rendered api/events/show.json.jbuilder (4.7ms)
+Completed 200 OK in 18ms (Views: 16.0ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:48:04 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events"[0m
+  Rendered api/events/_event.json.jbuilder (0.2ms)
+  Rendered api/events/index.json.jbuilder (2.7ms)
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 14:49:56 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 436ms (Views: 436.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 14:49:57 -0700
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 14:49:57 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 14:49:57 -0700
+
+
+Started GET "/assets/bundle.self-f31d4cd5f641301ac2bdd8c60227b0a8740e2e0f7dd9a62f1c58ec6693ba68ef.js?body=1" for ::1 at 2016-04-26 14:49:57 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 14:49:57 -0700
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 14:49:57 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events"
+  Rendered api/events/_event.json.jbuilder (0.2ms)
+  Rendered api/events/index.json.jbuilder (3.0ms)
+Completed 200 OK in 14ms (Views: 13.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 14:49:57 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.9ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.4ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.4ms)
+  Rendered api/events/_event.json.jbuilder (4.3ms)
+  Rendered api/events/show.json.jbuilder (5.9ms)
+Completed 200 OK in 12ms (Views: 8.2ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 15:25:05 -0700
+
+SyntaxError (/Users/stevemboyle/Desktop/TixStarter-Final-Project/config/routes.rb:6: syntax error, unexpected [, expecting keyword_do or '{' or '('
+    resources :users, only [:new, :create]
+                            ^):
+  config/routes.rb:6: syntax error, unexpected [, expecting keyword_do or '{' or '('
+
+
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.6ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.6ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (49.8ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (1.6ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.7ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (30.4ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.8ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendered /Users/stevemboyle/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (69.7ms)
+
+
+Started GET "/" for ::1 at 2016-04-26 15:25:27 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 639ms (Views: 638.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:25:28 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:25:28 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:25:28 -0700
+
+
+Started GET "/assets/bundle.self-8832337df89e984e42658d968e7b3542894ed23283a132cb09909218e2ffeb0e.js?body=1" for ::1 at 2016-04-26 15:25:28 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:25:28 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:26:08 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.1ms)
+Completed 200 OK in 30ms (Views: 29.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:26:08 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:26:08 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:26:08 -0700
+
+
+Started GET "/assets/bundle.self-8832337df89e984e42658d968e7b3542894ed23283a132cb09909218e2ffeb0e.js?body=1" for ::1 at 2016-04-26 15:26:08 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:26:08 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:26:49 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 30ms (Views: 29.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:26:50 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:26:50 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:26:50 -0700
+
+
+Started GET "/assets/bundle.self-8832337df89e984e42658d968e7b3542894ed23283a132cb09909218e2ffeb0e.js?body=1" for ::1 at 2016-04-26 15:26:50 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:26:50 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:27:09 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 396ms (Views: 395.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:27:09 -0700
+
+
+Started GET "/assets/bundle.self-93339e0b92ad7401d842dd7b2d3c77a467359abf7144789f1c30e04a253b853b.js?body=1" for ::1 at 2016-04-26 15:27:09 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:27:09 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:27:09 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:27:09 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:27:33 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 455ms (Views: 454.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:27:34 -0700
+
+
+Started GET "/assets/bundle.self-4f33ced8ec79b371bbf38e061a8b2bd056738e59a0ff66ea6cdf8b90556a1f36.js?body=1" for ::1 at 2016-04-26 15:27:34 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:27:34 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:27:34 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:27:34 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:27:40 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 411ms (Views: 411.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:27:40 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:27:40 -0700
+
+
+Started GET "/assets/bundle.self-c2a7eb2d7a525b3765de8fcf3069800df99116e10aeade12fe0169b618d19c36.js?body=1" for ::1 at 2016-04-26 15:27:40 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:27:40 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:27:40 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:27:44 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 26ms (Views: 26.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:27:44 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:27:44 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:27:44 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:27:44 -0700
+
+
+Started GET "/assets/bundle.self-8832337df89e984e42658d968e7b3542894ed23283a132cb09909218e2ffeb0e.js?body=1" for ::1 at 2016-04-26 15:27:44 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:27:49 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 394ms (Views: 393.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:27:49 -0700
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:27:49 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:27:49 -0700
+
+
+Started GET "/assets/bundle.self-8be9b4efc8c48ef39ba1aecc8ae093f5f474540a887d664058f9ea12e4b925b4.js?body=1" for ::1 at 2016-04-26 15:27:49 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:27:49 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:28:03 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 14ms (Views: 14.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:28:03 -0700
+
+
+Started GET "/assets/bundle.self-8be9b4efc8c48ef39ba1aecc8ae093f5f474540a887d664058f9ea12e4b925b4.js?body=1" for ::1 at 2016-04-26 15:28:03 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:28:03 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:28:03 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:28:03 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:28:46 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 375ms (Views: 374.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:28:47 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:28:47 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:28:47 -0700
+
+
+Started GET "/assets/bundle.self-2b12aabb0cf44f91d27461304a23d3154b28b35c6a47d3e9aa788d7d3753c416.js?body=1" for ::1 at 2016-04-26 15:28:47 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:28:47 -0700
+
+
+Started GET "/" for ::1 at 2016-04-26 15:29:04 -0700
+Processing by StaticPagesController#root as HTML
+  Rendered static_pages/root.html within layouts/application (0.0ms)
+Completed 200 OK in 13ms (Views: 12.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-ba2fd1d3d91a501978a7f1b2b3b44fe2459be7a8f3a80503f90361173880157b.css?body=1" for ::1 at 2016-04-26 15:29:04 -0700
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for ::1 at 2016-04-26 15:29:05 -0700
+
+
+Started GET "/assets/application.self-377610cd7c1509e934744c810e3b4cf672dfbcacac3274e7d039827e2ae0fcc7.js?body=1" for ::1 at 2016-04-26 15:29:05 -0700
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for ::1 at 2016-04-26 15:29:05 -0700
+
+
+Started GET "/assets/bundle.self-2b12aabb0cf44f91d27461304a23d3154b28b35c6a47d3e9aa788d7d3753c416.js?body=1" for ::1 at 2016-04-26 15:29:05 -0700
+
+
+Started GET "/api/events/1" for ::1 at 2016-04-26 15:29:05 -0700
+Processing by Api::EventsController#show as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mEvent Load (0.9ms)[0m  [1mSELECT  "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mShowtime Load (0.4ms)[0m  SELECT "showtimes".* FROM "showtimes" WHERE "showtimes"."event_id" = $1  [["event_id", 1]]
+  Rendered api/showtimes/_showtime.json.jbuilder (0.5ms)
+  Rendered api/events/_event.json.jbuilder (30.1ms)
+  Rendered api/events/show.json.jbuilder (31.7ms)
+Completed 200 OK in 115ms (Views: 29.3ms | ActiveRecord: 62.6ms)
+
+
+Started GET "/api/events" for ::1 at 2016-04-26 15:29:05 -0700
+Processing by Api::EventsController#index as JSON
+  [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events"[0m
+  Rendered api/events/_event.json.jbuilder (0.2ms)
+  Rendered api/events/index.json.jbuilder (2.1ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.5ms)

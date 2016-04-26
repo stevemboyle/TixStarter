@@ -25620,6 +25620,12 @@
 
 	module.exports = {
 
+	  // User Functions
+
+	  createUser: function (data) {
+	    ApiUtil.createUser(data);
+	  },
+
 	  // Event Functions
 
 	  fetchAllEvents: function () {
@@ -25671,6 +25677,19 @@
 	var ServerActions = __webpack_require__(226);
 
 	var ApiUtil = {
+
+	  // User Functions
+
+	  createUser: function (data) {
+	    $.ajax({
+	      url: "api/users",
+	      type: "POST",
+	      data: { user: data },
+	      success: function (user) {
+	        ServerActions.receiveUser(user);
+	      }
+	    });
+	  },
 
 	  // Event Functions
 
@@ -25785,8 +25804,21 @@
 
 	var Dispatcher = __webpack_require__(227);
 	var EventConstants = __webpack_require__(231);
+	var UserConstants = __webpack_require__(259);
 
 	module.exports = {
+
+	  // User Functions:
+
+	  receivePost: function (user) {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.USER_RECEIVED,
+	      user: user
+	    });
+	  },
+
+	  // Events Functions:
+
 	  receiveAllEvents: function (events) {
 	    console.log("receiveAllEvent called");
 	    Dispatcher.dispatch({
@@ -33012,195 +33044,54 @@
 
 /***/ },
 /* 256 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var UserStore = __webpack_require__(257);
-	var UserActions = __webpack_require__(258);
-
-	var CurrentUserState = {
-
-		getInitialState: function () {
-			return {
-				currentUser: UserStore.currentUser(),
-				userErrors: UserStore.errors()
-			};
-		},
-		componentDidMount: function () {
-			UserStore.addListener(this.updateUser);
-			if (typeof UserStore.currentUser() === 'undefined') {
-				UserActions.fetchCurrentUser();
-			}
-		},
-		updateUser: function () {
-			this.setState({
-				currentUser: UserStore.currentUser(),
-				userErrors: UserStore.errors()
-			});
-		}
-
-	};
-
-	module.exports = CurrentUserState;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(227);
-	var Store = __webpack_require__(234).Store;
-
-	var UserStore = new Store(AppDispatcher);
-
-	var _currentUser, _errors;
-
-	UserStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "LOGIN":
-	      UserStore.login(payload.user);
-	      break;
-	    case "LOGOUT":
-	      UserStore.logout();
-	      break;
-	    case "ERROR":
-	      UserStore.setErrors(payload.errors);
-	      break;
-	  }
-	  UserStore.__emitChange();
-	};
-
-	UserStore.login = function (user) {
-	  _currentUser = user;
-	  _errors = null;
-	};
-
-	UserStore.logout = function () {
-	  _currentUser = null;
-	  _errors = null;
-	};
-
-	UserStore.currentUser = function () {
-	  if (_currentUser) {
-	    return $.extend({}, _currentUser);
-	  }
-	};
-
-	UserStore.setErrors = function (errors) {
-	  _errors = errors;
-	};
-
-	UserStore.errors = function () {
-	  if (_errors) {
-	    return [].slice.call(_errors);
-	  }
-	};
-
-	module.exports = UserStore;
+	// var UserStore = require('../stores/user');
+	// var UserActions = require('../actions/userActions');
+	//
+	// var CurrentUserState = {
+	//
+	// 	getInitialState: function(){
+	// 		return {
+	// 			currentUser: UserStore.currentUser(),
+	// 			userErrors: UserStore.errors()
+	// 		};
+	// 	},
+	// 	componentDidMount: function(){
+	// 		UserStore.addListener(this.updateUser);
+	// 		if (typeof UserStore.currentUser() === 'undefined') {
+	// 			UserActions.fetchCurrentUser();
+	// 		}
+	// 	},
+	// 	updateUser: function(){
+	// 		this.setState({
+	// 			currentUser: UserStore.currentUser(),
+	// 			userErrors: UserStore.errors()
+	// 		});
+	// 	}
+	//
+	// };
+	//
+	// module.exports = CurrentUserState;
 
 /***/ },
-/* 258 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var UserConstants = __webpack_require__(259);
-	var UserApiUtil = __webpack_require__(260);
-	var UserStore = __webpack_require__(257);
-	var AppDispatcher = __webpack_require__(227);
-
-	var UserActions = {
-		fetchCurrentUser: function () {
-			UserApiUtil.fetchCurrentUser(UserActions.receiveCurrentUser, UserActions.handleError);
-		},
-		signup: function (user) {
-			UserApiUtil.post({
-				url: "/api/user",
-				user: user,
-				success: UserActions.receiveCurrentUser,
-				error: UserActions.handleError
-			});
-		},
-		login: function (user) {
-			UserApiUtil.post({
-				url: "/api/session",
-				user: user,
-				success: UserActions.receiveCurrentUser,
-				error: UserActions.handleError
-			});
-		},
-		guestLogin: function () {
-			UserActions.login({ username: "guest", password: "password" });
-		},
-		receiveCurrentUser: function (user) {
-			AppDispatcher.dispatch({
-				actionType: UserConstants.LOGIN,
-				user: user
-			});
-		},
-		handleError: function (error) {
-			AppDispatcher.dispatch({
-				actionType: UserConstants.ERROR,
-				errors: error.responseJSON.errors
-			});
-		},
-		removeCurrentUser: function () {
-			AppDispatcher.dispatch({
-				actionType: UserConstants.LOGOUT
-			});
-		},
-		logout: function () {
-			UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
-		}
-	};
-
-	module.exports = UserActions;
-
-/***/ },
+/* 257 */,
+/* 258 */,
 /* 259 */
 /***/ function(module, exports) {
 
 	var UserConstants = {
 		LOGIN: "LOGIN",
 		ERROR: "ERROR",
-		LOGOUT: "LOGOUT"
+		LOGOUT: "LOGOUT",
+
+		USER_RECEIVED: "USER_RECEIVED"
 	};
 
 	module.exports = UserConstants;
 
 /***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(227);
-
-	var UserApiUtil = {
-		post: function (options) {
-			$.ajax({
-				url: options.url,
-				type: "post",
-				data: { user: options.user },
-				success: options.success,
-				error: options.error
-			});
-		},
-		logout: function (success, error) {
-			$.ajax({
-				url: '/api/session',
-				method: 'delete',
-				success: success,
-				error: error
-			});
-		},
-		fetchCurrentUser: function (success, error) {
-			$.ajax({
-				url: '/api/session',
-				method: 'get',
-				success: success,
-				error: error
-			});
-		}
-	};
-
-	module.exports = UserApiUtil;
-
-/***/ },
+/* 260 */,
 /* 261 */,
 /* 262 */
 /***/ function(module, exports, __webpack_require__) {
@@ -35157,7 +35048,8 @@
 	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 	// var UserActions = require("../../actions/userActions");
 	// var CurrentUserState = require("../../mixins/currentUserState");
-	// var ClientAction
+
+	var ClientActions = __webpack_require__(224);
 
 	var LoginModal = React.createClass({
 		displayName: "LoginModal",
@@ -35178,21 +35070,45 @@
 		usernameChange: function (keyboardEvent) {
 			var newUsername = keyboardEvent.target.value;
 			this.setState({ username: newUsername });
+			console.log("");
+			console.log("Username: " + this.state.username);
+			console.log("Password: " + this.state.password);
+			console.log("First Name: " + this.state.firstName);
+			console.log("Last Name: " + this.state.lastName);
+			console.log("");
 		},
 
 		passwordChange: function (keyboardEvent) {
 			var newPassword = keyboardEvent.target.value;
 			this.setState({ password: newPassword });
+			console.log("");
+			console.log("Username: " + this.state.username);
+			console.log("Password: " + this.state.password);
+			console.log("First Name: " + this.state.firstName);
+			console.log("Last Name: " + this.state.lastName);
+			console.log("");
 		},
 
 		firstNameChange: function (keyboardEvent) {
 			var newFirstName = keyboardEvent.target.value;
 			this.setState({ firstName: newFirstName });
+			console.log("");
+			console.log("Username: " + this.state.username);
+			console.log("Password: " + this.state.password);
+			console.log("First Name: " + this.state.firstName);
+			console.log("Last Name: " + this.state.lastName);
+			console.log("");
 		},
 
 		lastNameChange: function (keyboardEvent) {
 			var newLastName = keyboardEvent.target.value;
 			this.setState({ lastName: newLastName });
+			console.log("");
+			console.log("Username: " + this.state.username);
+			console.log("Password: " + this.state.password);
+			console.log("First Name: " + this.state.firstName);
+			console.log("Last Name: " + this.state.lastName);
+			console.log("");
 		},
 
 		handleSubmit: function (keyboardEvent) {
@@ -35203,7 +35119,7 @@
 				firstName: this.state.firstName,
 				lastName: this.state.lastName
 			};
-			// ClientActions.createUser(userData);
+			ClientActions.createUser(userData);
 		},
 
 		render: function () {
@@ -35235,6 +35151,29 @@
 							onChange: this.passwordChange
 						})
 					),
+					React.createElement("br", null),
+					React.createElement(
+						"label",
+						null,
+						" First Name:",
+						React.createElement("input", {
+							type: "text",
+							value: this.state.firstName,
+							onChange: this.firstNameChange
+						})
+					),
+					React.createElement("br", null),
+					React.createElement(
+						"label",
+						null,
+						" Last Name:",
+						React.createElement("input", {
+							type: "text",
+							value: this.state.lastName,
+							onChange: this.lastNameChange
+						})
+					),
+					React.createElement("br", null),
 					React.createElement("br", null),
 					React.createElement("br", null),
 					React.createElement("input", { type: "Submit", value: "Submit" })
