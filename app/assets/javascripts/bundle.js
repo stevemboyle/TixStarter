@@ -56,6 +56,10 @@
 	var EventDetail = __webpack_require__(252);
 	var ShowtimeDetail = __webpack_require__(255);
 	var ApiUtil = __webpack_require__(225);
+	//
+	// var LoginForm = require('./components/LoginForm');
+	//Mixins
+	var CurrentUserState = __webpack_require__(256);
 
 	var routes = React.createElement(
 	  Route,
@@ -64,7 +68,8 @@
 	    Route,
 	    { path: 'event/:eventId', component: EventDetail },
 	    React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail })
-	  )
+	  ),
+	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail })
 	);
 
 	document.addEventListener("DOMContentLoaded", function () {
@@ -25098,12 +25103,19 @@
 	var React = __webpack_require__(1);
 	var EventForm = __webpack_require__(219);
 	var EventIndex = __webpack_require__(232);
+	var LoginForm = __webpack_require__(261);
+
+	//Mixins
+	var CurrentUserState = __webpack_require__(256);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
 
+	  mixins: [CurrentUserState],
+
 	  render: function () {
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -25116,6 +25128,7 @@
 	          'hello'
 	        )
 	      ),
+	      React.createElement(LoginForm, null),
 	      React.createElement('div', null),
 	      React.createElement(
 	        'div',
@@ -25129,23 +25142,11 @@
 	            'hello'
 	          )
 	        ),
+	        this.props.children,
 	        React.createElement(
-	          'td',
-	          null,
-	          React.createElement(
-	            'tr',
-	            null,
-	            this.props.children
-	          ),
-	          React.createElement(
-	            'tr',
-	            null,
-	            React.createElement(
-	              'div',
-	              { className: 'event-index-pane' },
-	              React.createElement(EventIndex, null)
-	            )
-	          )
+	          'div',
+	          { className: 'event-index-pane' },
+	          React.createElement(EventIndex, null)
 	        )
 	      )
 	    );
@@ -32885,6 +32886,335 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserStore = __webpack_require__(257);
+	var UserActions = __webpack_require__(258);
+
+	var CurrentUserState = {
+
+		getInitialState: function () {
+			return {
+				currentUser: UserStore.currentUser(),
+				userErrors: UserStore.errors()
+			};
+		},
+		componentDidMount: function () {
+			UserStore.addListener(this.updateUser);
+			if (typeof UserStore.currentUser() === 'undefined') {
+				UserActions.fetchCurrentUser();
+			}
+		},
+		updateUser: function () {
+			this.setState({
+				currentUser: UserStore.currentUser(),
+				userErrors: UserStore.errors()
+			});
+		}
+
+	};
+
+	module.exports = CurrentUserState;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(227);
+	var Store = __webpack_require__(234).Store;
+
+	var UserStore = new Store(AppDispatcher);
+
+	var _currentUser, _errors;
+
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "LOGIN":
+	      UserStore.login(payload.user);
+	      break;
+	    case "LOGOUT":
+	      UserStore.logout();
+	      break;
+	    case "ERROR":
+	      UserStore.setErrors(payload.errors);
+	      break;
+	  }
+	  UserStore.__emitChange();
+	};
+
+	UserStore.login = function (user) {
+	  _currentUser = user;
+	  _errors = null;
+	};
+
+	UserStore.logout = function () {
+	  _currentUser = null;
+	  _errors = null;
+	};
+
+	UserStore.currentUser = function () {
+	  if (_currentUser) {
+	    return $.extend({}, _currentUser);
+	  }
+	};
+
+	UserStore.setErrors = function (errors) {
+	  _errors = errors;
+	};
+
+	UserStore.errors = function () {
+	  if (_errors) {
+	    return [].slice.call(_errors);
+	  }
+	};
+
+	module.exports = UserStore;
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserConstants = __webpack_require__(259);
+	var UserApiUtil = __webpack_require__(260);
+	var UserStore = __webpack_require__(257);
+	var AppDispatcher = __webpack_require__(227);
+
+	var UserActions = {
+		fetchCurrentUser: function () {
+			UserApiUtil.fetchCurrentUser(UserActions.receiveCurrentUser, UserActions.handleError);
+		},
+		signup: function (user) {
+			UserApiUtil.post({
+				url: "/api/user",
+				user: user,
+				success: UserActions.receiveCurrentUser,
+				error: UserActions.handleError
+			});
+		},
+		login: function (user) {
+			UserApiUtil.post({
+				url: "/api/session",
+				user: user,
+				success: UserActions.receiveCurrentUser,
+				error: UserActions.handleError
+			});
+		},
+		guestLogin: function () {
+			UserActions.login({ username: "guest", password: "password" });
+		},
+		receiveCurrentUser: function (user) {
+			AppDispatcher.dispatch({
+				actionType: UserConstants.LOGIN,
+				user: user
+			});
+		},
+		handleError: function (error) {
+			AppDispatcher.dispatch({
+				actionType: UserConstants.ERROR,
+				errors: error.responseJSON.errors
+			});
+		},
+		removeCurrentUser: function () {
+			AppDispatcher.dispatch({
+				actionType: UserConstants.LOGOUT
+			});
+		},
+		logout: function () {
+			UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
+		}
+	};
+
+	module.exports = UserActions;
+
+/***/ },
+/* 259 */
+/***/ function(module, exports) {
+
+	var UserConstants = {
+		LOGIN: "LOGIN",
+		ERROR: "ERROR",
+		LOGOUT: "LOGOUT"
+	};
+
+	module.exports = UserConstants;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(227);
+
+	var UserApiUtil = {
+		post: function (options) {
+			$.ajax({
+				url: options.url,
+				type: "post",
+				data: { user: options.user },
+				success: options.success,
+				error: options.error
+			});
+		},
+		logout: function (success, error) {
+			$.ajax({
+				url: '/api/session',
+				method: 'delete',
+				success: success,
+				error: error
+			});
+		},
+		fetchCurrentUser: function (success, error) {
+			$.ajax({
+				url: '/api/session',
+				method: 'get',
+				success: success,
+				error: error
+			});
+		}
+	};
+
+	module.exports = UserApiUtil;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(220);
+	var UserActions = __webpack_require__(258);
+	var CurrentUserState = __webpack_require__(256);
+
+	var LoginForm = React.createClass({
+		displayName: "LoginForm",
+
+
+		mixins: [LinkedStateMixin, CurrentUserState],
+
+		// mixins: [CurrentUserState],
+
+		getInitialState: function () {
+			return { form: "login" };
+		},
+
+		setForm: function (e) {
+			this.setState({ form: e.currentTarget.value });
+		},
+
+		handleSubmit: function (e) {
+			e.preventDefault();
+			UserActions[this.state.form]({
+				username: this.state.username,
+				password: this.state.password
+			});
+		},
+
+		logout: function (e) {
+			e.preventDefault();
+			UserActions.logout();
+		},
+
+		greeting: function () {
+			if (!this.state.currentUser) {
+				return;
+			}
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"h2",
+					null,
+					"Hi, ",
+					this.state.currentUser.username,
+					"!"
+				),
+				React.createElement("input", { type: "submit", value: "logout", onClick: this.logout })
+			);
+		},
+
+		errors: function () {
+			if (!this.state.userErrors) {
+				return;
+			}
+			var self = this;
+			return React.createElement(
+				"ul",
+				null,
+				Object.keys(this.state.userErrors).map(function (key, i) {
+					return React.createElement(
+						"li",
+						{ key: i },
+						self.state.userErrors[key]
+					);
+				})
+			);
+		},
+
+		form: function () {
+
+			if (this.state.currentUser) {
+				return;
+			}
+
+			return React.createElement(
+				"form",
+				{ onSubmit: this.handleSubmit },
+				React.createElement(
+					"section",
+					null,
+					React.createElement(
+						"label",
+						null,
+						" Username:",
+						React.createElement("input", { type: "text",
+							valueLink: this.linkState("username") })
+					),
+					React.createElement(
+						"label",
+						null,
+						" Password:",
+						React.createElement("input", { type: "password",
+							valueLink: this.linkState("password") })
+					)
+				),
+				React.createElement(
+					"section",
+					null,
+					React.createElement(
+						"label",
+						null,
+						" Login",
+						React.createElement("input", { type: "Radio",
+							name: "action",
+							value: "login",
+							onChange: this.setForm })
+					),
+					React.createElement(
+						"label",
+						null,
+						" Sign Up",
+						React.createElement("input", { type: "Radio",
+							name: "action",
+							value: "signup",
+							onChange: this.setForm })
+					)
+				),
+				React.createElement("input", { type: "Submit", value: "Submit" })
+			);
+		},
+		render: function () {
+			return React.createElement(
+				"div",
+				{ id: "login-form" },
+				this.greeting(),
+				this.errors(),
+				this.form()
+			);
+		}
+	});
+
+	module.exports = LoginForm;
 
 /***/ }
 /******/ ]);
