@@ -6,6 +6,8 @@ var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 var HashHistory = require('react-router').hashHistory;
 
+var Modal = require("react-modal");
+
 var App = require('./components/app.jsx');
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
@@ -26,6 +28,7 @@ var routes = (
 );
 
 document.addEventListener("DOMContentLoaded", function () {
+  Modal.setAppElement(document.body);
   ReactDOM.render(
     <Router history={HashHistory}>{routes}</Router>,
     document.getElementById('root')
