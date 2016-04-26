@@ -40,7 +40,7 @@ Event.create({
         title: "Secret Cinema",
         catchphrase: ,
         description: ,
-        image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg,"
+        image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg",
         video_url: ,
         user_id: ,
         revenue_goal: ,
@@ -52,7 +52,7 @@ Event.create({
         title: "The Speakeasy",
         catchphrase: ,
         description: ,
-        image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg,"
+        image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg",
         video_url: ,
         user_id: ,
         revenue_goal: ,
@@ -63,9 +63,31 @@ Event.create({
           title: "The Walking Dead Experience",
           catchphrase: ,
           description: ,
-          image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg,"
+          image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg",
           video_url: ,
           user_id: ,
           revenue_goal: ,
           revenue_status: 0
           })
+
+  Event.create({
+          title: "World Hamlet",
+          catchphrase: ,
+          description: ,
+          image_url: "",
+          video_url: ,
+          user_id: ,
+          revenue_goal: ,
+          revenue_status: 0
+          })
+
+Event.create({
+        title: "The Globe to Globe Festival",
+        catchphrase: ,
+        description: ,
+        image_url: "",
+        video_url: ,
+        user_id: ,
+        revenue_goal: ,
+        revenue_status: 0
+        })
