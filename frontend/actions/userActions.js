@@ -1,51 +1,36 @@
-var UserConstants = require('../constants/userConstants');
-var UserApiUtil = require('../util/userApiUtils');
-var UserStore = require('../stores/user');
-var AppDispatcher = require('../dispatcher/dispatcher');
+var Dispatcher = require('../dispatcher/dispatcher.js');
+var UserConstants = require('../constants/userConstants.js');
 
-var UserActions = {
-	fetchCurrentUser: function(){
-		UserApiUtil.fetchCurrentUser(UserActions.receiveCurrentUser, UserActions.handleError);
-	},
-	signup: function(user){
-		UserApiUtil.post({
-			url: "/api/user",
-			user: user,
-			success: UserActions.receiveCurrentUser,
-			error: UserActions.handleError
-		});
-	},
-	login: function(user){
-		UserApiUtil.post({
-			url: "/api/session",
-			user: user,
-			success: UserActions.receiveCurrentUser,
-			error: UserActions.handleError
-		});
-	},
-	guestLogin: function(){
-		UserActions.login({username: "guest", password: "password"});
-	},
-	receiveCurrentUser: function(user){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.LOGIN,
-			user: user
-		});
-	},
-	handleError: function(error) {
-		AppDispatcher.dispatch({
-			actionType: UserConstants.ERROR,
-			errors: error.responseJSON.errors
-		});
-	},
-	removeCurrentUser: function(){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.LOGOUT,
-		});
-	},
-	logout: function(){
-		UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
-	}
+module.exports = {
+
+  loginUser: function (user) {
+    console.log("User Actions: loginUser called");
+    Dispatcher.dispatch({
+      actionType: UserConstants.LOGIN_USER,
+      user: user
+    });
+  },
+
+  logoutUser: function () {
+    console.log("User Actions: logoutUser called");
+    Dispatcher.dispatch({
+      actionType: UserConstants.LOGOUT_USER,
+    });
+  },
+
+  destroyUser: function (user) {
+    console.log("User Actions: destroyUser called");
+    Dispatcher.dispatch({
+      actionType: UserConstants.DESTROY_USER,
+      user: user
+    });
+  },
+
+  receiveError: function(error) {
+    console.log("User Actions: receiveError called");
+    Dispatcher.dispatch({
+      actionType: UserConstants.RECEIVE_ERROR,
+      error: error
+    });
+  }
 };
-
-module.exports = UserActions;

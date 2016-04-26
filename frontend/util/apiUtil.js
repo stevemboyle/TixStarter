@@ -2,6 +2,19 @@ var ServerActions = require('../actions/serverActions.js');
 
 var ApiUtil = {
 
+  // User Functions
+
+  createUser: function (data) {
+   $.ajax({
+     url: "api/users",
+     type: "POST",
+     data: { user: data },
+     success: function (user) {
+       ServerActions.receiveUser(user);
+     }
+   });
+ },
+
   // Event Functions
 
   fetchAllEvents: function () {

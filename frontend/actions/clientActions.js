@@ -2,6 +2,12 @@ var ApiUtil = require('../util/apiUtil.js');
 
 module.exports = {
 
+  // User Functions
+
+  createUser: function(data){
+    ApiUtil.createUser(data);
+  },
+
   // Event Functions
 
   fetchAllEvents: function() {

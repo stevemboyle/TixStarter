@@ -2,7 +2,8 @@ var React = require("react");
 // var LinkedStateMixin = require('react-addons-linked-state-mixin');
 // var UserActions = require("../../actions/userActions");
 // var CurrentUserState = require("../../mixins/currentUserState");
-// var ClientAction
+
+var ClientActions = require('../../actions/clientActions.js');
 
 var LoginModal = React.createClass({
 
@@ -21,21 +22,45 @@ var LoginModal = React.createClass({
 	usernameChange: function(keyboardEvent){
 		var newUsername = keyboardEvent.target.value;
 		this.setState({ username: newUsername});
+		console.log("");
+		console.log("Username: " + this.state.username);
+		console.log("Password: " + this.state.password);
+		console.log("First Name: " + this.state.firstName);
+		console.log("Last Name: " + this.state.lastName);
+		console.log("");
 	},
 
 	passwordChange: function(keyboardEvent){
 		var newPassword = keyboardEvent.target.value;
 		this.setState({ password: newPassword});
+		console.log("");
+		console.log("Username: " + this.state.username);
+		console.log("Password: " + this.state.password);
+		console.log("First Name: " + this.state.firstName);
+		console.log("Last Name: " + this.state.lastName);
+		console.log("");
 	},
 
 	firstNameChange: function(keyboardEvent){
 		var newFirstName= keyboardEvent.target.value;
 		this.setState({ firstName: newFirstName});
+		console.log("");
+		console.log("Username: " + this.state.username);
+		console.log("Password: " + this.state.password);
+		console.log("First Name: " + this.state.firstName);
+		console.log("Last Name: " + this.state.lastName);
+		console.log("");
 	},
 
 	lastNameChange: function(keyboardEvent){
 		var newLastName= keyboardEvent.target.value;
 		this.setState({ lastName: newLastName});
+		console.log("");
+		console.log("Username: " + this.state.username);
+		console.log("Password: " + this.state.password);
+		console.log("First Name: " + this.state.firstName);
+		console.log("Last Name: " + this.state.lastName);
+		console.log("");
 	},
 
 	handleSubmit: function(keyboardEvent){
@@ -46,7 +71,7 @@ var LoginModal = React.createClass({
 			firstName: this.state.firstName,
 			lastName: this.state.lastName
 		};
-		// ClientActions.createUser(userData);
+		ClientActions.createUser(userData);
 	},
 
 	render: function(){
@@ -66,7 +91,7 @@ var LoginModal = React.createClass({
 
 						<br></br>
 
-						<label> Password: 
+						<label> Password:
 							<input
 									type="password"
 									value={this.state.password}
@@ -75,6 +100,29 @@ var LoginModal = React.createClass({
 						</label>
 
 						<br></br>
+
+						<label> First Name:
+							<input
+									type="text"
+									value={this.state.firstName}
+									onChange={this.firstNameChange}
+							/>
+						</label>
+
+						<br></br>
+
+						<label> Last Name:
+							<input
+									type="text"
+									value={this.state.lastName}
+									onChange={this.lastNameChange}
+							/>
+						</label>
+
+						<br></br>
+
+						<br></br>
+
 						<br></br>
 
 					<input type="Submit" value="Submit"/>

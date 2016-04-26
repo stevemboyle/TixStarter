@@ -1,49 +1,50 @@
-var AppDispatcher = require('../dispatcher/dispatcher.js');
 var Store = require('flux/utils').Store;
+var UserConstants = require('../constants/userConstants.js');
+var AppDispatcher = require('../dispatcher/dispatcher.js');
 
 var UserStore = new Store(AppDispatcher);
 
-var _currentUser, _errors;
+var _currentUser = {};
+
+UserStore.sign_in = function(user){
+  _currentUser = user;
+  session[:session_token] = nil;
+};
+
+// var resetPosts = function (posts) {
+//   _posts = {};
+//
+//   posts.forEach(function (post) {
+//     _posts[post.id] = post;
+//   });
+// };
+//
+// var setPost = function (post) {
+//   _posts[post.id] = post;
+// };
+//
+// var removePost = function (post) {
+//   delete _posts[post.id];
+// };
+//
+// PostStore.all = function () {
+//   return Object.keys(_posts).map(function (postId) {
+//     return _posts[postId];
+//   });
+// };
+//
+// PostStore.find = function (id) {
+//   return _posts[id];
+// };
+
 
 UserStore.__onDispatch = function (payload) {
-  switch(payload.actionType) {
-    case "LOGIN":
-    	UserStore.login(payload.user);
-      break;
-    case "LOGOUT":
-    	UserStore.logout();
-      break;
-    case "ERROR":
-      UserStore.setErrors(payload.errors);
+  switch (payload.actionType) {
+    case UserConstants.USER_RECEIVED:
+      sign_in(payload.user);
       break;
   }
-  UserStore.__emitChange();
+  this.__emitChange();
 };
 
-UserStore.login = function(user){
-	_currentUser = user;
-  _errors = null;
-};
-
-UserStore.logout = function(){
-  _currentUser = null;
-  _errors = null;
-};
-
-UserStore.currentUser = function(){
-  if (_currentUser) {
-  	return $.extend({}, _currentUser);
-  }
-};
-
-UserStore.setErrors = function(errors){
-  _errors = errors;
-};
-
-UserStore.errors = function(){
-  if (_errors){
-    return [].slice.call(_errors);
-  }
-};
-
-module.exports = UserStore;
+module.exports = PostStore;
