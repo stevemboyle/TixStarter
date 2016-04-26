@@ -21,8 +21,6 @@ module.exports = React.createClass({
           <p>hello</p>
         </div>
 
-         <LoginForm/>
-
         <div>
 
         </div>

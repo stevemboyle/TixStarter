@@ -25128,7 +25128,6 @@
 	          'hello'
 	        )
 	      ),
-	      React.createElement(LoginForm, null),
 	      React.createElement('div', null),
 	      React.createElement(
 	        'div',
