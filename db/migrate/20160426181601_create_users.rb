@@ -15,3 +15,5 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :username, unique: true
   end
 end
+
+#TODO: Change bio_text to text, not string
