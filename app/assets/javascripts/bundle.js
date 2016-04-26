@@ -25108,6 +25108,7 @@
 	var EventIndex = __webpack_require__(232);
 	// var LoginForm = require('./users/usersLoginForm');
 	var LoginModal = __webpack_require__(282);
+
 	var Modal = __webpack_require__(262);
 
 	//Mixins
@@ -32690,6 +32691,8 @@
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(262);
+	// var EventDetail = require('./detail');
+	// var EventIndex = require('./index');
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35154,14 +35157,54 @@
 	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 	// var UserActions = require("../../actions/userActions");
 	// var CurrentUserState = require("../../mixins/currentUserState");
+	// var ClientAction
 
-	var LoginForm = React.createClass({
-		displayName: "LoginForm",
+	var LoginModal = React.createClass({
+		displayName: "LoginModal",
 
 
 		// mixins: [LinkedStateMixin, CurrentUserState],
 
 		// mixins: [CurrentUserState],
+
+		getInitialState: function () {
+			return { username: "",
+				password: "",
+				firstName: "",
+				lastName: ""
+			};
+		},
+
+		usernameChange: function (keyboardEvent) {
+			var newUsername = keyboardEvent.target.value;
+			this.setState({ username: newUsername });
+		},
+
+		passwordChange: function (keyboardEvent) {
+			var newPassword = keyboardEvent.target.value;
+			this.setState({ password: newPassword });
+		},
+
+		firstNameChange: function (keyboardEvent) {
+			var newFirstName = keyboardEvent.target.value;
+			this.setState({ firstName: newFirstName });
+		},
+
+		lastNameChange: function (keyboardEvent) {
+			var newLastName = keyboardEvent.target.value;
+			this.setState({ lastName: newLastName });
+		},
+
+		handleSubmit: function (keyboardEvent) {
+			keyboardEvent.preventDefault();
+			var userData = {
+				username: this.state.username,
+				password: this.state.password,
+				firstName: this.state.firstName,
+				lastName: this.state.lastName
+			};
+			// ClientActions.createUser(userData);
+		},
 
 		render: function () {
 			return React.createElement(
@@ -35170,25 +35213,37 @@
 				React.createElement(
 					"form",
 					{ onSubmit: this.handleSubmit },
+					React.createElement("br", null),
 					React.createElement(
 						"label",
 						null,
 						" Username:",
-						React.createElement("input", { type: "text" })
+						React.createElement("input", {
+							type: "text",
+							value: this.state.username,
+							onChange: this.usernameChange
+						})
 					),
+					React.createElement("br", null),
 					React.createElement(
 						"label",
 						null,
 						" Password:",
-						React.createElement("input", { type: "password" })
+						React.createElement("input", {
+							type: "password",
+							value: this.state.password,
+							onChange: this.passwordChange
+						})
 					),
+					React.createElement("br", null),
+					React.createElement("br", null),
 					React.createElement("input", { type: "Submit", value: "Submit" })
 				)
 			);
 		}
 	});
 
-	module.exports = LoginForm;
+	module.exports = LoginModal;
 
 /***/ }
 /******/ ]);

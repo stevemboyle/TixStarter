@@ -1,5 +1,7 @@
 var React = require('react');
 var Modal = require("react-modal");
+// var EventDetail = require('./detail');
+// var EventIndex = require('./index');
 
 module.exports = React.createClass({
   contextTypes: {
@@ -40,6 +42,8 @@ module.exports = React.createClass({
                onRequestClose={this.closeEventDetailModal}>
 
                  <h2>Im a modal!</h2>
+
+
                  <p>modal modal modal modal modal</p>
                  <p>mooooooooodal!</p>
 
