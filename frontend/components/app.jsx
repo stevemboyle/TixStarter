@@ -1,10 +1,17 @@
 var React = require('react');
 var EventForm = require('./events/form');
 var EventIndex = require('./events/index');
+var LoginForm = require('./users/usersLoginForm');
+
+//Mixins
+var CurrentUserState = require('.././mixins/currentUserState');
 
 module.exports = React.createClass({
 
+  mixins: [CurrentUserState],
+
   render: function () {
+
     return(
 
 
@@ -13,6 +20,9 @@ module.exports = React.createClass({
         <div id="othermenu">
           <p>hello</p>
         </div>
+
+         <LoginForm/>
+
         <div>
 
         </div>
@@ -20,16 +30,10 @@ module.exports = React.createClass({
         <div id="menu">
         <p>hello</p>
         </div>
-        <td>
-          <tr>
             {this.props.children}
-          </tr>
-          <tr>
             <div className="event-index-pane">
               <EventIndex />
             </div>
-          </tr>
-        </td>
 
 
 

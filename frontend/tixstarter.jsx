@@ -10,12 +10,18 @@ var App = require('./components/app.jsx');
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
 var ApiUtil = require('./util/apiUtil');
+//
+// var LoginForm = require('./components/LoginForm');
+//Mixins
+var CurrentUserState = require('./mixins/currentUserState');
 
 var routes = (
   <Route path="/" component={App}>
     <Route path="event/:eventId" component={EventDetail}>
-      <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
+      <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
+      </Route>
     </Route>
+    <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
   </Route>
 );
 
