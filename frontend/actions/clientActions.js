@@ -10,8 +10,10 @@ module.exports = {
     ApiUtil.fetchAllEvents();
   },
 
-  createEvent: function(pokemon, callback) {
-    ApiUtil.createEvent(pokemon, callback);
+  createEvent: function(data) {
+    console.log("ClientActions CreateEvent called");
+    console.log("data is " + data);
+    ApiUtil.createEvent(data);
   },
 
   fetchSingleEvent: function(id) {
@@ -24,8 +26,8 @@ module.exports = {
     ApiUtil.fetchAllShowtimes();
   },
 
-  createShowtime: function(pokemon, callback) {
-    ApiUtil.createShowtime(pokemon, callback);
+  createShowtime: function(showtime, callback) {
+    ApiUtil.createShowtime(showtime, callback);
   },
 
   fetchSingleShowtime: function(id) {
@@ -38,8 +40,8 @@ module.exports = {
     ApiUtil.fetchAllTickets();
   },
 
-  createTicket: function(pokemon, callback) {
-    ApiUtil.createTicket(pokemon, callback);
+  createTicket: function(ticket, callback) {
+    ApiUtil.createTicket(ticket, callback);
   },
 
   fetchSingleTicket: function(id) {

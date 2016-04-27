@@ -40,15 +40,16 @@ var ApiUtil = {
     console.log('past ajax');
   },
 
-  createEvent: function (event, callback) {
+  createEvent: function (data) {
+    console.log("Api Util Create Event called");
     $.ajax({
       url: "api/events",
       // Changed "event" to "events"
       method: "POST",
-      data: {event: event},
+      data: {event: data},
       success: function (event) {
         ServerActions.receiveSingleEvent(event);
-        callback && callback(event.id);
+        // callback && callback(event.id);
       }
     });
   },

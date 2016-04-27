@@ -10,11 +10,11 @@ module.exports = React.createClass({
       title: "",
       catchphrase: "",
       description: "",
-      imageUrl: "",
-      videoUrl: "",
-      userId: "",
-      revenueGoal: "",
-      revenueStatus: 0,
+      image_url: "",
+      video_url: "",
+      user_id: "",
+      revenue_goal: "",
+      revenue_status: 0,
     });
   },
 
@@ -36,22 +36,22 @@ module.exports = React.createClass({
 
   imageUrlChange: function(keyboardEvent){
     var newImageUrl = keyboardEvent.target.value;
-    this.setState({ imageUrl: newImageUrl});
+    this.setState({ image_url: newImageUrl});
   },
 
   videoUrlChange: function(keyboardEvent){
     var newVideoUrl = keyboardEvent.target.value;
-    this.setState({ videoUrl: newVideoUrl});
+    this.setState({ video_url: newVideoUrl});
   },
 
   userIdChange: function(keyboardEvent){
     var newUserId = keyboardEvent.target.value;
-    this.setState({ userId: newUserId});
+    this.setState({ user_id: newUserId});
   },
 
   revenueGoalChange: function(keyboardEvent){
     var newRevenueGoal = keyboardEvent.target.value;
-    this.setState({ revenueGoal: newRevenueGoal});
+    this.setState({ revenue_goal: newRevenueGoal});
   },
 
   handleSubmit: function(keyboardEvent){
@@ -60,11 +60,11 @@ module.exports = React.createClass({
       title: this.state.title,
       catchphrase: this.state.catchphrase,
       description: this.state.description,
-      imageUrl: this.state.imageUrl,
-      videoUrl: this.state.videoUrl,
-      userId: this.state.userId,
-      revenueGoal: this.state.revenueGoal,
-      revenueStatus: 0,
+      image_url: this.state.image_url,
+      video_url: this.state.video_url,
+      user_id: this.state.user_id,
+      revenue_goal: this.state.revenue_goal,
+      revenue_status: 0,
     };
 
     ClientActions.createEvent(eventData);

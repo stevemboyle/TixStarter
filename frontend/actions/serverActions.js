@@ -19,6 +19,7 @@ module.exports = {
 
   receiveSingleEvent: function (event) {
     console.log("receiveSingleEvent called");
+    console.log("The event is " + event);
     Dispatcher.dispatch({
       actionType: EventConstants.EVENT_RECEIVED,
       event: event
