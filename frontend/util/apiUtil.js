@@ -70,7 +70,7 @@ var ApiUtil = {
                       }
               },
        success: function (post) {
-         ServerActions.receiveSingelEvent(event);
+         ServerActions.receiveSingleEvent(event);
        }
     });
   },

@@ -21,13 +21,12 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function(){
-      this.myListener = EventStore.addListener(this.handleChange);
-      debugger;
-      ClientActions.fetchSingleEvent(this.props.params.eventId);
+      // this.myListener = EventStore.addListener(this.handleChange);
+      // ClientActions.fetchSingleEvent(this.props.params.eventId);
     },
 
     componentWillUnmount: function(){
-      this.myListener.remove();
+      // this.myListener.remove();
     },
 
     titleChange: function(keyboardEvent){
@@ -66,26 +65,27 @@ module.exports = React.createClass({
       this.setState({ revenue_goal: newRevenueGoal});
     },
 
-    handleChange: function(){
-      var potentialEvent = EventStore.find(this.props.event.id);
-      var event = potentialEvent ? potentialEvent : {};
-      this.setState({
-        title: event.title,
-        catchphrase: event.catchphrase,
-        description: event.description,
-        image_url: event.image_url,
-        video_url: event.video_url,
-        user_id: event.user_id,
-        revenue_goal: event.revenue_goal,
-        revenue_status: event.revenue_status
-      });
-    },
+    // handleChange: function(){
+    //   var potentialEvent = EventStore.find(this.props.event.id);
+    //   var event = potentialEvent ? potentialEvent : {};
+    //   this.setState({
+    //     title: event.title,
+    //     catchphrase: event.catchphrase,
+    //     description: event.description,
+    //     image_url: event.image_url,
+    //     video_url: event.video_url,
+    //     user_id: event.user_id,
+    //     revenue_goal: event.revenue_goal,
+    //     revenue_status: event.revenue_status
+    //   });
+    // },
 
     handleSubmit: function(keyboardEvent){
+      console.log("handle submit!");
       keyboardEvent.preventDefault();
       var eventData = {
         // TODO: id (eventID?)
-        id: parseInt(this.props.params.eventId),
+        id: parseInt(this.props.event.id),
         title: this.state.title,
         catchphrase: this.state.catchphrase,
         description: this.state.description,
@@ -173,7 +173,7 @@ module.exports = React.createClass({
 
               <br></br>
 
-            <input type="submit" value="Create Event" />
+            <input type="submit" value="Save Changes" />
 
             <br></br>
 

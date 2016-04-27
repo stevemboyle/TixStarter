@@ -33,7 +33,7 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    ClientActions.fetchSingleEvent(parseInt(newProps.params.eventId));
+    ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
   },
 
   // componentDidMount: function () {
