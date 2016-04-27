@@ -50,18 +50,18 @@ var ApiUtil = {
         callback && callback(event.id);
       }
     });
-  }
+  },
 
   // // Showtime Functions
   //
-  // fetchAllShowtimes: function () {
-  //   $.ajax({
-  //     url: "api/showtime",
-  //     success: function (showtimes) {
-  //       ServerActions.receiveAllShowtimes(showtimes);
-  //     }
-  //   });
-  // },
+  fetchAllShowtimes: function () {
+    $.ajax({
+      url: "api/showtime",
+      success: function (showtimes) {
+        ServerActions.receiveAllShowtimes(showtimes);
+      }
+    });
+  },
   //
   // fetchSingleShowtime: function (id) {
   //   $.ajax({

@@ -11,10 +11,16 @@ json.extract!(
     :revenue_status
 )
 
-if show_showtimes
-  json.showtimes do
-    json.array!(event.showtimes) do |showtime|
-      json.partial! 'api/showtimes/showtime', showtime: showtime
-    end
+json.showtimes do
+  json.array!(event.showtimes) do |showtime|
+    json.partial! 'api/showtimes/showtime', showtime: showtime
   end
 end
+# 
+# if show_showtimes
+#   json.showtimes do
+#     json.array!(event.showtimes) do |showtime|
+#       json.partial! 'api/showtimes/showtime', showtime: showtime
+#     end
+#   end
+# end

@@ -5,7 +5,7 @@ var ClientActions = require('../../actions/clientActions.js');
 
 module.exports = React.createClass({
   getStateFromStore: function () {
-    return { event: this.props.event };
+    return { event: EventStore.find(parseInt(this.props.event.id)) };
   },
 
   // _onChange: function () {
@@ -16,13 +16,13 @@ module.exports = React.createClass({
     return this.getStateFromStore();
   },
 
-  // componentWillReceiveProps: function (newProps) {
-  //   ClientActions.fetchSingleEvent(parseInt(newProps.params.eventId));
-  // },
+  componentWillReceiveProps: function (newProps) {
+    ClientActions.fetchSingleEvent(parseInt(newProps.params.eventId));
+  },
 
   // componentDidMount: function () {
-  //   this.eventListener = EventStore.addListener(this._onChange);
-  //   // ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
+  //   // this.eventListener = EventStore.addListener(this._onChange);
+  //   ClientActions.fetchSingleEvent(parseInt(this.props.event.id));
   // },
   //
   // componentWillUnmount: function () {
@@ -36,6 +36,7 @@ module.exports = React.createClass({
       <div>
 
         <div className="event-detail-pane">
+
           <div className="detail">
             {['title', 'description'].map(function (attr) {
               return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
@@ -44,7 +45,13 @@ module.exports = React.createClass({
 
           <h2 className='detail-header'>Showtimes: </h2>
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
+
+          <button>Learn More</button>
+          <button>Get Tickets</button>
+
         </div>
+
+
 
 
 
