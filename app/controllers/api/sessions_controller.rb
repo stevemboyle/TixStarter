@@ -26,6 +26,20 @@ class Api::SessionsController < ApplicationController
   end
 
   def show
+
+    token = session[:session_token]
+    @user = User.find_by({session_token: token})
+
+
+
+    if @user
+      # We're logged in
+      response = { logged_in: true, username: @user.username }
+      render json: response
+    else
+      # We're not logged in
+    end
+
     #TODO: Sessions#show should return the current_user if she or he exists.
     #TODO: If any auth errors arise (e.g. 'invalid credentials' or 'username already exists'), return those errors in your response with a corresponding error status.
   end

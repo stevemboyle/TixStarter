@@ -20,6 +20,10 @@ module.exports = {
     ApiUtil.fetchSingleEvent(id);
   },
 
+  editEvent: function(data) {
+    ApiUtil.editEvent(data);
+  },
+
   // Showtime Functions
 
   fetchAllShowtimes: function() {

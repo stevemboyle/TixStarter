@@ -54,6 +54,27 @@ var ApiUtil = {
     });
   },
 
+
+  editEvent: function(data) {
+    $.ajax({
+       url: "api/events/" + data.id,
+       type: "PATCH",
+       data: { event: { title: data.title,
+                        catchphrase: data.catchphrase,
+                        description: data.description,
+                        image_url: data.image_url,
+                        video_url: data.video_url,
+                        user_id: data.user_id,
+                        revenue_goal: data.revenue_goal,
+                        revenue_status: data.revenue_status
+                      }
+              },
+       success: function (post) {
+         ServerActions.receiveSingelEvent(event);
+       }
+    });
+  },
+
   // // Showtime Functions
   //
   fetchAllShowtimes: function () {

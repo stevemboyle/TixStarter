@@ -27,8 +27,14 @@ var UserApiUtil = {
     $.ajax({
       url: "/api/session",
       method: "get",
-      success: UserActions.receiveCurrentUser,
-      error: UserActions.handleError
+      success: function(user){
+        console.log("We're in the success function for Fetch Current User");
+        UserActions.receiveCurrentUser(user);
+      },
+      error: function(error){
+        console.log("We're in the Error Function for Fetch Current User");
+        UserActions.handleError(error);
+      }
     });
   }
 

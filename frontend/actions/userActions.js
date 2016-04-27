@@ -28,9 +28,9 @@ var UserActions = {
       //   App.closeSignInModal;
       //   App.closeSignUpModal;
       // },
-      error: function(){
+      error: function(error){
         console.log("We're in the error function for SignUp");
-        UserActions.handleError();
+        UserActions.handleError(error);
       }
     });
   },
@@ -39,7 +39,7 @@ var UserActions = {
     UserApiUtil.post({
       url: "/api/session",
       user: user,
-      success: UserActions.receiveCurrentUSer,
+      success: UserActions.receiveCurrentUser,
       error: UserActions.handleError
     });
   },
@@ -57,6 +57,7 @@ var UserActions = {
   },
 
   handleError: function(error) {
+    console.log("Handle Error Function in User Actions!");
     AppDispatcher.dispatch({
       actionType: UserConstants.ERROR,
       errors: error.responseJSON.errors

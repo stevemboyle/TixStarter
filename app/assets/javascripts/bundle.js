@@ -34401,6 +34401,10 @@
 	    ApiUtil.fetchSingleEvent(id);
 	  },
 
+	  editEvent: function (data) {
+	    ApiUtil.editEvent(data);
+	  },
+
 	  // Showtime Functions
 
 	  fetchAllShowtimes: function () {
@@ -34487,6 +34491,26 @@
 	      success: function (event) {
 	        ServerActions.receiveSingleEvent(event);
 	        // callback && callback(event.id);
+	      }
+	    });
+	  },
+
+	  editEvent: function (data) {
+	    $.ajax({
+	      url: "api/events/" + data.id,
+	      type: "PATCH",
+	      data: { event: { title: data.title,
+	          catchphrase: data.catchphrase,
+	          description: data.description,
+	          image_url: data.image_url,
+	          video_url: data.video_url,
+	          user_id: data.user_id,
+	          revenue_goal: data.revenue_goal,
+	          revenue_status: data.revenue_status
+	        }
+	      },
+	      success: function (post) {
+	        ServerActions.receiveSingelEvent(event);
 	      }
 	    });
 	  },
@@ -36034,9 +36058,9 @@
 	      //   App.closeSignInModal;
 	      //   App.closeSignUpModal;
 	      // },
-	      error: function () {
+	      error: function (error) {
 	        console.log("We're in the error function for SignUp");
-	        UserActions.handleError();
+	        UserActions.handleError(error);
 	      }
 	    });
 	  },
@@ -36045,7 +36069,7 @@
 	    UserApiUtil.post({
 	      url: "/api/session",
 	      user: user,
-	      success: UserActions.receiveCurrentUSer,
+	      success: UserActions.receiveCurrentUser,
 	      error: UserActions.handleError
 	    });
 	  },
@@ -36063,6 +36087,7 @@
 	  },
 
 	  handleError: function (error) {
+	    console.log("Handle Error Function in User Actions!");
 	    AppDispatcher.dispatch({
 	      actionType: UserConstants.ERROR,
 	      errors: error.responseJSON.errors
@@ -36116,8 +36141,14 @@
 	    $.ajax({
 	      url: "/api/session",
 	      method: "get",
-	      success: UserActions.receiveCurrentUser,
-	      error: UserActions.handleError
+	      success: function (user) {
+	        console.log("We're in the success function for Fetch Current User");
+	        UserActions.receiveCurrentUser(user);
+	      },
+	      error: function (error) {
+	        console.log("We're in the Error Function for Fetch Current User");
+	        UserActions.handleError(error);
+	      }
 	    });
 	  }
 
@@ -36334,6 +36365,86 @@
 	      revenue_status: event.revenue_status };
 	  },
 
+	  componentDidMount: function () {
+	    this.myListener = EventStore.addListener(this.handleChange);
+	    debugger;
+	    ClientActions.fetchSingleEvent(this.props.params.eventId);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.myListener.remove();
+	  },
+
+	  titleChange: function (keyboardEvent) {
+	    var newTitle = keyboardEvent.target.value;
+	    this.setState({ title: newTitle });
+	    console.log("Title: " + this.state.title);
+	  },
+
+	  catchphraseChange: function (keyboardEvent) {
+	    var newCatchphrase = keyboardEvent.target.value;
+	    this.setState({ catchphrase: newCatchphrase });
+	  },
+
+	  descriptionChange: function (keyboardEvent) {
+	    var newDescription = keyboardEvent.target.value;
+	    this.setState({ description: newDescription });
+	  },
+
+	  imageUrlChange: function (keyboardEvent) {
+	    var newImageUrl = keyboardEvent.target.value;
+	    this.setState({ image_url: newImageUrl });
+	  },
+
+	  videoUrlChange: function (keyboardEvent) {
+	    var newVideoUrl = keyboardEvent.target.value;
+	    this.setState({ video_url: newVideoUrl });
+	  },
+
+	  userIdChange: function (keyboardEvent) {
+	    var newUserId = keyboardEvent.target.value;
+	    this.setState({ user_id: newUserId });
+	  },
+
+	  revenueGoalChange: function (keyboardEvent) {
+	    var newRevenueGoal = keyboardEvent.target.value;
+	    this.setState({ revenue_goal: newRevenueGoal });
+	  },
+
+	  handleChange: function () {
+	    var potentialEvent = EventStore.find(this.props.event.id);
+	    var event = potentialEvent ? potentialEvent : {};
+	    this.setState({
+	      title: event.title,
+	      catchphrase: event.catchphrase,
+	      description: event.description,
+	      image_url: event.image_url,
+	      video_url: event.video_url,
+	      user_id: event.user_id,
+	      revenue_goal: event.revenue_goal,
+	      revenue_status: event.revenue_status
+	    });
+	  },
+
+	  handleSubmit: function (keyboardEvent) {
+	    keyboardEvent.preventDefault();
+	    var eventData = {
+	      // TODO: id (eventID?)
+	      id: parseInt(this.props.params.eventId),
+	      title: this.state.title,
+	      catchphrase: this.state.catchphrase,
+	      description: this.state.description,
+	      image_url: this.state.image_url,
+	      video_url: this.state.video_url,
+	      user_id: this.state.user_id,
+	      revenue_goal: this.state.revenue_goal,
+	      // Change this for revenue status
+	      revenue_status: 0
+	    };
+	    ClientActions.editEvent(eventData);
+	    // hashHistory.push("/");
+	  },
+
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -36342,6 +36453,92 @@
 	        'h6',
 	        null,
 	        'Now we are inside the Edit Event Modal'
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Create New Event'
+	        ),
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.handleSubmit },
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Title:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.title,
+	              onChange: this.titleChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Catchphrase:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.catchphrase,
+	              onChange: this.catchphraseChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Description:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.description,
+	              onChange: this.descriptionChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' URL for Image to Embed:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.imageUrl,
+	              onChange: this.imageUrlChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' URL for Video to Embed:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.videoUrl,
+	              onChange: this.videoUrlChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' User Id:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.userId,
+	              onChange: this.userIdChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Revenue Goal:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.revenueGoal,
+	              onChange: this.revenueGoalChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit', value: 'Create Event' }),
+	          React.createElement('br', null)
+	        )
 	      )
 	    );
 	  }
