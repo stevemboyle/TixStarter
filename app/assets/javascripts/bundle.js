@@ -35142,7 +35142,8 @@
 	  },
 
 	  getInitialState: function () {
-	    return { eventDetailModalOpen: false };
+	    return { eventDetailModalOpen: false,
+	      editEventModalOpen: false };
 	  },
 
 	  openEventDetailModal: function () {
@@ -35151,6 +35152,14 @@
 
 	  closeEventDetailModal: function () {
 	    this.setState({ eventDetailModalOpen: false });
+	  },
+
+	  openEditEventModal: function () {
+	    this.setState({ editEventModalOpen: true });
+	  },
+
+	  closeEditEventModal: function () {
+	    this.setState({ editEventModalOpen: false });
 	  },
 
 	  showDetail: function () {
@@ -35496,20 +35505,31 @@
 	var EventStore = __webpack_require__(240);
 	var ShowtimesIndex = __webpack_require__(263);
 	var ClientActions = __webpack_require__(265);
+	var Modal = __webpack_require__(218);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
-	  getStateFromStore: function () {
-	    return { event: EventStore.find(parseInt(this.props.event.id)) };
-	  },
+	  // getStateFromStore: function () {
+	  //   return { event: EventStore.find(parseInt(this.props.event.id)) };
+	  // },
 
 	  // _onChange: function () {
 	  //   this.setState(this.getStateFromStore());
 	  // },
 
 	  getInitialState: function () {
-	    return this.getStateFromStore();
+	    return { event: EventStore.find(parseInt(this.props.event.id)),
+	      editEventModalOpen: false
+	    };
+	  },
+
+	  openEditEventModal: function () {
+	    this.setState({ editEventModalOpen: true });
+	  },
+
+	  closeEditEventModal: function () {
+	    this.setState({ editEventModalOpen: false });
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
@@ -35575,6 +35595,17 @@
 	          'button',
 	          null,
 	          'Get Tickets'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.editEventModalOpen,
+	          onRequestClose: this.closeEditEventModal },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Edit Event Modal'
 	        )
 	      )
 	    );

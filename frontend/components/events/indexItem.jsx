@@ -12,7 +12,8 @@ module.exports = React.createClass({
   },
 
   getInitialState: function(){
-    return({ eventDetailModalOpen: false });
+    return({ eventDetailModalOpen: false,
+              editEventModalOpen: false});
   },
 
   openEventDetailModal: function(){
@@ -21,6 +22,15 @@ module.exports = React.createClass({
 
   closeEventDetailModal: function(){
     this.setState({ eventDetailModalOpen: false });
+  },
+
+
+  openEditEventModal: function(){
+    this.setState({ editEventModalOpen: true });
+  },
+
+  closeEditEventModal: function(){
+    this.setState({ editEventModalOpen: false });
   },
 
   showDetail: function () {

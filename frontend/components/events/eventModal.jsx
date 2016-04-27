@@ -2,18 +2,29 @@ var React = require('react');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/clientActions.js');
+var Modal = require("react-modal");
 
 module.exports = React.createClass({
-  getStateFromStore: function () {
-    return { event: EventStore.find(parseInt(this.props.event.id)) };
-  },
+  // getStateFromStore: function () {
+  //   return { event: EventStore.find(parseInt(this.props.event.id)) };
+  // },
 
   // _onChange: function () {
   //   this.setState(this.getStateFromStore());
   // },
 
   getInitialState: function () {
-    return this.getStateFromStore();
+    return {event: EventStore.find(parseInt(this.props.event.id)),
+            editEventModalOpen: false
+          };
+  },
+
+  openEditEventModal: function(){
+    this.setState({ editEventModalOpen: true });
+  },
+
+  closeEditEventModal: function(){
+    this.setState({ editEventModalOpen: false });
   },
 
   componentWillReceiveProps: function (newProps) {
@@ -28,6 +39,8 @@ module.exports = React.createClass({
   // componentWillUnmount: function () {
   //   this.eventListener.remove();
   // },
+
+
 
   render: function () {
     if(this.state.event === undefined) { return <div></div>; }
@@ -55,6 +68,13 @@ module.exports = React.createClass({
 
         </div>
 
+        <Modal
+          isOpen={this.state.editEventModalOpen}
+          onRequestClose={this.closeEditEventModal}>
+
+            <h1>Edit Event Modal</h1>
+
+        </Modal>
 
 
 
