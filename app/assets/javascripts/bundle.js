@@ -35646,8 +35646,12 @@
 	    this.setState({ editEventModalOpen: false });
 	  },
 
-	  componentWillReceiveProps: function (newProps) {
-	    ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
+	  componentWillReceiveProps: function () {
+	    // Right now, this doesn't update for the New Props.
+	    // I removed (newProps) from function(newProps)
+	    this.setState({ event: EventStore.find(parseInt(this.props.event.id)),
+	      editEventModalOpen: false });
+	    // ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
 	  },
 
 	  // componentDidMount: function () {
