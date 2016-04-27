@@ -101,9 +101,19 @@ module.exports = React.createClass({
 
             <h2>Demo Account</h2>
 
-            <p>This feature does not yet exist. So, sit tight, watch Hamilton, and I'll have this cranked out in a jiffy:</p>
+            <p>This feature has not been built yet!</p>
+
+            <iframe src="//giphy.com/embed/xTiTnJ3BooiDs8dL7W"
+                    width="480"
+                    height="305"
+                    frameBorder="0"
+                    class="giphy-embed"
+                    allowFullScreen>
+            </iframe>
 
             <br></br>
+
+            <p>Here, distract yourself with Hamilton until I finish:</p>
 
             <iframe width="{854/1.2}"
                     height="{480/1.2}"

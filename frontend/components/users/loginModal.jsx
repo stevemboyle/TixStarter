@@ -77,6 +77,9 @@ var LoginModal = React.createClass({
 	render: function(){
 		return (
 			<div id="login-form">
+
+			<iframe src="//giphy.com/embed/OF0yOAufcWLfi" width="480" height="237" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
 				<form onSubmit={this.handleSubmit}>
 
 					<br></br>

@@ -27196,9 +27196,20 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'This feature does not yet exist. So, sit tight, watch Hamilton, and I\'ll have this cranked out in a jiffy:'
+	          'This feature has not been built yet!'
 	        ),
+	        React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
+	          width: '480',
+	          height: '305',
+	          frameBorder: '0',
+	          'class': 'giphy-embed',
+	          allowFullScreen: true }),
 	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Here, distract yourself with Hamilton until I finish:'
+	        ),
 	        React.createElement('iframe', { width: '{854/1.2}',
 	          height: '{480/1.2}',
 	          src: 'https://www.youtube.com/embed/6ibySV-saJ8',
@@ -35181,6 +35192,7 @@
 			return React.createElement(
 				"div",
 				{ id: "login-form" },
+				React.createElement("iframe", { src: "//giphy.com/embed/OF0yOAufcWLfi", width: "480", height: "237", frameBorder: "0", "class": "giphy-embed", allowFullScreen: true }),
 				React.createElement(
 					"form",
 					{ onSubmit: this.handleSubmit },
