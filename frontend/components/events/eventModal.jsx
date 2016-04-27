@@ -35,6 +35,8 @@ module.exports = React.createClass({
     return(
       <div>
 
+      <h1>Hello! This is the EventModal Componenet</h1>
+
         <div className="event-detail-pane">
 
           <div className="detail">

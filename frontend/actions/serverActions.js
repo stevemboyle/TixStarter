@@ -1,6 +1,7 @@
 var Dispatcher = require('../dispatcher/dispatcher.js');
 var EventConstants = require('../constants/eventConstants.js');
 var UserConstants = require('../constants/userConstants.js');
+var ShowtimeConstants = require('../constants/showtimeConstants.js');
 
 module.exports = {
 
@@ -29,5 +30,24 @@ module.exports = {
       actionType: EventConstants.EVENT_RECEIVED,
       event: event
     });
+  },
+
+  // Showtimes Functions:
+
+  receiveAllShowtimes: function (showtimes) {
+    console.log("receiveAllShowtime called");
+    Dispatcher.dispatch({
+      actionType: ShowtimeConstants.SHOWTIMES_RECEIVED,
+      showtimes: showtimes
+    });
+  },
+
+  receiveSingleShowtime: function (showtime) {
+    console.log("receiveSingleShowtime called");
+    Dispatcher.dispatch({
+      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
+      showtime: showtime
+    });
   }
+
 };

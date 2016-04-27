@@ -34387,62 +34387,62 @@
 	        ServerActions.receiveAllShowtimes(showtimes);
 	      }
 	    });
-	  }
-	};
+	  },
 
-	//
-	// fetchSingleShowtime: function (id) {
-	//   $.ajax({
-	//     url: "api/showtime/" + id,
-	//     success: function (showtime) {
-	//       ServerActions.receiveSingleShowtime(showtime);
-	//     }
-	//   });
-	// },
-	//
-	// createShowtime: function (showtime, callback) {
-	//   $.ajax({
-	//     url: "api/showtime",
-	//     method: "POST",
-	//     data: {showtime: showtime},
-	//     success: function (showtime) {
-	//       ServerActions.receiveSingleShowtime(showtime);
-	//       callback && callback(showtime.id);
-	//     }
-	//   });
-	// }
-	//
-	// // Ticket Functions
-	//
-	// fetchAllTickets: function () {
-	//   $.ajax({
-	//     url: "api/ticket",
-	//     success: function (tickets) {
-	//       ServerActions.receiveAllTickets(tickets);
-	//     }
-	//   });
-	// },
-	//
-	// fetchSingleTicket: function (id) {
-	//   $.ajax({
-	//     url: "api/ticket/" + id,
-	//     success: function (ticket) {
-	//       ServerActions.receiveSingleTicket(ticket);
-	//     }
-	//   });
-	// },
-	//
-	// createTicket: function (ticket, callback) {
-	//   $.ajax({
-	//     url: "api/ticket",
-	//     method: "POST",
-	//     data: {ticket: ticket},
-	//     success: function (ticket) {
-	//       ServerActions.receiveSingleTicket(ticket);
-	//       callback && callback(ticket.id);
-	//     }
-	//   });
-	// }
+	  fetchSingleShowtime: function (id) {
+	    $.ajax({
+	      url: "api/showtime/" + id,
+	      success: function (showtime) {
+	        ServerActions.receiveSingleShowtime(showtime);
+	      }
+	    });
+	  },
+
+	  createShowtime: function (showtime, callback) {
+	    $.ajax({
+	      url: "api/showtime",
+	      method: "POST",
+	      data: { showtime: showtime },
+	      success: function (showtime) {
+	        ServerActions.receiveSingleShowtime(showtime);
+	        callback && callback(showtime.id);
+	      }
+	    });
+	  },
+
+	  // Ticket Functions
+
+	  fetchAllTickets: function () {
+	    $.ajax({
+	      url: "api/ticket",
+	      success: function (tickets) {
+	        ServerActions.receiveAllTickets(tickets);
+	      }
+	    });
+	  },
+
+	  fetchSingleTicket: function (id) {
+	    $.ajax({
+	      url: "api/ticket/" + id,
+	      success: function (ticket) {
+	        ServerActions.receiveSingleTicket(ticket);
+	      }
+	    });
+	  },
+
+	  createTicket: function (ticket, callback) {
+	    $.ajax({
+	      url: "api/ticket",
+	      method: "POST",
+	      data: { ticket: ticket },
+	      success: function (ticket) {
+	        ServerActions.receiveSingleTicket(ticket);
+	        callback && callback(ticket.id);
+	      }
+	    });
+	  }
+
+	};
 
 	window.ApiUtil = ApiUtil; //Just for testing
 
@@ -34455,6 +34455,7 @@
 	var Dispatcher = __webpack_require__(259);
 	var EventConstants = __webpack_require__(262);
 	var UserConstants = __webpack_require__(268);
+	var ShowtimeConstants = __webpack_require__(284);
 
 	module.exports = {
 
@@ -34483,7 +34484,26 @@
 	      actionType: EventConstants.EVENT_RECEIVED,
 	      event: event
 	    });
+	  },
+
+	  // Showtimes Functions:
+
+	  receiveAllShowtimes: function (showtimes) {
+	    console.log("receiveAllShowtime called");
+	    Dispatcher.dispatch({
+	      actionType: ShowtimeConstants.SHOWTIMES_RECEIVED,
+	      showtimes: showtimes
+	    });
+	  },
+
+	  receiveSingleShowtime: function (showtime) {
+	    console.log("receiveSingleShowtime called");
+	    Dispatcher.dispatch({
+	      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
+	      showtime: showtime
+	    });
 	  }
+
 	};
 
 /***/ },
@@ -35350,6 +35370,11 @@
 	      'div',
 	      null,
 	      React.createElement(
+	        'h1',
+	        null,
+	        'Hello! This is the EventModal Componenet'
+	      ),
+	      React.createElement(
 	        'div',
 	        { className: 'event-detail-pane' },
 	        React.createElement(
@@ -35394,12 +35419,15 @@
 	var EventStore = __webpack_require__(240);
 	var ShowtimesIndex = __webpack_require__(263);
 	var ClientActions = __webpack_require__(265);
+	var TicketsIndex = __webpack_require__(281);
+	var ShowtimeStore = __webpack_require__(283);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
 	  getStateFromStore: function () {
-	    return { showtime: EventStore.find(parseInt(this.props.showtime.id)) };
+	    // TODO: Showtime Store is not returning a Showtime with ID of 1
+	    return { showtime: ShowtimeStore.find(parseInt(this.props.showtime.id)) };
 	  },
 
 	  // _onChange: function () {
@@ -35439,7 +35467,6 @@
 	          null,
 	          'Hello! This is the ShowtimeModal!'
 	        ),
-	        React.createElement('div', { className: 'detail' }),
 	        React.createElement(
 	          'h2',
 	          { className: 'detail-header' },
@@ -35460,6 +35487,144 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var TicketIndexItem = __webpack_require__(282);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      null,
+	      this.props.tickets && this.props.tickets.map(function (ticket) {
+	        return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
+	      })
+	    );
+	  }
+	});
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Modal = __webpack_require__(218);
+	var TicketsIndex = __webpack_require__(282);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+
+	  render: function () {
+	    var attrs = ['name', 'happiness', 'price'].map(function (attr) {
+	      return React.createElement(
+	        'p',
+	        { key: attr },
+	        attr,
+	        ': ',
+	        this.props.showtime[attr]
+	      );
+	    }.bind(this));
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'p',
+	          null,
+	          'Hey!'
+	        ),
+	        React.createElement(
+	          'li',
+	          { className: 'showtime-list-item' },
+	          React.createElement(
+	            'p',
+	            null,
+	            'Hey! Hey!'
+	          ),
+	          attrs
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(241).Store;
+	var AppDispatcher = __webpack_require__(259);
+	var ShowtimeConstants = __webpack_require__(284);
+	var ShowtimeStore = new Store(AppDispatcher);
+
+	var _showtimes = {};
+
+	var resetShowtimes = function (showtimes) {
+	  console.log('resetShowtimes');
+	  console.log(["showtimes", showtimes]);
+	  _showtimes = {};
+	  showtimes.forEach(function (showtime) {
+	    _showtimes[showtime.id] = showtime;
+	  });
+	  console.log(["_showtimes", _showtimes]);
+	};
+
+	var resetShowtime = function (showtime) {
+	  _showtimes[showtime.id] = showtime;
+	};
+
+	ShowtimeStore.all = function () {
+	  var showtimes = [];
+	  for (var id in _showtimes) {
+	    showtimes.push(_showtimes[id]);
+	  }
+	  return showtimes;
+	};
+
+	ShowtimeStore.find = function (id) {
+	  console.log("FYI, the Showtime.Store.find function has been called.");
+	  console.log("I'm guessing it returned 'undefined'.");
+	  console.log("Which is why our ShowtimeModal component isn't rendering");
+	  console.log("Seems to me this would be a good spot for a debugger!");
+	  return _showtimes[id];
+	};
+
+	ShowtimeStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ShowtimeConstants.SHOWTIMES_RECEIVED:
+	      resetShowtimes(payload.showtimes);
+	      ShowtimeStore.__emitChange();
+	      break;
+	    case ShowtimeConstants.SHOWTIME_RECEIVED:
+	      resetShowtime(payload.showtime);
+	      ShowtimeStore.__emitChange();
+	      break;
+	  }
+	};
+
+	module.exports = ShowtimeStore;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  SHOWTIMES_RECEIVED: "SHOWTIMES_RECEIVED",
+	  SHOWTIME_RECEIVED: "SHOWTIME_RECEIVED"
+	};
 
 /***/ }
 /******/ ]);

@@ -62,59 +62,59 @@ var ApiUtil = {
       }
     });
   },
-  //
-  // fetchSingleShowtime: function (id) {
-  //   $.ajax({
-  //     url: "api/showtime/" + id,
-  //     success: function (showtime) {
-  //       ServerActions.receiveSingleShowtime(showtime);
-  //     }
-  //   });
-  // },
-  //
-  // createShowtime: function (showtime, callback) {
-  //   $.ajax({
-  //     url: "api/showtime",
-  //     method: "POST",
-  //     data: {showtime: showtime},
-  //     success: function (showtime) {
-  //       ServerActions.receiveSingleShowtime(showtime);
-  //       callback && callback(showtime.id);
-  //     }
-  //   });
-  // }
-  //
-  // // Ticket Functions
-  //
-  // fetchAllTickets: function () {
-  //   $.ajax({
-  //     url: "api/ticket",
-  //     success: function (tickets) {
-  //       ServerActions.receiveAllTickets(tickets);
-  //     }
-  //   });
-  // },
-  //
-  // fetchSingleTicket: function (id) {
-  //   $.ajax({
-  //     url: "api/ticket/" + id,
-  //     success: function (ticket) {
-  //       ServerActions.receiveSingleTicket(ticket);
-  //     }
-  //   });
-  // },
-  //
-  // createTicket: function (ticket, callback) {
-  //   $.ajax({
-  //     url: "api/ticket",
-  //     method: "POST",
-  //     data: {ticket: ticket},
-  //     success: function (ticket) {
-  //       ServerActions.receiveSingleTicket(ticket);
-  //       callback && callback(ticket.id);
-  //     }
-  //   });
-  // }
+
+  fetchSingleShowtime: function (id) {
+    $.ajax({
+      url: "api/showtime/" + id,
+      success: function (showtime) {
+        ServerActions.receiveSingleShowtime(showtime);
+      }
+    });
+  },
+
+  createShowtime: function (showtime, callback) {
+    $.ajax({
+      url: "api/showtime",
+      method: "POST",
+      data: {showtime: showtime},
+      success: function (showtime) {
+        ServerActions.receiveSingleShowtime(showtime);
+        callback && callback(showtime.id);
+      }
+    });
+  },
+
+  // Ticket Functions
+
+  fetchAllTickets: function () {
+    $.ajax({
+      url: "api/ticket",
+      success: function (tickets) {
+        ServerActions.receiveAllTickets(tickets);
+      }
+    });
+  },
+
+  fetchSingleTicket: function (id) {
+    $.ajax({
+      url: "api/ticket/" + id,
+      success: function (ticket) {
+        ServerActions.receiveSingleTicket(ticket);
+      }
+    });
+  },
+
+  createTicket: function (ticket, callback) {
+    $.ajax({
+      url: "api/ticket",
+      method: "POST",
+      data: {ticket: ticket},
+      success: function (ticket) {
+        ServerActions.receiveSingleTicket(ticket);
+        callback && callback(ticket.id);
+      }
+    });
+  }
 
 };
 

@@ -2,10 +2,13 @@ var React = require('react');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/clientActions.js');
+var TicketsIndex = require('../tickets/index');
+var ShowtimeStore = require('../../stores/showtime.js');
 
 module.exports = React.createClass({
   getStateFromStore: function () {
-    return { showtime: EventStore.find(parseInt(this.props.showtime.id)) };
+    // TODO: Showtime Store is not returning a Showtime with ID of 1
+    return { showtime: ShowtimeStore.find(parseInt(this.props.showtime.id)) };
   },
 
   // _onChange: function () {
@@ -39,9 +42,6 @@ module.exports = React.createClass({
 
         <h1>Hello! This is the ShowtimeModal!</h1>
 
-          <div className="detail">
-          </div>
-
           <h2 className='detail-header'>Showtimes: </h2>
           <TicketsIndex tickets={this.state.showtime.tickets} />
 
@@ -49,10 +49,6 @@ module.exports = React.createClass({
           <button>Button 2</button>
 
         </div>
-
-
-
-
 
       </div>
     );
