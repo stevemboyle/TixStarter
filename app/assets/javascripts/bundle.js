@@ -27069,7 +27069,10 @@
 	  // mixins: [CurrentUserState],
 
 	  getInitialState: function () {
-	    return { signInModalOpen: false, signUpModalOpen: false };
+	    return { signInModalOpen: false,
+	      signUpModalOpen: false,
+	      demoAccountModalOpen: false
+	    };
 	  },
 
 	  openSignInModal: function () {
@@ -27086,6 +27089,14 @@
 
 	  closeSignUpModal: function () {
 	    this.setState({ signUpModalOpen: false });
+	  },
+
+	  openDemoAccountModal: function () {
+	    this.setState({ demoAccountModalOpen: true });
+	  },
+
+	  closeDemoAccountModal: function () {
+	    this.setState({ demoAccountModalOpen: false });
 	  },
 
 	  render: function () {
@@ -27115,6 +27126,11 @@
 	          'button',
 	          { onClick: this.openSignUpModal },
 	          'Sign Up'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openDemoAccountModal },
+	          'Demo Account'
 	        )
 	      ),
 	      React.createElement(
@@ -27133,6 +27149,12 @@
 	          '(The below component is LoginModal)'
 	        ),
 	        React.createElement(LoginModal, null),
+	        React.createElement('br', null),
+	        React.createElement('iframe', { width: '{854/1.5}',
+	          height: '{480/1.5}',
+	          src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
+	          frameborder: '0',
+	          allowfullscreen: true }),
 	        React.createElement(
 	          'p',
 	          null,
@@ -27155,6 +27177,33 @@
 	          '(The below component is LoginModal)'
 	        ),
 	        React.createElement(LoginModal, null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.demoAccountModalOpen,
+	          onRequestClose: this.closeDemoAccountModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Demo Account'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'This feature does not yet exist. So, sit tight, watch Hamilton, and I\'ll have this cranked out in a jiffy:'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('iframe', { width: '{854/1.2}',
+	          height: '{480/1.2}',
+	          src: 'https://www.youtube.com/embed/6ibySV-saJ8',
+	          frameborder: '0',
+	          allowfullscreen: true }),
 	        React.createElement(
 	          'p',
 	          null,
