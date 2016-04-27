@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   has_many :events
-  
+
   after_initialize :ensure_session_token
 
     def self.find_by_credentials(username, password)
@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
     end
 
     def password=(password)
-      @password = password
       self.password_digest = BCrypt::Password.create(password)
+      @password = password
     end
 
     def valid_password?(password)

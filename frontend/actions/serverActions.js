@@ -7,13 +7,6 @@ module.exports = {
 
   // User Functions:
 
-  receivePost: function (user) {
-    Dispatcher.dispatch({
-      actionType: UserConstants.USER_RECEIVED,
-      user: user
-    });
-  },
-
   // Events Functions:
 
   receiveAllEvents: function (events) {

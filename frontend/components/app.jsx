@@ -3,20 +3,22 @@ var EventForm = require('./events/form');
 var EventIndex = require('./events/index');
 // var LoginForm = require('./users/usersLoginForm');
 var LoginModal = require('./users/loginModal');
+var CreateEventModal = require('./events/createEventModal');
 
 var Modal = require("react-modal");
 
 //Mixins
-// var CurrentUserState = require('.././mixins/currentUserState');
+var CurrentUserState = require('.././mixins/currentUserState');
 
 module.exports = React.createClass({
 
-  // mixins: [CurrentUserState],
+  mixins: [CurrentUserState],
 
   getInitialState: function(){
      return({ signInModalOpen: false,
               signUpModalOpen: false,
-              demoAccountModalOpen: false
+              demoAccountModalOpen: false,
+              createEventModalOpen: false
             });
    },
 
@@ -44,6 +46,15 @@ module.exports = React.createClass({
      this.setState({ demoAccountModalOpen: false });
    },
 
+    openCreateEventModal: function(){
+        this.setState({ createEventModalOpen: true });
+    },
+
+    closeCreateEventModal: function(){
+      this.setState({ createEventModalOpen: false });
+    },
+
+
 
   render: function () {
 
@@ -58,9 +69,10 @@ module.exports = React.createClass({
           <button onClick={this.openSignInModal}>Sign In</button>
           <button onClick={this.openSignUpModal}>Sign Up</button>
           <button onClick={this.openDemoAccountModal}>Demo Account</button>
+          <button onClick={this.openCreateEventModal}>Create Event</button>
         </div>
 
-        <Modal
+        <Modal 
           isOpen={this.state.signInModalOpen}
           onRequestClose={this.closeSignInModal}>
 
@@ -123,6 +135,16 @@ module.exports = React.createClass({
             </iframe>
 
             <p>mooooooooodal!</p>
+
+        </Modal>
+
+        <Modal
+          isOpen={this.state.createEventModalOpen}
+          onRequestClose={this.closeCreateEventModal}>
+
+            <h2>CreateEventModal</h2>
+
+            <CreateEventModal />
 
         </Modal>
 

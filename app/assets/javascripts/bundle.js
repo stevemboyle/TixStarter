@@ -27056,22 +27056,24 @@
 	var EventIndex = __webpack_require__(276);
 	// var LoginForm = require('./users/usersLoginForm');
 	var LoginModal = __webpack_require__(278);
+	var CreateEventModal = __webpack_require__(288);
 
 	var Modal = __webpack_require__(218);
 
 	//Mixins
-	// var CurrentUserState = require('.././mixins/currentUserState');
+	var CurrentUserState = __webpack_require__(270);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
 
-	  // mixins: [CurrentUserState],
+	  mixins: [CurrentUserState],
 
 	  getInitialState: function () {
 	    return { signInModalOpen: false,
 	      signUpModalOpen: false,
-	      demoAccountModalOpen: false
+	      demoAccountModalOpen: false,
+	      createEventModalOpen: false
 	    };
 	  },
 
@@ -27097,6 +27099,14 @@
 
 	  closeDemoAccountModal: function () {
 	    this.setState({ demoAccountModalOpen: false });
+	  },
+
+	  openCreateEventModal: function () {
+	    this.setState({ createEventModalOpen: true });
+	  },
+
+	  closeCreateEventModal: function () {
+	    this.setState({ createEventModalOpen: false });
 	  },
 
 	  render: function () {
@@ -27131,6 +27141,11 @@
 	          'button',
 	          { onClick: this.openDemoAccountModal },
 	          'Demo Account'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openCreateEventModal },
+	          'Create Event'
 	        )
 	      ),
 	      React.createElement(
@@ -27220,6 +27235,18 @@
 	          null,
 	          'mooooooooodal!'
 	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createEventModalOpen,
+	          onRequestClose: this.closeCreateEventModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'CreateEventModal'
+	        ),
+	        React.createElement(CreateEventModal, null)
 	      ),
 	      React.createElement('div', null),
 	      React.createElement(
@@ -34275,10 +34302,6 @@
 
 	  // User Functions
 
-	  createUser: function (data) {
-	    ApiUtil.createUser(data);
-	  },
-
 	  // Event Functions
 
 	  fetchAllEvents: function () {
@@ -34371,7 +34394,8 @@
 
 	  createEvent: function (event, callback) {
 	    $.ajax({
-	      url: "api/event",
+	      url: "api/events",
+	      // Changed "event" to "events"
 	      method: "POST",
 	      data: { event: event },
 	      success: function (event) {
@@ -34463,13 +34487,6 @@
 	module.exports = {
 
 	  // User Functions:
-
-	  receivePost: function (user) {
-	    Dispatcher.dispatch({
-	      actionType: UserConstants.USER_RECEIVED,
-	      user: user
-	    });
-	  },
 
 	  // Events Functions:
 
@@ -34618,35 +34635,37 @@
 
 /***/ },
 /* 270 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// var UserStore = require('../stores/user');
-	// var UserActions = require('../actions/userActions');
-	//
-	// var CurrentUserState = {
-	//
-	// 	getInitialState: function(){
-	// 		return {
-	// 			currentUser: UserStore.currentUser(),
-	// 			userErrors: UserStore.errors()
-	// 		};
-	// 	},
-	// 	componentDidMount: function(){
-	// 		UserStore.addListener(this.updateUser);
-	// 		if (typeof UserStore.currentUser() === 'undefined') {
-	// 			UserActions.fetchCurrentUser();
-	// 		}
-	// 	},
-	// 	updateUser: function(){
-	// 		this.setState({
-	// 			currentUser: UserStore.currentUser(),
-	// 			userErrors: UserStore.errors()
-	// 		});
-	// 	}
-	//
-	// };
-	//
-	// module.exports = CurrentUserState;
+	var UserStore = __webpack_require__(285);
+	var UserActions = __webpack_require__(286);
+
+	var CurrentUserState = {
+
+	  getInitialState: function () {
+	    return {
+	      currentUser: UserStore.currentUser(),
+	      userErrors: UserStore.errors()
+	    };
+	  },
+
+	  componentDidMount: function () {
+	    UserStore.addListener(this.updateUser);
+	    if (typeof UserStore.currentUser() === 'undefined') {
+	      UserActions.fetchCurrentUser();
+	    }
+	  },
+
+	  updateUser: function () {
+	    this.setState({
+	      currentUser: UserStore.currentUser(),
+	      userErrors: UserStore.errors()
+	    });
+	  }
+
+	};
+
+	module.exports = CurrentUserState;
 
 /***/ },
 /* 271 */
@@ -35196,142 +35215,255 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
-	// var UserActions = require("../../actions/userActions");
-	// var CurrentUserState = require("../../mixins/currentUserState");
+	var LinkedStateMixin = __webpack_require__(272);
 
-	var ClientActions = __webpack_require__(265);
+	var UserActions = __webpack_require__(286);
+	var CurrentUserState = __webpack_require__(270);
 
 	var LoginModal = React.createClass({
-		displayName: "LoginModal",
+		displayName: 'LoginModal',
 
 
-		// mixins: [LinkedStateMixin, CurrentUserState],
+		mixins: [LinkedStateMixin, CurrentUserState],
 
 		// mixins: [CurrentUserState],
 
 		getInitialState: function () {
-			return { username: "",
-				password: "",
-				firstName: "",
-				lastName: ""
-			};
+			return { form: "login" };
 		},
 
-		usernameChange: function (keyboardEvent) {
-			var newUsername = keyboardEvent.target.value;
-			this.setState({ username: newUsername });
-			console.log("");
-			console.log("Username: " + this.state.username);
-			console.log("Password: " + this.state.password);
-			console.log("First Name: " + this.state.firstName);
-			console.log("Last Name: " + this.state.lastName);
-			console.log("");
-		},
-
-		passwordChange: function (keyboardEvent) {
-			var newPassword = keyboardEvent.target.value;
-			this.setState({ password: newPassword });
-			console.log("");
-			console.log("Username: " + this.state.username);
-			console.log("Password: " + this.state.password);
-			console.log("First Name: " + this.state.firstName);
-			console.log("Last Name: " + this.state.lastName);
-			console.log("");
-		},
-
-		firstNameChange: function (keyboardEvent) {
-			var newFirstName = keyboardEvent.target.value;
-			this.setState({ firstName: newFirstName });
-			console.log("");
-			console.log("Username: " + this.state.username);
-			console.log("Password: " + this.state.password);
-			console.log("First Name: " + this.state.firstName);
-			console.log("Last Name: " + this.state.lastName);
-			console.log("");
-		},
-
-		lastNameChange: function (keyboardEvent) {
-			var newLastName = keyboardEvent.target.value;
-			this.setState({ lastName: newLastName });
-			console.log("");
-			console.log("Username: " + this.state.username);
-			console.log("Password: " + this.state.password);
-			console.log("First Name: " + this.state.firstName);
-			console.log("Last Name: " + this.state.lastName);
-			console.log("");
+		setForm: function (keyboardEvent) {
+			this.setState({ form: keyboardEvent.currentTarget.value });
 		},
 
 		handleSubmit: function (keyboardEvent) {
 			keyboardEvent.preventDefault();
-			var userData = {
+			UserActions[this.state.form]({
 				username: this.state.username,
-				password: this.state.password,
-				firstName: this.state.firstName,
-				lastName: this.state.lastName
-			};
-			ClientActions.createUser(userData);
+				password: this.state.password
+			});
+		},
+
+		logout: function (keyboardEvent) {
+			keyboardEvent.preventDefault();
+			UserActions.logout();
+		},
+
+		greeting: function () {
+			if (!this.state.currentUser) {
+				return;
+			}
+
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'h2',
+					null,
+					'Hi, ',
+					this.state.currentUser.username,
+					'!'
+				),
+				React.createElement('input', { type: 'submit', value: 'logout', onClick: this.logout })
+			);
+		},
+
+		errors: function () {
+			if (!this.state.userErrors) {
+				return;
+			}
+
+			var self = this;
+			return React.createElement(
+				'ul',
+				null,
+				Object.keys(this.state.userErrors).map(function (key, i) {
+					return React.createElement(
+						'li',
+						{ key: i },
+						self.state.userErrors[key]
+					);
+				})
+			);
+		},
+
+		form: function () {
+			if (this.state.currentUser) {
+				return;
+			}
+
+			return React.createElement(
+				'form',
+				{ onSubmit: this.handleSubmit },
+				React.createElement(
+					'section',
+					null,
+					React.createElement(
+						'label',
+						null,
+						' Username:',
+						React.createElement('input', { type: 'text', valueLink: this.linkState("username") })
+					),
+					React.createElement(
+						'label',
+						null,
+						' Password:',
+						React.createElement('input', { type: 'password', valueLink: this.linkState("password") })
+					)
+				),
+				React.createElement(
+					'section',
+					null,
+					React.createElement(
+						'label',
+						null,
+						' Login',
+						React.createElement('input', { type: 'Radio', name: 'action', value: 'login', onChange: this.setForm })
+					),
+					React.createElement(
+						'label',
+						null,
+						' Sign Up',
+						React.createElement('input', { type: 'Radio', name: 'action', value: 'signup', onChange: this.setForm })
+					)
+				),
+				React.createElement('input', { type: 'Submit', value: 'Submit' })
+			);
 		},
 
 		render: function () {
 			return React.createElement(
-				"div",
-				{ id: "login-form" },
-				React.createElement("iframe", { src: "//giphy.com/embed/OF0yOAufcWLfi", width: "480", height: "237", frameBorder: "0", "class": "giphy-embed", allowFullScreen: true }),
-				React.createElement(
-					"form",
-					{ onSubmit: this.handleSubmit },
-					React.createElement("br", null),
-					React.createElement(
-						"label",
-						null,
-						" Username:",
-						React.createElement("input", {
-							type: "text",
-							value: this.state.username,
-							onChange: this.usernameChange
-						})
-					),
-					React.createElement("br", null),
-					React.createElement(
-						"label",
-						null,
-						" Password:",
-						React.createElement("input", {
-							type: "password",
-							value: this.state.password,
-							onChange: this.passwordChange
-						})
-					),
-					React.createElement("br", null),
-					React.createElement(
-						"label",
-						null,
-						" First Name:",
-						React.createElement("input", {
-							type: "text",
-							value: this.state.firstName,
-							onChange: this.firstNameChange
-						})
-					),
-					React.createElement("br", null),
-					React.createElement(
-						"label",
-						null,
-						" Last Name:",
-						React.createElement("input", {
-							type: "text",
-							value: this.state.lastName,
-							onChange: this.lastNameChange
-						})
-					),
-					React.createElement("br", null),
-					React.createElement("br", null),
-					React.createElement("br", null),
-					React.createElement("input", { type: "Submit", value: "Submit" })
-				)
+				'div',
+				{ id: 'login-form' },
+				this.greeting(),
+				this.errors(),
+				this.form()
 			);
 		}
+
+		//
+		// getInitialState: function(){
+		// 	return ({ username: "",
+		// 						password: "",
+		// 						firstName: "",
+		// 						lastName: ""
+		// 					});
+		// },
+		//
+		// usernameChange: function(keyboardEvent){
+		// 	var newUsername = keyboardEvent.target.value;
+		// 	this.setState({ username: newUsername});
+		// 	console.log("");
+		// 	console.log("Username: " + this.state.username);
+		// 	console.log("Password: " + this.state.password);
+		// 	console.log("First Name: " + this.state.firstName);
+		// 	console.log("Last Name: " + this.state.lastName);
+		// 	console.log("");
+		// },
+		//
+		// passwordChange: function(keyboardEvent){
+		// 	var newPassword = keyboardEvent.target.value;
+		// 	this.setState({ password: newPassword});
+		// 	console.log("");
+		// 	console.log("Username: " + this.state.username);
+		// 	console.log("Password: " + this.state.password);
+		// 	console.log("First Name: " + this.state.firstName);
+		// 	console.log("Last Name: " + this.state.lastName);
+		// 	console.log("");
+		// },
+		//
+		// firstNameChange: function(keyboardEvent){
+		// 	var newFirstName= keyboardEvent.target.value;
+		// 	this.setState({ firstName: newFirstName});
+		// 	console.log("");
+		// 	console.log("Username: " + this.state.username);
+		// 	console.log("Password: " + this.state.password);
+		// 	console.log("First Name: " + this.state.firstName);
+		// 	console.log("Last Name: " + this.state.lastName);
+		// 	console.log("");
+		// },
+		//
+		// lastNameChange: function(keyboardEvent){
+		// 	var newLastName= keyboardEvent.target.value;
+		// 	this.setState({ lastName: newLastName});
+		// 	console.log("");
+		// 	console.log("Username: " + this.state.username);
+		// 	console.log("Password: " + this.state.password);
+		// 	console.log("First Name: " + this.state.firstName);
+		// 	console.log("Last Name: " + this.state.lastName);
+		// 	console.log("");
+		// },
+		//
+		// handleSubmit: function(keyboardEvent){
+		// 	keyboardEvent.preventDefault();
+		// 	var userData = {
+		// 		username: this.state.username,
+		// 		password: this.state.password,
+		// 		firstName: this.state.firstName,
+		// 		lastName: this.state.lastName
+		// 	};
+		// 	ClientActions.createUser(userData);
+		// },
+		//
+		// render: function(){
+		// 	return (
+		// 		<div id="login-form">
+		//
+		// 		<iframe src="//giphy.com/embed/OF0yOAufcWLfi" width="480" height="237" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+		//
+		// 			<form onSubmit={this.handleSubmit}>
+		//
+		// 				<br></br>
+		//
+		// 					<label> Username:
+		// 						<input
+		// 								type="text"
+		// 								value={this.state.username}
+		// 								onChange={this.usernameChange}
+		// 						/>
+		// 					</label>
+		//
+		// 					<br></br>
+		//
+		// 					<label> Password:
+		// 						<input
+		// 								type="password"
+		// 								value={this.state.password}
+		// 								onChange={this.passwordChange}
+		// 						/>
+		// 					</label>
+		//
+		// 					<br></br>
+		//
+		// 					<label> First Name:
+		// 						<input
+		// 								type="text"
+		// 								value={this.state.firstName}
+		// 								onChange={this.firstNameChange}
+		// 						/>
+		// 					</label>
+		//
+		// 					<br></br>
+		//
+		// 					<label> Last Name:
+		// 						<input
+		// 								type="text"
+		// 								value={this.state.lastName}
+		// 								onChange={this.lastNameChange}
+		// 						/>
+		// 					</label>
+		//
+		// 					<br></br>
+		//
+		// 					<br></br>
+		//
+		// 					<br></br>
+		//
+		// 				<input type="Submit" value="Submit"/>
+		// 			</form>
+		// 		</div>
+		// 	);
+		// }
 	});
 
 	module.exports = LoginModal;
@@ -35581,6 +35713,8 @@
 	var AppDispatcher = __webpack_require__(259);
 	var ShowtimeConstants = __webpack_require__(284);
 	var ShowtimeStore = new Store(AppDispatcher);
+	var ClientActions = __webpack_require__(265);
+	var ApiUtil = __webpack_require__(266);
 
 	var _showtimes = {};
 
@@ -35607,6 +35741,7 @@
 	};
 
 	ShowtimeStore.find = function (id) {
+	  // ClientActions.fetchAllShowtimes();
 	  console.log("FYI, the Showtime.Store.find function has been called.");
 	  console.log("I'm guessing it returned 'undefined'.");
 	  console.log("Which is why our ShowtimeModal component isn't rendering");
@@ -35617,6 +35752,7 @@
 	ShowtimeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case ShowtimeConstants.SHOWTIMES_RECEIVED:
+	      console.log("SHOWTIMES_RECEIVED");
 	      resetShowtimes(payload.showtimes);
 	      ShowtimeStore.__emitChange();
 	      break;
@@ -35637,6 +35773,351 @@
 	  SHOWTIMES_RECEIVED: "SHOWTIMES_RECEIVED",
 	  SHOWTIME_RECEIVED: "SHOWTIME_RECEIVED"
 	};
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(241).Store;
+	// var UserConstants = require('../constants/userConstants.js');
+	var AppDispatcher = __webpack_require__(259);
+
+	var UserStore = new Store(AppDispatcher);
+
+	var _currentUser, _errors;
+
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "LOGIN":
+	      UserStore.login(payload.user);
+	      break;
+	    case "LOGOUT":
+	      UserStore.logout();
+	      break;
+	    case "ERROR":
+	      UserStore.setErrors(payload.errors);
+	      break;
+	  }
+	  UserStore.__emitChange();
+	};
+
+	UserStore.login = function (user) {
+	  _currentUser = user;
+	  _errors = null;
+	};
+
+	UserStore.logout = function () {
+	  _currentUser = null;
+	  _errors = null;
+	};
+
+	UserStore.currentUser = function () {
+	  if (_currentUser) {
+	    return $.extend({}, _currentUser);
+	    // TODO: What does this ^ mean?
+	  }
+	};
+
+	UserStore.setErrors = function (errors) {
+	  _errors = errors;
+	};
+
+	UserStore.errors = function () {
+	  if (_errors) {
+	    return [].slice.call(_errors);
+	  }
+	};
+
+	module.exports = UserStore;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(259);
+	var UserConstants = __webpack_require__(268);
+	var UserApiUtil = __webpack_require__(287);
+	var UserStore = __webpack_require__(285);
+	var App = __webpack_require__(238);
+
+	var UserActions = {
+
+	  fetchCurrentUser: function () {
+	    UserApiUtil.fetchCurrentUser(UserActions.receiveCurrentUser, UserActions.handleError);
+	  },
+
+	  signup: function (user) {
+	    UserApiUtil.post({
+	      url: "/api/user",
+	      user: user,
+	      success: UserActions.receiveCurrentUser,
+	      // success: function(){
+	      //   UserActions.receiveCurrentUser,
+	      //   App.closeSignInModal;
+	      //   App.closeSignUpModal;
+	      // },
+	      error: UserActions.handleError
+	    });
+	  },
+
+	  login: function (user) {
+	    UserApiUtil.post({
+	      url: "/api/session",
+	      user: user,
+	      success: UserActions.receiveCurrentUSer,
+	      error: UserActions.handleError
+	    });
+	  },
+
+	  guestLogin: function () {
+	    UserActions.login({ username: "guest", password: "password" });
+	  },
+
+	  receiveCurrentUser: function (user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.LOGIN,
+	      user: user
+	    });
+	  },
+
+	  handleError: function (error) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.ERROR,
+	      errors: error.responseJSON.errors
+	    });
+	  },
+
+	  removeCurrentUser: function () {
+	    AppDispatcher.disaptch({
+	      actionType: UserConstants.LOGOUT
+	    });
+	  },
+
+	  logout: function () {
+	    UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
+	  }
+
+	};
+
+	module.exports = UserActions;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(259);
+
+	var UserApiUtil = {
+	  post: function (options) {
+	    $.ajax({
+	      url: options.url,
+	      type: "post",
+	      data: { user: options.user },
+	      success: options.succes,
+	      error: options.error
+	    });
+	  },
+
+	  logout: function (success, error) {
+	    $.ajax({
+	      url: "/api/session",
+	      method: "delete",
+	      success: success,
+	      error: error
+	    });
+	  },
+
+	  fetchCurrentUser: function (success, error) {
+	    $.ajax({
+	      url: "/api/session",
+	      method: "get",
+	      success: success,
+	      error: error
+	    });
+	  }
+
+	};
+
+	module.exports = UserApiUtil;
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ShowtimesIndex = __webpack_require__(263);
+	var ClientActions = __webpack_require__(265);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+
+	  getInitialState: function () {
+	    return {
+	      title: "",
+	      catchphrase: "",
+	      description: "",
+	      imageUrl: "",
+	      videoUrl: "",
+	      userId: "",
+	      revenueGoal: "",
+	      revenueStatus: 0
+	    };
+	  },
+
+	  titleChange: function (keyboardEvent) {
+	    var newTitle = keyboardEvent.target.value;
+	    this.setState({ title: newTitle });
+	    console.log("Title: " + this.state.title);
+	  },
+
+	  catchphraseChange: function (keyboardEvent) {
+	    var newCatchphrase = keyboardEvent.target.value;
+	    this.setState({ catchphrase: newCatchphrase });
+	  },
+
+	  descriptionChange: function (keyboardEvent) {
+	    var newDescription = keyboardEvent.target.value;
+	    this.setState({ description: newDescription });
+	  },
+
+	  imageUrlChange: function (keyboardEvent) {
+	    var newImageUrl = keyboardEvent.target.value;
+	    this.setState({ imageUrl: newImageUrl });
+	  },
+
+	  videoUrlChange: function (keyboardEvent) {
+	    var newVideoUrl = keyboardEvent.target.value;
+	    this.setState({ videoUrl: newVideoUrl });
+	  },
+
+	  userIdChange: function (keyboardEvent) {
+	    var newUserId = keyboardEvent.target.value;
+	    this.setState({ userId: newUserId });
+	  },
+
+	  revenueGoalChange: function (keyboardEvent) {
+	    var newRevenueGoal = keyboardEvent.target.value;
+	    this.setState({ revenueGoal: newRevenueGoal });
+	  },
+
+	  handleSubmit: function (keyboardEvent) {
+	    keyboardEvent.preventDefault();
+	    var eventData = {
+	      title: this.state.title,
+	      catchphrase: this.state.catchphrase,
+	      description: this.state.description,
+	      imageUrl: this.state.imageUrl,
+	      videoUrl: this.state.videoUrl,
+	      userId: this.state.userId,
+	      revenueGoal: this.state.revenueGoal,
+	      revenueStatus: 0
+	    };
+
+	    ClientActions.createEvent(eventData);
+	    // this.setState({
+	    //   title: "",
+	    //   catchphrase: "",
+	    //   description: "",
+	    //   imageUrl: "",
+	    //   videoUrl: "",
+	    //   userId: "",
+	    //   revenueGoal: "",
+	    //   revenueStatus: 0,
+	    // });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Create New Event'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Title:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.title,
+	            onChange: this.titleChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Catchphrase:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.catchphrase,
+	            onChange: this.catchphraseChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Description:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.description,
+	            onChange: this.descriptionChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' URL for Image to Embed:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.imageUrl,
+	            onChange: this.imageUrlChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' URL for Video to Embed:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.videoUrl,
+	            onChange: this.videoUrlChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' User Id:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.userId,
+	            onChange: this.userIdChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Revenue Goal:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.revenueGoal,
+	            onChange: this.revenueGoalChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Create Event' }),
+	        React.createElement('br', null)
+	      )
+	    );
+	  }
+
+	});
 
 /***/ }
 /******/ ]);

@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- 
+
 
   * {
     box-sizing: border-box;
@@ -36,6 +36,18 @@
   body {
    height: 100%;
  }
+
+h1 {
+  font-family: CodyStar;
+}
+
+/*.sign-up-modal {
+  background-color: grey;
+}*/
+
+.cody {
+  font-family: CodyStar;
+}
 
  #othermenu {
    background-color: purple;

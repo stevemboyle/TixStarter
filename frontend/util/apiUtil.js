@@ -42,7 +42,8 @@ var ApiUtil = {
 
   createEvent: function (event, callback) {
     $.ajax({
-      url: "api/event",
+      url: "api/events",
+      // Changed "event" to "events"
       method: "POST",
       data: {event: event},
       success: function (event) {

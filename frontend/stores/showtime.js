@@ -2,6 +2,8 @@ var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var ShowtimeConstants = require('../constants/showtimeConstants.js');
 var ShowtimeStore = new Store(AppDispatcher);
+var ClientActions = require('../actions/clientActions');
+var ApiUtil = require('../util/apiUtil');
 
 var _showtimes = {};
 
@@ -28,6 +30,7 @@ ShowtimeStore.all = function () {
 };
 
 ShowtimeStore.find = function (id) {
+  // ClientActions.fetchAllShowtimes();
   console.log("FYI, the Showtime.Store.find function has been called.");
   console.log("I'm guessing it returned 'undefined'.");
   console.log("Which is why our ShowtimeModal component isn't rendering");
@@ -38,6 +41,7 @@ ShowtimeStore.find = function (id) {
 ShowtimeStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case ShowtimeConstants.SHOWTIMES_RECEIVED:
+      console.log("SHOWTIMES_RECEIVED");
       resetShowtimes(payload.showtimes);
       ShowtimeStore.__emitChange();
       break;
