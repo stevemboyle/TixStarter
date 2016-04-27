@@ -34960,8 +34960,10 @@
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
-	// var EventDetail = require('./detail');
-	// var EventIndex = require('./index');
+	var EventDetail = __webpack_require__(239);
+	// var EventsIndex = require('./index');
+	var LoginModal = __webpack_require__(278);
+	var EventModal = __webpack_require__(279);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35025,6 +35027,7 @@
 	            null,
 	            'Im a modal!'
 	          ),
+	          React.createElement(EventModal, { event: this.props.event }),
 	          React.createElement(
 	            'p',
 	            null,
@@ -35040,6 +35043,8 @@
 	    );
 	  }
 	});
+
+	//  <EventDetail event={this.props.event} />
 
 /***/ },
 /* 278 */
@@ -35184,6 +35189,78 @@
 	});
 
 	module.exports = LoginModal;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ShowtimesIndex = __webpack_require__(263);
+	var ClientActions = __webpack_require__(265);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  getStateFromStore: function () {
+	    return { event: this.props.event };
+	  },
+
+	  // _onChange: function () {
+	  //   this.setState(this.getStateFromStore());
+	  // },
+
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
+
+	  // componentWillReceiveProps: function (newProps) {
+	  //   ClientActions.fetchSingleEvent(parseInt(newProps.params.eventId));
+	  // },
+
+	  // componentDidMount: function () {
+	  //   this.eventListener = EventStore.addListener(this._onChange);
+	  //   // ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
+	  // },
+	  //
+	  // componentWillUnmount: function () {
+	  //   this.eventListener.remove();
+	  // },
+
+	  render: function () {
+	    if (this.state.event === undefined) {
+	      return React.createElement('div', null);
+	    }
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'event-detail-pane' },
+	        React.createElement(
+	          'div',
+	          { className: 'detail' },
+	          ['title', 'description'].map(function (attr) {
+	            return React.createElement(
+	              'p',
+	              { key: attr },
+	              attr,
+	              ': ',
+	              this.state.event[attr]
+	            );
+	          }.bind(this))
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'detail-header' },
+	          'Showtimes: '
+	        ),
+	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

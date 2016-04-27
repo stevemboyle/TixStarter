@@ -1,7 +1,10 @@
 var React = require('react');
 var Modal = require("react-modal");
-// var EventDetail = require('./detail');
-// var EventIndex = require('./index');
+var EventDetail = require('./detail');
+// var EventsIndex = require('./index');
+var LoginModal = require('../users/loginModal');
+var EventModal = require('./eventModal');
+
 
 module.exports = React.createClass({
   contextTypes: {
@@ -43,6 +46,10 @@ module.exports = React.createClass({
 
                  <h2>Im a modal!</h2>
 
+                 <EventModal event={this.props.event}/>
+
+
+
 
                  <p>modal modal modal modal modal</p>
                  <p>mooooooooodal!</p>
@@ -57,3 +64,6 @@ module.exports = React.createClass({
     );
   }
 });
+
+
+//  <EventDetail event={this.props.event} />
