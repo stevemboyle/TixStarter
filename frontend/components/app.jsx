@@ -39,6 +39,8 @@ module.exports = React.createClass({
 
       <div>
 
+      <h1>Test</h1>
+
         <div id="othermenu">
           <p>hello</p>
           <button onClick={this.openSignInModal}>Sign In</button>
