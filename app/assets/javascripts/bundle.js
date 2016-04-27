@@ -35207,6 +35207,8 @@
 	var LoginModal = __webpack_require__(278);
 	var EventModal = __webpack_require__(279);
 
+	var UserStore = __webpack_require__(285);
+
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
@@ -35240,6 +35242,17 @@
 	  },
 
 	  render: function () {
+
+	    var editOptionForLoggedInUsers;
+
+	    if (UserStore.loggedIn()) {
+	      editOptionForLoggedInUsers = React.createElement(
+	        'button',
+	        { onClick: this.openEditEventModal },
+	        'Edit Event'
+	      );
+	    }
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -35273,11 +35286,7 @@
 	            this.props.event.description
 	          ),
 	          React.createElement('br', null),
-	          React.createElement(
-	            'button',
-	            { onClick: this.openEditEventModal },
-	            'Edit Event'
-	          )
+	          editOptionForLoggedInUsers
 	        )
 	      ),
 	      React.createElement(

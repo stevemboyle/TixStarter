@@ -5,7 +5,7 @@ var EventIndex = require('./events/index');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
 
-var SignUpModal = require('./users/signUpModal')
+var SignUpModal = require('./users/signUpModal');
 
 var UserStore = require('../stores/user');
 

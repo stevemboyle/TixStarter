@@ -5,6 +5,8 @@ var EventDetail = require('./detail');
 var LoginModal = require('../users/loginModal');
 var EventModal = require('./eventModal');
 
+var UserStore = require('../../stores/user');
+
 
 module.exports = React.createClass({
   contextTypes: {
@@ -38,6 +40,15 @@ module.exports = React.createClass({
   },
 
   render: function () {
+
+    var editOptionForLoggedInUsers;
+
+    if (UserStore.loggedIn()){
+      editOptionForLoggedInUsers =(
+        <button onClick={this.openEditEventModal}>Edit Event</button>
+      )
+    }
+
     return(
       <div>
         <div>
@@ -47,7 +58,7 @@ module.exports = React.createClass({
             <p><em>{this.props.event.catchphrase}</em></p>
             <p>{this.props.event.description}</p>
             <br></br>
-            <button onClick={this.openEditEventModal}>Edit Event</button>
+            {editOptionForLoggedInUsers}
           </li>
         </div>
 
