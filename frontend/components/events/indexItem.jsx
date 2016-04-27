@@ -34,6 +34,7 @@ module.exports = React.createClass({
 
           <li onClick={this.openEventDetailModal} className="event-list-item">
             <p><b>{this.props.event.title}</b></p>
+            <p><em>{this.props.event.catchphrase}</em></p>
             <p>{this.props.event.description}</p>
 
           </li>

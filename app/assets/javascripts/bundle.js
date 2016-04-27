@@ -34195,7 +34195,10 @@
 	  },
 
 	  render: function () {
-	    var attrs = ['name', 'happiness', 'price'].map(function (attr) {
+
+	    var attributeArray = ['id', 'event_id', 'date', 'time', 'location'];
+
+	    var attrs = attributeArray.map(function (attr) {
 	      return React.createElement(
 	        'p',
 	        { key: attr },
@@ -35138,6 +35141,15 @@
 	              'b',
 	              null,
 	              this.props.event.title
+	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            React.createElement(
+	              'em',
+	              null,
+	              this.props.event.catchphrase
 	            )
 	          ),
 	          React.createElement(
