@@ -58,17 +58,60 @@ module.exports = React.createClass({
       this.setState({ createEventModalOpen: false });
     },
 
+    // notLoggedInMenu: function(){
+    //   return(
+    //     <div id="othermenu">
+    //       <p>hello</p>
+    //       <button onClick={this.openSignInModal}>Sign In</button>
+    //       <button onClick={this.openSignUpModal}>Sign Up</button>
+    //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+    //       <button onClick={this.openCreateEventModal}>Create Event</button>
+    //     </div>
+    //   );
+    // },
 
+    // loggedInMenu: function(){
+    //   return(
+    //     <div id="othermenu">
+    //       <p>hello</p>
+    //       <button onClick={this.openSignInModal}>Sign In</button>
+    //       <button onClick={this.openSignUpModal}>Sign Up</button>
+    //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+    //       <button onClick={this.openCreateEventModal}>Create Event</button>
+    //     </div>
+    //   );
+    // },
 
   render: function () {
+
+    var menu;
+
+    var notLoggedInMenu =(
+      <div id="othermenu">
+        <p>hello</p>
+        <button onClick={this.openSignInModal}>Sign In</button>
+        <button onClick={this.openSignUpModal}>Sign Up</button>
+        <button onClick={this.openDemoAccountModal}>Demo Account</button>
+      </div>
+    );
+
+    var loggedInMenu =(
+      <div id="othermenu">
+        <p>hello</p>
+        <button onClick={this.openCreateEventModal}>Create Event</button>
+        <button onClick={this.openDemoAccountModal}>My Dashboard</button>
+        <button onClick={this.openDemoAccountModal}>Log Out</button>
+      </div>
+    );
 
     var loggedInMessageForSteve;
 
     if (UserStore.loggedIn()){
-      debugger;
       loggedInMessageForSteve = "Logged In!";
+      menu = loggedInMenu;
     } else {
       loggedInMessageForSteve = "NOT Logged In!";
+      menu = notLoggedInMenu;
     }
 
     return(
@@ -78,13 +121,7 @@ module.exports = React.createClass({
       <h1>Test</h1>
       <p>{loggedInMessageForSteve}</p>
 
-        <div id="othermenu">
-          <p>hello</p>
-          <button onClick={this.openSignInModal}>Sign In</button>
-          <button onClick={this.openSignUpModal}>Sign Up</button>
-          <button onClick={this.openDemoAccountModal}>Demo Account</button>
-          <button onClick={this.openCreateEventModal}>Create Event</button>
-        </div>
+      {menu}
 
         <Modal
           isOpen={this.state.signInModalOpen}

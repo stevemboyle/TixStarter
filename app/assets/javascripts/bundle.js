@@ -27119,15 +27119,92 @@
 	    this.setState({ createEventModalOpen: false });
 	  },
 
+	  // notLoggedInMenu: function(){
+	  //   return(
+	  //     <div id="othermenu">
+	  //       <p>hello</p>
+	  //       <button onClick={this.openSignInModal}>Sign In</button>
+	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
+	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
+	  //     </div>
+	  //   );
+	  // },
+
+	  // loggedInMenu: function(){
+	  //   return(
+	  //     <div id="othermenu">
+	  //       <p>hello</p>
+	  //       <button onClick={this.openSignInModal}>Sign In</button>
+	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
+	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
+	  //     </div>
+	  //   );
+	  // },
+
 	  render: function () {
+
+	    var menu;
+
+	    var notLoggedInMenu = React.createElement(
+	      'div',
+	      { id: 'othermenu' },
+	      React.createElement(
+	        'p',
+	        null,
+	        'hello'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openSignInModal },
+	        'Sign In'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openSignUpModal },
+	        'Sign Up'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openDemoAccountModal },
+	        'Demo Account'
+	      )
+	    );
+
+	    var loggedInMenu = React.createElement(
+	      'div',
+	      { id: 'othermenu' },
+	      React.createElement(
+	        'p',
+	        null,
+	        'hello'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openCreateEventModal },
+	        'Create Event'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openDemoAccountModal },
+	        'My Dashboard'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openDemoAccountModal },
+	        'Log Out'
+	      )
+	    );
 
 	    var loggedInMessageForSteve;
 
 	    if (UserStore.loggedIn()) {
-	      debugger;
 	      loggedInMessageForSteve = "Logged In!";
+	      menu = loggedInMenu;
 	    } else {
 	      loggedInMessageForSteve = "NOT Logged In!";
+	      menu = notLoggedInMenu;
 	    }
 
 	    return React.createElement(
@@ -27143,35 +27220,7 @@
 	        null,
 	        loggedInMessageForSteve
 	      ),
-	      React.createElement(
-	        'div',
-	        { id: 'othermenu' },
-	        React.createElement(
-	          'p',
-	          null,
-	          'hello'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openSignInModal },
-	          'Sign In'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openSignUpModal },
-	          'Sign Up'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openDemoAccountModal },
-	          'Demo Account'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openCreateEventModal },
-	          'Create Event'
-	        )
-	      ),
+	      menu,
 	      React.createElement(
 	        Modal,
 	        {
@@ -35889,7 +35938,6 @@
 	UserStore.login = function (user) {
 	  _currentUser = user;
 	  _errors = null;
-	  debugger;
 	};
 
 	UserStore.logout = function () {
@@ -35986,7 +36034,6 @@
 
 	  receiveCurrentUser: function (user) {
 	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-	    debugger;
 	    AppDispatcher.dispatch({
 	      actionType: UserConstants.LOGIN,
 	      user: user
