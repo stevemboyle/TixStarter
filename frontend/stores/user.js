@@ -24,6 +24,7 @@ UserStore.__onDispatch = function(payload){
 UserStore.login = function(user){
   _currentUser = user;
   _errors = null;
+  debugger;
 };
 
 UserStore.logout = function(){

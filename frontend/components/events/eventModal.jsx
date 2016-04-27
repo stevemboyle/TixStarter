@@ -43,6 +43,8 @@ module.exports = React.createClass({
             {['title', 'description'].map(function (attr) {
               return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
             }.bind(this))}
+            <br></br>
+            <button onClick={this.openEditEventModal}>Edit Event</button>
           </div>
 
           <h2 className='detail-header'>Showtimes: </h2>

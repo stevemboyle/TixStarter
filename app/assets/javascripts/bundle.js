@@ -35189,6 +35189,12 @@
 	            'p',
 	            null,
 	            this.props.event.description
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'button',
+	            { onClick: this.openEditEventModal },
+	            'Edit Event'
 	          )
 	        )
 	      ),
@@ -35546,7 +35552,13 @@
 	              ': ',
 	              this.state.event[attr]
 	            );
-	          }.bind(this))
+	          }.bind(this)),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'button',
+	            { onClick: this.openEditEventModal },
+	            'Edit Event'
+	          )
 	        ),
 	        React.createElement(
 	          'h2',
@@ -35818,6 +35830,7 @@
 	UserStore.login = function (user) {
 	  _currentUser = user;
 	  _errors = null;
+	  debugger;
 	};
 
 	UserStore.logout = function () {
