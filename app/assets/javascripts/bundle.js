@@ -35200,6 +35200,9 @@
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// TODO: Right now, the Edit Event option is based on being logged in.
+	// TODO: It SHOULD be based on the Event's User-Id being the User's
+
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
 	var EventDetail = __webpack_require__(239);
@@ -35583,12 +35586,16 @@
 /* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// TODO: Right now, the Edit Event option is based on being logged in.
+	// TODO: It SHOULD be based on the Event's User-Id being the User's
+
 	var React = __webpack_require__(1);
 	var EventStore = __webpack_require__(240);
 	var ShowtimesIndex = __webpack_require__(263);
 	var ClientActions = __webpack_require__(265);
 	var Modal = __webpack_require__(218);
 	var EditEventModal = __webpack_require__(291);
+	var UserStore = __webpack_require__(285);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35633,6 +35640,16 @@
 	      return React.createElement('div', null);
 	    }
 
+	    var editOptionForLoggedInUsers;
+
+	    if (UserStore.loggedIn()) {
+	      editOptionForLoggedInUsers = React.createElement(
+	        'button',
+	        { onClick: this.openEditEventModal },
+	        'Edit Event'
+	      );
+	    }
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -35657,11 +35674,7 @@
 	            );
 	          }.bind(this)),
 	          React.createElement('br', null),
-	          React.createElement(
-	            'button',
-	            { onClick: this.openEditEventModal },
-	            'Edit Event'
-	          )
+	          editOptionForLoggedInUsers
 	        ),
 	        React.createElement(
 	          'h2',

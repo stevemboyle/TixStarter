@@ -1,3 +1,6 @@
+// TODO: Right now, the Edit Event option is based on being logged in.
+// TODO: It SHOULD be based on the Event's User-Id being the User's
+
 var React = require('react');
 var Modal = require("react-modal");
 var EventDetail = require('./detail');

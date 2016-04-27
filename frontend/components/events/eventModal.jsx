@@ -1,9 +1,13 @@
+// TODO: Right now, the Edit Event option is based on being logged in.
+// TODO: It SHOULD be based on the Event's User-Id being the User's
+
 var React = require('react');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/clientActions.js');
 var Modal = require("react-modal");
 var EditEventModal = require('./editEventModal');
+var UserStore = require('../../stores/user');
 
 module.exports = React.createClass({
   // getStateFromStore: function () {
@@ -46,6 +50,14 @@ module.exports = React.createClass({
   render: function () {
     if(this.state.event === undefined) { return <div></div>; }
 
+    var editOptionForLoggedInUsers;
+
+    if (UserStore.loggedIn()){
+      editOptionForLoggedInUsers =(
+        <button onClick={this.openEditEventModal}>Edit Event</button>
+      )
+    }
+
     return(
       <div>
 
@@ -58,7 +70,7 @@ module.exports = React.createClass({
               return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
             }.bind(this))}
             <br></br>
-            <button onClick={this.openEditEventModal}>Edit Event</button>
+            {editOptionForLoggedInUsers}
           </div>
 
           <h2 className='detail-header'>Showtimes: </h2>
