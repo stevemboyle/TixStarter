@@ -34163,6 +34163,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Modal = __webpack_require__(218);
+	var ShowtimeModal = __webpack_require__(280);
+	var EventsIndex = __webpack_require__(277);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34171,9 +34174,24 @@
 	    router: React.PropTypes.object.isRequired
 	  },
 
-	  showDetail: function () {
-	    var url = '/event/' + this.props.showtime.event_id + '/showtimes/' + this.props.showtime.id;
-	    this.context.router.push(url);
+	  getInitialState: function () {
+	    return { showtimeModalOpen: false };
+	  },
+
+	  openShowtimeModal: function () {
+	    this.setState({ showtimeModalOpen: true });
+	  },
+
+	  closeShowtimeModal: function () {
+	    this.setState({ showtimeModalOpen: false });
+	  },
+
+	  closeShowtimeAndEventModals: function () {
+	    this.closeShowtimeModal();
+
+	    //TODO: Figure out how to close all modals.
+
+	    EventsIndex.closeEventDetailModal();
 	  },
 
 	  render: function () {
@@ -34191,19 +34209,54 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'p',
+	        'div',
 	        null,
-	        'Hey!'
-	      ),
-	      React.createElement(
-	        'li',
-	        { onClick: this.showDetail, className: 'showtime-list-item' },
 	        React.createElement(
 	          'p',
 	          null,
-	          'Hey! Hey!'
+	          'Hey!'
 	        ),
-	        attrs
+	        React.createElement(
+	          'li',
+	          { onClick: this.openShowtimeModal, className: 'showtime-list-item' },
+	          React.createElement(
+	            'p',
+	            null,
+	            'Hey! Hey!'
+	          ),
+	          attrs
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.showtimeModalOpen,
+	            onRequestClose: this.closeShowtimeAndEventModals },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Im a modal!'
+	          ),
+	          React.createElement(ShowtimeModal, { showtime: this.props.showtime }),
+	          React.createElement(
+	            'button',
+	            { onClick: this.closeShowtimeModal },
+	            'Back'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'modal modal modal modal modal'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -35327,6 +35380,81 @@
 	          'button',
 	          null,
 	          'Get Tickets'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ShowtimesIndex = __webpack_require__(263);
+	var ClientActions = __webpack_require__(265);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  getStateFromStore: function () {
+	    return { showtime: EventStore.find(parseInt(this.props.showtime.id)) };
+	  },
+
+	  // _onChange: function () {
+	  //   this.setState(this.getStateFromStore());
+	  // },
+
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    ClientActions.fetchSingleShow(parseInt(newProps.params.showId));
+	  },
+
+	  // componentDidMount: function () {
+	  //   // this.eventListener = EventStore.addListener(this._onChange);
+	  //   ClientActions.fetchSingleEvent(parseInt(this.props.event.id));
+	  // },
+	  //
+	  // componentWillUnmount: function () {
+	  //   this.eventListener.remove();
+	  // },
+
+	  render: function () {
+	    if (this.state.show === undefined) {
+	      return React.createElement('div', null);
+	    }
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'event-detail-pane' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Hello! This is the ShowtimeModal!'
+	        ),
+	        React.createElement('div', { className: 'detail' }),
+	        React.createElement(
+	          'h2',
+	          { className: 'detail-header' },
+	          'Showtimes: '
+	        ),
+	        React.createElement(TicketsIndex, { tickets: this.state.showtime.tickets }),
+	        React.createElement(
+	          'button',
+	          null,
+	          'Back'
+	        ),
+	        React.createElement(
+	          'button',
+	          null,
+	          'Button 2'
 	        )
 	      )
 	    );
