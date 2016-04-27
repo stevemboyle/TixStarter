@@ -72,9 +72,11 @@ module.exports = React.createClass({
           <button onClick={this.openCreateEventModal}>Create Event</button>
         </div>
 
-        <Modal 
+        <Modal
           isOpen={this.state.signInModalOpen}
           onRequestClose={this.closeSignInModal}>
+
+          	<h1>Please Help Me with This I Am So Lost Here</h1>
 
             <h2>Sign In!</h2>
             <p>(The below component is LoginModal)</p>
@@ -97,6 +99,8 @@ module.exports = React.createClass({
         <Modal
           isOpen={this.state.signUpModalOpen}
           onRequestClose={this.closeSignUpModal}>
+
+          	<h1>Please Help Me with This I Am So Lost Here</h1>
 
             <h2>Sign Up!!</h2>
             <p>(The below component is LoginModal)</p>

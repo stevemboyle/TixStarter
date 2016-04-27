@@ -27154,6 +27154,11 @@
 	          isOpen: this.state.signInModalOpen,
 	          onRequestClose: this.closeSignInModal },
 	        React.createElement(
+	          'h1',
+	          null,
+	          'Please Help Me with This I Am So Lost Here'
+	        ),
+	        React.createElement(
 	          'h2',
 	          null,
 	          'Sign In!'
@@ -27181,6 +27186,11 @@
 	        {
 	          isOpen: this.state.signUpModalOpen,
 	          onRequestClose: this.closeSignUpModal },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Please Help Me with This I Am So Lost Here'
+	        ),
 	        React.createElement(
 	          'h2',
 	          null,
