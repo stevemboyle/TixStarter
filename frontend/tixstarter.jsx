@@ -19,6 +19,7 @@ var CurrentUserState = require('./mixins/currentUserState');
 
 var routes = (
   <Route path="/" component={App}>
+    <IndexRoute componenet={Splash}
     <Route path="event/:eventId" component={EventDetail}>
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
       </Route>

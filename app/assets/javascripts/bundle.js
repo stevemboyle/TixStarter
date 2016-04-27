@@ -25208,7 +25208,11 @@
 	          'mooooooooodal!'
 	        )
 	      ),
-	      React.createElement('div', null),
+	      React.createElement(
+	        'div',
+	        { section: 'index-of-events', className: 'an-events-index' },
+	        React.createElement(EventIndex, null)
+	      ),
 	      React.createElement(
 	        'div',
 	        { id: 'tixstarter' },
@@ -33080,15 +33084,13 @@
 /* 259 */
 /***/ function(module, exports) {
 
-	var UserConstants = {
+	module.exports = {
 		LOGIN: "LOGIN",
 		ERROR: "ERROR",
 		LOGOUT: "LOGOUT",
 
 		USER_RECEIVED: "USER_RECEIVED"
 	};
-
-	module.exports = UserConstants;
 
 /***/ },
 /* 260 */,

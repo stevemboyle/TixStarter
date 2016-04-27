@@ -12,3 +12,5 @@ class CreateTickets < ActiveRecord::Migration
     add_index :tickets, :showtime_id
   end
 end
+
+#TODO: max number

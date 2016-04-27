@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/dispatcher');
 
 var UserApiUtil = {
+
 	post: function(options){
 		$.ajax({
 			url: options.url,
@@ -10,6 +11,7 @@ var UserApiUtil = {
 			error: options.error
 		});
 	},
+
 	logout: function(success, error){
 		$.ajax({
 			url: '/api/session',
@@ -18,6 +20,7 @@ var UserApiUtil = {
 			error: error
 		});
 	},
+
 	fetchCurrentUser: function(success, error){
 		$.ajax({
 			url: '/api/session',
@@ -26,6 +29,7 @@ var UserApiUtil = {
 			error: error
 		});
 	},
+	
 };
 
 module.exports = UserApiUtil;

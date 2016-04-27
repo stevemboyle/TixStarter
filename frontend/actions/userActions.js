@@ -3,6 +3,18 @@ var UserConstants = require('../constants/userConstants.js');
 
 module.exports = {
 
+  var AppDispatcher = require('../dispatcher'),
+    UserConstants = require('../constants/user_constants');
+
+module.exports = {
+  receiveUser: function(user) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.USER_RECEIVED,
+      user: user
+    });
+  }
+}
+
   loginUser: function (user) {
     console.log("User Actions: loginUser called");
     Dispatcher.dispatch({

@@ -71,9 +71,10 @@ module.exports = React.createClass({
 
         </Modal>
 
-        <div>
-
+        <div section="index-of-events" className="an-events-index">
+          <EventIndex />
         </div>
+
         <div id="tixstarter">
         <div id="menu">
         <p>hello</p>

@@ -4,12 +4,27 @@ var AppDispatcher = require('../dispatcher/dispatcher.js');
 
 var UserStore = new Store(AppDispatcher);
 
-var _currentUser = {};
+var _user = {};
 
-UserStore.sign_in = function(user){
-  _currentUser = user;
-  session[:session_token] = nil;
+UserStore.resetUser = function(user) {
+  _user = user;
 };
+
+UserStore.__onDispatch = function(payload) {
+  switch(payload.actionType) {
+    case UserConstants.USER_RECEIVED:
+      this.resetUser(payload.user);
+      console.log("UserStore onDispatch Called with: " + _user);
+      UserStore.__emitChange();
+      break;
+  }
+};
+
+//
+// UserStore.sign_in = function(user){
+//   _currentUser = user;
+//   session[:session_token] = nil;
+// };
 
 // var resetPosts = function (posts) {
 //   _posts = {};
@@ -37,14 +52,14 @@ UserStore.sign_in = function(user){
 //   return _posts[id];
 // };
 
+//
+// UserStore.__onDispatch = function (payload) {
+//   switch (payload.actionType) {
+//     case UserConstants.USER_RECEIVED:
+//       sign_in(payload.user);
+//       break;
+//   }
+//   this.__emitChange();
+// };
 
-UserStore.__onDispatch = function (payload) {
-  switch (payload.actionType) {
-    case UserConstants.USER_RECEIVED:
-      sign_in(payload.user);
-      break;
-  }
-  this.__emitChange();
-};
-
-module.exports = PostStore;
+module.exports = UserStore;
