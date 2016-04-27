@@ -12,9 +12,15 @@ var App = require('./components/app.jsx');
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
 var ApiUtil = require('./util/apiUtil');
-//
+var UserApiUtil = require('./util/userApiUtil');
+
+// TODO: Call API Util Fetch Current User immediately
+// TODO: This is ready to go. Just comment the below out:
+UserApiUtil.fetchCurrentUser();
+
 // var LoginForm = require('./components/LoginForm');
-//Mixins
+// Mixins
+
 var CurrentUserState = require('./mixins/currentUserState');
 
 var routes = (

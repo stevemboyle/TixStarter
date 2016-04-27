@@ -6,22 +6,32 @@ var App = require('../components/app');
 
 var UserActions = {
 
+  // TODO: Hard code success/error below into User Api Utils
+
   fetchCurrentUser: function(){
-    UserApiUtil.fetchCurrentUser(UserActions.receiveCurrentUser,
-                                  UserActions.handleError);
+    UserApiUtil.fetchCurrentUser();
   },
 
-  signup: function(user){
-    UserApiUtil.post({
+  signup: function(data){
+    console.log("We in User Actions sign up");
+    $.ajax({
       url: "/api/user",
-      user: user,
-      success: UserActions.receiveCurrentUser,
+      type: "post",
+      data: {user: data},
+      success: function(user){
+        console.log("We're in the success function for SignUp");
+        UserActions.receiveCurrentUser(user);
+      },
+
       // success: function(){
       //   UserActions.receiveCurrentUser,
       //   App.closeSignInModal;
       //   App.closeSignUpModal;
       // },
-      error: UserActions.handleError
+      error: function(){
+        console.log("We're in the error function for SignUp");
+        UserActions.handleError();
+      }
     });
   },
 
@@ -39,6 +49,8 @@ var UserActions = {
   },
 
   receiveCurrentUser: function(user){
+    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+    debugger;
     AppDispatcher.dispatch({
       actionType: UserConstants.LOGIN,
       user: user

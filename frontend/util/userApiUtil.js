@@ -1,4 +1,5 @@
 var AppDispatcher = require("../dispatcher/dispatcher");
+var UserActions = require('../actions/userActions');
 
 var UserApiUtil = {
   post: function(options){
@@ -20,12 +21,14 @@ var UserApiUtil = {
     });
   },
 
-  fetchCurrentUser: function(success, error){
+  // Server Actions method, rather than passed in
+
+  fetchCurrentUser: function(){
     $.ajax({
       url: "/api/session",
       method: "get",
-      success: success,
-      error: error
+      success: UserActions.receiveCurrentUser,
+      error: UserActions.handleError
     });
   }
 

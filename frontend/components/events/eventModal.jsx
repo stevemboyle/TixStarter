@@ -3,6 +3,7 @@ var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/clientActions.js');
 var Modal = require("react-modal");
+var EditEventModal = require('./editEventModal');
 
 module.exports = React.createClass({
   // getStateFromStore: function () {
@@ -73,6 +74,8 @@ module.exports = React.createClass({
           onRequestClose={this.closeEditEventModal}>
 
             <h1>Edit Event Modal</h1>
+
+            <EditEventModal event={this.state.event}/>
 
         </Modal>
 

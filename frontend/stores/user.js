@@ -6,6 +6,8 @@ var UserStore = new Store(AppDispatcher);
 
 var _currentUser, _errors;
 
+// TODO: Logged In Method
+
 UserStore.__onDispatch = function(payload){
   switch(payload.actionType) {
     case "LOGIN":
@@ -30,6 +32,20 @@ UserStore.login = function(user){
 UserStore.logout = function(){
   _currentUser = null;
   _errors = null;
+};
+
+UserStore.loggedIn = function(){
+  if (typeof UserStore.currentUser() === 'undefined'){
+    console.log("UserStore.loggedIn says no current user");
+    return false;
+  } else {
+    console.log("UserStore.loggedIn says there is a current user");
+    return true;
+  }
+};
+
+UserStore.user = function(){
+  return _currentUser;
 };
 
 UserStore.currentUser = function(){

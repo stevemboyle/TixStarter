@@ -58,9 +58,15 @@
 	var EventDetail = __webpack_require__(239);
 	var ShowtimeDetail = __webpack_require__(269);
 	var ApiUtil = __webpack_require__(266);
-	//
+	var UserApiUtil = __webpack_require__(287);
+
+	// TODO: Call API Util Fetch Current User immediately
+	// TODO: This is ready to go. Just comment the below out:
+	UserApiUtil.fetchCurrentUser();
+
 	// var LoginForm = require('./components/LoginForm');
-	//Mixins
+	// Mixins
+
 	var CurrentUserState = __webpack_require__(270);
 
 	var routes = React.createElement(
@@ -27058,6 +27064,10 @@
 	var LoginModal = __webpack_require__(278);
 	var CreateEventModal = __webpack_require__(288);
 
+	var SignUpModal = __webpack_require__(292);
+
+	var UserStore = __webpack_require__(285);
+
 	var Modal = __webpack_require__(218);
 
 	//Mixins
@@ -27111,6 +27121,15 @@
 
 	  render: function () {
 
+	    var loggedInMessageForSteve;
+
+	    if (UserStore.loggedIn()) {
+	      debugger;
+	      loggedInMessageForSteve = "Logged In!";
+	    } else {
+	      loggedInMessageForSteve = "NOT Logged In!";
+	    }
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -27118,6 +27137,11 @@
 	        'h1',
 	        null,
 	        'Test'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        loggedInMessageForSteve
 	      ),
 	      React.createElement(
 	        'div',
@@ -27199,9 +27223,9 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          '(The below component is LoginModal)'
+	          '(The below component is SignUpModal)'
 	        ),
-	        React.createElement(LoginModal, null),
+	        React.createElement(SignUpModal, null),
 	        React.createElement(
 	          'p',
 	          null,
@@ -35506,6 +35530,7 @@
 	var ShowtimesIndex = __webpack_require__(263);
 	var ClientActions = __webpack_require__(265);
 	var Modal = __webpack_require__(218);
+	var EditEventModal = __webpack_require__(291);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35606,7 +35631,8 @@
 	          'h1',
 	          null,
 	          'Edit Event Modal'
-	        )
+	        ),
+	        React.createElement(EditEventModal, { event: this.state.event })
 	      )
 	    );
 	  }
@@ -35843,6 +35869,8 @@
 
 	var _currentUser, _errors;
 
+	// TODO: Logged In Method
+
 	UserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case "LOGIN":
@@ -35867,6 +35895,20 @@
 	UserStore.logout = function () {
 	  _currentUser = null;
 	  _errors = null;
+	};
+
+	UserStore.loggedIn = function () {
+	  if (typeof UserStore.currentUser() === 'undefined') {
+	    console.log("UserStore.loggedIn says no current user");
+	    return false;
+	  } else {
+	    console.log("UserStore.loggedIn says there is a current user");
+	    return true;
+	  }
+	};
+
+	UserStore.user = function () {
+	  return _currentUser;
 	};
 
 	UserStore.currentUser = function () {
@@ -35900,21 +35942,32 @@
 
 	var UserActions = {
 
+	  // TODO: Hard code success/error below into User Api Utils
+
 	  fetchCurrentUser: function () {
-	    UserApiUtil.fetchCurrentUser(UserActions.receiveCurrentUser, UserActions.handleError);
+	    UserApiUtil.fetchCurrentUser();
 	  },
 
-	  signup: function (user) {
-	    UserApiUtil.post({
+	  signup: function (data) {
+	    console.log("We in User Actions sign up");
+	    $.ajax({
 	      url: "/api/user",
-	      user: user,
-	      success: UserActions.receiveCurrentUser,
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        console.log("We're in the success function for SignUp");
+	        UserActions.receiveCurrentUser(user);
+	      },
+
 	      // success: function(){
 	      //   UserActions.receiveCurrentUser,
 	      //   App.closeSignInModal;
 	      //   App.closeSignUpModal;
 	      // },
-	      error: UserActions.handleError
+	      error: function () {
+	        console.log("We're in the error function for SignUp");
+	        UserActions.handleError();
+	      }
 	    });
 	  },
 
@@ -35932,6 +35985,8 @@
 	  },
 
 	  receiveCurrentUser: function (user) {
+	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+	    debugger;
 	    AppDispatcher.dispatch({
 	      actionType: UserConstants.LOGIN,
 	      user: user
@@ -35964,6 +36019,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(259);
+	var UserActions = __webpack_require__(286);
 
 	var UserApiUtil = {
 	  post: function (options) {
@@ -35985,12 +36041,14 @@
 	    });
 	  },
 
-	  fetchCurrentUser: function (success, error) {
+	  // Server Actions method, rather than passed in
+
+	  fetchCurrentUser: function () {
 	    $.ajax({
 	      url: "/api/session",
 	      method: "get",
-	      success: success,
-	      error: error
+	      success: UserActions.receiveCurrentUser,
+	      error: UserActions.handleError
 	    });
 	  }
 
@@ -36176,6 +36234,134 @@
 	  }
 
 	});
+
+/***/ },
+/* 289 */,
+/* 290 */,
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ShowtimesIndex = __webpack_require__(263);
+	var Link = __webpack_require__(159).Link;
+	var ClientActions = __webpack_require__(265);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+
+	  getInitialState: function () {
+	    var potentialEvent = EventStore.find(this.props.event.id);
+	    var event = potentialEvent ? potentialEvent : {};
+	    return {
+	      title: event.title,
+	      catchphrase: event.catchphrase,
+	      description: event.description,
+	      image_url: event.image_url,
+	      video_url: event.video_url,
+	      user_id: event.user_id,
+	      revenue_goal: event.revenue_goal,
+	      revenue_status: event.revenue_status };
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h6',
+	        null,
+	        'Now we are inside the Edit Event Modal'
+	      )
+	    );
+	  }
+
+	});
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var UserActions = __webpack_require__(286);
+
+	var SignUpModal = React.createClass({
+	  displayName: "SignUpModal",
+
+
+	  getInitialState: function () {
+	    return {
+	      username: "",
+	      password: ""
+	    };
+	  },
+
+	  usernameChange: function (keyboardEvent) {
+	    var newUsername = keyboardEvent.target.value;
+	    this.setState({ username: newUsername });
+	    console.log("Username: " + this.state.username);
+	  },
+
+	  passwordChange: function (keyboardEvent) {
+	    var newPassword = keyboardEvent.target.value;
+	    this.setState({ password: newPassword });
+	    console.log("Password: " + this.state.password);
+	  },
+
+	  handleSubmit: function (keyboardEvent) {
+	    keyboardEvent.preventDefault();
+	    var userData = {
+	      username: this.state.username,
+	      password: this.state.password
+	    };
+
+	    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
+
+	    UserActions.signup(userData);
+	  },
+
+	  render: function () {
+
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Create New User"
+	      ),
+	      React.createElement(
+	        "form",
+	        { onSubmit: this.handleSubmit },
+	        React.createElement("br", null),
+	        React.createElement(
+	          "label",
+	          null,
+	          " Username:",
+	          React.createElement("input", { type: "text",
+	            value: this.state.username,
+	            onChange: this.usernameChange
+	          })
+	        ),
+	        React.createElement(
+	          "label",
+	          null,
+	          " Password:",
+	          React.createElement("input", { type: "password",
+	            value: this.state.password,
+	            onChange: this.passwordChange
+	          })
+	        ),
+	        React.createElement("input", { type: "submit", value: "Sign Up!" }),
+	        React.createElement("br", null)
+	      )
+	    );
+	  }
+
+	});
+
+	module.exports = SignUpModal;
 
 /***/ }
 /******/ ]);

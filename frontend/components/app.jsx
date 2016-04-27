@@ -5,6 +5,10 @@ var EventIndex = require('./events/index');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
 
+var SignUpModal = require('./users/signUpModal')
+
+var UserStore = require('../stores/user');
+
 var Modal = require("react-modal");
 
 //Mixins
@@ -58,11 +62,21 @@ module.exports = React.createClass({
 
   render: function () {
 
+    var loggedInMessageForSteve;
+
+    if (UserStore.loggedIn()){
+      debugger;
+      loggedInMessageForSteve = "Logged In!";
+    } else {
+      loggedInMessageForSteve = "NOT Logged In!";
+    }
+
     return(
 
       <div>
 
       <h1>Test</h1>
+      <p>{loggedInMessageForSteve}</p>
 
         <div id="othermenu">
           <p>hello</p>
@@ -103,9 +117,9 @@ module.exports = React.createClass({
           	<h1>Please Help Me with This I Am So Lost Here</h1>
 
             <h2>Sign Up!!</h2>
-            <p>(The below component is LoginModal)</p>
+            <p>(The below component is SignUpModal)</p>
 
-            <LoginModal />
+            <SignUpModal />
 
             <p>mooooooooodal!</p>
 
