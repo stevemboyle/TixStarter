@@ -4,7 +4,7 @@ var EventIndex = require('./events/index');
 // var LoginForm = require('./users/usersLoginForm');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
-
+var UserActions = require('../actions/userActions');
 var SignUpModal = require('./users/signUpModal');
 
 var UserStore = require('../stores/user');
@@ -64,6 +64,10 @@ module.exports = React.createClass({
       UserApiUtil.logout();
     },
 
+    signInWithDemoAccount: function(){
+      UserActions.login({username: "guest", password: "password"});
+    },
+
     // notLoggedInMenu: function(){
     //   return(
     //     <div id="othermenu">
@@ -97,7 +101,7 @@ module.exports = React.createClass({
         <p>hello</p>
         <button onClick={this.openSignInModal}>Sign In</button>
         <button onClick={this.openSignUpModal}>Sign Up</button>
-        <button onClick={this.openDemoAccountModal}>Demo Account</button>
+        <button onClick={this.signInWithDemoAccount}>Demo Account</button>
       </div>
     );
 

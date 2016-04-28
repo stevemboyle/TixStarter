@@ -27063,7 +27063,7 @@
 	// var LoginForm = require('./users/usersLoginForm');
 	var LoginModal = __webpack_require__(278);
 	var CreateEventModal = __webpack_require__(288);
-
+	var UserActions = __webpack_require__(286);
 	var SignUpModal = __webpack_require__(292);
 
 	var UserStore = __webpack_require__(285);
@@ -27125,6 +27125,10 @@
 	    UserApiUtil.logout();
 	  },
 
+	  signInWithDemoAccount: function () {
+	    UserActions.login({ username: "guest", password: "password" });
+	  },
+
 	  // notLoggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -27173,7 +27177,7 @@
 	      ),
 	      React.createElement(
 	        'button',
-	        { onClick: this.openDemoAccountModal },
+	        { onClick: this.signInWithDemoAccount },
 	        'Demo Account'
 	      )
 	    );
