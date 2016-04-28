@@ -1,16 +1,16 @@
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var UserConstants = require('../constants/userConstants.js');
-var UserApiUtil = require('../util/userApiUtil.js');
+// var UserApiUtil = require('../util/userApiUtil.js');
 var UserStore = require('../stores/user');
 var App = require('../components/app');
 
 var UserActions = {
 
   // TODO: Hard code success/error below into User Api Utils
-
-  fetchCurrentUser: function(){
-    UserApiUtil.fetchCurrentUser();
-  },
+  //
+  // fetchCurrentUser: function(){
+  //   UserApiUtil.fetchCurrentUser();
+  // },
 
   signup: function(data){
     console.log("We in User Actions sign up");

@@ -36038,17 +36038,17 @@
 
 	var AppDispatcher = __webpack_require__(259);
 	var UserConstants = __webpack_require__(268);
-	var UserApiUtil = __webpack_require__(287);
+	// var UserApiUtil = require('../util/userApiUtil.js');
 	var UserStore = __webpack_require__(285);
 	var App = __webpack_require__(238);
 
 	var UserActions = {
 
 	  // TODO: Hard code success/error below into User Api Utils
-
-	  fetchCurrentUser: function () {
-	    UserApiUtil.fetchCurrentUser();
-	  },
+	  //
+	  // fetchCurrentUser: function(){
+	  //   UserApiUtil.fetchCurrentUser();
+	  // },
 
 	  signup: function (data) {
 	    console.log("We in User Actions sign up");
@@ -36151,11 +36151,11 @@
 	      url: "/api/session",
 	      method: "get",
 	      success: function (user) {
-	        debugger;
+	        // debugger;
 	        // So, right now, UserActions is an empty {} object
 	        // Why, I have no idea.
 	        console.log("We're in the success function for Fetch Current User");
-	        this.receiveCurrentUser(user);
+	        UserActions.receiveCurrentUser(user);
 	      }.bind(this),
 	      error: function (error) {
 	        console.log("We're in the Error Function for Fetch Current User");

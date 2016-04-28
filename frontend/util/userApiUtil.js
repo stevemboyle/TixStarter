@@ -29,11 +29,11 @@ var UserApiUtil = {
       url: "/api/session",
       method: "get",
       success: function(user){
-        debugger;
+        // debugger;
         // So, right now, UserActions is an empty {} object
         // Why, I have no idea.
         console.log("We're in the success function for Fetch Current User");
-        this.receiveCurrentUser(user);
+        UserActions.receiveCurrentUser(user);
       }.bind(this),
       error: function(error){
         console.log("We're in the Error Function for Fetch Current User");
