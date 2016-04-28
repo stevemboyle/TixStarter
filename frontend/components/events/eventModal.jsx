@@ -38,6 +38,9 @@ module.exports = React.createClass({
     // I removed (newProps) from function(newProps)
     this.setState({event: EventStore.find(parseInt(this.props.event.id)),
                   editEventModalOpen: false});
+    // Okay, so: the ClientActions method updates the props
+    // It looks great.
+    // But it sends us into an infinite loop.
     // ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
   },
 
