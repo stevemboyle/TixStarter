@@ -11,6 +11,7 @@ var UserStore = require('../stores/user');
 
 var Modal = require("react-modal");
 var UserApiUtil = require('../util/userApiUtil');
+var SignInModal = require('./users/signInModal');
 
 //Mixins
 var CurrentUserState = require('.././mixins/currentUserState');
@@ -135,9 +136,9 @@ module.exports = React.createClass({
           	<h1>Please Help Me with This I Am So Lost Here</h1>
 
             <h2>Sign In!</h2>
-            <p>(The below component is LoginModal)</p>
+            <p>(The below component is SignInModal)</p>
 
-            <LoginModal />
+            <SignInModal />
 
             <br></br>
 

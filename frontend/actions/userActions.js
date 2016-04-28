@@ -35,10 +35,11 @@ var UserActions = {
     });
   },
 
-  login: function(user){
-    UserApiUtil.post({
+  login: function(data){
+    $.ajax({
       url: "/api/session",
-      user: user,
+      type: "post",
+      data: { user: data },
       success: UserActions.receiveCurrentUser,
       error: UserActions.handleError
     });

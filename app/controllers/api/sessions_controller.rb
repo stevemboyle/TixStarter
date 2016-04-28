@@ -1,6 +1,4 @@
 class Api::SessionsController < ApplicationController
-  def new
-  end
 
   def index
   end
@@ -13,6 +11,8 @@ class Api::SessionsController < ApplicationController
 
     if user
       sign_in(user)
+      response = { logged_in: true, username: user.username }
+      render json: response
       # redirect_to links_url
     else
       # flash.now[:errors] = ["Invalid username or password"]
@@ -20,9 +20,6 @@ class Api::SessionsController < ApplicationController
     end
 
     #TODO: If any auth errors arise (e.g. 'invalid credentials' or 'username already exists'), return those errors in your response with a corresponding error status.
-  end
-
-  def new
   end
 
   def show
@@ -50,6 +47,10 @@ class Api::SessionsController < ApplicationController
     render :show
     # redirect_to new_session_url
   end
+
+  # def user_params
+	# 	params.require(:user).permit(:username, :password)
+	# end
 
 
 end

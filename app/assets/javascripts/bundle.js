@@ -27070,6 +27070,7 @@
 
 	var Modal = __webpack_require__(218);
 	var UserApiUtil = __webpack_require__(287);
+	var SignInModal = __webpack_require__(293);
 
 	//Mixins
 	var CurrentUserState = __webpack_require__(270);
@@ -27244,9 +27245,9 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          '(The below component is LoginModal)'
+	          '(The below component is SignInModal)'
 	        ),
-	        React.createElement(LoginModal, null),
+	        React.createElement(SignInModal, null),
 	        React.createElement('br', null),
 	        React.createElement('iframe', { width: '{854/1.5}',
 	          height: '{480/1.5}',
@@ -36077,10 +36078,11 @@
 	    });
 	  },
 
-	  login: function (user) {
-	    UserApiUtil.post({
+	  login: function (data) {
+	    $.ajax({
 	      url: "/api/session",
-	      user: user,
+	      type: "post",
+	      data: { user: data },
 	      success: UserActions.receiveCurrentUser,
 	      error: UserActions.handleError
 	    });
@@ -36658,6 +36660,90 @@
 	});
 
 	module.exports = SignUpModal;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var UserActions = __webpack_require__(286);
+
+	var SignInModal = React.createClass({
+	  displayName: "SignInModal",
+
+
+	  getInitialState: function () {
+	    return {
+	      username: "",
+	      password: ""
+	    };
+	  },
+
+	  usernameChange: function (keyboardEvent) {
+	    var newUsername = keyboardEvent.target.value;
+	    this.setState({ username: newUsername });
+	    console.log("Username: " + this.state.username);
+	  },
+
+	  passwordChange: function (keyboardEvent) {
+	    var newPassword = keyboardEvent.target.value;
+	    this.setState({ password: newPassword });
+	    console.log("Password: " + this.state.password);
+	  },
+
+	  handleSubmit: function (keyboardEvent) {
+	    keyboardEvent.preventDefault();
+	    var userData = {
+	      username: this.state.username,
+	      password: this.state.password
+	    };
+
+	    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
+
+	    UserActions.login(userData);
+	  },
+
+	  render: function () {
+
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "h3",
+	        null,
+	        "Create New User"
+	      ),
+	      React.createElement(
+	        "form",
+	        { onSubmit: this.handleSubmit },
+	        React.createElement("br", null),
+	        React.createElement(
+	          "label",
+	          null,
+	          " Username:",
+	          React.createElement("input", { type: "text",
+	            value: this.state.username,
+	            onChange: this.usernameChange
+	          })
+	        ),
+	        React.createElement(
+	          "label",
+	          null,
+	          " Password:",
+	          React.createElement("input", { type: "password",
+	            value: this.state.password,
+	            onChange: this.passwordChange
+	          })
+	        ),
+	        React.createElement("input", { type: "submit", value: "Sign In!" }),
+	        React.createElement("br", null)
+	      )
+	    );
+	  }
+
+	});
+
+	module.exports = SignInModal;
 
 /***/ }
 /******/ ]);
