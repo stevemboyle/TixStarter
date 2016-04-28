@@ -26,8 +26,6 @@ class Api::ShowtimesController < ApplicationController
   private
 
   def showtime_params
-    params.require(:showtime).permit(
-
-    )
+    params.require(:showtime).permit(:event_id, :date, :time, :location)
   end
 end

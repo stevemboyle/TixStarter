@@ -109,7 +109,7 @@ var ApiUtil = {
 
   createShowtime: function (showtime, callback) {
     $.ajax({
-      url: "api/showtime",
+      url: "api/showtimes",
       method: "POST",
       data: {showtime: showtime},
       success: function (showtime) {

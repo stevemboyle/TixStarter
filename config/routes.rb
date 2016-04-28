@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :showtimes, only: [:index, :show, :update]
-    resources :tickets, only: [:index, :show, :update]
+    resources :showtimes, only: [:index, :create, :show, :update]
+    resources :tickets, only: [:index, :create, :show, :update]
   end
 end
