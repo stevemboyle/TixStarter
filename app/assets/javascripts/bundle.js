@@ -27139,6 +27139,14 @@
 	    UserActions.login({ username: "guest", password: "password" });
 	  },
 
+	  listMenu: function () {
+	    return React.createElement(
+	      'li',
+	      null,
+	      'Stand-In Menu'
+	    );
+	  },
+
 	  // notLoggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -27176,19 +27184,28 @@
 	        'hello'
 	      ),
 	      React.createElement(
-	        'button',
-	        { onClick: this.openSignInModal },
-	        'Sign In'
+	        'p',
+	        null,
+	        loggedInMessageForSteve
 	      ),
 	      React.createElement(
-	        'button',
-	        { onClick: this.openSignUpModal },
-	        'Sign Up'
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.signInWithDemoAccount },
-	        'Demo Account'
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openSignInModal },
+	          'Sign In'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openSignUpModal },
+	          'Sign Up'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.signInWithDemoAccount },
+	          'Demo Account'
+	        )
 	      )
 	    );
 
@@ -27200,20 +27217,25 @@
 	        null,
 	        'hello'
 	      ),
+	      React.createElement('br', null),
 	      React.createElement(
-	        'button',
-	        { onClick: this.openCreateEventModal },
-	        'Create Event'
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.openMyDashboardModal },
-	        'My Dashboard'
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.justClickedLogOut },
-	        'Log Out'
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openCreateEventModal },
+	          'Create Event'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openMyDashboardModal },
+	          'My Dashboard'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.justClickedLogOut },
+	          'Log Out'
+	        )
 	      )
 	    );
 

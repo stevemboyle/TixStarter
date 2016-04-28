@@ -37,6 +37,59 @@
    height: 100%;
  }
 
+ header {
+   background: #f00;
+   color: #fff;
+   border-bottom: 1px solid #ccc;
+ }
+
+ header a {
+   display: block;
+   padding: 10px 20px;
+ }
+
+ header-nav {
+  margin: 0 auto;
+  width: 900px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+header-logo {
+  float: left;
+  border-right: 1px solid #ccc;
+  font-weight: 700;
+}
+
+header-logo:hover {
+  background: #000;
+}
+
+group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.header-list {
+  float: right;
+}
+
+ul {
+  list-style: none;
+}
+
+header-list > li {
+  float: left;
+  border-left: 1px solid #ccc;
+}
+
+header-list > li:hover {
+  background: #000;
+}
+
+
+
 h1 {
   font-family: CodyStar;
 }
@@ -50,6 +103,8 @@ h1 {
 }
 
  #othermenu {
+   display: block;
+   padding: 40px;
    background-color: purple;
    opacity: 0.5;
  }
@@ -57,7 +112,12 @@ h1 {
  #othermenu p {
    color: white;
    font-size: 40px;
+   float: left;
  }
+
+#menubuttons {
+  float: right;
+}
 
  #tixstarter {
    /* height: 100%; */

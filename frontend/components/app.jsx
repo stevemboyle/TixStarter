@@ -78,6 +78,12 @@ module.exports = React.createClass({
       UserActions.login({username: "guest", password: "password"});
     },
 
+    listMenu: function() {
+      return(
+        <li>Stand-In Menu</li>
+      );
+    },
+
     // notLoggedInMenu: function(){
     //   return(
     //     <div id="othermenu">
@@ -109,18 +115,24 @@ module.exports = React.createClass({
     var notLoggedInMenu =(
       <div id="othermenu">
         <p>hello</p>
-        <button onClick={this.openSignInModal}>Sign In</button>
-        <button onClick={this.openSignUpModal}>Sign Up</button>
-        <button onClick={this.signInWithDemoAccount}>Demo Account</button>
-      </div>
+        <p>{loggedInMessageForSteve}</p>
+        <div id="menubuttons">
+          <button onClick={this.openSignInModal}>Sign In</button>
+          <button onClick={this.openSignUpModal}>Sign Up</button>
+          <button onClick={this.signInWithDemoAccount}>Demo Account</button>
+        </div>
+    </div>
     );
 
     var loggedInMenu =(
       <div id="othermenu">
         <p>hello</p>
-        <button onClick={this.openCreateEventModal}>Create Event</button>
-        <button onClick={this.openMyDashboardModal}>My Dashboard</button>
-        <button onClick={this.justClickedLogOut}>Log Out</button>
+        <br></br>
+        <div id="menubuttons">
+          <button onClick={this.openCreateEventModal}>Create Event</button>
+          <button onClick={this.openMyDashboardModal}>My Dashboard</button>
+          <button onClick={this.justClickedLogOut}>Log Out</button>
+        </div>
       </div>
     );
 
@@ -133,6 +145,7 @@ module.exports = React.createClass({
       loggedInMessageForSteve = "NOT Logged In!";
       menu = notLoggedInMenu;
     }
+
 
     return(
 
