@@ -35338,6 +35338,8 @@
 	var EventModal = __webpack_require__(279);
 	var ClientActions = __webpack_require__(265);
 	var UserStore = __webpack_require__(285);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var EditEventModal = __webpack_require__(291);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35386,6 +35388,12 @@
 	    ClientActions.deleteEvent(this.props.event.id);
 	  },
 
+	  goToEventSplash: function (clickEvent) {
+	    var destination = "/event/" + this.props.event.id;
+	    hashHistory.push(destination);
+	    console.log("Big Click Event");
+	  },
+
 	  render: function () {
 
 	    var editOptionForLoggedInUsers;
@@ -35407,6 +35415,9 @@
 	      );
 	    }
 
+	    // TODO: Add this back to LI's
+	    // onClick={this.goToEventSplash}
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -35415,7 +35426,7 @@
 	        null,
 	        React.createElement(
 	          'li',
-	          { onClick: this.openEventDetailModal, className: 'event-list-item' },
+	          { className: 'event-list-item' },
 	          React.createElement(
 	            'p',
 	            null,
@@ -35440,6 +35451,16 @@
 	            this.props.event.description
 	          ),
 	          React.createElement('br', null),
+	          React.createElement(
+	            'button',
+	            { onClick: this.openEventDetailModal },
+	            'Get Tickets'
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: this.goToEventSplash },
+	            'Learn More'
+	          ),
 	          editOptionForLoggedInUsers
 	        )
 	      ),
@@ -35503,6 +35524,18 @@
 	            null,
 	            'mooooooooodal!'
 	          )
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.editEventModalOpen,
+	            onRequestClose: this.closeEditEventModal },
+	          React.createElement(
+	            'h1',
+	            null,
+	            'Edit Event Modal'
+	          ),
+	          React.createElement(EditEventModal, { event: this.props.event })
 	        )
 	      )
 	    );
@@ -38890,16 +38923,44 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ShowtimesIndex = __webpack_require__(263);
+	var ClientActions = __webpack_require__(265);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
 
+	  getStateFromStore: function () {
+	    return { event: EventStore.find(parseInt(this.props.params.eventId)) };
+	  },
+
+	  _onChange: function () {
+	    this.setState(this.getStateFromStore());
+	  },
+
+	  getInitialState: function () {
+	    return this.getStateFromStore();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
+	  },
+
+	  componentDidMount: function () {
+	    this.eventListener = EventStore.addListener(this._onChange);
+	    ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.eventListener.remove();
+	  },
+
 	  render: function () {
 
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'EventSplashFullPage' },
 	      React.createElement(
 	        'h1',
 	        null,

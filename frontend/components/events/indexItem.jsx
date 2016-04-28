@@ -9,6 +9,8 @@ var LoginModal = require('../users/loginModal');
 var EventModal = require('./eventModal');
 var ClientActions = require('../../actions/clientActions');
 var UserStore = require('../../stores/user');
+var hashHistory = require("react-router").hashHistory;
+var EditEventModal = require('./editEventModal');
 
 
 module.exports = React.createClass({
@@ -57,6 +59,12 @@ module.exports = React.createClass({
     ClientActions.deleteEvent(this.props.event.id);
   },
 
+  goToEventSplash: function(clickEvent){
+    var destination = "/event/" + this.props.event.id;
+    hashHistory.push(destination);
+    console.log("Big Click Event");
+  },
+
   render: function () {
 
     var editOptionForLoggedInUsers;
@@ -70,15 +78,21 @@ module.exports = React.createClass({
       );
     }
 
+    // TODO: Add this back to LI's
+    // onClick={this.goToEventSplash}
+
     return(
       <div>
         <div>
 
-          <li onClick={this.openEventDetailModal} className="event-list-item">
+          <li className="event-list-item">
             <p><b>{this.props.event.title}</b></p>
             <p><em>{this.props.event.catchphrase}</em></p>
             <p>{this.props.event.description}</p>
             <br></br>
+            <button onClick={this.openEventDetailModal}>Get Tickets</button>
+            <button onClick={this.goToEventSplash}>Learn More</button>
+
             {editOptionForLoggedInUsers}
           </li>
         </div>
@@ -114,6 +128,16 @@ module.exports = React.createClass({
 
                   <p>modal modal modal modal modal</p>
                   <p>mooooooooodal!</p>
+
+              </Modal>
+
+              <Modal
+                isOpen={this.state.editEventModalOpen}
+                onRequestClose={this.closeEditEventModal}>
+
+                  <h1>Edit Event Modal</h1>
+
+                  <EditEventModal event={this.props.event}/>
 
               </Modal>
           </div>
