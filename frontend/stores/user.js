@@ -24,8 +24,10 @@ UserStore.__onDispatch = function(payload){
 };
 
 UserStore.login = function(user){
-  _currentUser = user;
-  _errors = null;
+  if (user['username']){
+    _currentUser = user;
+    _errors = null;
+  }
 };
 
 UserStore.logout = function(){

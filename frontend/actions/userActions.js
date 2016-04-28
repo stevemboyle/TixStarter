@@ -51,6 +51,7 @@ var UserActions = {
 
   receiveCurrentUser: function(user){
     console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+    console.log(["user", user]);
     AppDispatcher.dispatch({
       actionType: UserConstants.LOGIN,
       user: user

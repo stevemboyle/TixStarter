@@ -35999,8 +35999,10 @@
 	};
 
 	UserStore.login = function (user) {
-	  _currentUser = user;
-	  _errors = null;
+	  if (user['username']) {
+	    _currentUser = user;
+	    _errors = null;
+	  }
 	};
 
 	UserStore.logout = function () {
@@ -36098,6 +36100,7 @@
 
 	  receiveCurrentUser: function (user) {
 	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+	    console.log(["user", user]);
 	    AppDispatcher.dispatch({
 	      actionType: UserConstants.LOGIN,
 	      user: user
