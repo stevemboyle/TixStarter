@@ -35647,9 +35647,9 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
+	    debugger;
 	    // Right now, this doesn't update for the New Props.
 	    // I removed (newProps) from function(newProps)
-	    ClientActions.fetchSingleEvent(parseInt(newProps.event.id));
 	    this.setState({ event: EventStore.find(parseInt(this.props.event.id)),
 	      editEventModalOpen: false });
 	    // ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
