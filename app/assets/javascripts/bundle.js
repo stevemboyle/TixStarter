@@ -55,6 +55,8 @@
 	var Modal = __webpack_require__(218);
 
 	var App = __webpack_require__(238);
+	var Home = __webpack_require__(313);
+
 	var EventDetail = __webpack_require__(239);
 	var ShowtimeDetail = __webpack_require__(269);
 	var ApiUtil = __webpack_require__(266);
@@ -72,6 +74,8 @@
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
+	  React.createElement(IndexRoute, { component: Home }),
+	  React.createElement(Route, { path: 'home', component: Home }),
 	  React.createElement(
 	    Route,
 	    { path: 'event/:eventId', component: EventDetail },
@@ -27081,188 +27085,7 @@
 	  displayName: 'exports',
 
 
-	  mixins: [CurrentUserState],
-
-	  getInitialState: function () {
-	    return { signInModalOpen: false,
-	      signUpModalOpen: false,
-	      demoAccountModalOpen: false,
-	      createEventModalOpen: false,
-	      createShowtimeModalOpen: false,
-	      myDashboardModalOpen: false
-	    };
-	  },
-
-	  openSignInModal: function () {
-	    this.setState({ signInModalOpen: true });
-	  },
-
-	  closeSignInModal: function () {
-	    this.setState({ signInModalOpen: false });
-	  },
-
-	  openSignUpModal: function () {
-	    this.setState({ signUpModalOpen: true });
-	  },
-
-	  closeSignUpModal: function () {
-	    this.setState({ signUpModalOpen: false });
-	  },
-
-	  openDemoAccountModal: function () {
-	    this.setState({ demoAccountModalOpen: true });
-	  },
-
-	  closeDemoAccountModal: function () {
-	    this.setState({ demoAccountModalOpen: false });
-	  },
-
-	  openCreateEventModal: function () {
-	    this.setState({ createEventModalOpen: true });
-	  },
-
-	  closeCreateEventModal: function () {
-	    this.setState({ createEventModalOpen: false });
-	  },
-
-	  openCreateShowtimeModal: function () {
-	    this.setState({ createShowtimeModalOpen: true });
-	  },
-
-	  closeCreateShowtimeModal: function () {
-	    this.setState({ createShowtimeModalOpen: false });
-	  },
-
-	  openMyDashboardModal: function () {
-	    this.setState({ myDashboardModalOpen: true });
-	  },
-
-	  closeMyDashboardModal: function () {
-	    this.setState({ myDashboardModalOpen: false });
-	  },
-
-	  justClickedLogOut: function () {
-	    UserApiUtil.logout();
-	  },
-
-	  signInWithDemoAccount: function () {
-	    UserActions.login({ username: "guest", password: "password" });
-	  },
-
-	  listMenu: function () {
-	    return React.createElement(
-	      'li',
-	      null,
-	      'Stand-In Menu'
-	    );
-	  },
-
-	  // notLoggedInMenu: function(){
-	  //   return(
-	  //     <div id="othermenu">
-	  //       <p>hello</p>
-	  //       <button onClick={this.openSignInModal}>Sign In</button>
-	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
-	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
-	  //     </div>
-	  //   );
-	  // },
-
-	  // loggedInMenu: function(){
-	  //   return(
-	  //     <div id="othermenu">
-	  //       <p>hello</p>
-	  //       <button onClick={this.openSignInModal}>Sign In</button>
-	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
-	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
-	  //     </div>
-	  //   );
-	  // },
-
 	  render: function () {
-
-	    var menu;
-
-	    var notLoggedInMenu = React.createElement(
-	      'div',
-	      { id: 'othermenu' },
-	      React.createElement(
-	        'p',
-	        null,
-	        'hello'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        loggedInMessageForSteve
-	      ),
-	      React.createElement(
-	        'div',
-	        { id: 'menubuttons' },
-	        React.createElement(
-	          'button',
-	          { onClick: this.openSignInModal },
-	          'Sign In'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openSignUpModal },
-	          'Sign Up'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.signInWithDemoAccount },
-	          'Demo Account'
-	        )
-	      )
-	    );
-
-	    var loggedInMenu = React.createElement(
-	      'div',
-	      { id: 'othermenu' },
-	      React.createElement(
-	        'p',
-	        null,
-	        'hello'
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'div',
-	        { id: 'menubuttons' },
-	        React.createElement(
-	          'button',
-	          { onClick: this.openCreateEventModal },
-	          'Create Event'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openCreateShowtimeModal },
-	          'Create Showtime'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openMyDashboardModal },
-	          'My Dashboard'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.justClickedLogOut },
-	          'Log Out'
-	        )
-	      )
-	    );
-
-	    var loggedInMessageForSteve;
-
-	    if (UserStore.loggedIn()) {
-	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
-	      menu = loggedInMenu;
-	    } else {
-	      loggedInMessageForSteve = "NOT Logged In!";
-	      menu = notLoggedInMenu;
-	    }
 
 	    return React.createElement(
 	      'div',
@@ -27270,168 +27093,9 @@
 	      React.createElement(
 	        'h1',
 	        null,
-	        'Test'
+	        'App'
 	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        loggedInMessageForSteve
-	      ),
-	      menu,
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.signInModalOpen,
-	          onRequestClose: this.closeSignInModal },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Sign In'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Sign In!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(The below component is SignInModal)'
-	        ),
-	        React.createElement(SignInModal, null),
-	        React.createElement('br', null),
-	        React.createElement('iframe', { width: '{854/1.5}',
-	          height: '{480/1.5}',
-	          src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
-	          frameborder: '0',
-	          allowfullscreen: true }),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.signUpModalOpen,
-	          onRequestClose: this.closeSignUpModal },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Sign Up'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Sign Up!!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(The below component is SignUpModal)'
-	        ),
-	        React.createElement(SignUpModal, null),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.demoAccountModalOpen,
-	          onRequestClose: this.closeDemoAccountModal },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Demo Account'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'This feature has not been built yet!'
-	        ),
-	        React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
-	          width: '480',
-	          height: '305',
-	          frameBorder: '0',
-	          'class': 'giphy-embed',
-	          allowFullScreen: true }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Here, distract yourself with Hamilton until I finish:'
-	        ),
-	        React.createElement('iframe', { width: '{854/1.2}',
-	          height: '{480/1.2}',
-	          src: 'https://www.youtube.com/embed/6ibySV-saJ8',
-	          frameborder: '0',
-	          allowfullscreen: true }),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createEventModalOpen,
-	          onRequestClose: this.closeCreateEventModal },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'CreateEventModal'
-	        ),
-	        React.createElement(CreateEventModal, null)
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createShowtimeModalOpen,
-	          onRequestClose: this.closeCreateShowtimeModal },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'CreateShowtimeModal'
-	        ),
-	        React.createElement(CreateShowtimeModal, null)
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.myDashboardModalOpen,
-	          onRequestClose: this.closeMyDashboardModal },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'MyDashboard'
-	        ),
-	        React.createElement(MyDashboardModal, null)
-	      ),
-	      React.createElement('div', null),
-	      React.createElement(
-	        'div',
-	        { id: 'tixstarter' },
-	        React.createElement(
-	          'div',
-	          { id: 'menu' },
-	          React.createElement(
-	            'p',
-	            null,
-	            'hello'
-	          )
-	        ),
-	        this.props.children,
-	        React.createElement(
-	          'div',
-	          { className: 'event-index-pane' },
-	          React.createElement(EventIndex, null)
-	        )
-	      )
+	      this.props.children
 	    );
 	  }
 	});
@@ -38886,6 +38550,395 @@
 	});
 
 	module.exports = Value;
+
+/***/ },
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventForm = __webpack_require__(271);
+	var EventIndex = __webpack_require__(276);
+	// var LoginForm = require('./users/usersLoginForm');
+	var LoginModal = __webpack_require__(278);
+	var CreateEventModal = __webpack_require__(288);
+	var CreateShowtimeModal = __webpack_require__(296);
+	var UserActions = __webpack_require__(286);
+	var SignUpModal = __webpack_require__(292);
+
+	var UserStore = __webpack_require__(285);
+
+	var Modal = __webpack_require__(218);
+	var UserApiUtil = __webpack_require__(287);
+	var SignInModal = __webpack_require__(293);
+	var MyDashboardModal = __webpack_require__(294);
+
+	//Mixins
+	var CurrentUserState = __webpack_require__(270);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+
+	  mixins: [CurrentUserState],
+
+	  getInitialState: function () {
+	    return { signInModalOpen: false,
+	      signUpModalOpen: false,
+	      demoAccountModalOpen: false,
+	      createEventModalOpen: false,
+	      createShowtimeModalOpen: false,
+	      myDashboardModalOpen: false
+	    };
+	  },
+
+	  openSignInModal: function () {
+	    this.setState({ signInModalOpen: true });
+	  },
+
+	  closeSignInModal: function () {
+	    this.setState({ signInModalOpen: false });
+	  },
+
+	  openSignUpModal: function () {
+	    this.setState({ signUpModalOpen: true });
+	  },
+
+	  closeSignUpModal: function () {
+	    this.setState({ signUpModalOpen: false });
+	  },
+
+	  openDemoAccountModal: function () {
+	    this.setState({ demoAccountModalOpen: true });
+	  },
+
+	  closeDemoAccountModal: function () {
+	    this.setState({ demoAccountModalOpen: false });
+	  },
+
+	  openCreateEventModal: function () {
+	    this.setState({ createEventModalOpen: true });
+	  },
+
+	  closeCreateEventModal: function () {
+	    this.setState({ createEventModalOpen: false });
+	  },
+
+	  openCreateShowtimeModal: function () {
+	    this.setState({ createShowtimeModalOpen: true });
+	  },
+
+	  closeCreateShowtimeModal: function () {
+	    this.setState({ createShowtimeModalOpen: false });
+	  },
+
+	  openMyDashboardModal: function () {
+	    this.setState({ myDashboardModalOpen: true });
+	  },
+
+	  closeMyDashboardModal: function () {
+	    this.setState({ myDashboardModalOpen: false });
+	  },
+
+	  justClickedLogOut: function () {
+	    UserApiUtil.logout();
+	  },
+
+	  signInWithDemoAccount: function () {
+	    UserActions.login({ username: "guest", password: "password" });
+	  },
+
+	  listMenu: function () {
+	    return React.createElement(
+	      'li',
+	      null,
+	      'Stand-In Menu'
+	    );
+	  },
+
+	  // notLoggedInMenu: function(){
+	  //   return(
+	  //     <div id="othermenu">
+	  //       <p>hello</p>
+	  //       <button onClick={this.openSignInModal}>Sign In</button>
+	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
+	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
+	  //     </div>
+	  //   );
+	  // },
+
+	  // loggedInMenu: function(){
+	  //   return(
+	  //     <div id="othermenu">
+	  //       <p>hello</p>
+	  //       <button onClick={this.openSignInModal}>Sign In</button>
+	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
+	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
+	  //     </div>
+	  //   );
+	  // },
+
+	  render: function () {
+
+	    var menu;
+
+	    var notLoggedInMenu = React.createElement(
+	      'div',
+	      { id: 'othermenu' },
+	      React.createElement(
+	        'p',
+	        null,
+	        'hello'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        loggedInMessageForSteve
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openSignInModal },
+	          'Sign In'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openSignUpModal },
+	          'Sign Up'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.signInWithDemoAccount },
+	          'Demo Account'
+	        )
+	      )
+	    );
+
+	    var loggedInMenu = React.createElement(
+	      'div',
+	      { id: 'othermenu' },
+	      React.createElement(
+	        'p',
+	        null,
+	        'hello'
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openCreateEventModal },
+	          'Create Event'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openCreateShowtimeModal },
+	          'Create Showtime'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openMyDashboardModal },
+	          'My Dashboard'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.justClickedLogOut },
+	          'Log Out'
+	        )
+	      )
+	    );
+
+	    var loggedInMessageForSteve;
+
+	    if (UserStore.loggedIn()) {
+	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
+	      menu = loggedInMenu;
+	    } else {
+	      loggedInMessageForSteve = "NOT Logged In!";
+	      menu = notLoggedInMenu;
+	    }
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Welcome to Home dot JSX'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        loggedInMessageForSteve
+	      ),
+	      menu,
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signInModalOpen,
+	          onRequestClose: this.closeSignInModal },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Sign In'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Sign In!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '(The below component is SignInModal)'
+	        ),
+	        React.createElement(SignInModal, null),
+	        React.createElement('br', null),
+	        React.createElement('iframe', { width: '{854/1.5}',
+	          height: '{480/1.5}',
+	          src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
+	          frameborder: '0',
+	          allowfullscreen: true }),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signUpModalOpen,
+	          onRequestClose: this.closeSignUpModal },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Sign Up'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Sign Up!!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '(The below component is SignUpModal)'
+	        ),
+	        React.createElement(SignUpModal, null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.demoAccountModalOpen,
+	          onRequestClose: this.closeDemoAccountModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Demo Account'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'This feature has not been built yet!'
+	        ),
+	        React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
+	          width: '480',
+	          height: '305',
+	          frameBorder: '0',
+	          'class': 'giphy-embed',
+	          allowFullScreen: true }),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Here, distract yourself with Hamilton until I finish:'
+	        ),
+	        React.createElement('iframe', { width: '{854/1.2}',
+	          height: '{480/1.2}',
+	          src: 'https://www.youtube.com/embed/6ibySV-saJ8',
+	          frameborder: '0',
+	          allowfullscreen: true }),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createEventModalOpen,
+	          onRequestClose: this.closeCreateEventModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'CreateEventModal'
+	        ),
+	        React.createElement(CreateEventModal, null)
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createShowtimeModalOpen,
+	          onRequestClose: this.closeCreateShowtimeModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'CreateShowtimeModal'
+	        ),
+	        React.createElement(CreateShowtimeModal, null)
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.myDashboardModalOpen,
+	          onRequestClose: this.closeMyDashboardModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'MyDashboard'
+	        ),
+	        React.createElement(MyDashboardModal, null)
+	      ),
+	      React.createElement('div', null),
+	      React.createElement(
+	        'div',
+	        { id: 'tixstarter' },
+	        React.createElement(
+	          'div',
+	          { id: 'menu' },
+	          React.createElement(
+	            'p',
+	            null,
+	            'hello'
+	          )
+	        ),
+	        this.props.children,
+	        React.createElement(
+	          'div',
+	          { className: 'event-index-pane' },
+	          React.createElement(EventIndex, null)
+	        )
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

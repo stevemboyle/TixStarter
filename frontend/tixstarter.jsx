@@ -9,6 +9,8 @@ var HashHistory = require('react-router').hashHistory;
 var Modal = require("react-modal");
 
 var App = require('./components/app.jsx');
+var Home = require('./components/home.jsx');
+
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
 var ApiUtil = require('./util/apiUtil');
@@ -25,6 +27,8 @@ var CurrentUserState = require('./mixins/currentUserState');
 
 var routes = (
   <Route path="/" component={App}>
+    <IndexRoute component={Home} />
+    <Route path="home" component={Home}/>
     <Route path="event/:eventId" component={EventDetail}>
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
       </Route>
