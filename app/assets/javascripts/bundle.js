@@ -27210,7 +27210,6 @@
 	    var loggedInMessageForSteve;
 
 	    if (UserStore.loggedIn()) {
-	      debugger;
 	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
 	      menu = loggedInMenu;
 	    } else {
@@ -35283,7 +35282,7 @@
 
 	    var editOptionForLoggedInUsers;
 
-	    if (UserStore.loggedIn()) {
+	    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id) {
 	      editOptionForLoggedInUsers = React.createElement(
 	        'button',
 	        { onClick: this.openEditEventModal },
@@ -35678,13 +35677,14 @@
 	  // },
 
 	  render: function () {
+
 	    if (this.state.event === undefined) {
 	      return React.createElement('div', null);
 	    }
 
 	    var editOptionForLoggedInUsers;
 
-	    if (UserStore.loggedIn()) {
+	    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id) {
 	      editOptionForLoggedInUsers = React.createElement(
 	        'button',
 	        { onClick: this.openEditEventModal },
@@ -36204,6 +36204,7 @@
 	var EventStore = __webpack_require__(240);
 	var ShowtimesIndex = __webpack_require__(263);
 	var ClientActions = __webpack_require__(265);
+	var UserStore = __webpack_require__(285);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36216,7 +36217,7 @@
 	      description: "",
 	      image_url: "",
 	      video_url: "",
-	      user_id: "",
+	      user_id: String(UserStore.user().id),
 	      revenue_goal: "",
 	      revenue_status: 0
 	    };
@@ -36248,10 +36249,10 @@
 	    this.setState({ video_url: newVideoUrl });
 	  },
 
-	  userIdChange: function (keyboardEvent) {
-	    var newUserId = keyboardEvent.target.value;
-	    this.setState({ user_id: newUserId });
-	  },
+	  // userIdChange: function(keyboardEvent){
+	  //   var newUserId = keyboardEvent.target.value;
+	  //   this.setState({ user_id: newUserId});
+	  // },
 
 	  revenueGoalChange: function (keyboardEvent) {
 	    var newRevenueGoal = keyboardEvent.target.value;
@@ -36266,7 +36267,7 @@
 	      description: this.state.description,
 	      image_url: this.state.image_url,
 	      video_url: this.state.video_url,
-	      user_id: this.state.user_id,
+	      user_id: String(UserStore.user().id),
 	      revenue_goal: this.state.revenue_goal,
 	      revenue_status: 0
 	    };
@@ -36344,16 +36345,6 @@
 	          React.createElement('input', { type: 'text',
 	            value: this.state.videoUrl,
 	            onChange: this.videoUrlChange
-	          })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' User Id:',
-	          React.createElement('input', { type: 'text',
-	            value: this.state.userId,
-	            onChange: this.userIdChange
 	          })
 	        ),
 	        React.createElement('br', null),

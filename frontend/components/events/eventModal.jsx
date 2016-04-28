@@ -55,14 +55,15 @@ module.exports = React.createClass({
 
 
   render: function () {
+
     if(this.state.event === undefined) { return <div></div>; }
 
     var editOptionForLoggedInUsers;
 
-    if (UserStore.loggedIn()){
+    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
       editOptionForLoggedInUsers =(
         <button onClick={this.openEditEventModal}>Edit Event</button>
-      )
+      );
     }
 
     return(

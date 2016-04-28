@@ -8,6 +8,15 @@ User.create!({
       bio_text: "John is a great patron of the arts.",
       })
 
+User.create!({
+      username: "guest2",
+      password: "password2",
+      first_name: "Guest2",
+      last_name: "Account2",
+      bio_image_url: "",
+      bio_text: "John is a great patron of the arts.",
+      })
+
 
 # # Blank Event:
 #

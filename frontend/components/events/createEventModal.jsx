@@ -2,6 +2,7 @@ var React = require('react');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/clientActions.js');
+var UserStore = require('../../stores/user');
 
 module.exports = React.createClass({
 
@@ -12,7 +13,7 @@ module.exports = React.createClass({
       description: "",
       image_url: "",
       video_url: "",
-      user_id: "",
+      user_id: String(UserStore.user().id),
       revenue_goal: "",
       revenue_status: 0,
     });
@@ -44,10 +45,10 @@ module.exports = React.createClass({
     this.setState({ video_url: newVideoUrl});
   },
 
-  userIdChange: function(keyboardEvent){
-    var newUserId = keyboardEvent.target.value;
-    this.setState({ user_id: newUserId});
-  },
+  // userIdChange: function(keyboardEvent){
+  //   var newUserId = keyboardEvent.target.value;
+  //   this.setState({ user_id: newUserId});
+  // },
 
   revenueGoalChange: function(keyboardEvent){
     var newRevenueGoal = keyboardEvent.target.value;
@@ -62,7 +63,7 @@ module.exports = React.createClass({
       description: this.state.description,
       image_url: this.state.image_url,
       video_url: this.state.video_url,
-      user_id: this.state.user_id,
+      user_id: String(UserStore.user().id),
       revenue_goal: this.state.revenue_goal,
       revenue_status: 0,
     };
@@ -128,15 +129,6 @@ module.exports = React.createClass({
             <input type="text"
                     value={this.state.videoUrl}
                     onChange={this.videoUrlChange}
-              />
-          </label>
-
-          <br></br>
-
-          <label> User Id:
-            <input type="text"
-                    value={this.state.userId}
-                    onChange={this.userIdChange}
               />
           </label>
 

@@ -117,7 +117,6 @@ module.exports = React.createClass({
     var loggedInMessageForSteve;
 
     if (UserStore.loggedIn()){
-      debugger;
       loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
       menu = loggedInMenu;
     } else {
