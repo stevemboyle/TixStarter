@@ -35783,6 +35783,7 @@
 	var Modal = __webpack_require__(218);
 	var EditEventModal = __webpack_require__(291);
 	var UserStore = __webpack_require__(285);
+	var hashHistory = __webpack_require__(159).hashHistory;
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35818,6 +35819,11 @@
 	    // It looks great.
 	    // But it sends us into an infinite loop.
 	    // ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
+	  },
+
+	  goToEventSplash: function () {
+	    var destination = "/event/" + this.props.event.id;
+	    hashHistory.push(destination);
 	  },
 
 	  // componentDidMount: function () {
@@ -35879,7 +35885,7 @@
 	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes }),
 	        React.createElement(
 	          'button',
-	          null,
+	          { onClick: this.goToEventSplash },
 	          'Learn More'
 	        ),
 	        React.createElement(

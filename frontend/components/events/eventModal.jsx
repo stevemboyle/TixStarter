@@ -8,6 +8,7 @@ var ClientActions = require('../../actions/clientActions.js');
 var Modal = require("react-modal");
 var EditEventModal = require('./editEventModal');
 var UserStore = require('../../stores/user');
+var hashHistory = require("react-router").hashHistory;
 
 module.exports = React.createClass({
   // getStateFromStore: function () {
@@ -41,6 +42,11 @@ module.exports = React.createClass({
     // It looks great.
     // But it sends us into an infinite loop.
     // ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
+  },
+
+  goToEventSplash: function(){
+    var destination = "/event/" + this.props.event.id;
+    hashHistory.push(destination);
   },
 
   // componentDidMount: function () {
@@ -84,7 +90,7 @@ module.exports = React.createClass({
           <h2 className='detail-header'>Showtimes: </h2>
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
 
-          <button>Learn More</button>
+          <button onClick={this.goToEventSplash}>Learn More</button>
           <button>Get Tickets</button>
 
         </div>
