@@ -33,7 +33,6 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    debugger;
     // Right now, this doesn't update for the New Props.
     // I removed (newProps) from function(newProps)
     this.setState({event: EventStore.find(parseInt(this.props.event.id)),

@@ -65,7 +65,7 @@ var UserActions = {
   },
 
   removeCurrentUser: function(){
-    AppDispatcher.disaptch({
+    AppDispatcher.dispatch({
       actionType: UserConstants.LOGOUT,
     });
   },

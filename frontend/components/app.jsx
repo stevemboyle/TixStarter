@@ -10,6 +10,7 @@ var SignUpModal = require('./users/signUpModal');
 var UserStore = require('../stores/user');
 
 var Modal = require("react-modal");
+var UserApiUtil = require('../util/userApiUtil');
 
 //Mixins
 var CurrentUserState = require('.././mixins/currentUserState');
@@ -58,6 +59,10 @@ module.exports = React.createClass({
       this.setState({ createEventModalOpen: false });
     },
 
+    justClickedLogOut: function(){
+      UserApiUtil.logout();
+    },
+
     // notLoggedInMenu: function(){
     //   return(
     //     <div id="othermenu">
@@ -100,7 +105,7 @@ module.exports = React.createClass({
         <p>hello</p>
         <button onClick={this.openCreateEventModal}>Create Event</button>
         <button onClick={this.openDemoAccountModal}>My Dashboard</button>
-        <button onClick={this.openDemoAccountModal}>Log Out</button>
+        <button onClick={this.justClickedLogOut}>Log Out</button>
       </div>
     );
 

@@ -45,7 +45,9 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
+    @user = current_user
     sign_out
+    render :show
     # redirect_to new_session_url
   end
 

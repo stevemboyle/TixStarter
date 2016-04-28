@@ -13,12 +13,18 @@ var UserApiUtil = {
     });
   },
 
-  logout: function(success, error){
+  logout: function(){
     $.ajax({
       url: "/api/session",
       method: "delete",
-      success: success,
-      error: error
+      success: function(){
+        console.log("Success function for UserAPIUtil Logout");
+        UserActions.removeCurrentUser();
+      },
+      error: function(){
+        console.log("Error function for UserAPIUtil Logout");
+        UserActions.handleError();
+      }
     });
   },
 

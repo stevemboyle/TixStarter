@@ -27069,6 +27069,7 @@
 	var UserStore = __webpack_require__(285);
 
 	var Modal = __webpack_require__(218);
+	var UserApiUtil = __webpack_require__(287);
 
 	//Mixins
 	var CurrentUserState = __webpack_require__(270);
@@ -27117,6 +27118,10 @@
 
 	  closeCreateEventModal: function () {
 	    this.setState({ createEventModalOpen: false });
+	  },
+
+	  justClickedLogOut: function () {
+	    UserApiUtil.logout();
 	  },
 
 	  // notLoggedInMenu: function(){
@@ -27192,7 +27197,7 @@
 	      ),
 	      React.createElement(
 	        'button',
-	        { onClick: this.openDemoAccountModal },
+	        { onClick: this.justClickedLogOut },
 	        'Log Out'
 	      )
 	    );
@@ -35647,7 +35652,6 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
-	    debugger;
 	    // Right now, this doesn't update for the New Props.
 	    // I removed (newProps) from function(newProps)
 	    this.setState({ event: EventStore.find(parseInt(this.props.event.id)),
@@ -36103,7 +36107,7 @@
 	  },
 
 	  removeCurrentUser: function () {
-	    AppDispatcher.disaptch({
+	    AppDispatcher.dispatch({
 	      actionType: UserConstants.LOGOUT
 	    });
 	  },
@@ -36135,12 +36139,18 @@
 	    });
 	  },
 
-	  logout: function (success, error) {
+	  logout: function () {
 	    $.ajax({
 	      url: "/api/session",
 	      method: "delete",
-	      success: success,
-	      error: error
+	      success: function () {
+	        console.log("Success function for UserAPIUtil Logout");
+	        UserActions.removeCurrentUser();
+	      },
+	      error: function () {
+	        console.log("Error function for UserAPIUtil Logout");
+	        UserActions.handleError();
+	      }
 	    });
 	  },
 
