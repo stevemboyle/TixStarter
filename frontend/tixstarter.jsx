@@ -11,6 +11,8 @@ var Modal = require("react-modal");
 var App = require('./components/app.jsx');
 var Home = require('./components/home.jsx');
 
+var EventSplash = require('./components/events/splashPage');
+
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
 var ApiUtil = require('./util/apiUtil');
@@ -29,7 +31,7 @@ var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
     <Route path="home" component={Home}/>
-    <Route path="event/:eventId" component={EventDetail}>
+    <Route path="event/:eventId" component={EventSplash}>
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
       </Route>
     </Route>
