@@ -26,6 +26,14 @@ module.exports = {
     });
   },
 
+  removeEvent: function(event){
+    console.log("Server Actions remove event");
+    Dispatcher.dispatch({
+      actionType: EventConstants.EVENT_REMOVED,
+      event: event
+    });
+  },
+
   // Showtimes Functions:
 
   receiveAllShowtimes: function (showtimes) {

@@ -75,6 +75,18 @@ var ApiUtil = {
     });
   },
 
+  deleteEvent: function(id){
+    console.log("Api Util delete event");
+    $.ajax({
+     url: "api/events/" + id,
+     type: "DELETE",
+     success: function (event) {
+       console.log("success function for Api Util!");
+       ServerActions.removeEvent(event);
+     }
+   });
+  },
+
   // // Showtime Functions
   //
   fetchAllShowtimes: function () {

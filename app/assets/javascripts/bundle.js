@@ -27485,6 +27485,11 @@
 	  _events[event.id] = event;
 	};
 
+	var removeEvent = function (event) {
+	  console.log("eventstore removeEvent");
+	  delete _events[event.id];
+	};
+
 	EventStore.all = function () {
 	  var events = [];
 	  for (var id in _events) {
@@ -27506,6 +27511,10 @@
 	    case EventConstants.EVENT_RECEIVED:
 	      resetEvent(payload.event);
 	      EventStore.__emitChange();
+	      break;
+	    case EventConstants.EVENT_REMOVED:
+	      console.log("event store case EVENT_REMOVED");
+	      removeEvent(payload.event);
 	      break;
 	  }
 	};
@@ -34276,7 +34285,8 @@
 
 	module.exports = {
 	  EVENTS_RECEIVED: "EVENTS_RECEIVED",
-	  EVENT_RECEIVED: "EVENT_RECEIVED"
+	  EVENT_RECEIVED: "EVENT_RECEIVED",
+	  EVENT_REMOVED: "EVENT_REMOVED"
 	};
 
 /***/ },
@@ -34437,6 +34447,11 @@
 	    ApiUtil.editEvent(data);
 	  },
 
+	  deleteEvent: function (id) {
+	    console.log('Client Actions Delete Event');
+	    ApiUtil.deleteEvent(id);
+	  },
+
 	  // Showtime Functions
 
 	  fetchAllShowtimes: function () {
@@ -34547,6 +34562,18 @@
 	    });
 	  },
 
+	  deleteEvent: function (id) {
+	    console.log("Api Util delete event");
+	    $.ajax({
+	      url: "api/events/" + id,
+	      type: "DELETE",
+	      success: function (event) {
+	        console.log("success function for Api Util!");
+	        ServerActions.removeEvent(event);
+	      }
+	    });
+	  },
+
 	  // // Showtime Functions
 	  //
 	  fetchAllShowtimes: function () {
@@ -34645,6 +34672,14 @@
 	    console.log("The event is " + event);
 	    Dispatcher.dispatch({
 	      actionType: EventConstants.EVENT_RECEIVED,
+	      event: event
+	    });
+	  },
+
+	  removeEvent: function (event) {
+	    console.log("Server Actions remove event");
+	    Dispatcher.dispatch({
+	      actionType: EventConstants.EVENT_REMOVED,
 	      event: event
 	    });
 	  },
@@ -35265,7 +35300,7 @@
 	// var EventsIndex = require('./index');
 	var LoginModal = __webpack_require__(278);
 	var EventModal = __webpack_require__(279);
-
+	var ClientActions = __webpack_require__(265);
 	var UserStore = __webpack_require__(285);
 
 	module.exports = React.createClass({
@@ -35277,7 +35312,8 @@
 
 	  getInitialState: function () {
 	    return { eventDetailModalOpen: false,
-	      editEventModalOpen: false };
+	      editEventModalOpen: false,
+	      deleteEventModalOpen: false };
 	  },
 
 	  openEventDetailModal: function () {
@@ -35296,8 +35332,22 @@
 	    this.setState({ editEventModalOpen: false });
 	  },
 
+	  openDeleteEventModal: function () {
+	    this.setState({ deleteEventModalOpen: true });
+	  },
+
+	  closeDeleteEventModal: function () {
+	    this.setState({ deleteEventModalOpen: false });
+	  },
+
 	  showDetail: function () {
 	    this.context.router.push('/event/' + this.props.event.id);
+	  },
+
+	  activateDeleteProcess: function () {
+	    console.log("activateDeleteProcess");
+	    console.log(this.props.event.id);
+	    ClientActions.deleteEvent(this.props.event.id);
 	  },
 
 	  render: function () {
@@ -35306,9 +35356,18 @@
 
 	    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id) {
 	      editOptionForLoggedInUsers = React.createElement(
-	        'button',
-	        { onClick: this.openEditEventModal },
-	        'Edit Event'
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.openEditEventModal },
+	          'Edit Event'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openDeleteEventModal },
+	          'Delete Event'
+	        )
 	      );
 	    }
 
@@ -35362,6 +35421,42 @@
 	            'Im a modal!'
 	          ),
 	          React.createElement(EventModal, { event: this.props.event }),
+	          React.createElement(
+	            'p',
+	            null,
+	            'modal modal modal modal modal'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
+	          )
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.deleteEventModalOpen,
+	            onRequestClose: this.closeDeleteEventModal },
+	          React.createElement(
+	            'h1',
+	            null,
+	            'Delete Event'
+	          ),
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Are you sure?'
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: this.activateDeleteProcess },
+	            'Yes'
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: this.closeDeleteEventModal },
+	            'No'
+	          ),
 	          React.createElement(
 	            'p',
 	            null,

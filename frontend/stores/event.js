@@ -19,6 +19,11 @@ var resetEvent = function (event) {
   _events[event.id] = event;
 };
 
+var removeEvent = function(event){
+  console.log("eventstore removeEvent");
+  delete _events[event.id];
+};
+
 EventStore.all = function () {
   var events = [];
   for (var id in _events) {
@@ -40,6 +45,10 @@ EventStore.__onDispatch = function (payload) {
     case EventConstants.EVENT_RECEIVED:
       resetEvent(payload.event);
       EventStore.__emitChange();
+      break;
+    case EventConstants.EVENT_REMOVED:
+      console.log("event store case EVENT_REMOVED");
+      removeEvent(payload.event);
       break;
   }
 };

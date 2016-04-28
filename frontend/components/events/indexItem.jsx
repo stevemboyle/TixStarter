@@ -7,7 +7,7 @@ var EventDetail = require('./detail');
 // var EventsIndex = require('./index');
 var LoginModal = require('../users/loginModal');
 var EventModal = require('./eventModal');
-
+var ClientActions = require('../../actions/clientActions');
 var UserStore = require('../../stores/user');
 
 
@@ -18,7 +18,8 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return({ eventDetailModalOpen: false,
-              editEventModalOpen: false});
+              editEventModalOpen: false,
+              deleteEventModalOpen: false});
   },
 
   openEventDetailModal: function(){
@@ -38,8 +39,22 @@ module.exports = React.createClass({
     this.setState({ editEventModalOpen: false });
   },
 
+  openDeleteEventModal: function(){
+    this.setState({ deleteEventModalOpen: true });
+  },
+
+  closeDeleteEventModal: function(){
+    this.setState({ deleteEventModalOpen: false });
+  },
+
   showDetail: function () {
     this.context.router.push('/event/'+ this.props.event.id);
+  },
+
+  activateDeleteProcess: function(){
+    console.log("activateDeleteProcess");
+    console.log(this.props.event.id);
+    ClientActions.deleteEvent(this.props.event.id);
   },
 
   render: function () {
@@ -48,7 +63,10 @@ module.exports = React.createClass({
 
     if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
       editOptionForLoggedInUsers =(
-        <button onClick={this.openEditEventModal}>Edit Event</button>
+        <div>
+          <button onClick={this.openEditEventModal}>Edit Event</button>
+          <button onClick={this.openDeleteEventModal}>Delete Event</button>
+        </div>
       );
     }
 
@@ -81,6 +99,23 @@ module.exports = React.createClass({
                  <p>mooooooooodal!</p>
 
              </Modal>
+
+             <Modal
+                isOpen={this.state.deleteEventModalOpen}
+                onRequestClose={this.closeDeleteEventModal}>
+
+                  <h1>Delete Event</h1>
+
+                  <h2>Are you sure?</h2>
+
+                  <button onClick={this.activateDeleteProcess}>Yes</button>
+                  <button onClick={this.closeDeleteEventModal}>No</button>
+
+
+                  <p>modal modal modal modal modal</p>
+                  <p>mooooooooodal!</p>
+
+              </Modal>
           </div>
 
 

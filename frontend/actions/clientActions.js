@@ -1,4 +1,4 @@
-var ApiUtil = require('../util/apiUtil.js');
+var ApiUtil = require('../util/apiUtil');
 
 module.exports = {
 
@@ -22,6 +22,11 @@ module.exports = {
 
   editEvent: function(data) {
     ApiUtil.editEvent(data);
+  },
+
+  deleteEvent: function(id){
+    console.log('Client Actions Delete Event');
+    ApiUtil.deleteEvent(id);
   },
 
   // Showtime Functions
