@@ -11,7 +11,7 @@ class Api::SessionsController < ApplicationController
 
     if user
       sign_in(user)
-      response = { logged_in: true, username: user.username }
+      response = { logged_in: true, username: user.username, first_name: user.first_name, last_name: user.last_name, id: user.id }
       render json: response
       # redirect_to links_url
     else
@@ -31,7 +31,7 @@ class Api::SessionsController < ApplicationController
 
     if @user
       # We're logged in
-      response = { logged_in: true, username: @user.username }
+      response = { logged_in: true, username: user.username, first_name: user.first_name, last_name: user.last_name, id: user.id }
       render json: response
     else
       # We're not logged in

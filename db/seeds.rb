@@ -2,8 +2,8 @@
 User.create!({
       username: "guest",
       password: "password",
-      first_name: "John",
-      last_name: "Doe",
+      first_name: "Guest",
+      last_name: "Account",
       bio_image_url: "",
       bio_text: "John is a great patron of the arts.",
       })
