@@ -37,6 +37,26 @@
    height: 100%;
  }
 
+.splash-heading {
+  background: green;
+  opacity: 0.8;
+}
+
+.event-video {
+  background: pink;
+  opacity: 0.8;
+}
+
+ .white-bg{
+    background:#fff;
+    opacity: 0.8;
+}
+
+.padding-top-bottom {
+    padding:120px 0 100px;
+}
+
+
  header {
    background: #f00;
    color: #fff;

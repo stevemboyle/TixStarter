@@ -6,6 +6,7 @@ var EventIndexItem = require('./indexItem.jsx');
 module.exports = React.createClass({
   getInitialState: function () {
     console.log("getInitialState");
+
     return { events: EventStore.all() };
   },
 

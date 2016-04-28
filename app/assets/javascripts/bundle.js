@@ -27079,6 +27079,7 @@
 	var UserApiUtil = __webpack_require__(287);
 	var SignInModal = __webpack_require__(293);
 	var MyDashboardModal = __webpack_require__(294);
+	var hashHistory = __webpack_require__(159).hashHistory;
 
 	//Mixins
 	var CurrentUserState = __webpack_require__(270);
@@ -27155,6 +27156,10 @@
 	    UserActions.login({ username: "guest", password: "password" });
 	  },
 
+	  returnHome: function () {
+	    hashHistory.push("/");
+	  },
+
 	  listMenu: function () {
 	    return React.createElement(
 	      'li',
@@ -27196,8 +27201,8 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        null,
-	        'hello'
+	        { onClick: this.returnHome },
+	        'TixStarter'
 	      ),
 	      React.createElement(
 	        'p',
@@ -27230,8 +27235,8 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        null,
-	        'hello'
+	        { onClick: this.returnHome },
+	        'TixStarter'
 	      ),
 	      React.createElement('br', null),
 	      React.createElement(
@@ -35275,6 +35280,7 @@
 
 	  getInitialState: function () {
 	    console.log("getInitialState");
+
 	    return { events: EventStore.all() };
 	  },
 
@@ -35354,28 +35360,39 @@
 	      deleteEventModalOpen: false };
 	  },
 
+	  componentDidMount: function () {
+	    this.bigClickGo = true;
+	  },
+
 	  openEventDetailModal: function () {
+	    this.bigClickGo = false;
 	    this.setState({ eventDetailModalOpen: true });
 	  },
 
 	  closeEventDetailModal: function () {
 	    this.setState({ eventDetailModalOpen: false });
+	    this.bigClickGo = true;
 	  },
 
 	  openEditEventModal: function () {
+	    console.log("small click");
+	    this.bigClickGo = false;
 	    this.setState({ editEventModalOpen: true });
 	  },
 
 	  closeEditEventModal: function () {
 	    this.setState({ editEventModalOpen: false });
+	    this.bigClickGo = true;
 	  },
 
 	  openDeleteEventModal: function () {
+	    this.bigClickGo = false;
 	    this.setState({ deleteEventModalOpen: true });
 	  },
 
 	  closeDeleteEventModal: function () {
 	    this.setState({ deleteEventModalOpen: false });
+	    this.bigClickGo = true;
 	  },
 
 	  showDetail: function () {
@@ -35389,9 +35406,11 @@
 	  },
 
 	  goToEventSplash: function (clickEvent) {
-	    var destination = "/event/" + this.props.event.id;
-	    hashHistory.push(destination);
-	    console.log("Big Click Event");
+	    if (this.bigClickGo) {
+	      var destination = "/event/" + this.props.event.id;
+	      hashHistory.push(destination);
+	      // console.log("Big Click Event");
+	    }
 	  },
 
 	  render: function () {
@@ -35426,7 +35445,7 @@
 	        null,
 	        React.createElement(
 	          'li',
-	          { className: 'event-list-item' },
+	          { onClick: this.goToEventSplash, className: 'event-list-item' },
 	          React.createElement(
 	            'p',
 	            null,
@@ -38926,12 +38945,14 @@
 	var EventStore = __webpack_require__(240);
 	var ShowtimesIndex = __webpack_require__(263);
 	var ClientActions = __webpack_require__(265);
+	var ApiUtil = __webpack_require__(266);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
 
 	  getStateFromStore: function () {
+
 	    return { event: EventStore.find(parseInt(this.props.params.eventId)) };
 	  },
 
@@ -38965,6 +38986,56 @@
 	        'h1',
 	        null,
 	        'Event Splash'
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Title'
+	        ),
+	        React.createElement(
+	          'h6',
+	          null,
+	          'Catchphrase'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { href: '#event-page-showtimes' },
+	            'Go to Showtimes'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'event-page-description', className: 'white-bg padding-top-bottom' },
+	        React.createElement(
+	          'p',
+	          null,
+	          'Description'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'event-page-video', className: 'event-video padding-top-bottom' },
+	        React.createElement('iframe', { width: '{854/2}',
+	          height: '{480/2}',
+	          src: 'https://www.youtube.com/embed/-xDlEXO4UJs?list=PLUSRfoOcUe4avCXPg6tPgdZzu--hBXUYx',
+	          frameborder: '0',
+	          allowfullscreen: true })
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'event-page-showtimes', className: 'white-bg padding-top-bottom' },
+	        React.createElement(
+	          'p',
+	          null,
+	          'Showtimes Go Here'
+	        )
 	      )
 	    );
 	  }

@@ -14,6 +14,7 @@ var Modal = require("react-modal");
 var UserApiUtil = require('../util/userApiUtil');
 var SignInModal = require('./users/signInModal');
 var MyDashboardModal = require('./events/userDashboardEventsIndex');
+var hashHistory = require("react-router").hashHistory;
 
 //Mixins
 var CurrentUserState = require('.././mixins/currentUserState');
@@ -88,6 +89,10 @@ module.exports = React.createClass({
       UserActions.login({username: "guest", password: "password"});
     },
 
+    returnHome: function(){
+      hashHistory.push("/");
+    },
+
     listMenu: function() {
       return(
         <li>Stand-In Menu</li>
@@ -124,7 +129,7 @@ module.exports = React.createClass({
 
     var notLoggedInMenu =(
       <div id="othermenu">
-        <p>hello</p>
+        <p onClick={this.returnHome}>TixStarter</p>
         <p>{loggedInMessageForSteve}</p>
         <div id="menubuttons">
           <button onClick={this.openSignInModal}>Sign In</button>
@@ -136,7 +141,7 @@ module.exports = React.createClass({
 
     var loggedInMenu =(
       <div id="othermenu">
-        <p>hello</p>
+        <p onClick={this.returnHome}>TixStarter</p>
         <br></br>
         <div id="menubuttons">
           <button onClick={this.openCreateEventModal}>Create Event</button>

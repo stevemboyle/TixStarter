@@ -24,29 +24,39 @@ module.exports = React.createClass({
               deleteEventModalOpen: false});
   },
 
+  componentDidMount: function(){
+    this.bigClickGo = true;
+  },
+
   openEventDetailModal: function(){
+    this.bigClickGo = false;
     this.setState({ eventDetailModalOpen: true });
   },
 
   closeEventDetailModal: function(){
     this.setState({ eventDetailModalOpen: false });
+    this.bigClickGo = true;
   },
 
-
   openEditEventModal: function(){
+    console.log("small click");
+    this.bigClickGo = false;
     this.setState({ editEventModalOpen: true });
   },
 
   closeEditEventModal: function(){
     this.setState({ editEventModalOpen: false });
+    this.bigClickGo = true;
   },
 
   openDeleteEventModal: function(){
+    this.bigClickGo = false;
     this.setState({ deleteEventModalOpen: true });
   },
 
   closeDeleteEventModal: function(){
     this.setState({ deleteEventModalOpen: false });
+    this.bigClickGo = true;
   },
 
   showDetail: function () {
@@ -60,9 +70,11 @@ module.exports = React.createClass({
   },
 
   goToEventSplash: function(clickEvent){
-    var destination = "/event/" + this.props.event.id;
-    hashHistory.push(destination);
-    console.log("Big Click Event");
+    if (this.bigClickGo){
+      var destination = "/event/" + this.props.event.id;
+      hashHistory.push(destination);
+      // console.log("Big Click Event");
+    }
   },
 
   render: function () {
@@ -85,7 +97,7 @@ module.exports = React.createClass({
       <div>
         <div>
 
-          <li className="event-list-item">
+          <li onClick={this.goToEventSplash} className="event-list-item">
             <p><b>{this.props.event.title}</b></p>
             <p><em>{this.props.event.catchphrase}</em></p>
             <p>{this.props.event.description}</p>
