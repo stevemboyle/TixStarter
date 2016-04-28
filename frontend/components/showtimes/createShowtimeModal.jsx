@@ -21,6 +21,12 @@ module.exports = React.createClass({
     console.log("EventId: " + this.state.event_id);
   },
 
+  locationChange: function(keyboardEvent){
+    var newLocation = keyboardEvent.target.value;
+    this.setState({ location: newLocation });
+    console.log("Location: " + this.state.location);
+  },
+
   render: function(){
     return(
       <div>
@@ -35,6 +41,12 @@ module.exports = React.createClass({
 
           <br></br>
 
+            <label> Location:
+              <input type="text"
+                      value={this.state.location}
+                      onChange={this.locationChange}
+                />
+            </label>
 
           <br></br>
 

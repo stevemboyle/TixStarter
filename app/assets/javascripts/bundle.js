@@ -37013,6 +37013,12 @@
 	    console.log("EventId: " + this.state.event_id);
 	  },
 
+	  locationChange: function (keyboardEvent) {
+	    var newLocation = keyboardEvent.target.value;
+	    this.setState({ location: newLocation });
+	    console.log("Location: " + this.state.location);
+	  },
+
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -37028,6 +37034,15 @@
 	        React.createElement('br', null),
 	        React.createElement('br', null),
 	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Location:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.location,
+	            onChange: this.locationChange
+	          })
+	        ),
 	        React.createElement('br', null),
 	        React.createElement('br', null),
 	        React.createElement('br', null),
