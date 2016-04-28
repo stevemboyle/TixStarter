@@ -27063,6 +27063,7 @@
 	// var LoginForm = require('./users/usersLoginForm');
 	var LoginModal = __webpack_require__(278);
 	var CreateEventModal = __webpack_require__(288);
+	var CreateShowtimeModal = __webpack_require__(296);
 	var UserActions = __webpack_require__(286);
 	var SignUpModal = __webpack_require__(292);
 
@@ -27397,7 +27398,7 @@
 	          null,
 	          'CreateShowtimeModal'
 	        ),
-	        React.createElement(CreateEventModal, null)
+	        React.createElement(CreateShowtimeModal, null)
 	      ),
 	      React.createElement(
 	        Modal,
@@ -36980,6 +36981,63 @@
 	      )
 	    );
 	  }
+	});
+
+/***/ },
+/* 295 */,
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ShowtimesIndex = __webpack_require__(263);
+	var ClientActions = __webpack_require__(265);
+	var UserStore = __webpack_require__(285);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+
+	  getInitialState: function () {
+	    return {
+	      event_id: "",
+	      date: "",
+	      time: "",
+	      location: ""
+	    };
+	  },
+
+	  eventIdChange: function (keyboardEvent) {
+	    var newEventId = keyboardEvent.target.value;
+	    this.setState({ event_id: newEventId });
+	    console.log("EventId: " + this.state.event_id);
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Create New Showtime'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Create Showtime' }),
+	        React.createElement('br', null)
+	      )
+	    );
+	  }
+
 	});
 
 /***/ }

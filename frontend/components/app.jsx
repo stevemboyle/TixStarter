@@ -4,6 +4,7 @@ var EventIndex = require('./events/index');
 // var LoginForm = require('./users/usersLoginForm');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
+var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
 var UserActions = require('../actions/userActions');
 var SignUpModal = require('./users/signUpModal');
 
@@ -253,7 +254,7 @@ module.exports = React.createClass({
 
             <h2>CreateShowtimeModal</h2>
 
-            <CreateEventModal />
+            <CreateShowtimeModal />
 
         </Modal>
 
