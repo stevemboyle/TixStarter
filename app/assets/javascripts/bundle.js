@@ -27071,6 +27071,7 @@
 	var Modal = __webpack_require__(218);
 	var UserApiUtil = __webpack_require__(287);
 	var SignInModal = __webpack_require__(293);
+	var MyDashboardModal = __webpack_require__(294);
 
 	//Mixins
 	var CurrentUserState = __webpack_require__(270);
@@ -27085,7 +27086,8 @@
 	    return { signInModalOpen: false,
 	      signUpModalOpen: false,
 	      demoAccountModalOpen: false,
-	      createEventModalOpen: false
+	      createEventModalOpen: false,
+	      myDashboardModalOpen: false
 	    };
 	  },
 
@@ -27119,6 +27121,14 @@
 
 	  closeCreateEventModal: function () {
 	    this.setState({ createEventModalOpen: false });
+	  },
+
+	  openMyDashboardModal: function () {
+	    this.setState({ myDashboardModalOpen: true });
+	  },
+
+	  closeMyDashboardModal: function () {
+	    this.setState({ myDashboardModalOpen: false });
 	  },
 
 	  justClickedLogOut: function () {
@@ -27197,7 +27207,7 @@
 	      ),
 	      React.createElement(
 	        'button',
-	        { onClick: this.openDemoAccountModal },
+	        { onClick: this.openMyDashboardModal },
 	        'My Dashboard'
 	      ),
 	      React.createElement(
@@ -27340,6 +27350,18 @@
 	          'CreateEventModal'
 	        ),
 	        React.createElement(CreateEventModal, null)
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.myDashboardModalOpen,
+	          onRequestClose: this.closeMyDashboardModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'MyDashboard'
+	        ),
+	        React.createElement(MyDashboardModal, null)
 	      ),
 	      React.createElement('div', null),
 	      React.createElement(
@@ -36743,6 +36765,79 @@
 	});
 
 	module.exports = SignInModal;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(240);
+	var ClientActions = __webpack_require__(265);
+	var EventIndexItem = __webpack_require__(277);
+	var UserStore = __webpack_require__(285);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  getInitialState: function () {
+	    console.log("getInitialState");
+	    return { events: EventStore.all() };
+	  },
+
+	  _onChange: function () {
+	    console.log('_onChange');
+	    this.setState({ events: EventStore.all() });
+	  },
+
+	  componentDidMount: function () {
+	    console.log('componentDidMount');
+	    this.eventListener = EventStore.addListener(this._onChange);
+	    ClientActions.fetchAllEvents();
+	  },
+
+	  compomentWillUnmount: function () {
+	    console.log('componentWillUnmount');
+	    this.eventListener.remove();
+	  },
+
+	  myEvents: function () {
+	    var result = [];
+	    this.state.events.map(function (event) {
+	      if (event.user_id === UserStore.user().id) {
+	        result.push(event);
+	      }
+	    });
+	    return result;
+	  },
+
+	  render: function () {
+
+	    var test = "Nothing";
+	    if (this.state.events) {
+	      test = this.state.events;
+	      console.log(this.state.events);
+	    }
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'h2',
+	          null,
+	          'My Created Events:'
+	        ),
+	        React.createElement('br', null),
+	        this.myEvents().map(function (event) {
+
+	          return React.createElement(EventIndexItem, { key: event.id, event: event });
+	        })
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

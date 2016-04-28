@@ -12,6 +12,7 @@ var UserStore = require('../stores/user');
 var Modal = require("react-modal");
 var UserApiUtil = require('../util/userApiUtil');
 var SignInModal = require('./users/signInModal');
+var MyDashboardModal = require('./events/userDashboardEventsIndex');
 
 //Mixins
 var CurrentUserState = require('.././mixins/currentUserState');
@@ -24,7 +25,8 @@ module.exports = React.createClass({
      return({ signInModalOpen: false,
               signUpModalOpen: false,
               demoAccountModalOpen: false,
-              createEventModalOpen: false
+              createEventModalOpen: false,
+              myDashboardModalOpen: false
             });
    },
 
@@ -58,6 +60,14 @@ module.exports = React.createClass({
 
     closeCreateEventModal: function(){
       this.setState({ createEventModalOpen: false });
+    },
+
+    openMyDashboardModal: function(){
+        this.setState({ myDashboardModalOpen: true });
+    },
+
+    closeMyDashboardModal: function(){
+      this.setState({ myDashboardModalOpen: false });
     },
 
     justClickedLogOut: function(){
@@ -109,7 +119,7 @@ module.exports = React.createClass({
       <div id="othermenu">
         <p>hello</p>
         <button onClick={this.openCreateEventModal}>Create Event</button>
-        <button onClick={this.openDemoAccountModal}>My Dashboard</button>
+        <button onClick={this.openMyDashboardModal}>My Dashboard</button>
         <button onClick={this.justClickedLogOut}>Log Out</button>
       </div>
     );
@@ -212,6 +222,17 @@ module.exports = React.createClass({
             <CreateEventModal />
 
         </Modal>
+
+        <Modal
+          isOpen={this.state.myDashboardModalOpen}
+          onRequestClose={this.closeMyDashboardModal}>
+
+            <h2>MyDashboard</h2>
+
+            <MyDashboardModal />
+
+        </Modal>
+
 
         <div>
 
