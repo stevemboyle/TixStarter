@@ -117,7 +117,7 @@ module.exports = React.createClass({
     var loggedInMessageForSteve;
 
     if (UserStore.loggedIn()){
-      loggedInMessageForSteve = "Logged In!";
+      loggedInMessageForSteve = "Hello, " + UserStore.user().username + ". You are logged In!";
       menu = loggedInMenu;
     } else {
       loggedInMessageForSteve = "NOT Logged In!";
@@ -137,7 +137,7 @@ module.exports = React.createClass({
           isOpen={this.state.signInModalOpen}
           onRequestClose={this.closeSignInModal}>
 
-          	<h1>Please Help Me with This I Am So Lost Here</h1>
+          	<h1>Sign In</h1>
 
             <h2>Sign In!</h2>
             <p>(The below component is SignInModal)</p>
@@ -161,7 +161,7 @@ module.exports = React.createClass({
           isOpen={this.state.signUpModalOpen}
           onRequestClose={this.closeSignUpModal}>
 
-          	<h1>Please Help Me with This I Am So Lost Here</h1>
+          	<h1>Sign Up</h1>
 
             <h2>Sign Up!!</h2>
             <p>(The below component is SignUpModal)</p>

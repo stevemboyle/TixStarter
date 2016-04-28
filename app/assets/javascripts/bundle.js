@@ -27210,7 +27210,7 @@
 	    var loggedInMessageForSteve;
 
 	    if (UserStore.loggedIn()) {
-	      loggedInMessageForSteve = "Logged In!";
+	      loggedInMessageForSteve = "Hello, " + UserStore.user().username + ". You are logged In!";
 	      menu = loggedInMenu;
 	    } else {
 	      loggedInMessageForSteve = "NOT Logged In!";
@@ -27239,7 +27239,7 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          'Please Help Me with This I Am So Lost Here'
+	          'Sign In'
 	        ),
 	        React.createElement(
 	          'h2',
@@ -27272,7 +27272,7 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          'Please Help Me with This I Am So Lost Here'
+	          'Sign Up'
 	        ),
 	        React.createElement(
 	          'h2',
