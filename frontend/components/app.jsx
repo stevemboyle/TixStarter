@@ -26,6 +26,7 @@ module.exports = React.createClass({
               signUpModalOpen: false,
               demoAccountModalOpen: false,
               createEventModalOpen: false,
+              createShowtimeModalOpen: false,
               myDashboardModalOpen: false
             });
    },
@@ -60,6 +61,14 @@ module.exports = React.createClass({
 
     closeCreateEventModal: function(){
       this.setState({ createEventModalOpen: false });
+    },
+
+    openCreateShowtimeModal: function(){
+        this.setState({ createShowtimeModalOpen: true });
+    },
+
+    closeCreateShowtimeModal: function(){
+      this.setState({ createShowtimeModalOpen: false });
     },
 
     openMyDashboardModal: function(){
@@ -130,8 +139,10 @@ module.exports = React.createClass({
         <br></br>
         <div id="menubuttons">
           <button onClick={this.openCreateEventModal}>Create Event</button>
+          <button onClick={this.openCreateShowtimeModal}>Create Showtime</button>
           <button onClick={this.openMyDashboardModal}>My Dashboard</button>
           <button onClick={this.justClickedLogOut}>Log Out</button>
+
         </div>
       </div>
     );
@@ -231,6 +242,16 @@ module.exports = React.createClass({
           onRequestClose={this.closeCreateEventModal}>
 
             <h2>CreateEventModal</h2>
+
+            <CreateEventModal />
+
+        </Modal>
+
+        <Modal
+          isOpen={this.state.createShowtimeModalOpen}
+          onRequestClose={this.closeCreateShowtimeModal}>
+
+            <h2>CreateShowtimeModal</h2>
 
             <CreateEventModal />
 

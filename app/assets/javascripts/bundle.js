@@ -27087,6 +27087,7 @@
 	      signUpModalOpen: false,
 	      demoAccountModalOpen: false,
 	      createEventModalOpen: false,
+	      createShowtimeModalOpen: false,
 	      myDashboardModalOpen: false
 	    };
 	  },
@@ -27121,6 +27122,14 @@
 
 	  closeCreateEventModal: function () {
 	    this.setState({ createEventModalOpen: false });
+	  },
+
+	  openCreateShowtimeModal: function () {
+	    this.setState({ createShowtimeModalOpen: true });
+	  },
+
+	  closeCreateShowtimeModal: function () {
+	    this.setState({ createShowtimeModalOpen: false });
 	  },
 
 	  openMyDashboardModal: function () {
@@ -27225,6 +27234,11 @@
 	          'button',
 	          { onClick: this.openCreateEventModal },
 	          'Create Event'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openCreateShowtimeModal },
+	          'Create Showtime'
 	        ),
 	        React.createElement(
 	          'button',
@@ -27370,6 +27384,18 @@
 	          'h2',
 	          null,
 	          'CreateEventModal'
+	        ),
+	        React.createElement(CreateEventModal, null)
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createShowtimeModalOpen,
+	          onRequestClose: this.closeCreateShowtimeModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'CreateShowtimeModal'
 	        ),
 	        React.createElement(CreateEventModal, null)
 	      ),
