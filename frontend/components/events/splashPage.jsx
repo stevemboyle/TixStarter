@@ -38,35 +38,35 @@ module.exports = React.createClass({
 
     return(
       <div id="EventSplashFullPage">
-          <h1>Event Splash</h1>
 
         <section id="event-page-splash" className="splash-heading padding-top-bottom">
 
           <a id="top"></a>
 
           <h1>
-            Title: {this.state.event.title}
+            {this.state.event.title}
           </h1>
           <h6>
-            Catchphrase
+            {this.state.event.catchphrase}
           </h6>
           <p><a href="#event-page-showtimes" className="scroll">Go to Showtimes</a></p>
 
         </section>
         <section id="event-page-description" className="white-bg padding-top-bottom">
 
-          <p>
-            Description
-          </p>
+          <h1>{this.state.event.title}</h1>
+          <p>{this.state.event.description}</p>
 
         </section>
         <section id="event-page-video" className="event-video padding-top-bottom scroll">
 
-            <iframe width="{854/2}"
-                    height="{480/2}"
-                    src="https://www.youtube.com/embed/-xDlEXO4UJs?list=PLUSRfoOcUe4avCXPg6tPgdZzu--hBXUYx"
-                    frameborder="0"
-                    allowfullscreen>
+          <p>{this.state.event.video_url}</p>
+
+            <iframe width="854"
+              height="480"
+              src="https://www.youtube.com/embed/gKc31H6adR8"
+              frameborder="0"
+              allowfullscreen>
             </iframe>
 
         </section>

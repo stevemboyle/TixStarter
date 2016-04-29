@@ -15,6 +15,7 @@ class Api::SessionsController < ApplicationController
       render json: response
       # redirect_to links_url
     else
+
       # flash.now[:errors] = ["Invalid username or password"]
       # render :new
     end
@@ -48,9 +49,9 @@ class Api::SessionsController < ApplicationController
     # redirect_to new_session_url
   end
 
-  # def user_params
-	# 	params.require(:user).permit(:username, :password)
-	# end
+  def user_params
+		params.require(:user).permit(:username, :password)
+	end
 
 
 end

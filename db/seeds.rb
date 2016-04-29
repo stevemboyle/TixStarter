@@ -36,7 +36,7 @@ Event.create({
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
         image_url: "#",
-        video_url: "#",
+        video_url: "https://youtu.be/gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,
         revenue_status: 0

@@ -36,12 +36,19 @@ var UserActions = {
   },
 
   login: function(data){
+    console.log("useractions login called");
     $.ajax({
       url: "/api/session",
       type: "post",
       data: { user: data },
-      success: UserActions.receiveCurrentUser,
-      error: UserActions.handleError
+      success: function(){
+        debugger;
+        UserActions.receiveCurrentUser();
+      },
+      error: function(){
+        UserActions.handleError();
+      }
+
     });
   },
 

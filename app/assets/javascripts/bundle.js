@@ -78,6 +78,8 @@
 	  { path: '/', component: App },
 	  React.createElement(IndexRoute, { component: Home }),
 	  React.createElement(Route, { path: 'home', component: Home }),
+	  React.createElement(Route, { path: 'home-events-index', component: Home }),
+	  React.createElement(Route, { path: 'home-marketing', component: Home }),
 	  React.createElement(
 	    Route,
 	    { path: 'event/:eventId', component: EventSplash },
@@ -27153,6 +27155,7 @@
 	  },
 	
 	  signInWithDemoAccount: function () {
+	    console.log("app: sign in with demo account");
 	    UserActions.login({ username: "guest", password: "password" });
 	  },
 	
@@ -35935,12 +35938,19 @@
 	  },
 	
 	  login: function (data) {
+	    console.log("useractions login called");
 	    $.ajax({
 	      url: "/api/session",
 	      type: "post",
 	      data: { user: data },
-	      success: UserActions.receiveCurrentUser,
-	      error: UserActions.handleError
+	      success: function () {
+	        debugger;
+	        UserActions.receiveCurrentUser();
+	      },
+	      error: function () {
+	        UserActions.handleError();
+	      }
+	
 	    });
 	  },
 	
@@ -38846,13 +38856,27 @@
 	        { id: 'home-splash' },
 	        React.createElement(
 	          'h1',
-	          null,
+	          { className: 'cody-font' },
 	          'Welcome to TixStarter'
 	        ),
 	        React.createElement(
 	          'h3',
-	          null,
+	          { className: 'cody-font' },
 	          'Forward Fund Events with Ticket Sales'
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'home-buttons' },
+	          React.createElement(
+	            'a',
+	            { href: '#home-events-index' },
+	            'Browse Events'
+	          ),
+	          React.createElement(
+	            'a',
+	            { href: '#home-marketing' },
+	            'Learn More'
+	          )
 	        ),
 	        React.createElement(
 	          'h4',
@@ -38961,24 +38985,18 @@
 	      'div',
 	      { id: 'EventSplashFullPage' },
 	      React.createElement(
-	        'h1',
-	        null,
-	        'Event Splash'
-	      ),
-	      React.createElement(
 	        'section',
 	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
 	        React.createElement('a', { id: 'top' }),
 	        React.createElement(
 	          'h1',
 	          null,
-	          'Title: ',
 	          this.state.event.title
 	        ),
 	        React.createElement(
 	          'h6',
 	          null,
-	          'Catchphrase'
+	          this.state.event.catchphrase
 	        ),
 	        React.createElement(
 	          'p',
@@ -38994,17 +39012,27 @@
 	        'section',
 	        { id: 'event-page-description', className: 'white-bg padding-top-bottom' },
 	        React.createElement(
+	          'h1',
+	          null,
+	          this.state.event.title
+	        ),
+	        React.createElement(
 	          'p',
 	          null,
-	          'Description'
+	          this.state.event.description
 	        )
 	      ),
 	      React.createElement(
 	        'section',
 	        { id: 'event-page-video', className: 'event-video padding-top-bottom scroll' },
-	        React.createElement('iframe', { width: '{854/2}',
-	          height: '{480/2}',
-	          src: 'https://www.youtube.com/embed/-xDlEXO4UJs?list=PLUSRfoOcUe4avCXPg6tPgdZzu--hBXUYx',
+	        React.createElement(
+	          'p',
+	          null,
+	          this.state.event.video_url
+	        ),
+	        React.createElement('iframe', { width: '854',
+	          height: '480',
+	          src: 'https://www.youtube.com/embed/gKc31H6adR8',
 	          frameborder: '0',
 	          allowfullscreen: true })
 	      ),

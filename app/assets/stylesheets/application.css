@@ -56,6 +56,16 @@
     background-size: cover;
   }
 
+  #event-page-splash {
+    height: 100vh;
+    background-image: url(http://www.talentculture.com/wp-content/uploads/2015/07/bigstock-Photo-Of-Rock-Concert-3000.jpg);
+    background-size: cover;
+  }
+
+  .cody-font {
+    font-family: CodyStar;
+  }
+
   body {
    height: 100%;
  }
