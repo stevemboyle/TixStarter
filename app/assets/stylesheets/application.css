@@ -107,11 +107,31 @@
     background-size: cover;
   }
 
+  #event-page-description {
+    width: 600px;
+    margin: auto;
+    padding: 50px;
+  }
+
   #event-page-video {
+    /*width: 400px;
+    margin: auto;
+    padding: 50px;*/
     height: 90vh;
     background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/6/61/Obama_greets_the_cast_and_crew_of_Hamilton_musical,_2015.jpg);
     background-size: cover;
+  }
+
+  .video-div {
+    display: flex;
+    justify-content: center;
+    /*display: -webkit-flex;
+    flex: center;*/
+    padding: 50px;
+    /*margin: auto;*/
+    /*width: 400px;
+    /*padding: 50px;*/
   }
 
   #event-page-showtimes {

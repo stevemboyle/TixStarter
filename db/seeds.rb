@@ -35,7 +35,7 @@ Event.create({
         title: "First Event Title",
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
-        image_url: "#",
+        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
         video_url: "https://youtu.be/gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,

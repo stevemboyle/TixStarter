@@ -29,16 +29,18 @@ var UserApiUtil = {
   // Server Actions method, rather than passed in
 
   fetchCurrentUser: function(){
+    console.log("Fetch Current User");
     $.ajax({
       url: "/api/session",
       method: "get",
       success: function(user){
-
+        console.log('success function for fetch current user');
         // So, right now, UserActions is an empty {} object
         // Why, I have no idea.
         UserActions.receiveCurrentUser(user);
       }.bind(this),
       error: function(error){
+        console.log('error function for fetch current user');
         UserActions.handleError(error);
       }
     });

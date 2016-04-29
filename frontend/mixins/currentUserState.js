@@ -1,5 +1,6 @@
 var UserStore = require('../stores/user');
 var UserActions = require('../actions/userActions');
+var UserApiUtil = require('../util/userApiUtil');
 
 var CurrentUserState = {
 
@@ -12,9 +13,9 @@ var CurrentUserState = {
 
   componentDidMount: function(){
     UserStore.addListener(this.updateUser);
-    if (typeof UserStore.currentUser() === 'undefined'){
-      UserActions.fetchCurrentUser();
-    }
+    // if (typeof UserStore.currentUser() === 'undefined'){
+    //   UserActions.fetchCurrentUser();
+    // }
   },
 
   updateUser: function(){

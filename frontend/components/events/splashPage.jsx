@@ -43,6 +43,14 @@ module.exports = React.createClass({
     this.eventListener.remove();
   },
 
+  setEventBackgroundImage: function(){
+    return({
+      backgroundImage: 'url(' + this.state.event.image_url + ')',
+      WebkitTransition: 'all', // note the capital 'W' here
+      msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+    });
+  },
+
   render: function(){
 
     if(this.state.event === undefined) { return <div></div>; }
@@ -75,25 +83,36 @@ module.exports = React.createClass({
 
 
         </section>
-        <section id="event-page-description" className="white-bg padding-top-bottom">
+        <section
+          id="event-page-description"
+          className="white-bg padding-top-bottom"
+          >
+
+          <div background="https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg" >
+            <p>Hello</p>
+          </div>
 
           <h1>{this.state.event.title}</h1>
           <p>{this.state.event.description}</p>
           <br></br>
           <p><b>Revenue Status:</b> {this.state.event.revenue_status}</p>
           <p><b>Revenue Goal:</b> {this.state.event.revenue_goal}</p>
+          <br></br>
+          <p>When I reseed the database, this should show the event's image_url:</p>
 
         </section>
         <section id="event-page-video" className="event-video padding-top-bottom">
 
           <p>{this.state.event.video_url}</p>
 
+          <div id="video-div" className="video-div">
             <iframe width="854"
               height="480"
               src="https://www.youtube.com/embed/gKc31H6adR8"
               frameborder="0"
               allowfullscreen>
             </iframe>
+          </div>
 
         </section>
         <section id="event-page-showtimes" className="white-bg padding-top-bottom">

@@ -36074,6 +36074,7 @@
 
 	var UserStore = __webpack_require__(283);
 	var UserActions = __webpack_require__(282);
+	var UserApiUtil = __webpack_require__(299);
 	
 	var CurrentUserState = {
 	
@@ -36086,9 +36087,9 @@
 	
 	  componentDidMount: function () {
 	    UserStore.addListener(this.updateUser);
-	    if (typeof UserStore.currentUser() === 'undefined') {
-	      UserActions.fetchCurrentUser();
-	    }
+	    // if (typeof UserStore.currentUser() === 'undefined'){
+	    //   UserActions.fetchCurrentUser();
+	    // }
 	  },
 	
 	  updateUser: function () {
@@ -38642,16 +38643,18 @@
 	  // Server Actions method, rather than passed in
 	
 	  fetchCurrentUser: function () {
+	    console.log("Fetch Current User");
 	    $.ajax({
 	      url: "/api/session",
 	      method: "get",
 	      success: function (user) {
-	
+	        console.log('success function for fetch current user');
 	        // So, right now, UserActions is an empty {} object
 	        // Why, I have no idea.
 	        UserActions.receiveCurrentUser(user);
 	      }.bind(this),
 	      error: function (error) {
+	        console.log('error function for fetch current user');
 	        UserActions.handleError(error);
 	      }
 	    });
@@ -38992,6 +38995,14 @@
 	    this.eventListener.remove();
 	  },
 	
+	  setEventBackgroundImage: function () {
+	    return {
+	      backgroundImage: 'url(' + this.state.event.image_url + ')',
+	      WebkitTransition: 'all', // note the capital 'W' here
+	      msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+	    };
+	  },
+	
 	  render: function () {
 	
 	    if (this.state.event === undefined) {
@@ -39080,7 +39091,19 @@
 	      ),
 	      React.createElement(
 	        'section',
-	        { id: 'event-page-description', className: 'white-bg padding-top-bottom' },
+	        {
+	          id: 'event-page-description',
+	          className: 'white-bg padding-top-bottom'
+	        },
+	        React.createElement(
+	          'div',
+	          { background: 'https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg' },
+	          React.createElement(
+	            'p',
+	            null,
+	            'Hello'
+	          )
+	        ),
 	        React.createElement(
 	          'h1',
 	          null,
@@ -39113,6 +39136,12 @@
 	          ),
 	          ' ',
 	          this.state.event.revenue_goal
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'When I reseed the database, this should show the event\'s image_url:'
 	        )
 	      ),
 	      React.createElement(
@@ -39123,11 +39152,15 @@
 	          null,
 	          this.state.event.video_url
 	        ),
-	        React.createElement('iframe', { width: '854',
-	          height: '480',
-	          src: 'https://www.youtube.com/embed/gKc31H6adR8',
-	          frameborder: '0',
-	          allowfullscreen: true })
+	        React.createElement(
+	          'div',
+	          { id: 'video-div', className: 'video-div' },
+	          React.createElement('iframe', { width: '854',
+	            height: '480',
+	            src: 'https://www.youtube.com/embed/gKc31H6adR8',
+	            frameborder: '0',
+	            allowfullscreen: true })
+	        )
 	      ),
 	      React.createElement(
 	        'section',
