@@ -21,6 +21,21 @@
     padding: 0;
   }
 
+#event-page-splash img {
+  display: flex;
+  position: absolute;
+  z-index: -100;
+  width: 100%;
+  text-align: none;
+  justify-content: center;
+  height: 225px;
+  align-items: flex-start;
+}
+
+#event-splash-image {
+
+}
+
 #event-page-video {
   height: 100vh;
   width: 100%;

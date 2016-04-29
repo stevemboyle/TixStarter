@@ -58,9 +58,13 @@ module.exports = React.createClass({
     return(
       <div id="EventSplashFullPage">
 
+
         <section id="event-page-splash" className="splash-heading padding-top-bottom">
 
+            <img className="event-splash-image" src={this.state.event.image_url} width="100px"></img>
+
           <div id="event-splash-text" className="event-splash-text">
+
             <h1 color="white" text-align="center">
               {this.state.event.title}
             </h1>
@@ -86,10 +90,6 @@ module.exports = React.createClass({
           className="white-bg padding-top-bottom"
           >
 
-          <div background="https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg" >
-            <p>Hello</p>
-          </div>
-
           <h1>{this.state.event.title}</h1>
           <p>{this.state.event.description}</p>
           <br></br>
@@ -97,6 +97,16 @@ module.exports = React.createClass({
           <p><b>Revenue Goal:</b> {this.state.event.revenue_goal}</p>
           <br></br>
           <p>When I reseed the database, this should show the event's image_url:</p>
+
+          <br></br>
+
+            <div background-image="url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)" >
+              <p>Hello</p>
+            </div>
+
+            <p>Image:</p>
+            <img src={this.state.event.image_url} width="100px"></img>
+
 
         </section>
         <section id="event-page-video" className="event-video padding-top-bottom">
@@ -106,7 +116,7 @@ module.exports = React.createClass({
           <div id="video-div" className="video-div">
             <iframe width="854"
               height="480"
-              src="https://www.youtube.com/embed/gKc31H6adR8"
+              src={"https://www.youtube.com/embed/" + this.state.event.video_url}
               frameborder="0"
               allowfullscreen>
             </iframe>

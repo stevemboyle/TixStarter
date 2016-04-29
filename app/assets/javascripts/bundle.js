@@ -39022,6 +39022,7 @@
 	      React.createElement(
 	        'section',
 	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
+	        React.createElement('img', { className: 'event-splash-image', src: this.state.event.image_url, width: '100px' }),
 	        React.createElement(
 	          'div',
 	          { id: 'event-splash-text', className: 'event-splash-text' },
@@ -39102,15 +39103,6 @@
 	          className: 'white-bg padding-top-bottom'
 	        },
 	        React.createElement(
-	          'div',
-	          { background: 'https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg' },
-	          React.createElement(
-	            'p',
-	            null,
-	            'Hello'
-	          )
-	        ),
-	        React.createElement(
 	          'h1',
 	          null,
 	          this.state.event.title
@@ -39148,7 +39140,23 @@
 	          'p',
 	          null,
 	          'When I reseed the database, this should show the event\'s image_url:'
-	        )
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'div',
+	          { 'background-image': 'url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)' },
+	          React.createElement(
+	            'p',
+	            null,
+	            'Hello'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Image:'
+	        ),
+	        React.createElement('img', { src: this.state.event.image_url, width: '100px' })
 	      ),
 	      React.createElement(
 	        'section',
@@ -39163,7 +39171,7 @@
 	          { id: 'video-div', className: 'video-div' },
 	          React.createElement('iframe', { width: '854',
 	            height: '480',
-	            src: 'https://www.youtube.com/embed/gKc31H6adR8',
+	            src: "https://www.youtube.com/embed/" + this.state.event.video_url,
 	            frameborder: '0',
 	            allowfullscreen: true })
 	        )
