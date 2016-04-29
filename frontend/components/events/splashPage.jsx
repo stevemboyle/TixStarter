@@ -59,9 +59,8 @@ module.exports = React.createClass({
       <div id="EventSplashFullPage">
 
 
-        <section id="event-page-splash" className="splash-heading padding-top-bottom">
-
-            <img className="event-splash-image" src={this.state.event.image_url} width="100px"></img>
+        <section id="event-page-splash" className="splash-heading padding-top-bottom"
+          style={{backgroundImage: "url(" + this.state.event.image_url + ")"}}>
 
           <div id="event-splash-text" className="event-splash-text">
 
@@ -96,22 +95,16 @@ module.exports = React.createClass({
           <p><b>Revenue Status:</b> {this.state.event.revenue_status}</p>
           <p><b>Revenue Goal:</b> {this.state.event.revenue_goal}</p>
           <br></br>
-          <p>When I reseed the database, this should show the event's image_url:</p>
 
           <br></br>
 
-            <div background-image="url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)" >
+            <section style={{backgroundImage: "url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)"}}>
               <p>Hello</p>
-            </div>
-
-            <p>Image:</p>
-            <img src={this.state.event.image_url} width="100px"></img>
+            </section>
 
 
         </section>
         <section id="event-page-video" className="event-video padding-top-bottom">
-
-          <p>{this.state.event.video_url}</p>
 
           <div id="video-div" className="video-div">
             <iframe width="854"

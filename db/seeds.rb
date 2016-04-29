@@ -66,10 +66,21 @@ Event.create({
 
 Event.create({
         title: "Hamilton",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
-        video_url: "gKc31H6adR8",
+        catchphrase: "An American Musical",
+        description: "Hamilton is a musical about Alexander Hamilton, with music, lyrics and book by Lin-Manuel Miranda. The show, inspired by the 2004 biography Alexander Hamilton, by historian Ron Chernow, has achieved both critical acclaim and box office success.",
+        image_url: "http://www.trbimg.com/img-5665dfbe/turbine/ct-hamilton-tour-launch-chicago",
+        video_url: "Eq6ciU2iqW0",
+        user_id: 1,
+        revenue_goal: 20000,
+        revenue_status: 0
+        })
+
+Event.create({
+        title: "Sleep No More",
+        catchphrase: "The Immersive Experience",
+        description: "Sleep No More is the New York City production of a site-specific, interactive work of theatre created by British theatre company Punchdrunk, based on their original 2003 London incarnation (at the Beafoy Building), their Brookline, Massachusetts 2009 collaboration with Boston's American Repertory Theatre (at the Old Lincoln School), and William Shakespeare's Macbeth. The company reinvented Sleep No More as a co-production with Emursive, and began performances on March 7, 2011. Sleep No More won the 2011 Drama Desk Award for Unique Theatrical Experience and won Punchdrunk special citations at the 2011 Obie Awards for design and choreography.",
+        image_url: "http://www.batterypark.tv/wp-content/uploads/2015/03/sleep-no-more.jpg",
+        video_url: "3kz6I5bpxI0",
         user_id: 1,
         revenue_goal: 20000,
         revenue_status: 0

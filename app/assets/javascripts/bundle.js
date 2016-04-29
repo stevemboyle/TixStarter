@@ -39021,8 +39021,8 @@
 	      { id: 'EventSplashFullPage' },
 	      React.createElement(
 	        'section',
-	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
-	        React.createElement('img', { className: 'event-splash-image', src: this.state.event.image_url, width: '100px' }),
+	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom',
+	          style: { backgroundImage: "url(" + this.state.event.image_url + ")" } },
 	        React.createElement(
 	          'div',
 	          { id: 'event-splash-text', className: 'event-splash-text' },
@@ -39136,36 +39136,20 @@
 	          this.state.event.revenue_goal
 	        ),
 	        React.createElement('br', null),
-	        React.createElement(
-	          'p',
-	          null,
-	          'When I reseed the database, this should show the event\'s image_url:'
-	        ),
 	        React.createElement('br', null),
 	        React.createElement(
-	          'div',
-	          { 'background-image': 'url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)' },
+	          'section',
+	          { style: { backgroundImage: "url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)" } },
 	          React.createElement(
 	            'p',
 	            null,
 	            'Hello'
 	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Image:'
-	        ),
-	        React.createElement('img', { src: this.state.event.image_url, width: '100px' })
+	        )
 	      ),
 	      React.createElement(
 	        'section',
 	        { id: 'event-page-video', className: 'event-video padding-top-bottom' },
-	        React.createElement(
-	          'p',
-	          null,
-	          this.state.event.video_url
-	        ),
 	        React.createElement(
 	          'div',
 	          { id: 'video-div', className: 'video-div' },
