@@ -59,6 +59,34 @@
     margin: auto;
   }
 
+  /*.home-splash-button {
+    background: pink;
+    width: 100px;
+    height: 20px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+  }*/
+
+  #home-buttons a:link, a:visited {
+    display: block;
+    border-radius: 15px;
+    width: 200px;
+    height: 20px;
+    /*width: 6em;*/
+    /*padding: 0.2em;*/
+    line-height: 1.4;
+    background-color: purple;
+    /*border: 1px solid black;*/
+    color: coral;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  #home-buttons a:hover {
+    background-color: green;
+  }
+
   #home-events-index {
     height: 100vh;
     background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);

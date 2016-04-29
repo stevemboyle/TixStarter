@@ -34,11 +34,18 @@ module.exports = React.createClass({
           </div>
 
           <div id="home-buttons" className="home-buttons">
-            <a href="#home-events-index" text-align="center">Browse Events</a>
-            <a href="#home-marketing" text-align="center">Learn More</a>
+
+              <a href="#home-events-index" text-align="center">
+                Browse Events
+              </a>
+
+              <a href="#home-marketing" text-align="center">
+                Learn More
+              </a>
+
           </div>
 
-    
+
 
 
         </section>
