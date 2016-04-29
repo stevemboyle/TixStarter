@@ -20,7 +20,7 @@
     margin: 0;
     padding: 0;
   }
-
+/*
 #event-page-splash img {
   display: flex;
   position: absolute;
@@ -34,10 +34,10 @@
 
 #event-splash-image {
 
-}
+}*/
 
 #event-page-video {
-  height: 100vh;
+  height: 125vh;
   width: 100%;
 }
 
@@ -118,7 +118,7 @@
   #event-page-splash {
     color: white;
     text-align: center;
-    height: 50vh;
+    height: 75vh;
     background-image: url(https://res.cloudinary.com/nyphil/images/concerts-tickets/calendar/1617/memorial-day-concert-05252015-w.jpg);
     background-size: cover;
   }
@@ -133,7 +133,7 @@
     /*width: 400px;
     margin: auto;
     padding: 50px;*/
-    height: 90vh;
+    height: 125vh;
     background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/6/61/Obama_greets_the_cast_and_crew_of_Hamilton_musical,_2015.jpg);
     background-size: cover;
@@ -257,7 +257,11 @@ h1 {
    display: block;
    padding: 40px;
    background-color: dodgerblue;
-   opacity: 0.5;
+   opacity: 0.95;
+   position: fixed;
+   height: 100px;
+   z-index: 100;
+   width: 100%;
  }
 
  #othermenu p {

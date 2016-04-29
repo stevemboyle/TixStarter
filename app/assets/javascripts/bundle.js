@@ -27201,7 +27201,7 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        { onClick: this.returnHome, className: 'hover-pointer' },
+	        { onClick: this.returnHome, className: 'hover-pointer cody-font' },
 	        'TixStarter'
 	      ),
 	      React.createElement(
@@ -27235,7 +27235,7 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        { onClick: this.returnHome, className: 'hover-pointer' },
+	        { onClick: this.returnHome, className: 'hover-pointer cody-font' },
 	        'TixStarter'
 	      ),
 	      React.createElement('br', null),
@@ -27288,11 +27288,6 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        loggedInMessageForSteve
-	      ),
 	      menu,
 	      React.createElement(
 	        Modal,
@@ -39136,16 +39131,7 @@
 	          this.state.event.revenue_goal
 	        ),
 	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'section',
-	          { style: { backgroundImage: "url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)" } },
-	          React.createElement(
-	            'p',
-	            null,
-	            'Hello'
-	          )
-	        )
+	        React.createElement('br', null)
 	      ),
 	      React.createElement(
 	        'section',

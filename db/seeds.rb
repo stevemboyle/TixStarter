@@ -57,7 +57,7 @@ Event.create({
         title: "World Hamlet",
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+        image_url: "https://www.silverkris.com/sites/default/files/2015/hamletskull.jpg",
         video_url: "gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,

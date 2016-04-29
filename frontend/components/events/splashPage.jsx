@@ -98,11 +98,6 @@ module.exports = React.createClass({
 
           <br></br>
 
-            <section style={{backgroundImage: "url(https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg)"}}>
-              <p>Hello</p>
-            </section>
-
-
         </section>
         <section id="event-page-video" className="event-video padding-top-bottom">
 
