@@ -33,9 +33,8 @@ var routes = (
     <Route path="home" component={Home}/>
     <Route path="home-events-index" component={Home}/>
     <Route path="home-marketing" component={Home}/>
-    <Route path="event/:eventId" component={EventSplash}>
+    <Route path="event/:eventId" component={EventSplash} />
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
-      </Route>
     </Route>
     <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
   </Route>

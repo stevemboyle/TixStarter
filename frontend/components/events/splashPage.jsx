@@ -52,7 +52,12 @@ module.exports = React.createClass({
             </h6>
           </div>
               <div id="home-buttons" className="home-buttons">
-              <p><a href="#event-page-showtimes" className="scroll">Go to Showtimes</a></p>
+                <br></br>
+                <p><a href="#event-page-description">See Description</a></p>
+                <p><a href="#event-page-video">Watch Video</a></p>
+                <p><a href="#event-page-showtimes">See Showtimes</a></p>
+                <br></br>
+                <p><a href="#event-page-showtimes">Get Tickets</a></p>
           </div>
 
 
@@ -63,7 +68,7 @@ module.exports = React.createClass({
           <p>{this.state.event.description}</p>
 
         </section>
-        <section id="event-page-video" className="event-video padding-top-bottom scroll">
+        <section id="event-page-video" className="event-video padding-top-bottom">
 
           <p>{this.state.event.video_url}</p>
 

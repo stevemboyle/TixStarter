@@ -80,11 +80,8 @@
 	  React.createElement(Route, { path: 'home', component: Home }),
 	  React.createElement(Route, { path: 'home-events-index', component: Home }),
 	  React.createElement(Route, { path: 'home-marketing', component: Home }),
-	  React.createElement(
-	    Route,
-	    { path: 'event/:eventId', component: EventSplash },
-	    React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail })
-	  ),
+	  React.createElement(Route, { path: 'event/:eventId', component: EventSplash }),
+	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail })
 	);
 	
@@ -39014,13 +39011,42 @@
 	        React.createElement(
 	          'div',
 	          { id: 'home-buttons', className: 'home-buttons' },
+	          React.createElement('br', null),
 	          React.createElement(
 	            'p',
 	            null,
 	            React.createElement(
 	              'a',
-	              { href: '#event-page-showtimes', className: 'scroll' },
-	              'Go to Showtimes'
+	              { href: '#event-page-description' },
+	              'See Description'
+	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: '#event-page-video' },
+	              'Watch Video'
+	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: '#event-page-showtimes' },
+	              'See Showtimes'
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'p',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: '#event-page-showtimes' },
+	              'Get Tickets'
 	            )
 	          )
 	        )
@@ -39041,7 +39067,7 @@
 	      ),
 	      React.createElement(
 	        'section',
-	        { id: 'event-page-video', className: 'event-video padding-top-bottom scroll' },
+	        { id: 'event-page-video', className: 'event-video padding-top-bottom' },
 	        React.createElement(
 	          'p',
 	          null,
