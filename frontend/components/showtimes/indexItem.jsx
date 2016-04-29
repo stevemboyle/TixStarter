@@ -26,7 +26,7 @@ module.exports = React.createClass({
 
     //TODO: Figure out how to close all modals.
 
-    EventsIndex.closeEventDetailModal();
+    // EventsIndex.closeEventDetailModal();
   },
 
 

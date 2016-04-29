@@ -35368,7 +35368,7 @@
 	
 	    //TODO: Figure out how to close all modals.
 	
-	    EventsIndex.closeEventDetailModal();
+	    // EventsIndex.closeEventDetailModal();
 	  },
 	
 	  render: function () {
@@ -38946,6 +38946,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var Modal = __webpack_require__(218);
+	var ShowtimeModal = __webpack_require__(277);
 	var EventStore = __webpack_require__(255);
 	var ShowtimesIndex = __webpack_require__(275);
 	var ClientActions = __webpack_require__(244);
@@ -38957,7 +38959,16 @@
 	
 	  getStateFromStore: function () {
 	    // ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
-	    return { event: EventStore.find(parseInt(this.props.params.eventId)) };
+	    return { event: EventStore.find(parseInt(this.props.params.eventId)),
+	      showtimeModalOpen: false };
+	  },
+	
+	  openShowtimeModal: function () {
+	    this.setState({ showtimeModalOpen: true });
+	  },
+	
+	  closeShowtimeModal: function () {
+	    this.setState({ showtimeModalOpen: false });
 	  },
 	
 	  _onChange: function () {
@@ -39088,6 +39099,33 @@
 	          'Showtimes Go Here'
 	        ),
 	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.showtimeModalOpen,
+	          onRequestClose: this.closeShowtimeAndEventModals },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Im supposed to be a modal!'
+	        ),
+	        React.createElement(ShowtimeModal, { showtime: this.props.showtime }),
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeShowtimeModal },
+	          'Back'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'modal modal modal modal modal'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
 	      )
 	    );
 	  }

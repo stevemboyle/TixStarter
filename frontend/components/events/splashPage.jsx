@@ -1,4 +1,6 @@
 var React = require('react');
+var Modal = require("react-modal");
+var ShowtimeModal = require('../showtimes/showtimeModal');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
@@ -8,7 +10,16 @@ module.exports = React.createClass({
 
   getStateFromStore: function () {
     // ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
-    return { event: EventStore.find(parseInt(this.props.params.eventId)) };
+    return { event: EventStore.find(parseInt(this.props.params.eventId)),
+              showtimeModalOpen: false   };
+  },
+
+  openShowtimeModal: function(){
+    this.setState({ showtimeModalOpen: true });
+  },
+
+  closeShowtimeModal: function(){
+    this.setState({ showtimeModalOpen: false });
   },
 
   _onChange: function () {
@@ -89,6 +100,21 @@ module.exports = React.createClass({
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
 
         </section>
+
+        <Modal
+           isOpen={this.state.showtimeModalOpen}
+           onRequestClose={this.closeShowtimeAndEventModals}>
+
+             <h2>Im supposed to be a modal!</h2>
+
+            <ShowtimeModal showtime={this.props.showtime}/>
+
+            <button onClick={this.closeShowtimeModal}>Back</button>
+
+             <p>modal modal modal modal modal</p>
+             <p>mooooooooodal!</p>
+
+         </Modal>
 
 
       </div>
