@@ -33,12 +33,14 @@ module.exports = React.createClass({
             <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
           </div>
 
-          <div id="home-buttons">
-            <a href="#home-events-index">Browse Events</a>
-            <a href="#home-marketing">Learn More</a>
+          <div id="home-buttons" className="home-buttons">
+            <a href="#home-events-index" text-align="center">Browse Events</a>
+            <a href="#home-marketing" text-align="center">Learn More</a>
           </div>
 
-          <h4>Scroll down for More</h4>
+    
+
+
         </section>
         <section id="home-events-index">
 

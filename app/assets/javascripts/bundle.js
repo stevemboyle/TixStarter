@@ -38868,22 +38868,17 @@
 	        ),
 	        React.createElement(
 	          'div',
-	          { id: 'home-buttons' },
+	          { id: 'home-buttons', className: 'home-buttons' },
 	          React.createElement(
 	            'a',
-	            { href: '#home-events-index' },
+	            { href: '#home-events-index', 'text-align': 'center' },
 	            'Browse Events'
 	          ),
 	          React.createElement(
 	            'a',
-	            { href: '#home-marketing' },
+	            { href: '#home-marketing', 'text-align': 'center' },
 	            'Learn More'
 	          )
-	        ),
-	        React.createElement(
-	          'h4',
-	          null,
-	          'Scroll down for More'
 	        )
 	      ),
 	      React.createElement(
