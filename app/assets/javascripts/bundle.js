@@ -58,15 +58,15 @@
 	var Home = __webpack_require__(302);
 	
 	var EventSplash = __webpack_require__(303);
-	
+	var ClientActions = __webpack_require__(244);
 	var EventDetail = __webpack_require__(274);
 	var ShowtimeDetail = __webpack_require__(304);
-	var ApiUtil = __webpack_require__(245);
-	var UserApiUtil = __webpack_require__(299);
+	// var ApiUtil = require('./util/apiUtil');
+	// var UserApiUtil = require('./util/userApiUtil');
 	
 	// TODO: Call API Util Fetch Current User immediately
 	// TODO: This is ready to go. Just comment the below out:
-	UserApiUtil.fetchCurrentUser();
+	ClientActions.fetchCurrentUser();
 	
 	// var LoginForm = require('./components/LoginForm');
 	// Mixins
@@ -27818,10 +27818,15 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ApiUtil = __webpack_require__(245);
+	var UserApiUtil = __webpack_require__(299);
 	
 	module.exports = {
 	
 	  // User Functions
+	
+	  fetchCurrentUser: function () {
+	    UserApiUtil.fetchCurrentUser();
+	  },
 	
 	  // Event Functions
 	
@@ -35910,7 +35915,7 @@
 
 	var AppDispatcher = __webpack_require__(247);
 	var UserConstants = __webpack_require__(252);
-	// var UserApiUtil = require('../util/userApiUtil.js');
+	var UserApiUtil = __webpack_require__(299);
 	var UserStore = __webpack_require__(283);
 	var App = __webpack_require__(238);
 	
@@ -35952,9 +35957,11 @@
 	      type: "post",
 	      data: { user: data },
 	      success: function (user) {
+	        // debugger;
 	        UserActions.receiveCurrentUser(user);
 	      },
-	      error: function () {
+	      error: function (error) {
+	        // debugger;
 	        UserActions.handleError();
 	      }
 	
@@ -39015,7 +39022,6 @@
 	      React.createElement(
 	        'section',
 	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
-	        React.createElement('a', { id: 'top' }),
 	        React.createElement(
 	          'div',
 	          { id: 'event-splash-text', className: 'event-splash-text' },

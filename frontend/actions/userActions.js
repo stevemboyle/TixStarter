@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var UserConstants = require('../constants/userConstants.js');
-// var UserApiUtil = require('../util/userApiUtil.js');
+var UserApiUtil = require('../util/userApiUtil.js');
 var UserStore = require('../stores/user');
 var App = require('../components/app');
 
@@ -42,9 +42,11 @@ var UserActions = {
       type: "post",
       data: { user: data },
       success: function(user){
+        // debugger;
         UserActions.receiveCurrentUser(user);
       },
-      error: function(){
+      error: function(error){
+        // debugger;
         UserActions.handleError();
       }
 

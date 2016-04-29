@@ -60,8 +60,6 @@ module.exports = React.createClass({
 
         <section id="event-page-splash" className="splash-heading padding-top-bottom">
 
-          <a id="top"></a>
-
           <div id="event-splash-text" className="event-splash-text">
             <h1 color="white" text-align="center">
               {this.state.event.title}

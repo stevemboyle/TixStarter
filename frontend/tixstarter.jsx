@@ -12,15 +12,15 @@ var App = require('./components/app.jsx');
 var Home = require('./components/home.jsx');
 
 var EventSplash = require('./components/events/splashPage');
-
+var ClientActions = require('./actions/client_actions');
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
-var ApiUtil = require('./util/apiUtil');
-var UserApiUtil = require('./util/userApiUtil');
+// var ApiUtil = require('./util/apiUtil');
+// var UserApiUtil = require('./util/userApiUtil');
 
 // TODO: Call API Util Fetch Current User immediately
 // TODO: This is ready to go. Just comment the below out:
-UserApiUtil.fetchCurrentUser();
+ClientActions.fetchCurrentUser();
 
 // var LoginForm = require('./components/LoginForm');
 // Mixins

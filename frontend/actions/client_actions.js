@@ -1,8 +1,13 @@
 var ApiUtil = require('../util/apiUtil');
+var UserApiUtil = require('../util/userApiUtil');
 
 module.exports = {
 
   // User Functions
+
+  fetchCurrentUser: function(){
+    UserApiUtil.fetchCurrentUser();
+  },
 
   // Event Functions
 
