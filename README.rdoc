@@ -84,7 +84,7 @@ TixStarter will allow users to do the following:
 
   - [X] Create `Showtime` model
   - Build out API, Flux loop, and components for:
-    -  [X] `Showtime` CRUD
+     - [x] `Showtime` CRUD
 	   - [X] Fetching `Showtimes`
      - [X] `ShowtimesIndex`
      - [X] `ShowtimeIndexItem`
