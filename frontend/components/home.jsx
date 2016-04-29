@@ -65,13 +65,18 @@ module.exports = React.createClass({
 
         {this.props.children}
 
-      </section>
-      <section id="home-marketing">
+      </section><section id="home-marketing">
 
         <h1>Welcome to TixStarter</h1>
         <h3>Forward Fund Events with Ticket Sales</h3>
 
         <h4>Scroll down for More</h4>
+      </section><section  id="home-whitespace"
+        className="white-bg padding-top-bottom"
+        >
+
+        <h1>Text!</h1>
+
       </section>
     </div>
 

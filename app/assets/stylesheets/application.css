@@ -103,14 +103,23 @@
   }
 
   #home-events-index {
-    height: 100vh;
+    /*height: 100vh;*/
     background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);
     background-size: cover;
     overflow: hidden;
+    padding-bottom: 50px;
   }
 
-  #home-marketing {
+  #home-whitespace {
     height: 100vh;
+  }
+
+  /*.full-screen {
+    height: 100vh;
+  }*/
+
+  #home-marketing {
+    height: 40vh;
     background-image: url(http://www.talentculture.com/wp-content/uploads/2015/07/bigstock-Photo-Of-Rock-Concert-3000.jpg);
     background-size: cover;
   }

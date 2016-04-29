@@ -38941,6 +38941,17 @@
 	          null,
 	          'Scroll down for More'
 	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'home-whitespace',
+	          className: 'white-bg padding-top-bottom'
+	        },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Text!'
+	        )
 	      )
 	    );
 	  }
