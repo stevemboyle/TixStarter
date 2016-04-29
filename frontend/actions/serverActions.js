@@ -10,7 +10,6 @@ module.exports = {
   // Events Functions:
 
   receiveAllEvents: function (events) {
-    console.log("receiveAllEvent called");
     Dispatcher.dispatch({
       actionType: EventConstants.EVENTS_RECEIVED,
       events: events
@@ -18,8 +17,6 @@ module.exports = {
   },
 
   receiveSingleEvent: function (event) {
-    console.log("receiveSingleEvent called");
-    console.log("The event is " + event);
     Dispatcher.dispatch({
       actionType: EventConstants.EVENT_RECEIVED,
       event: event
@@ -27,7 +24,6 @@ module.exports = {
   },
 
   removeEvent: function(event){
-    console.log("Server Actions remove event");
     Dispatcher.dispatch({
       actionType: EventConstants.EVENT_REMOVED,
       event: event

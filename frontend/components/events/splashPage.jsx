@@ -7,27 +7,25 @@ var ApiUtil = require('../../util/apiUtil');
 module.exports = React.createClass({
 
   getStateFromStore: function () {
-
+    // ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
     return { event: EventStore.find(parseInt(this.props.params.eventId)) };
   },
 
   _onChange: function () {
-
     this.setState(this.getStateFromStore());
   },
 
   getInitialState: function () {
-
     return this.getStateFromStore();
   },
 
   componentWillReceiveProps: function (newProps) {
-    ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
+    ApiUtil.fetchSingleEvent(parseInt(newProps.params.event.id));
   },
 
   componentDidMount: function () {
     this.eventListener = EventStore.addListener(this._onChange);
-    ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
+    ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
   },
 
   componentWillUnmount: function () {
@@ -36,7 +34,7 @@ module.exports = React.createClass({
 
   render: function(){
 
-
+    if(this.state.event === undefined) { return <div></div>; }
 
     return(
       <div id="EventSplashFullPage">
@@ -45,7 +43,7 @@ module.exports = React.createClass({
         <section id="event-page-splash" className="splash-heading padding-top-bottom">
 
           <h1>
-            Title
+            Title: {this.state.event.title}
           </h1>
           <h6>
             Catchphrase

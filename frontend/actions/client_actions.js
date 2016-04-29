@@ -11,8 +11,6 @@ module.exports = {
   },
 
   createEvent: function(data) {
-    console.log("ClientActions CreateEvent called");
-    console.log("data is " + data);
     ApiUtil.createEvent(data);
   },
 
@@ -25,7 +23,6 @@ module.exports = {
   },
 
   deleteEvent: function(id){
-    console.log('Client Actions Delete Event');
     ApiUtil.deleteEvent(id);
   },
 

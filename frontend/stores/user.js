@@ -37,10 +37,8 @@ UserStore.logout = function(){
 
 UserStore.loggedIn = function(){
   if (typeof UserStore.currentUser() === 'undefined'){
-    console.log("UserStore.loggedIn says no current user");
     return false;
   } else {
-    console.log("UserStore.loggedIn says there is a current user");
     return true;
   }
 };

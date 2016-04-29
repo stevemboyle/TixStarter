@@ -27825,8 +27825,6 @@
 	  },
 	
 	  createEvent: function (data) {
-	    console.log("ClientActions CreateEvent called");
-	    console.log("data is " + data);
 	    ApiUtil.createEvent(data);
 	  },
 	
@@ -27839,7 +27837,6 @@
 	  },
 	
 	  deleteEvent: function (id) {
-	    console.log('Client Actions Delete Event');
 	    ApiUtil.deleteEvent(id);
 	  },
 	
@@ -27897,30 +27894,24 @@
 	  // Event Functions
 	
 	  fetchAllEvents: function () {
-	    console.log('called fetchAllEvents');
 	    $.ajax({
 	      url: "api/events",
 	      success: function (events) {
-	        console.log('called success function for fetchAllEvents');
 	        ServerActions.receiveAllEvents(events);
 	      }
 	    });
 	  },
 	
 	  fetchSingleEvent: function (id) {
-	    console.log("fetchSingleEvent called");
 	    $.ajax({
 	      url: "api/events/" + id,
 	      success: function (event) {
-	        console.log("fetchSingleEvent AJAX success function called");
 	        ServerActions.receiveSingleEvent(event);
 	      }
 	    });
-	    console.log('past ajax');
 	  },
 	
 	  createEvent: function (data) {
-	    console.log("Api Util Create Event called");
 	    $.ajax({
 	      url: "api/events",
 	      // Changed "event" to "events"
@@ -28052,7 +28043,6 @@
 	  // Events Functions:
 	
 	  receiveAllEvents: function (events) {
-	    console.log("receiveAllEvent called");
 	    Dispatcher.dispatch({
 	      actionType: EventConstants.EVENTS_RECEIVED,
 	      events: events
@@ -28060,8 +28050,6 @@
 	  },
 	
 	  receiveSingleEvent: function (event) {
-	    console.log("receiveSingleEvent called");
-	    console.log("The event is " + event);
 	    Dispatcher.dispatch({
 	      actionType: EventConstants.EVENT_RECEIVED,
 	      event: event
@@ -28069,7 +28057,6 @@
 	  },
 	
 	  removeEvent: function (event) {
-	    console.log("Server Actions remove event");
 	    Dispatcher.dispatch({
 	      actionType: EventConstants.EVENT_REMOVED,
 	      event: event
@@ -36040,10 +36027,8 @@
 	
 	UserStore.loggedIn = function () {
 	  if (typeof UserStore.currentUser() === 'undefined') {
-	    console.log("UserStore.loggedIn says no current user");
 	    return false;
 	  } else {
-	    console.log("UserStore.loggedIn says there is a current user");
 	    return true;
 	  }
 	};
@@ -38634,11 +38619,9 @@
 	      url: "/api/session",
 	      method: "delete",
 	      success: function () {
-	        console.log("Success function for UserAPIUtil Logout");
 	        UserActions.removeCurrentUser();
 	      },
 	      error: function () {
-	        console.log("Error function for UserAPIUtil Logout");
 	        UserActions.handleError();
 	      }
 	    });
@@ -38654,18 +38637,15 @@
 	
 	        // So, right now, UserActions is an empty {} object
 	        // Why, I have no idea.
-	        console.log("We're in the success function for Fetch Current User");
 	        UserActions.receiveCurrentUser(user);
 	      }.bind(this),
 	      error: function (error) {
-	        console.log("We're in the Error Function for Fetch Current User");
 	        UserActions.handleError(error);
 	      }
 	    });
 	  },
 	
 	  receiveCurrentUser: function (user) {
-	    console.log("We're in the fake userApiUtil receive current user in receiveCurrentUser with our user as " + user);
 	    AppDispatcher.dispatch({
 	      actionType: UserConstants.LOGIN,
 	      user: user
@@ -38909,27 +38889,25 @@
 	
 	
 	  getStateFromStore: function () {
-	
+	    // ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
 	    return { event: EventStore.find(parseInt(this.props.params.eventId)) };
 	  },
 	
 	  _onChange: function () {
-	
 	    this.setState(this.getStateFromStore());
 	  },
 	
 	  getInitialState: function () {
-	
 	    return this.getStateFromStore();
 	  },
 	
 	  componentWillReceiveProps: function (newProps) {
-	    ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
+	    ApiUtil.fetchSingleEvent(parseInt(newProps.params.event.id));
 	  },
 	
 	  componentDidMount: function () {
 	    this.eventListener = EventStore.addListener(this._onChange);
-	    ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
+	    ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
 	  },
 	
 	  componentWillUnmount: function () {
@@ -38937,6 +38915,10 @@
 	  },
 	
 	  render: function () {
+	
+	    if (this.state.event === undefined) {
+	      return React.createElement('div', null);
+	    }
 	
 	    return React.createElement(
 	      'div',
@@ -38952,7 +38934,8 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          'Title'
+	          'Title: ',
+	          this.state.event.title
 	        ),
 	        React.createElement(
 	          'h6',

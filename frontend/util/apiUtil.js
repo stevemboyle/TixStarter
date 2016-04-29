@@ -18,30 +18,24 @@ var ApiUtil = {
   // Event Functions
 
   fetchAllEvents: function () {
-    console.log('called fetchAllEvents');
     $.ajax({
       url: "api/events",
       success: function (events) {
-        console.log('called success function for fetchAllEvents');
         ServerActions.receiveAllEvents(events);
       }
     });
   },
 
   fetchSingleEvent: function (id) {
-    console.log("fetchSingleEvent called");
     $.ajax({
       url: "api/events/" + id,
       success: function (event) {
-        console.log("fetchSingleEvent AJAX success function called");
         ServerActions.receiveSingleEvent(event);
       }
     });
-    console.log('past ajax');
   },
 
   createEvent: function (data) {
-    console.log("Api Util Create Event called");
     $.ajax({
       url: "api/events",
       // Changed "event" to "events"
