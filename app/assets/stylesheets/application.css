@@ -86,6 +86,10 @@
     background-size: cover;
   }
 
+  .hover-pointer {
+    cursor: pointer;
+  }
+
   .cody-font {
     font-family: CodyStar;
   }

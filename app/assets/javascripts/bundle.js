@@ -27204,7 +27204,7 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        { onClick: this.returnHome },
+	        { onClick: this.returnHome, className: 'hover-pointer' },
 	        'TixStarter'
 	      ),
 	      React.createElement(
@@ -27238,7 +27238,7 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        { onClick: this.returnHome },
+	        { onClick: this.returnHome, className: 'hover-pointer' },
 	        'TixStarter'
 	      ),
 	      React.createElement('br', null),
@@ -27278,32 +27278,19 @@
 	      menu = notLoggedInMenu;
 	    }
 	
+	    // <header id="home-menu" className="home-menu">
+	    //   <h1 class="header-logo">
+	    //     TixStarter
+	    //   </h1>
+	    //   <ul class="header-list group">
+	    //     <li>Sample Button</li>
+	    //     <li>Sample Button</li>
+	    //   </ul>
+	    // </header>
+	
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'header',
-	        { id: 'home-menu', className: 'home-menu' },
-	        React.createElement(
-	          'h1',
-	          { 'class': 'header-logo' },
-	          'TixStarter'
-	        ),
-	        React.createElement(
-	          'ul',
-	          { 'class': 'header-list group' },
-	          React.createElement(
-	            'li',
-	            null,
-	            'Sample Button'
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            'Sample Button'
-	          )
-	        )
-	      ),
 	      React.createElement(
 	        'p',
 	        null,

@@ -130,7 +130,7 @@ module.exports = React.createClass({
 
     var notLoggedInMenu =(
       <div id="othermenu">
-        <p onClick={this.returnHome}>TixStarter</p>
+        <p onClick={this.returnHome} className="hover-pointer">TixStarter</p>
         <p>{loggedInMessageForSteve}</p>
         <div id="menubuttons">
           <button onClick={this.openSignInModal}>Sign In</button>
@@ -142,7 +142,7 @@ module.exports = React.createClass({
 
     var loggedInMenu =(
       <div id="othermenu">
-        <p onClick={this.returnHome}>TixStarter</p>
+        <p onClick={this.returnHome} className="hover-pointer">TixStarter</p>
         <br></br>
         <div id="menubuttons">
           <button onClick={this.openCreateEventModal}>Create Event</button>
@@ -164,20 +164,19 @@ module.exports = React.createClass({
       menu = notLoggedInMenu;
     }
 
+    // <header id="home-menu" className="home-menu">
+    //   <h1 class="header-logo">
+    //     TixStarter
+    //   </h1>
+    //   <ul class="header-list group">
+    //     <li>Sample Button</li>
+    //     <li>Sample Button</li>
+    //   </ul>
+    // </header>
 
     return(
 
       <div>
-
-        <header id="home-menu" className="home-menu">
-          <h1 class="header-logo">
-            TixStarter
-          </h1>
-          <ul class="header-list group">
-            <li>Sample Button</li>
-            <li>Sample Button</li>
-          </ul>
-        </header>
 
       <p>{loggedInMessageForSteve}</p>
 
