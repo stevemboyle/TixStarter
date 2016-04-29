@@ -106,6 +106,7 @@
     height: 100vh;
     background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);
     background-size: cover;
+    overflow: hidden;
   }
 
   #home-marketing {
