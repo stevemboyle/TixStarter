@@ -28,8 +28,10 @@ module.exports = React.createClass({
 
         <section id="home-splash">
 
-          <h1 className="cody-font">Welcome to TixStarter</h1>
-          <h3 className="cody-font">Forward Fund Events with Ticket Sales</h3>
+          <div id="home-splash-text">
+            <h2 text-align="center" className="cody-font">Welcome to TixStarter</h2>
+            <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
+          </div>
 
           <div id="home-buttons">
             <a href="#home-events-index">Browse Events</a>

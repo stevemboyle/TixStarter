@@ -34,8 +34,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-
-        debugger;
+    
     if(this.state.showtime === undefined) { return <div></div>; }
 
 

@@ -42,7 +42,6 @@ var UserActions = {
       type: "post",
       data: { user: data },
       success: function(user){
-        debugger;
         UserActions.receiveCurrentUser(user);
       },
       error: function(){

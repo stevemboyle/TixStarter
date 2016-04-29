@@ -35478,7 +35478,6 @@
 	
 	  render: function () {
 	
-	    debugger;
 	    if (this.state.showtime === undefined) {
 	      return React.createElement('div', null);
 	    }
@@ -35944,7 +35943,6 @@
 	      type: "post",
 	      data: { user: data },
 	      success: function (user) {
-	        debugger;
 	        UserActions.receiveCurrentUser(user);
 	      },
 	      error: function () {
@@ -38855,14 +38853,18 @@
 	        'section',
 	        { id: 'home-splash' },
 	        React.createElement(
-	          'h1',
-	          { className: 'cody-font' },
-	          'Welcome to TixStarter'
-	        ),
-	        React.createElement(
-	          'h3',
-	          { className: 'cody-font' },
-	          'Forward Fund Events with Ticket Sales'
+	          'div',
+	          { id: 'home-splash-text' },
+	          React.createElement(
+	            'h2',
+	            { 'text-align': 'center', className: 'cody-font' },
+	            'Welcome to TixStarter'
+	          ),
+	          React.createElement(
+	            'h3',
+	            { 'text-align': 'center', className: 'cody-font' },
+	            'Forward Fund Events with Ticket Sales'
+	          )
 	        ),
 	        React.createElement(
 	          'div',

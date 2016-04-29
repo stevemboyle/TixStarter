@@ -44,6 +44,11 @@
     background-size: cover;
   }
 
+  #home-splash-text {
+    padding-top: 200px;
+    text-align: center;
+  }
+
   #home-events-index {
     height: 100vh;
     background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);
