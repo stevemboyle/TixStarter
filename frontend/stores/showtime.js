@@ -8,13 +8,10 @@ var ApiUtil = require('../util/apiUtil');
 var _showtimes = {};
 
 var resetShowtimes = function (showtimes) {
-  console.log('resetShowtimes');
-  console.log(["showtimes", showtimes]);
   _showtimes = {};
   showtimes.forEach(function (showtime) {
     _showtimes[showtime.id] = showtime;
   });
-  console.log(["_showtimes", _showtimes]);
 };
 
 var resetShowtime = function (showtime) {
@@ -31,10 +28,6 @@ ShowtimeStore.all = function () {
 
 ShowtimeStore.find = function (id) {
   // ClientActions.fetchAllShowtimes();
-  console.log("FYI, the Showtime.Store.find function has been called.");
-  console.log("I'm guessing it returned 'undefined'.");
-  console.log("Which is why our ShowtimeModal component isn't rendering");
-  console.log("Seems to me this would be a good spot for a debugger!");
   return _showtimes[id];
 };
 

@@ -2,6 +2,8 @@ var React = require('react');
 var TicketIndexItem = require('./indexItem.jsx');
 
 module.exports = React.createClass({
+
+
   render: function () {
     return(
       <ul>

@@ -35509,7 +35509,8 @@
 	        'p',
 	        null,
 	        this.state.showtime.location
-	      )
+	      ),
+	      React.createElement(TicketsIndex, { tickets: this.state.showtime.tickets })
 	    );
 	  }
 	});
@@ -35523,6 +35524,7 @@
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
+	
 	
 	  render: function () {
 	    return React.createElement(
@@ -35546,20 +35548,22 @@
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
+	  //
+	  // getInitialState: function(){
+	  //   debugger;
+	  // },
+	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired
 	  },
 	
 	  render: function () {
-	    var attrs = ['name', 'happiness', 'price'].map(function (attr) {
-	      return React.createElement(
-	        'p',
-	        { key: attr },
-	        attr,
-	        ': ',
-	        this.props.showtime[attr]
-	      );
-	    }.bind(this));
+	
+	    // var attrs = ['name', 'happiness', 'price'].map(function (attr) {
+	    //   return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
+	    // }.bind(this));
+	
+	    // {attrs}
 	
 	    return React.createElement(
 	      'div',
@@ -35578,9 +35582,14 @@
 	          React.createElement(
 	            'p',
 	            null,
-	            'Hey! Hey!'
+	            this.props.ticket.tier
 	          ),
-	          attrs
+	          React.createElement(
+	            'p',
+	            null,
+	            '$',
+	            this.props.ticket.price
+	          )
 	        )
 	      )
 	    );
@@ -35601,13 +35610,10 @@
 	var _showtimes = {};
 	
 	var resetShowtimes = function (showtimes) {
-	  console.log('resetShowtimes');
-	  console.log(["showtimes", showtimes]);
 	  _showtimes = {};
 	  showtimes.forEach(function (showtime) {
 	    _showtimes[showtime.id] = showtime;
 	  });
-	  console.log(["_showtimes", _showtimes]);
 	};
 	
 	var resetShowtime = function (showtime) {
@@ -35624,10 +35630,6 @@
 	
 	ShowtimeStore.find = function (id) {
 	  // ClientActions.fetchAllShowtimes();
-	  console.log("FYI, the Showtime.Store.find function has been called.");
-	  console.log("I'm guessing it returned 'undefined'.");
-	  console.log("Which is why our ShowtimeModal component isn't rendering");
-	  console.log("Seems to me this would be a good spot for a debugger!");
 	  return _showtimes[id];
 	};
 	

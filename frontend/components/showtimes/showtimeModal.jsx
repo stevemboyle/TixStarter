@@ -34,9 +34,8 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    
-    if(this.state.showtime === undefined) { return <div></div>; }
 
+    if(this.state.showtime === undefined) { return <div></div>; }
 
 
     return(
@@ -47,6 +46,8 @@ module.exports = React.createClass({
         <h1>Hello! This is the ShowtimeModal!</h1>
 
         <p>{this.state.showtime.location}</p>
+
+        <TicketsIndex tickets={this.state.showtime.tickets} />
 
       </div>
     );
