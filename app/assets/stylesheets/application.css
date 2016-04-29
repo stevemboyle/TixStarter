@@ -270,6 +270,10 @@ h1 {
    cursor: pointer;
  }
 
+ button:hover{
+   cursor: pointer;
+ }
+
  .showtime-image {
    margin-right: 5px;
  }

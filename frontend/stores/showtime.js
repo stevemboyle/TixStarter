@@ -2,7 +2,7 @@ var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var ShowtimeConstants = require('../constants/showtimeConstants.js');
 var ShowtimeStore = new Store(AppDispatcher);
-var ClientActions = require('../actions/clientActions');
+var ClientActions = require('../actions/client_actions');
 var ApiUtil = require('../util/apiUtil');
 
 var _showtimes = {};

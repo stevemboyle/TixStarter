@@ -35,7 +35,7 @@ var UserApiUtil = {
       url: "/api/session",
       method: "get",
       success: function(user){
-        // debugger;
+
         // So, right now, UserActions is an empty {} object
         // Why, I have no idea.
         console.log("We're in the success function for Fetch Current User");

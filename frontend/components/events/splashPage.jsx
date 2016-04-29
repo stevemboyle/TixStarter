@@ -1,7 +1,7 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-var ShowtimesIndex = require('../showtimes/index.jsx');
-var ClientActions = require('../../actions/clientActions.js');
+// var ShowtimesIndex = require('../showtimes/index.jsx');
+var ClientActions = require('../../actions/client_actions.js');
 var ApiUtil = require('../../util/apiUtil');
 
 module.exports = React.createClass({
@@ -12,10 +12,12 @@ module.exports = React.createClass({
   },
 
   _onChange: function () {
+
     this.setState(this.getStateFromStore());
   },
 
   getInitialState: function () {
+
     return this.getStateFromStore();
   },
 
@@ -33,6 +35,8 @@ module.exports = React.createClass({
   },
 
   render: function(){
+
+
 
     return(
       <div id="EventSplashFullPage">

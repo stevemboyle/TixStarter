@@ -1,5 +1,5 @@
 var React = require('react');
-var EventStore = require('../../stores/event.js');
+var ShowtimeStore = require('../../stores/showtime.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
 var UserStore = require('../../stores/user');
@@ -11,12 +11,23 @@ var ReactDropdown = require('react-dropdown');
 module.exports = React.createClass({
 
   getInitialState: function(){
+    var potentialShowtime = ShowtimeStore.find(this.props.showtime.id);
+    var showtime = potentialShowtime ? potentialShowtime : {};
     return({
-      event_id: "",
-      date: "",
-      time: "",
-      location: ""
+      event_id: showtime.event_id,
+      date: showtime.date,
+      time: showtime.time,
+      location: showtime.location
     });
+  },
+
+  componentDidMount: function(){
+    // this.myListener = EventStore.addListener(this.handleChange);
+    // ClientActions.fetchSingleEvent(this.props.params.eventId);
+  },
+
+  componentWillUnmount: function(){
+    // this.myListener.remove();
   },
 
   eventIdChange: function(keyboardEvent){
@@ -52,7 +63,7 @@ module.exports = React.createClass({
       location: this.state.location,
     };
 
-    ClientActions.createShowtime(showtimeData);
+    ClientActions.editShowtime(showtimeData);
   },
 
   render: function(){
@@ -62,7 +73,7 @@ module.exports = React.createClass({
     return(
       <div>
 
-        <h3>Create New Showtime</h3>
+        <h3>Edit Showtime</h3>
         <form onSubmit={this.handleSubmit}>
 
           <br></br>
@@ -103,7 +114,7 @@ module.exports = React.createClass({
 
           <br></br>
 
-        <input type="submit" value="Create Showtime" />
+        <input type="submit" value="Edit Showtime" />
 
         <br></br>
 

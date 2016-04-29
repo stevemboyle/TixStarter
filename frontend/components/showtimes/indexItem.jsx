@@ -13,6 +13,7 @@ module.exports = React.createClass({
   },
 
   openShowtimeModal: function(){
+
     this.setState({ showtimeModalOpen: true });
   },
 
@@ -42,6 +43,7 @@ module.exports = React.createClass({
       return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
     }.bind(this));
 
+
     return(
       <div>
         <div>
@@ -56,7 +58,7 @@ module.exports = React.createClass({
              isOpen={this.state.showtimeModalOpen}
              onRequestClose={this.closeShowtimeAndEventModals}>
 
-               <h2>Im a modal!</h2>
+               <h2>Im supposed to be a modal!</h2>
 
               <ShowtimeModal showtime={this.props.showtime}/>
 

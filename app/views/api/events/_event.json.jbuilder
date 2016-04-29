@@ -8,7 +8,8 @@ json.extract!(
     :video_url,
     :user_id,
     :revenue_goal,
-    :revenue_status
+    :revenue_status,
+    :user
 )
 
 json.showtimes do
@@ -16,7 +17,7 @@ json.showtimes do
     json.partial! 'api/showtimes/showtime', showtime: showtime
   end
 end
-# 
+#
 # if show_showtimes
 #   json.showtimes do
 #     json.array!(event.showtimes) do |showtime|

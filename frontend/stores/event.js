@@ -53,4 +53,7 @@ EventStore.__onDispatch = function (payload) {
   }
 };
 
+// TODO: Remove when done
+window.EventStore = EventStore;
+
 module.exports = EventStore;

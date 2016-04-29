@@ -100,7 +100,7 @@ var ApiUtil = {
 
   fetchSingleShowtime: function (id) {
     $.ajax({
-      url: "api/showtime/" + id,
+      url: "api/showtimes/" + id,
       success: function (showtime) {
         ServerActions.receiveSingleShowtime(showtime);
       }
@@ -153,7 +153,7 @@ var ApiUtil = {
 
 };
 
-
+//TODO: remove when done
 window.ApiUtil = ApiUtil; //Just for testing
 
 

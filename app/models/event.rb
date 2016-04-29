@@ -5,4 +5,6 @@ class Event < ActiveRecord::Base
     through: :showtimes,
     source: :tickets
 
+  belongs_to :user
+
 end

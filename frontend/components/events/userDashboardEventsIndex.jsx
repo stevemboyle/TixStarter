@@ -1,6 +1,6 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-var ClientActions = require('../../actions/clientActions.js');
+var ClientActions = require('../../actions/client_actions.js');
 var EventIndexItem = require('./indexItem.jsx');
 var UserStore = require('../../stores/user');
 

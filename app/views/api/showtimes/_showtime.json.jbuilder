@@ -4,7 +4,9 @@ json.extract!(
     :event_id,
     :date,
     :time,
-    :location
+    :location,
+    :event,
+    :user
 )
 
 json.tickets do
