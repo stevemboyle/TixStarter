@@ -41,9 +41,9 @@ var UserActions = {
       url: "/api/session",
       type: "post",
       data: { user: data },
-      success: function(){
+      success: function(user){
         debugger;
-        UserActions.receiveCurrentUser();
+        UserActions.receiveCurrentUser(user);
       },
       error: function(){
         UserActions.handleError();
