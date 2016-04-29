@@ -50,7 +50,7 @@ module.exports = React.createClass({
         {this.props.children}
 
       </section>
-      <section id="home-splash">
+      <section id="home-marketing">
 
         <h1>Welcome to TixStarter</h1>
         <h3>Forward Fund Events with Ticket Sales</h3>

@@ -50,6 +50,12 @@
     background-size: cover;
   }
 
+  #home-marketing {
+    height: 100vh;
+    background-image: url(http://www.talentculture.com/wp-content/uploads/2015/07/bigstock-Photo-Of-Rock-Concert-3000.jpg);
+    background-size: cover;
+  }
+
   body {
    height: 100%;
  }

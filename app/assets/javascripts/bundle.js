@@ -38890,7 +38890,7 @@
 	      ),
 	      React.createElement(
 	        'section',
-	        { id: 'home-splash' },
+	        { id: 'home-marketing' },
 	        React.createElement(
 	          'h1',
 	          null,
