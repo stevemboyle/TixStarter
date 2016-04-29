@@ -38842,6 +38842,25 @@
 	      'div',
 	      null,
 	      React.createElement(
+	        'section',
+	        { id: 'home-splash' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Welcome to TixStarter'
+	        ),
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Forward Fund Events with Ticket Sales'
+	        ),
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Scroll down for More'
+	        )
+	      ),
+	      React.createElement(
 	        'h1',
 	        null,
 	        'This is Now Home'
@@ -38926,6 +38945,7 @@
 	      React.createElement(
 	        'section',
 	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
+	        React.createElement('a', { id: 'top' }),
 	        React.createElement(
 	          'h1',
 	          null,
@@ -38942,7 +38962,7 @@
 	          null,
 	          React.createElement(
 	            'a',
-	            { href: '#event-page-showtimes' },
+	            { href: '#event-page-showtimes', className: 'scroll' },
 	            'Go to Showtimes'
 	          )
 	        )
@@ -38958,7 +38978,7 @@
 	      ),
 	      React.createElement(
 	        'section',
-	        { id: 'event-page-video', className: 'event-video padding-top-bottom' },
+	        { id: 'event-page-video', className: 'event-video padding-top-bottom scroll' },
 	        React.createElement('iframe', { width: '{854/2}',
 	          height: '{480/2}',
 	          src: 'https://www.youtube.com/embed/-xDlEXO4UJs?list=PLUSRfoOcUe4avCXPg6tPgdZzu--hBXUYx',

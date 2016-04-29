@@ -26,6 +26,13 @@ module.exports = React.createClass({
 
       <div>
 
+        <section id="home-splash">
+          <h1>Welcome to TixStarter</h1>
+          <h3>Forward Fund Events with Ticket Sales</h3>
+
+          <h4>Scroll down for More</h4>
+        </section>
+
         <h1>This is Now Home</h1>
 
           <div id="tixstarter">

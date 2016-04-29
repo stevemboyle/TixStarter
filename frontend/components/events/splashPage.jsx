@@ -42,13 +42,15 @@ module.exports = React.createClass({
 
         <section id="event-page-splash" className="splash-heading padding-top-bottom">
 
+          <a id="top"></a>
+
           <h1>
             Title: {this.state.event.title}
           </h1>
           <h6>
             Catchphrase
           </h6>
-          <p><a href="#event-page-showtimes">Go to Showtimes</a></p>
+          <p><a href="#event-page-showtimes" className="scroll">Go to Showtimes</a></p>
 
         </section>
         <section id="event-page-description" className="white-bg padding-top-bottom">
@@ -58,7 +60,7 @@ module.exports = React.createClass({
           </p>
 
         </section>
-        <section id="event-page-video" className="event-video padding-top-bottom">
+        <section id="event-page-video" className="event-video padding-top-bottom scroll">
 
             <iframe width="{854/2}"
                     height="{480/2}"

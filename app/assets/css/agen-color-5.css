@@ -1,0 +1,72 @@
+/*----------------------------------
+
+Color CSS file
+
+Main Color: #DF451A
+
+Include it after main stylesheet:
+
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/agen-color-5.css">
+
+------------------------------------*/
+
+a,a:hover,
+a:focus,
+.primary,
+#main-nav .nav .active > a,
+#main-nav .nav a:hover,
+.features .icon,
+.features .media:hover h4,
+.member-details .title,
+.project-item .hover-mask .fa:hover,
+.close-preview,
+.pricing .item .btn,
+.pricing .item.featured .btn:hover,
+#map-address:hover,
+#main-footer .social-links li:hover a,
+.modal-content .close:hover,
+.contact-item .icon,
+.btn.transparent,
+.btn.transparent:focus,
+.btn.white,
+.btn.white:focus,
+.btn.white.transparent:hover,
+.btn.white.transparent:active
+{
+	color:#DF451A;
+}
+
+#page-loader span,
+.color-bg,
+.overlay-color:before,
+.team-member .member-socials li a:hover,
+#filter-works ul li.active a,
+#filter-works ul li:hover a,
+.project-item .hover-mask,
+#project-slider .flex-control-paging li a:hover,
+#project-slider .flex-control-paging li a.flex-active,
+.pricing .item.featured,
+.pricing .item .btn:hover,
+#main-footer .mc-newsletter .btn:hover,
+.btn,
+.btn:focus,
+.btn.transparent:hover,
+.btn.transparent:active,
+.btn.white:hover,
+.btn.white:active{
+    background:#DF451A;
+}
+
+.features .icon {
+    border-bottom-color:#DF451A;
+    border-right-color:#DF451A;
+}
+
+#filter-works ul li.active a,
+#filter-works ul li:hover a,
+#project-slider .flex-control-paging li a,
+.btn.transparent,
+.btn.transparent:focus{
+    border-color:#DF451A;
+}
