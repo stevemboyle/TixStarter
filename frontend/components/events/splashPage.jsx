@@ -1,6 +1,6 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-// var ShowtimesIndex = require('../showtimes/index.jsx');
+var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
 var ApiUtil = require('../../util/apiUtil');
 
@@ -73,6 +73,8 @@ module.exports = React.createClass({
           <p>
             Showtimes Go Here
           </p>
+
+          <ShowtimesIndex showtimes={this.state.event.showtimes} />
 
         </section>
 

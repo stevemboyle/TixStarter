@@ -27279,11 +27279,6 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'h1',
-	        null,
-	        'This is now App'
-	      ),
-	      React.createElement(
 	        'p',
 	        null,
 	        loggedInMessageForSteve
@@ -38880,7 +38875,7 @@
 
 	var React = __webpack_require__(1);
 	var EventStore = __webpack_require__(255);
-	// var ShowtimesIndex = require('../showtimes/index.jsx');
+	var ShowtimesIndex = __webpack_require__(275);
 	var ClientActions = __webpack_require__(244);
 	var ApiUtil = __webpack_require__(245);
 	
@@ -38977,7 +38972,8 @@
 	          'p',
 	          null,
 	          'Showtimes Go Here'
-	        )
+	        ),
+	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
 	      )
 	    );
 	  }

@@ -168,7 +168,6 @@ module.exports = React.createClass({
 
       <div>
 
-      <h1>This is now App</h1>
       <p>{loggedInMessageForSteve}</p>
 
       {menu}
