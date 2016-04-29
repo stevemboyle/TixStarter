@@ -38861,29 +38861,52 @@
 	        )
 	      ),
 	      React.createElement(
-	        'h1',
-	        null,
-	        'This is Now Home'
-	      ),
-	      React.createElement(
-	        'div',
-	        { id: 'tixstarter' },
+	        'section',
+	        { id: 'home-events-index' },
 	        React.createElement(
-	          'div',
-	          { id: 'menu' },
-	          React.createElement(
-	            'p',
-	            null,
-	            'hello there'
-	          )
+	          'h1',
+	          null,
+	          'This is Now Home'
 	        ),
 	        React.createElement(
 	          'div',
-	          { className: 'event-index-pane' },
-	          React.createElement(EventIndex, null)
-	        )
+	          { id: 'tixstarter' },
+	          React.createElement(
+	            'div',
+	            { id: 'menu' },
+	            React.createElement(
+	              'p',
+	              null,
+	              'hello there'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'event-index-pane' },
+	            React.createElement(EventIndex, null)
+	          )
+	        ),
+	        this.props.children
 	      ),
-	      this.props.children
+	      React.createElement(
+	        'section',
+	        { id: 'home-splash' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Welcome to TixStarter'
+	        ),
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Forward Fund Events with Ticket Sales'
+	        ),
+	        React.createElement(
+	          'h4',
+	          null,
+	          'Scroll down for More'
+	        )
+	      )
 	    );
 	  }
 	});

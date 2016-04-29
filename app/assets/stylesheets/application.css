@@ -32,15 +32,21 @@
     height: 100%;
     /*background-image: 'http://blogs-images.forbes.com/hollieslade/files/2014/03/High-Res-Heath.jpg';*/
     /*background-image: url(pokemon_bg.jpg);*/
-    background-image: url(http://www.epicimmersive.com/tickets/wp-content/uploads/2016/04/Epics-Venue-for-September.jpg);
+    /*background-image: url(http://www.epicimmersive.com/tickets/wp-content/uploads/2016/04/Epics-Venue-for-September.jpg);*/
     background-position: center center;
     background-size: cover;
     font-family: Helvetica, sans-serif;
   }
 
   #home-splash {
-    height: 100vh;
+    height: 60vh;
     background-image: url(http://www.talentculture.com/wp-content/uploads/2015/07/bigstock-Photo-Of-Rock-Concert-3000.jpg);
+    background-size: cover;
+  }
+
+  #home-events-index {
+    height: 100vh;
+    background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);
     background-size: cover;
   }
 

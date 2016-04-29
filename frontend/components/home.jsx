@@ -27,11 +27,13 @@ module.exports = React.createClass({
       <div>
 
         <section id="home-splash">
+
           <h1>Welcome to TixStarter</h1>
           <h3>Forward Fund Events with Ticket Sales</h3>
 
           <h4>Scroll down for More</h4>
         </section>
+        <section id="home-events-index">
 
         <h1>This is Now Home</h1>
 
@@ -47,7 +49,16 @@ module.exports = React.createClass({
 
         {this.props.children}
 
-      </div>
+      </section>
+      <section id="home-splash">
+
+        <h1>Welcome to TixStarter</h1>
+        <h3>Forward Fund Events with Ticket Sales</h3>
+
+        <h4>Scroll down for More</h4>
+      </section>
+    </div>
+
     );
   }
 });
