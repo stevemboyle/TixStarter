@@ -58,9 +58,11 @@ module.exports = React.createClass({
             <h1 color="white" text-align="center">
               {this.state.event.title}
             </h1>
-            <h6>
+            <h3>
               {this.state.event.catchphrase}
-            </h6>
+              <br></br>
+              <b>Revenue Status:</b> {this.state.event.revenue_status} | <b>Revenue Goal:</b> {this.state.event.revenue_goal}
+            </h3>
           </div>
               <div id="home-buttons" className="home-buttons">
                 <br></br>
@@ -77,6 +79,9 @@ module.exports = React.createClass({
 
           <h1>{this.state.event.title}</h1>
           <p>{this.state.event.description}</p>
+          <br></br>
+          <p><b>Revenue Status:</b> {this.state.event.revenue_status}</p>
+          <p><b>Revenue Goal:</b> {this.state.event.revenue_goal}</p>
 
         </section>
         <section id="event-page-video" className="event-video padding-top-bottom">

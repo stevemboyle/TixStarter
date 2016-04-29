@@ -39014,9 +39014,25 @@
 	            this.state.event.title
 	          ),
 	          React.createElement(
-	            'h6',
+	            'h3',
 	            null,
-	            this.state.event.catchphrase
+	            this.state.event.catchphrase,
+	            React.createElement('br', null),
+	            React.createElement(
+	              'b',
+	              null,
+	              'Revenue Status:'
+	            ),
+	            ' ',
+	            this.state.event.revenue_status,
+	            ' | ',
+	            React.createElement(
+	              'b',
+	              null,
+	              'Revenue Goal:'
+	            ),
+	            ' ',
+	            this.state.event.revenue_goal
 	          )
 	        ),
 	        React.createElement(
@@ -39074,6 +39090,29 @@
 	          'p',
 	          null,
 	          this.state.event.description
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'Revenue Status:'
+	          ),
+	          ' ',
+	          this.state.event.revenue_status
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'Revenue Goal:'
+	          ),
+	          ' ',
+	          this.state.event.revenue_goal
 	        )
 	      ),
 	      React.createElement(
