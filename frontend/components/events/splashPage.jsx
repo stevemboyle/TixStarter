@@ -43,13 +43,18 @@ module.exports = React.createClass({
 
           <a id="top"></a>
 
-          <h1>
-            {this.state.event.title}
-          </h1>
-          <h6>
-            {this.state.event.catchphrase}
-          </h6>
-          <p><a href="#event-page-showtimes" className="scroll">Go to Showtimes</a></p>
+          <div id="event-splash-text" className="event-splash-text">
+            <h1 color="white" text-align="center">
+              {this.state.event.title}
+            </h1>
+            <h6>
+              {this.state.event.catchphrase}
+            </h6>
+          </div>
+              <div id="home-buttons" className="home-buttons">
+              <p><a href="#event-page-showtimes" className="scroll">Go to Showtimes</a></p>
+          </div>
+
 
         </section>
         <section id="event-page-description" className="white-bg padding-top-bottom">

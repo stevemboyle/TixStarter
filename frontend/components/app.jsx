@@ -169,6 +169,16 @@ module.exports = React.createClass({
 
       <div>
 
+        <header id="home-menu" className="home-menu">
+          <h1 class="header-logo">
+            TixStarter
+          </h1>
+          <ul class="header-list group">
+            <li>Sample Button</li>
+            <li>Sample Button</li>
+          </ul>
+        </header>
+
       <p>{loggedInMessageForSteve}</p>
 
       {menu}

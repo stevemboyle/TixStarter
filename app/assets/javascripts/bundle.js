@@ -27282,6 +27282,29 @@
 	      'div',
 	      null,
 	      React.createElement(
+	        'header',
+	        { id: 'home-menu', className: 'home-menu' },
+	        React.createElement(
+	          'h1',
+	          { 'class': 'header-logo' },
+	          'TixStarter'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { 'class': 'header-list group' },
+	          React.createElement(
+	            'li',
+	            null,
+	            'Sample Button'
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            'Sample Button'
+	          )
+	        )
+	      ),
+	      React.createElement(
 	        'p',
 	        null,
 	        loggedInMessageForSteve
@@ -38986,22 +39009,30 @@
 	        { id: 'event-page-splash', className: 'splash-heading padding-top-bottom' },
 	        React.createElement('a', { id: 'top' }),
 	        React.createElement(
-	          'h1',
-	          null,
-	          this.state.event.title
-	        ),
-	        React.createElement(
-	          'h6',
-	          null,
-	          this.state.event.catchphrase
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
+	          'div',
+	          { id: 'event-splash-text', className: 'event-splash-text' },
 	          React.createElement(
-	            'a',
-	            { href: '#event-page-showtimes', className: 'scroll' },
-	            'Go to Showtimes'
+	            'h1',
+	            { color: 'white', 'text-align': 'center' },
+	            this.state.event.title
+	          ),
+	          React.createElement(
+	            'h6',
+	            null,
+	            this.state.event.catchphrase
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'home-buttons', className: 'home-buttons' },
+	          React.createElement(
+	            'p',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: '#event-page-showtimes', className: 'scroll' },
+	              'Go to Showtimes'
+	            )
 	          )
 	        )
 	      ),
