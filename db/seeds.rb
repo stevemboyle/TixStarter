@@ -129,6 +129,17 @@ Event.create({
         revenue_goal: 20000,
         revenue_status: 0
         })
+
+Event.create({
+        title: "Muse in Concert",
+        catchphrase: "First Event Catchphrase",
+        description: "First Event Description",
+        image_url: "http://nepascene.com/wp-content/uploads/2015/05/muse-concert-review.jpg",
+        video_url: "gKc31H6adR8",
+        user_id: 1,
+        revenue_goal: 20000,
+        revenue_status: 0
+        })
 #
 # Event.create({
 #         title: "The Racket",

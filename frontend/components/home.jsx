@@ -54,10 +54,6 @@ module.exports = React.createClass({
         <h1>This is Now Home</h1>
 
           <div id="tixstarter">
-            <div id="menu">
-              <p>hello there</p>
-            </div>
-
             <div className="event-index-pane">
               <EventIndex />
             </div>

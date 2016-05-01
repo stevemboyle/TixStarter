@@ -118,6 +118,22 @@ module.exports = React.createClass({
                isOpen={this.state.eventDetailModalOpen}
                onRequestClose={this.closeEventDetailModal}>
 
+               <div   style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
+
+                 <h1>Hello, Welcome to this Modal!</h1>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <br></br>
+                 <h1>{this.props.event.title}</h1>
+                 <h1>{this.props.event.catchphrase}</h1>
+               </div>
+
+                  <p>{this.props.event.description}</p>
+
                  <h2>Im a modal!</h2>
 
                  <EventModal event={this.props.event}/>
@@ -131,6 +147,7 @@ module.exports = React.createClass({
              </Modal>
 
              <Modal
+
                 isOpen={this.state.deleteEventModalOpen}
                 onRequestClose={this.closeDeleteEventModal}>
 

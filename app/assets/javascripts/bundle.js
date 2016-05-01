@@ -35397,6 +35397,37 @@
 	            isOpen: this.state.eventDetailModalOpen,
 	            onRequestClose: this.closeEventDetailModal },
 	          React.createElement(
+	            'div',
+	            { style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
+	            React.createElement(
+	              'h1',
+	              null,
+	              'Hello, Welcome to this Modal!'
+	            ),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement(
+	              'h1',
+	              null,
+	              this.props.event.title
+	            ),
+	            React.createElement(
+	              'h1',
+	              null,
+	              this.props.event.catchphrase
+	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.props.event.description
+	          ),
+	          React.createElement(
 	            'h2',
 	            null,
 	            'Im a modal!'
@@ -35416,6 +35447,7 @@
 	        React.createElement(
 	          Modal,
 	          {
+	
 	            isOpen: this.state.deleteEventModalOpen,
 	            onRequestClose: this.closeDeleteEventModal },
 	          React.createElement(
@@ -38905,15 +38937,6 @@
 	        React.createElement(
 	          'div',
 	          { id: 'tixstarter' },
-	          React.createElement(
-	            'div',
-	            { id: 'menu' },
-	            React.createElement(
-	              'p',
-	              null,
-	              'hello there'
-	            )
-	          ),
 	          React.createElement(
 	            'div',
 	            { className: 'event-index-pane' },
