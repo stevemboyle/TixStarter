@@ -361,6 +361,7 @@ h1 {
  .event-list-item:hover, .showtime-list-item:hover {
    background-color: tomato;
    color: white;
+   border: thick solid dodgerblue;
  }
 
  .new-event > div {
