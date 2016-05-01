@@ -35340,6 +35340,9 @@
 	      );
 	    }
 	
+	    // <img src={this.props.event.image_url} width="300px"></img>
+	    // <p>{this.props.event.description}</p>
+	
 	    // TODO: Add this back to LI's
 	    // onClick={this.goToEventSplash}
 	
@@ -35351,11 +35354,11 @@
 	        null,
 	        React.createElement(
 	          'li',
-	          { onClick: this.goToEventSplash, className: 'event-list-item' },
-	          React.createElement('img', { src: this.props.event.image_url, width: '300px' }),
+	          { onClick: this.goToEventSplash, className: 'event-list-item',
+	            style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
 	          React.createElement(
-	            'p',
-	            null,
+	            'h1',
+	            { color: 'white', 'text-align': 'center' },
 	            React.createElement(
 	              'b',
 	              null,
@@ -35364,17 +35367,12 @@
 	          ),
 	          React.createElement(
 	            'p',
-	            null,
+	            { color: 'white' },
 	            React.createElement(
 	              'em',
 	              null,
 	              this.props.event.catchphrase
 	            )
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            this.props.event.description
 	          ),
 	          React.createElement('br', null),
 	          React.createElement(

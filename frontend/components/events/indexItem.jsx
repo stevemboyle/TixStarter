@@ -90,6 +90,9 @@ module.exports = React.createClass({
       );
     }
 
+          // <img src={this.props.event.image_url} width="300px"></img>
+                      // <p>{this.props.event.description}</p>
+
     // TODO: Add this back to LI's
     // onClick={this.goToEventSplash}
 
@@ -97,11 +100,11 @@ module.exports = React.createClass({
       <div>
         <div>
 
-          <li onClick={this.goToEventSplash} className="event-list-item">
-            <img src={this.props.event.image_url} width="300px"></img>
-            <p><b>{this.props.event.title}</b></p>
-            <p><em>{this.props.event.catchphrase}</em></p>
-            <p>{this.props.event.description}</p>
+          <li onClick={this.goToEventSplash} className="event-list-item"
+            style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
+
+            <h1 color="white" text-align="center"><b>{this.props.event.title}</b></h1>
+            <p color="white"><em>{this.props.event.catchphrase}</em></p>
             <br></br>
             <button onClick={this.openEventDetailModal}>Get Tickets</button>
             <button onClick={this.goToEventSplash}>Learn More</button>
