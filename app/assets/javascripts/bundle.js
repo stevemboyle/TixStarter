@@ -59,7 +59,7 @@
 	
 	var EventSplash = __webpack_require__(303);
 	var ClientActions = __webpack_require__(244);
-	var EventDetail = __webpack_require__(274);
+	var EventDetail = __webpack_require__(277);
 	var ShowtimeDetail = __webpack_require__(304);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
@@ -71,7 +71,7 @@
 	// var LoginForm = require('./components/LoginForm');
 	// Mixins
 	
-	var CurrentUserState = __webpack_require__(284);
+	var CurrentUserState = __webpack_require__(285);
 	
 	var routes = React.createElement(
 	  Route,
@@ -27064,24 +27064,24 @@
 
 	var React = __webpack_require__(1);
 	var EventForm = __webpack_require__(239);
-	var EventIndex = __webpack_require__(254);
+	var EventIndex = __webpack_require__(274);
 	// var LoginForm = require('./users/usersLoginForm');
-	var LoginModal = __webpack_require__(281);
-	var CreateEventModal = __webpack_require__(287);
-	var CreateShowtimeModal = __webpack_require__(288);
-	var UserActions = __webpack_require__(282);
-	var SignUpModal = __webpack_require__(298);
+	var LoginModal = __webpack_require__(284);
+	var CreateEventModal = __webpack_require__(288);
+	var CreateShowtimeModal = __webpack_require__(289);
+	var UserActions = __webpack_require__(255);
+	var SignUpModal = __webpack_require__(299);
 	
-	var UserStore = __webpack_require__(283);
+	var UserStore = __webpack_require__(256);
 	
 	var Modal = __webpack_require__(218);
-	var UserApiUtil = __webpack_require__(299);
+	var UserApiUtil = __webpack_require__(254);
 	var SignInModal = __webpack_require__(300);
 	var MyDashboardModal = __webpack_require__(301);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	//Mixins
-	var CurrentUserState = __webpack_require__(284);
+	var CurrentUserState = __webpack_require__(285);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -27813,7 +27813,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ApiUtil = __webpack_require__(245);
-	var UserApiUtil = __webpack_require__(299);
+	var UserApiUtil = __webpack_require__(254);
 	
 	module.exports = {
 	
@@ -28440,131 +28440,233 @@
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ClientActions = __webpack_require__(244);
-	var EventIndexItem = __webpack_require__(273);
+	var AppDispatcher = __webpack_require__(247);
+	var UserActions = __webpack_require__(255);
+	var UserConstants = __webpack_require__(252);
 	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    console.log("getInitialState");
-	
-	    return { events: EventStore.all() };
+	var UserApiUtil = {
+	  post: function (options) {
+	    $.ajax({
+	      url: options.url,
+	      type: "post",
+	      data: { user: options.user },
+	      success: options.succes,
+	      error: options.error
+	    });
 	  },
 	
-	  _onChange: function () {
-	    console.log('_onChange');
-	    this.setState({ events: EventStore.all() });
+	  logout: function () {
+	    $.ajax({
+	      url: "/api/session",
+	      method: "delete",
+	      success: function () {
+	        UserActions.removeCurrentUser();
+	      },
+	      error: function () {
+	        UserActions.handleError();
+	      }
+	    });
 	  },
 	
-	  componentDidMount: function () {
-	    console.log('componentDidMount');
-	    this.eventListener = EventStore.addListener(this._onChange);
-	    ClientActions.fetchAllEvents();
+	  // Server Actions method, rather than passed in
+	
+	  fetchCurrentUser: function () {
+	    console.log("Fetch Current User");
+	    $.ajax({
+	      url: "/api/session",
+	      method: "get",
+	      success: function (user) {
+	        console.log('success function for fetch current user');
+	        // So, right now, UserActions is an empty {} object
+	        // Why, I have no idea.
+	        UserActions.receiveCurrentUser(user);
+	      }.bind(this),
+	      error: function (error) {
+	        console.log('error function for fetch current user');
+	        UserActions.handleError(error);
+	      }
+	    });
 	  },
 	
-	  compomentWillUnmount: function () {
-	    console.log('componentWillUnmount');
-	    this.eventListener.remove();
-	  },
-	
-	  render: function () {
-	
-	    var test = "Nothing";
-	    if (this.state.events) {
-	      test = this.state.events;
-	      console.log(this.state.events);
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Experiences:'
-	        ),
-	        React.createElement('br', null),
-	        this.state.events.map(function (event) {
-	
-	          return React.createElement(EventIndexItem, { key: event.id, event: event });
-	        })
-	      )
-	    );
+	  receiveCurrentUser: function (user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.LOGIN,
+	      user: user
+	    });
 	  }
-	});
+	
+	};
+	
+	module.exports = UserApiUtil;
 
 /***/ },
 /* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(256).Store;
 	var AppDispatcher = __webpack_require__(247);
-	var EventConstants = __webpack_require__(251);
-	var EventStore = new Store(AppDispatcher);
+	var UserConstants = __webpack_require__(252);
+	var UserApiUtil = __webpack_require__(254);
+	var UserStore = __webpack_require__(256);
+	var App = __webpack_require__(238);
 	
-	var _events = {};
+	var UserActions = {
 	
-	var resetEvents = function (events) {
-	  console.log('resetEvents');
-	  console.log(["events", events]);
-	  _events = {};
-	  events.forEach(function (event) {
-	    _events[event.id] = event;
-	  });
-	  console.log(["_events", _events]);
-	};
+	  // TODO: Hard code success/error below into User Api Utils
+	  //
+	  // fetchCurrentUser: function(){
+	  //   UserApiUtil.fetchCurrentUser();
+	  // },
 	
-	var resetEvent = function (event) {
-	  _events[event.id] = event;
-	};
+	  signup: function (data) {
+	    console.log("We in User Actions sign up");
+	    $.ajax({
+	      url: "/api/user",
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        console.log("We're in the success function for SignUp");
+	        UserActions.receiveCurrentUser(user);
+	      },
 	
-	var removeEvent = function (event) {
-	  console.log("eventstore removeEvent");
-	  delete _events[event.id];
-	};
+	      // success: function(){
+	      //   UserActions.receiveCurrentUser,
+	      //   App.closeSignInModal;
+	      //   App.closeSignUpModal;
+	      // },
+	      error: function (error) {
+	        console.log("We're in the error function for SignUp");
+	        UserActions.handleError(error);
+	      }
+	    });
+	  },
 	
-	EventStore.all = function () {
-	  var events = [];
-	  for (var id in _events) {
-	    events.push(_events[id]);
+	  login: function (data) {
+	    console.log("useractions login called");
+	    $.ajax({
+	      url: "/api/session",
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        // debugger;
+	        UserActions.receiveCurrentUser(user);
+	      },
+	      error: function (error) {
+	        // debugger;
+	        UserActions.handleError();
+	      }
+	
+	    });
+	  },
+	
+	  guestLogin: function () {
+	    UserActions.login({ username: "guest", password: "password" });
+	  },
+	
+	  receiveCurrentUser: function (user) {
+	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+	    console.log(["user", user]);
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.LOGIN,
+	      user: user
+	    });
+	  },
+	
+	  handleError: function (error) {
+	    console.log("Handle Error Function in User Actions!");
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.ERROR,
+	      errors: error.responseJSON.errors
+	    });
+	  },
+	
+	  removeCurrentUser: function () {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.LOGOUT
+	    });
+	  },
+	
+	  logout: function () {
+	    UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
 	  }
-	  return events;
+	
 	};
 	
-	EventStore.find = function (id) {
-	  return _events[id];
-	};
-	
-	EventStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case EventConstants.EVENTS_RECEIVED:
-	      resetEvents(payload.events);
-	      EventStore.__emitChange();
-	      break;
-	    case EventConstants.EVENT_RECEIVED:
-	      resetEvent(payload.event);
-	      EventStore.__emitChange();
-	      break;
-	    case EventConstants.EVENT_REMOVED:
-	      console.log("event store case EVENT_REMOVED");
-	      removeEvent(payload.event);
-	      break;
-	  }
-	};
-	
-	// TODO: Remove when done
-	window.EventStore = EventStore;
-	
-	module.exports = EventStore;
+	module.exports = UserActions;
 
 /***/ },
 /* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(257).Store;
+	// var UserConstants = require('../constants/userConstants.js');
+	var AppDispatcher = __webpack_require__(247);
+	
+	var UserStore = new Store(AppDispatcher);
+	
+	var _currentUser, _errors;
+	
+	// TODO: Logged In Method
+	
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "LOGIN":
+	      UserStore.login(payload.user);
+	      break;
+	    case "LOGOUT":
+	      UserStore.logout();
+	      break;
+	    case "ERROR":
+	      UserStore.setErrors(payload.errors);
+	      break;
+	  }
+	  UserStore.__emitChange();
+	};
+	
+	UserStore.login = function (user) {
+	  if (user['username']) {
+	    _currentUser = user;
+	    _errors = null;
+	  }
+	};
+	
+	UserStore.logout = function () {
+	  _currentUser = null;
+	  _errors = null;
+	};
+	
+	UserStore.loggedIn = function () {
+	  if (typeof UserStore.currentUser() === 'undefined') {
+	    return false;
+	  } else {
+	    return true;
+	  }
+	};
+	
+	UserStore.user = function () {
+	  return _currentUser;
+	};
+	
+	UserStore.currentUser = function () {
+	  if (_currentUser) {
+	    return $.extend({}, _currentUser);
+	    // TODO: What does this ^ mean?
+	  }
+	};
+	
+	UserStore.setErrors = function (errors) {
+	  _errors = errors;
+	};
+	
+	UserStore.errors = function () {
+	  if (_errors) {
+	    return [].slice.call(_errors);
+	  }
+	};
+	
+	module.exports = UserStore;
+
+/***/ },
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28576,15 +28678,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(257);
-	module.exports.MapStore = __webpack_require__(260);
-	module.exports.Mixin = __webpack_require__(272);
-	module.exports.ReduceStore = __webpack_require__(261);
-	module.exports.Store = __webpack_require__(262);
+	module.exports.Container = __webpack_require__(258);
+	module.exports.MapStore = __webpack_require__(261);
+	module.exports.Mixin = __webpack_require__(273);
+	module.exports.ReduceStore = __webpack_require__(262);
+	module.exports.Store = __webpack_require__(263);
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28606,10 +28708,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(258);
+	var FluxStoreGroup = __webpack_require__(259);
 	
 	var invariant = __webpack_require__(250);
-	var shallowEqual = __webpack_require__(259);
+	var shallowEqual = __webpack_require__(260);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -28767,7 +28869,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28848,7 +28950,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports) {
 
 	/**
@@ -28903,7 +29005,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28924,8 +29026,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(261);
-	var Immutable = __webpack_require__(271);
+	var FluxReduceStore = __webpack_require__(262);
+	var Immutable = __webpack_require__(272);
 	
 	var invariant = __webpack_require__(250);
 	
@@ -29053,7 +29155,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29074,9 +29176,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(262);
+	var FluxStore = __webpack_require__(263);
 	
-	var abstractMethod = __webpack_require__(270);
+	var abstractMethod = __webpack_require__(271);
 	var invariant = __webpack_require__(250);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -29160,7 +29262,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29179,7 +29281,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(263);
+	var _require = __webpack_require__(264);
 	
 	var EventEmitter = _require.EventEmitter;
 	
@@ -29343,7 +29445,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29356,14 +29458,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(264)
+	  EventEmitter: __webpack_require__(265)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29382,11 +29484,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(265);
-	var EventSubscriptionVendor = __webpack_require__(267);
+	var EmitterSubscription = __webpack_require__(266);
+	var EventSubscriptionVendor = __webpack_require__(268);
 	
-	var emptyFunction = __webpack_require__(269);
-	var invariant = __webpack_require__(268);
+	var emptyFunction = __webpack_require__(270);
+	var invariant = __webpack_require__(269);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -29560,7 +29662,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29581,7 +29683,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(266);
+	var EventSubscription = __webpack_require__(267);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -29613,7 +29715,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports) {
 
 	/**
@@ -29667,7 +29769,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29686,7 +29788,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(268);
+	var invariant = __webpack_require__(269);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -29776,7 +29878,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29831,7 +29933,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports) {
 
 	/**
@@ -29873,7 +29975,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29900,7 +30002,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -34884,7 +34986,7 @@
 	}));
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -34901,7 +35003,7 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(258);
+	var FluxStoreGroup = __webpack_require__(259);
 	
 	var invariant = __webpack_require__(250);
 	
@@ -35007,7 +35109,134 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 273 */
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(275);
+	var ClientActions = __webpack_require__(244);
+	var EventIndexItem = __webpack_require__(276);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    console.log("getInitialState");
+	
+	    return { events: EventStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    console.log('_onChange');
+	    this.setState({ events: EventStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    console.log('componentDidMount');
+	    this.eventListener = EventStore.addListener(this._onChange);
+	    ClientActions.fetchAllEvents();
+	  },
+	
+	  compomentWillUnmount: function () {
+	    console.log('componentWillUnmount');
+	    this.eventListener.remove();
+	  },
+	
+	  render: function () {
+	
+	    var test = "Nothing";
+	    if (this.state.events) {
+	      test = this.state.events;
+	      console.log(this.state.events);
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Experiences:'
+	        ),
+	        React.createElement('br', null),
+	        this.state.events.map(function (event) {
+	
+	          return React.createElement(EventIndexItem, { key: event.id, event: event });
+	        })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(257).Store;
+	var AppDispatcher = __webpack_require__(247);
+	var EventConstants = __webpack_require__(251);
+	var EventStore = new Store(AppDispatcher);
+	
+	var _events = {};
+	
+	var resetEvents = function (events) {
+	  console.log('resetEvents');
+	  console.log(["events", events]);
+	  _events = {};
+	  events.forEach(function (event) {
+	    _events[event.id] = event;
+	  });
+	  console.log(["_events", _events]);
+	};
+	
+	var resetEvent = function (event) {
+	  _events[event.id] = event;
+	};
+	
+	var removeEvent = function (event) {
+	  console.log("eventstore removeEvent");
+	  delete _events[event.id];
+	};
+	
+	EventStore.all = function () {
+	  var events = [];
+	  for (var id in _events) {
+	    events.push(_events[id]);
+	  }
+	  return events;
+	};
+	
+	EventStore.find = function (id) {
+	  return _events[id];
+	};
+	
+	EventStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case EventConstants.EVENTS_RECEIVED:
+	      resetEvents(payload.events);
+	      EventStore.__emitChange();
+	      break;
+	    case EventConstants.EVENT_RECEIVED:
+	      resetEvent(payload.event);
+	      EventStore.__emitChange();
+	      break;
+	    case EventConstants.EVENT_REMOVED:
+	      console.log("event store case EVENT_REMOVED");
+	      removeEvent(payload.event);
+	      break;
+	  }
+	};
+	
+	// TODO: Remove when done
+	window.EventStore = EventStore;
+	
+	module.exports = EventStore;
+
+/***/ },
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// TODO: Right now, the Edit Event option is based on being logged in.
@@ -35015,14 +35244,14 @@
 	
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
-	var EventDetail = __webpack_require__(274);
+	var EventDetail = __webpack_require__(277);
 	// var EventsIndex = require('./index');
-	var LoginModal = __webpack_require__(281);
-	var EventModal = __webpack_require__(285);
+	var LoginModal = __webpack_require__(284);
+	var EventModal = __webpack_require__(286);
 	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(283);
+	var UserStore = __webpack_require__(256);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var EditEventModal = __webpack_require__(286);
+	var EditEventModal = __webpack_require__(287);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35123,6 +35352,7 @@
 	        React.createElement(
 	          'li',
 	          { onClick: this.goToEventSplash, className: 'event-list-item' },
+	          React.createElement('img', { src: this.props.event.image_url, width: '300px' }),
 	          React.createElement(
 	            'p',
 	            null,
@@ -35241,12 +35471,12 @@
 	//  <EventDetail event={this.props.event} />
 
 /***/ },
-/* 274 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var ClientActions = __webpack_require__(244);
 	
 	module.exports = React.createClass({
@@ -35314,11 +35544,11 @@
 	});
 
 /***/ },
-/* 275 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShowtimeIndexItem = __webpack_require__(276);
+	var ShowtimeIndexItem = __webpack_require__(279);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35335,13 +35565,13 @@
 	});
 
 /***/ },
-/* 276 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
-	var ShowtimeModal = __webpack_require__(277);
-	var EventsIndex = __webpack_require__(273);
+	var ShowtimeModal = __webpack_require__(280);
+	var EventsIndex = __webpack_require__(276);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35443,15 +35673,15 @@
 	});
 
 /***/ },
-/* 277 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var ClientActions = __webpack_require__(244);
-	var TicketsIndex = __webpack_require__(278);
-	var ShowtimeStore = __webpack_require__(280);
+	var TicketsIndex = __webpack_require__(281);
+	var ShowtimeStore = __webpack_require__(283);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35513,11 +35743,11 @@
 	});
 
 /***/ },
-/* 278 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TicketIndexItem = __webpack_require__(279);
+	var TicketIndexItem = __webpack_require__(282);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35535,12 +35765,12 @@
 	});
 
 /***/ },
-/* 279 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
-	var TicketsIndex = __webpack_require__(279);
+	var TicketsIndex = __webpack_require__(282);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35594,10 +35824,10 @@
 	});
 
 /***/ },
-/* 280 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(256).Store;
+	var Store = __webpack_require__(257).Store;
 	var AppDispatcher = __webpack_require__(247);
 	var ShowtimeConstants = __webpack_require__(253);
 	var ShowtimeStore = new Store(AppDispatcher);
@@ -35647,14 +35877,14 @@
 	module.exports = ShowtimeStore;
 
 /***/ },
-/* 281 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(240);
 	
-	var UserActions = __webpack_require__(282);
-	var CurrentUserState = __webpack_require__(284);
+	var UserActions = __webpack_require__(255);
+	var CurrentUserState = __webpack_require__(285);
 	
 	var LoginModal = React.createClass({
 		displayName: 'LoginModal',
@@ -35905,178 +36135,12 @@
 	module.exports = LoginModal;
 
 /***/ },
-/* 282 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(247);
-	var UserConstants = __webpack_require__(252);
-	var UserApiUtil = __webpack_require__(299);
-	var UserStore = __webpack_require__(283);
-	var App = __webpack_require__(238);
-	
-	var UserActions = {
-	
-	  // TODO: Hard code success/error below into User Api Utils
-	  //
-	  // fetchCurrentUser: function(){
-	  //   UserApiUtil.fetchCurrentUser();
-	  // },
-	
-	  signup: function (data) {
-	    console.log("We in User Actions sign up");
-	    $.ajax({
-	      url: "/api/user",
-	      type: "post",
-	      data: { user: data },
-	      success: function (user) {
-	        console.log("We're in the success function for SignUp");
-	        UserActions.receiveCurrentUser(user);
-	      },
-	
-	      // success: function(){
-	      //   UserActions.receiveCurrentUser,
-	      //   App.closeSignInModal;
-	      //   App.closeSignUpModal;
-	      // },
-	      error: function (error) {
-	        console.log("We're in the error function for SignUp");
-	        UserActions.handleError(error);
-	      }
-	    });
-	  },
-	
-	  login: function (data) {
-	    console.log("useractions login called");
-	    $.ajax({
-	      url: "/api/session",
-	      type: "post",
-	      data: { user: data },
-	      success: function (user) {
-	        // debugger;
-	        UserActions.receiveCurrentUser(user);
-	      },
-	      error: function (error) {
-	        // debugger;
-	        UserActions.handleError();
-	      }
-	
-	    });
-	  },
-	
-	  guestLogin: function () {
-	    UserActions.login({ username: "guest", password: "password" });
-	  },
-	
-	  receiveCurrentUser: function (user) {
-	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-	    console.log(["user", user]);
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.LOGIN,
-	      user: user
-	    });
-	  },
-	
-	  handleError: function (error) {
-	    console.log("Handle Error Function in User Actions!");
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.ERROR,
-	      errors: error.responseJSON.errors
-	    });
-	  },
-	
-	  removeCurrentUser: function () {
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.LOGOUT
-	    });
-	  },
-	
-	  logout: function () {
-	    UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
-	  }
-	
-	};
-	
-	module.exports = UserActions;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(256).Store;
-	// var UserConstants = require('../constants/userConstants.js');
-	var AppDispatcher = __webpack_require__(247);
-	
-	var UserStore = new Store(AppDispatcher);
-	
-	var _currentUser, _errors;
-	
-	// TODO: Logged In Method
-	
-	UserStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "LOGIN":
-	      UserStore.login(payload.user);
-	      break;
-	    case "LOGOUT":
-	      UserStore.logout();
-	      break;
-	    case "ERROR":
-	      UserStore.setErrors(payload.errors);
-	      break;
-	  }
-	  UserStore.__emitChange();
-	};
-	
-	UserStore.login = function (user) {
-	  if (user['username']) {
-	    _currentUser = user;
-	    _errors = null;
-	  }
-	};
-	
-	UserStore.logout = function () {
-	  _currentUser = null;
-	  _errors = null;
-	};
-	
-	UserStore.loggedIn = function () {
-	  if (typeof UserStore.currentUser() === 'undefined') {
-	    return false;
-	  } else {
-	    return true;
-	  }
-	};
-	
-	UserStore.user = function () {
-	  return _currentUser;
-	};
-	
-	UserStore.currentUser = function () {
-	  if (_currentUser) {
-	    return $.extend({}, _currentUser);
-	    // TODO: What does this ^ mean?
-	  }
-	};
-	
-	UserStore.setErrors = function (errors) {
-	  _errors = errors;
-	};
-	
-	UserStore.errors = function () {
-	  if (_errors) {
-	    return [].slice.call(_errors);
-	  }
-	};
-	
-	module.exports = UserStore;
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var UserStore = __webpack_require__(283);
-	var UserActions = __webpack_require__(282);
-	var UserApiUtil = __webpack_require__(299);
+	var UserStore = __webpack_require__(256);
+	var UserActions = __webpack_require__(255);
+	var UserApiUtil = __webpack_require__(254);
 	
 	var CurrentUserState = {
 	
@@ -36106,19 +36170,19 @@
 	module.exports = CurrentUserState;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// TODO: Right now, the Edit Event option is based on being logged in.
 	// TODO: It SHOULD be based on the Event's User-Id being the User's
 	
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var ClientActions = __webpack_require__(244);
 	var Modal = __webpack_require__(218);
-	var EditEventModal = __webpack_require__(286);
-	var UserStore = __webpack_require__(283);
+	var EditEventModal = __webpack_require__(287);
+	var UserStore = __webpack_require__(256);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	module.exports = React.createClass({
@@ -36247,12 +36311,12 @@
 	});
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var Link = __webpack_require__(159).Link;
 	var ClientActions = __webpack_require__(244);
 	
@@ -36455,14 +36519,14 @@
 	});
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(283);
+	var UserStore = __webpack_require__(256);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36625,18 +36689,18 @@
 	});
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(283);
+	var UserStore = __webpack_require__(256);
 	// var SelectEventDropdown = require('./SelectEventDropdown');
-	var Select = __webpack_require__(289);
+	var Select = __webpack_require__(290);
 	
-	var ReactDropdown = __webpack_require__(296);
+	var ReactDropdown = __webpack_require__(297);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36750,7 +36814,7 @@
 	});
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36771,27 +36835,27 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reactInputAutosize = __webpack_require__(290);
+	var _reactInputAutosize = __webpack_require__(291);
 	
 	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 	
-	var _classnames = __webpack_require__(291);
+	var _classnames = __webpack_require__(292);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _utilsStripDiacritics = __webpack_require__(292);
+	var _utilsStripDiacritics = __webpack_require__(293);
 	
 	var _utilsStripDiacritics2 = _interopRequireDefault(_utilsStripDiacritics);
 	
-	var _Async = __webpack_require__(293);
+	var _Async = __webpack_require__(294);
 	
 	var _Async2 = _interopRequireDefault(_Async);
 	
-	var _Option = __webpack_require__(294);
+	var _Option = __webpack_require__(295);
 	
 	var _Option2 = _interopRequireDefault(_Option);
 	
-	var _Value = __webpack_require__(295);
+	var _Value = __webpack_require__(296);
 	
 	var _Value2 = _interopRequireDefault(_Value);
 	
@@ -37667,7 +37731,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37798,7 +37862,7 @@
 	module.exports = AutosizeInput;
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -37852,7 +37916,7 @@
 
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37867,7 +37931,7 @@
 	};
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37880,11 +37944,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Select = __webpack_require__(289);
+	var _Select = __webpack_require__(290);
 	
 	var _Select2 = _interopRequireDefault(_Select);
 	
-	var _utilsStripDiacritics = __webpack_require__(292);
+	var _utilsStripDiacritics = __webpack_require__(293);
 	
 	var _utilsStripDiacritics2 = _interopRequireDefault(_utilsStripDiacritics);
 	
@@ -38040,7 +38104,7 @@
 	module.exports = Async;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38051,7 +38115,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(291);
+	var _classnames = __webpack_require__(292);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38149,7 +38213,7 @@
 	module.exports = Option;
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38160,7 +38224,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(291);
+	var _classnames = __webpack_require__(292);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38258,7 +38322,7 @@
 	module.exports = Value;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38277,7 +38341,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(297);
+	var _classnames = __webpack_require__(298);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38473,7 +38537,7 @@
 	exports.default = Dropdown;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -38527,11 +38591,11 @@
 
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var UserActions = __webpack_require__(282);
+	var UserActions = __webpack_require__(255);
 	
 	var SignUpModal = React.createClass({
 	  displayName: "SignUpModal",
@@ -38611,74 +38675,11 @@
 	module.exports = SignUpModal;
 
 /***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(247);
-	var UserActions = __webpack_require__(282);
-	var UserConstants = __webpack_require__(252);
-	
-	var UserApiUtil = {
-	  post: function (options) {
-	    $.ajax({
-	      url: options.url,
-	      type: "post",
-	      data: { user: options.user },
-	      success: options.succes,
-	      error: options.error
-	    });
-	  },
-	
-	  logout: function () {
-	    $.ajax({
-	      url: "/api/session",
-	      method: "delete",
-	      success: function () {
-	        UserActions.removeCurrentUser();
-	      },
-	      error: function () {
-	        UserActions.handleError();
-	      }
-	    });
-	  },
-	
-	  // Server Actions method, rather than passed in
-	
-	  fetchCurrentUser: function () {
-	    console.log("Fetch Current User");
-	    $.ajax({
-	      url: "/api/session",
-	      method: "get",
-	      success: function (user) {
-	        console.log('success function for fetch current user');
-	        // So, right now, UserActions is an empty {} object
-	        // Why, I have no idea.
-	        UserActions.receiveCurrentUser(user);
-	      }.bind(this),
-	      error: function (error) {
-	        console.log('error function for fetch current user');
-	        UserActions.handleError(error);
-	      }
-	    });
-	  },
-	
-	  receiveCurrentUser: function (user) {
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.LOGIN,
-	      user: user
-	    });
-	  }
-	
-	};
-	
-	module.exports = UserApiUtil;
-
-/***/ },
 /* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var UserActions = __webpack_require__(282);
+	var UserActions = __webpack_require__(255);
 	
 	var SignInModal = React.createClass({
 	  displayName: "SignInModal",
@@ -38762,10 +38763,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
+	var EventStore = __webpack_require__(275);
 	var ClientActions = __webpack_require__(244);
-	var EventIndexItem = __webpack_require__(273);
-	var UserStore = __webpack_require__(283);
+	var EventIndexItem = __webpack_require__(276);
+	var UserStore = __webpack_require__(256);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -38836,23 +38837,23 @@
 
 	var React = __webpack_require__(1);
 	var EventForm = __webpack_require__(239);
-	var EventIndex = __webpack_require__(254);
+	var EventIndex = __webpack_require__(274);
 	// var LoginForm = require('./users/usersLoginForm');
-	var LoginModal = __webpack_require__(281);
-	var CreateEventModal = __webpack_require__(287);
-	var CreateShowtimeModal = __webpack_require__(288);
-	var UserActions = __webpack_require__(282);
-	var SignUpModal = __webpack_require__(298);
+	var LoginModal = __webpack_require__(284);
+	var CreateEventModal = __webpack_require__(288);
+	var CreateShowtimeModal = __webpack_require__(289);
+	var UserActions = __webpack_require__(255);
+	var SignUpModal = __webpack_require__(299);
 	
-	var UserStore = __webpack_require__(283);
+	var UserStore = __webpack_require__(256);
 	
 	var Modal = __webpack_require__(218);
-	var UserApiUtil = __webpack_require__(299);
+	var UserApiUtil = __webpack_require__(254);
 	var SignInModal = __webpack_require__(300);
 	var MyDashboardModal = __webpack_require__(301);
 	
 	//Mixins
-	var CurrentUserState = __webpack_require__(284);
+	var CurrentUserState = __webpack_require__(285);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -38963,9 +38964,9 @@
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
-	var ShowtimeModal = __webpack_require__(277);
-	var EventStore = __webpack_require__(255);
-	var ShowtimesIndex = __webpack_require__(275);
+	var ShowtimeModal = __webpack_require__(280);
+	var EventStore = __webpack_require__(275);
+	var ShowtimesIndex = __webpack_require__(278);
 	var ClientActions = __webpack_require__(244);
 	var ApiUtil = __webpack_require__(245);
 	
@@ -39204,7 +39205,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(255);
+	var EventStore = __webpack_require__(275);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',

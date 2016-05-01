@@ -98,6 +98,7 @@ module.exports = React.createClass({
         <div>
 
           <li onClick={this.goToEventSplash} className="event-list-item">
+            <img src={this.props.event.image_url} width="300px"></img>
             <p><b>{this.props.event.title}</b></p>
             <p><em>{this.props.event.catchphrase}</em></p>
             <p>{this.props.event.description}</p>
