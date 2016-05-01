@@ -31,22 +31,22 @@ User.create!({
 #         revenue_status: 0
 #         })
 
-Event.create({
-        title: "First Event Title",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
-        video_url: "gKc31H6adR8",
-        user_id: 1,
-        revenue_goal: 20000,
-        revenue_status: 0
-        })
+# Event.create({
+#         title: "First Event Title",
+#         catchphrase: "First Event Catchphrase",
+#         description: "First Event Description",
+#         image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+#         video_url: "gKc31H6adR8",
+#         user_id: 1,
+#         revenue_goal: 20000,
+#         revenue_status: 0
+#         })
 
 Event.create({
         title: "The Globe to Globe Festival",
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+        image_url: "http://40.media.tumblr.com/afe8d5561a67f58230e5937a13d73fe0/tumblr_nyznqmwqVm1t96b19o1_1280.jpg",
         video_url: "gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,
@@ -57,7 +57,7 @@ Event.create({
         title: "World Hamlet",
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
-        image_url: "https://www.silverkris.com/sites/default/files/2015/hamletskull.jpg",
+        image_url: "http://www.todayonline.com/sites/default/files/styles/photo_gallery_image_lightbox/public/23531719_0.JPG?itok=Uox7_X3hs",
         video_url: "gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,
@@ -90,56 +90,56 @@ Event.create({
         title: "Then She Fell",
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+        image_url: "http://www.maxamoo.com/wp-content/uploads/ThenSheFell3.jpg",
         video_url: "gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,
         revenue_status: 0
         })
-
-Event.create({
-        title: "Matthew Briar Defeats Death",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
-        video_url: "gKc31H6adR8",
-        user_id: 1,
-        revenue_goal: 20000,
-        revenue_status: 0
-        })
-
-Event.create({
-        title: "Ancien Regime",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
-        video_url: "gKc31H6adR8",
-        user_id: 1,
-        revenue_goal: 20000,
-        revenue_status: 0
-        })
+#
+# Event.create({
+#         title: "Matthew Briar Defeats Death",
+#         catchphrase: "First Event Catchphrase",
+#         description: "First Event Description",
+#         image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+#         video_url: "gKc31H6adR8",
+#         user_id: 1,
+#         revenue_goal: 20000,
+#         revenue_status: 0
+#         })
+#
+# Event.create({
+#         title: "Ancien Regime",
+#         catchphrase: "First Event Catchphrase",
+#         description: "First Event Description",
+#         image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+#         video_url: "gKc31H6adR8",
+#         user_id: 1,
+#         revenue_goal: 20000,
+#         revenue_status: 0
+#         })
 
 Event.create({
         title: "The Speakeasy",
         catchphrase: "First Event Catchphrase",
         description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+        image_url: "http://ww2.hdnux.com/photos/26/33/44/5880097/5/920x920.jpg",
         video_url: "gKc31H6adR8",
         user_id: 1,
         revenue_goal: 20000,
         revenue_status: 0
         })
-
-Event.create({
-        title: "The Racket",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
-        image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
-        video_url: "gKc31H6adR8",
-        user_id: 1,
-        revenue_goal: 20000,
-        revenue_status: 0
-        })
+#
+# Event.create({
+#         title: "The Racket",
+#         catchphrase: "First Event Catchphrase",
+#         description: "First Event Description",
+#         image_url: "https://d12edgf4lwbh8j.cloudfront.net/photo/image/h2_7.jpg",
+#         video_url: "gKc31H6adR8",
+#         user_id: 1,
+#         revenue_goal: 20000,
+#         revenue_status: 0
+#         })
 
 #
 # # Blank Showtime:

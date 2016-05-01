@@ -291,8 +291,8 @@ h1 {
    margin-right: auto;
    margin-top: 10px;
 
-     padding: px;
-   background-color: mintcream;
+   padding: 50px;
+   background-color: white;
    border: thin solid darkseagreen;
    opacity: 0.99;
  }
@@ -325,6 +325,17 @@ h1 {
    width: 33%;
    float: left;
    /*border: thin solid black;*/
+ }
+
+ .event-list-item button {
+   background-color: red;
+   color: white;
+   padding: 10px;
+   radius: 15px;
+ }
+
+ .event-list-item button:hover {
+   background-color: green;
  }
 
  .event-detail-pane {
