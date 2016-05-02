@@ -61,6 +61,7 @@
 	var ClientActions = __webpack_require__(244);
 	var EventDetail = __webpack_require__(277);
 	var ShowtimeDetail = __webpack_require__(304);
+	var Success = __webpack_require__(309);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -83,6 +84,7 @@
 	  React.createElement(Route, { path: 'event/:eventId', component: EventSplash }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
+	  React.createElement(Route, { path: 'success', component: Success }),
 	  '// ',
 	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: Home })
 	);
@@ -27933,6 +27935,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ServerActions = __webpack_require__(246);
+	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	var ApiUtil = {
 	
@@ -28096,18 +28099,22 @@
 	    $.ajax({
 	      url: "api/ticket_purchases/" + id,
 	      success: function (ticketPurchase) {
+	        hashHistory.push('/success');
 	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
 	      }
 	    });
 	  },
 	
 	  createTicketPurchase: function (data) {
+	    console.log("create ticket purchase");
 	    $.ajax({
 	      url: "api/ticket_purchases",
 	      // Changed "event" to "events"
 	      method: "POST",
 	      data: { ticket_purchase: data },
 	      success: function (ticketPurchase) {
+	        console.log('create ticket purchase success');
+	        hashHistory.push('/success');
 	        ServerActions.receiveSingleEvent(ticketPurchase);
 	        // callback && callback(event.id);
 	      }
@@ -35915,6 +35922,7 @@
 	  },
 	
 	  purchaseTicket: function () {
+	    debugger;
 	    var ticketPurchaseData = {
 	      ticket_id: this.props.ticket.id,
 	      user_id: String(UserStore.user().id)
@@ -39600,6 +39608,55 @@
 	  TICKET_RECEIVED: "TICKET_RECEIVED",
 	  TICKET_REMOVED: "TICKET_REMOVED"
 	};
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  render: function () {
+	
+	    debugger;
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Awesome! You bought tickets to the show.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'What would you like to do now?'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Buy More Tickets'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'See My Tickets'
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

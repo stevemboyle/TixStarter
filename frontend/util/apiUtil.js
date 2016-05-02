@@ -1,4 +1,5 @@
 var ServerActions = require('../actions/serverActions.js');
+var hashHistory = require("react-router").hashHistory;
 
 var ApiUtil = {
 
@@ -163,18 +164,22 @@ var ApiUtil = {
     $.ajax({
       url: "api/ticket_purchases/" + id,
       success: function (ticketPurchase) {
+        hashHistory.push('/success');
         ServerActions.receiveSingleTicketPurchase(ticketPurchase);
       }
     });
   },
 
   createTicketPurchase: function (data) {
+    console.log("create ticket purchase");
     $.ajax({
       url: "api/ticket_purchases",
       // Changed "event" to "events"
       method: "POST",
       data: {ticket_purchase: data},
       success: function (ticketPurchase) {
+        console.log('create ticket purchase success');
+        hashHistory.push('/success');
         ServerActions.receiveSingleEvent(ticketPurchase);
         // callback && callback(event.id);
       }
