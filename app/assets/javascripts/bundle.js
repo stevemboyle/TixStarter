@@ -35530,11 +35530,6 @@
 	            'h1',
 	            null,
 	            this.props.event.title
-	          ),
-	          React.createElement(
-	            'h1',
-	            null,
-	            this.props.event.catchphrase
 	          )
 	        ),
 	        React.createElement(
@@ -35542,22 +35537,7 @@
 	          null,
 	          this.props.event.description
 	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Im a modal!'
-	        ),
-	        React.createElement(EventModal, { event: this.props.event }),
-	        React.createElement(
-	          'p',
-	          null,
-	          'modal modal modal modal modal'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
+	        React.createElement(EventModal, { event: this.props.event })
 	      ),
 	      React.createElement(
 	        Modal,
@@ -36410,30 +36390,30 @@
 	      );
 	    }
 	
+	    // {['title', 'description'].map(function (attr) {
+	    //   return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
+	    // }.bind(this))}
+	    // <br></br>
+	
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'h1',
 	        null,
-	        'Hello! This is the EventModal Componenet'
+	        this.state.event.title
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'event-detail-pane' },
 	        React.createElement(
 	          'div',
-	          { className: 'detail' },
-	          ['title', 'description'].map(function (attr) {
-	            return React.createElement(
-	              'p',
-	              { key: attr },
-	              attr,
-	              ': ',
-	              this.state.event[attr]
-	            );
-	          }.bind(this)),
-	          React.createElement('br', null),
+	          null,
+	          React.createElement(
+	            'button',
+	            { onClick: this.goToEventSplash },
+	            'Learn More'
+	          ),
 	          editOptionForLoggedInUsers
 	        ),
 	        React.createElement(
@@ -36441,17 +36421,7 @@
 	          { className: 'detail-header' },
 	          'Showtimes: '
 	        ),
-	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes }),
-	        React.createElement(
-	          'button',
-	          { onClick: this.goToEventSplash },
-	          'Learn More'
-	        ),
-	        React.createElement(
-	          'button',
-	          null,
-	          'Get Tickets'
-	        )
+	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
 	      ),
 	      React.createElement(
 	        Modal,

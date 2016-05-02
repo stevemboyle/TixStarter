@@ -123,20 +123,11 @@ module.exports = React.createClass({
                  <br></br>
                  <br></br>
                  <h1>{this.props.event.title}</h1>
-                 <h1>{this.props.event.catchphrase}</h1>
                </div>
 
                   <p>{this.props.event.description}</p>
 
-                 <h2>Im a modal!</h2>
-
                  <EventModal event={this.props.event}/>
-
-
-
-
-                 <p>modal modal modal modal modal</p>
-                 <p>mooooooooodal!</p>
 
              </Modal>
 

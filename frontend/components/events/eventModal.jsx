@@ -72,26 +72,27 @@ module.exports = React.createClass({
       );
     }
 
+    // {['title', 'description'].map(function (attr) {
+    //   return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
+    // }.bind(this))}
+    // <br></br>
+
     return(
       <div>
 
-      <h1>Hello! This is the EventModal Componenet</h1>
+      <h1>{this.state.event.title}</h1>
 
         <div className="event-detail-pane">
 
-          <div className="detail">
-            {['title', 'description'].map(function (attr) {
-              return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
-            }.bind(this))}
-            <br></br>
+          <div>
+            <button onClick={this.goToEventSplash}>Learn More</button>
             {editOptionForLoggedInUsers}
           </div>
 
           <h2 className='detail-header'>Showtimes: </h2>
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
 
-          <button onClick={this.goToEventSplash}>Learn More</button>
-          <button>Get Tickets</button>
+
 
         </div>
 
