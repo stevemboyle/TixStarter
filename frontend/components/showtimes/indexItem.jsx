@@ -32,25 +32,26 @@ module.exports = React.createClass({
 
   render: function () {
 
-    var attributeArray = ['id',
-                          'event_id',
-                          'date',
-                          'time',
-                          'location'
-                          ];
-
-    var attrs = attributeArray.map(function (attr) {
-      return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
-    }.bind(this));
+    //
+    // var attributeArray = ['id',
+    //                       'event_id',
+    //                       'date',
+    //                       'time',
+    //                       'location'
+    //                       ];
+    //
+    // var attrs = attributeArray.map(function (attr) {
+    //   return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
+    // }.bind(this));
 
 
     return(
       <div>
         <div>
-          <p>Hey!</p>
           <li onClick={this.openShowtimeModal} className="showtime-list-item">
-            <p>Hey! Hey!</p>
-            {attrs}
+            <h1>{this.props.showtime.date}</h1>
+            <p>{this.props.showtime.event.title}</p>
+            <p>{this.props.showtime.location}</p>
           </li>
         </div>
         <div>

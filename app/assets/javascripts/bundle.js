@@ -35747,17 +35747,17 @@
 	
 	  render: function () {
 	
-	    var attributeArray = ['id', 'event_id', 'date', 'time', 'location'];
-	
-	    var attrs = attributeArray.map(function (attr) {
-	      return React.createElement(
-	        'p',
-	        { key: attr },
-	        attr,
-	        ': ',
-	        this.props.showtime[attr]
-	      );
-	    }.bind(this));
+	    //
+	    // var attributeArray = ['id',
+	    //                       'event_id',
+	    //                       'date',
+	    //                       'time',
+	    //                       'location'
+	    //                       ];
+	    //
+	    // var attrs = attributeArray.map(function (attr) {
+	    //   return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
+	    // }.bind(this));
 	
 	    return React.createElement(
 	      'div',
@@ -35766,19 +35766,23 @@
 	        'div',
 	        null,
 	        React.createElement(
-	          'p',
-	          null,
-	          'Hey!'
-	        ),
-	        React.createElement(
 	          'li',
 	          { onClick: this.openShowtimeModal, className: 'showtime-list-item' },
 	          React.createElement(
+	            'h1',
+	            null,
+	            this.props.showtime.date
+	          ),
+	          React.createElement(
 	            'p',
 	            null,
-	            'Hey! Hey!'
+	            this.props.showtime.event.title
 	          ),
-	          attrs
+	          React.createElement(
+	            'p',
+	            null,
+	            this.props.showtime.location
+	          )
 	        )
 	      ),
 	      React.createElement(
