@@ -36,6 +36,19 @@
 
 }*/
 
+.sign-in-modal-splash {
+  background-image: url(http://theme.co/media/x-img-demo-2.jpg);
+  background-size: cover;
+}
+
+.modal-background-image {
+  z-index: 2;
+}
+
+.modal-background-image img {
+  z-index: 2;
+}
+
 #event-page-video {
   height: 125vh;
   width: 100%;

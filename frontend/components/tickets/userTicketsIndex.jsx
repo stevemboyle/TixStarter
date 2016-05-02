@@ -39,11 +39,14 @@ module.exports = React.createClass({
 
   render: function () {
 
+    debugger;
+
     var test = "Nothing";
     if (this.state.tickets){
       test = this.state.tickets;
       console.log(this.state.tickets);
     }
+
 
     return(
       <div>

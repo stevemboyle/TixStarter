@@ -108,6 +108,8 @@ module.exports = React.createClass({
         <br></br>
 
         </form>
+        <br></br>
+        <p>To Do: <b>Change Date/Time, Add Dropdown for MyShows</b></p>
       </div>
     );
   }

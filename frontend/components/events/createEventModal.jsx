@@ -148,6 +148,8 @@ module.exports = React.createClass({
         <br></br>
 
         </form>
+        <br></br>
+        <p>To Do: <b>Add Deadlines</b></p>
       </div>
     );
   }

@@ -27093,7 +27093,9 @@
 	var CUSTOM_STYLE = {
 	  content: {
 	    'zIndex': '100000',
-	    'margin': '100px'
+	    'margin': '100px',
+	    'border': '5px solid dodgerblue',
+	    'padding': '0px'
 	  }
 	};
 	
@@ -27340,9 +27342,13 @@
 	          onRequestClose: this.closeSignInModal,
 	          style: CUSTOM_STYLE },
 	        React.createElement(
-	          'h1',
-	          null,
-	          'Sign In'
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h1',
+	            null,
+	            'Sign In'
+	          )
 	        ),
 	        React.createElement(
 	          'h2',
@@ -36845,6 +36851,17 @@
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Create Event' }),
 	        React.createElement('br', null)
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        'To Do: ',
+	        React.createElement(
+	          'b',
+	          null,
+	          'Add Deadlines'
+	        )
 	      )
 	    );
 	  }
@@ -36970,6 +36987,17 @@
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Create Showtime' }),
 	        React.createElement('br', null)
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        'To Do: ',
+	        React.createElement(
+	          'b',
+	          null,
+	          'Change Date/Time, Add Dropdown for MyShows'
+	        )
 	      )
 	    );
 	  }
@@ -39513,6 +39541,8 @@
 	  },
 	
 	  render: function () {
+	
+	    debugger;
 	
 	    var test = "Nothing";
 	    if (this.state.tickets) {

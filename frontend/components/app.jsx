@@ -23,7 +23,9 @@ var CurrentUserState = require('.././mixins/currentUserState');
 var CUSTOM_STYLE = {
   content : {
     'zIndex': '100000',
-    'margin': '100px'
+    'margin': '100px',
+    'border': '5px solid dodgerblue',
+    'padding': '0px'
   }
 };
 
@@ -215,7 +217,9 @@ module.exports = React.createClass({
           onRequestClose={this.closeSignInModal}
           style={CUSTOM_STYLE}>
 
+          <div className="sign-in-modal-splash">
           	<h1>Sign In</h1>
+          </div>
 
             <h2>Sign In!</h2>
             <p>(The below component is SignInModal)</p>
