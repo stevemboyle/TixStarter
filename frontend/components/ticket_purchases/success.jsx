@@ -4,6 +4,8 @@ module.exports = React.createClass({
 
   render: function () {
 
+    debugger;
+
     return(
       <div>
         <br></br>

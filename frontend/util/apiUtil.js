@@ -179,8 +179,8 @@ var ApiUtil = {
       data: {ticket_purchase: data},
       success: function (ticketPurchase) {
         console.log('create ticket purchase success');
-        hashHistory.push('/success');
-        ServerActions.receiveSingleEvent(ticketPurchase);
+        // hashHistory.push('/success');
+        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
         // callback && callback(event.id);
       }
     });

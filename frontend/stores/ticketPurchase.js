@@ -1,6 +1,8 @@
 var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var TicketPurchaseConstants = require('../constants/ticketPurchaseConstants.js');
+var hashHistory = require("react-router").hashHistory;
+
 var TicketPurchaseStore = new Store(AppDispatcher);
 
 var _ticketPurchases = {};
@@ -17,6 +19,7 @@ var resetTicketPurchases = function (ticketPurchases) {
 
 var resetTicketPurchase = function (ticketPurchase) {
   _ticketPurchases[ticketPurchase.id] = ticketPurchase;
+    hashHistory.push('/ticket_purchases/' + ticketPurchase.id);
 };
 
 var removeTicketPurchase = function(ticketPurchase){
@@ -43,6 +46,7 @@ TicketPurchaseStore.__onDispatch = function (payload) {
       TicketPurchaseStore.__emitChange();
       break;
     case TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED:
+      console.log("ticket purchase received");
       resetTicketPurchase(payload.ticketPurchase);
       TicketPurchaseStore.__emitChange();
       break;

@@ -52,6 +52,8 @@
 	var IndexRoute = __webpack_require__(159).IndexRoute;
 	var HashHistory = __webpack_require__(159).hashHistory;
 	
+	var TicketStore = __webpack_require__(310);
+	
 	var Modal = __webpack_require__(218);
 	
 	var App = __webpack_require__(238);
@@ -84,9 +86,8 @@
 	  React.createElement(Route, { path: 'event/:eventId', component: EventSplash }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
-	  React.createElement(Route, { path: 'success', component: Success }),
-	  '// ',
-	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: Home })
+	  React.createElement(Route, { path: 'success/', component: Success }),
+	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: Success })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -28114,8 +28115,8 @@
 	      data: { ticket_purchase: data },
 	      success: function (ticketPurchase) {
 	        console.log('create ticket purchase success');
-	        hashHistory.push('/success');
-	        ServerActions.receiveSingleEvent(ticketPurchase);
+	        // hashHistory.push('/success');
+	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
 	        // callback && callback(event.id);
 	      }
 	    });
@@ -28217,6 +28218,7 @@
 	  },
 	
 	  receiveSingleTicketPurchase: function (ticketPurchase) {
+	    console.log("server actions receive single ticket purchase");
 	    Dispatcher.dispatch({
 	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
 	      ticketPurchase: ticketPurchase
@@ -35922,7 +35924,7 @@
 	  },
 	
 	  purchaseTicket: function () {
-	    debugger;
+	    // debugger;
 	    var ticketPurchaseData = {
 	      ticket_id: this.props.ticket.id,
 	      user_id: String(UserStore.user().id)
@@ -39621,8 +39623,6 @@
 	
 	  render: function () {
 	
-	    debugger;
-	
 	    return React.createElement(
 	      'div',
 	      null,
@@ -39657,6 +39657,74 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(257).Store;
+	var AppDispatcher = __webpack_require__(247);
+	var TicketPurchaseConstants = __webpack_require__(305);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	var TicketPurchaseStore = new Store(AppDispatcher);
+	
+	var _ticketPurchases = {};
+	
+	var resetTicketPurchases = function (ticketPurchases) {
+	  console.log('resetTicketPurchases');
+	  console.log(["ticketPurchases", ticketPurchases]);
+	  _ticketPurchases = {};
+	  ticketPurchases.forEach(function (ticketPurchase) {
+	    _ticketPurchases[ticketPurchase.id] = ticketPurchase;
+	  });
+	  console.log(["_ticketPurchases", _ticketPurchases]);
+	};
+	
+	var resetTicketPurchase = function (ticketPurchase) {
+	  _ticketPurchases[ticketPurchase.id] = ticketPurchase;
+	  hashHistory.push('/ticket_purchases/' + ticketPurchase.id);
+	};
+	
+	var removeTicketPurchase = function (ticketPurchase) {
+	  console.log("ticketPurchasestore removeTicketPurchase");
+	  delete _ticketPurchases[ticketPurchase.id];
+	};
+	
+	TicketPurchaseStore.all = function () {
+	  var ticketPurchases = [];
+	  for (var id in _ticketPurchases) {
+	    ticketPurchases.push(_ticketPurchases[id]);
+	  }
+	  return ticketPurchases;
+	};
+	
+	TicketPurchaseStore.find = function (id) {
+	  return _ticketPurchases[id];
+	};
+	
+	TicketPurchaseStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
+	      resetTicketPurchases(payload.ticketPurchases);
+	      TicketPurchaseStore.__emitChange();
+	      break;
+	    case TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED:
+	      console.log("ticket purchase received");
+	      resetTicketPurchase(payload.ticketPurchase);
+	      TicketPurchaseStore.__emitChange();
+	      break;
+	    case TicketPurchaseConstants.TICKET_PURCHASE_REMOVED:
+	      console.log("ticketPurchase store case EVENT_REMOVED");
+	      removeTicketPurchase(payload.ticketPurchase);
+	      break;
+	  }
+	};
+	
+	// TODO: Remove when done
+	window.TicketPurchaseStore = TicketPurchaseStore;
+	
+	module.exports = TicketPurchaseStore;
 
 /***/ }
 /******/ ]);

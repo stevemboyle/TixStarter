@@ -85,6 +85,7 @@ module.exports = {
     },
 
     receiveSingleTicketPurchase: function (ticketPurchase) {
+      console.log("server actions receive single ticket purchase");
       Dispatcher.dispatch({
         actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
         ticketPurchase: ticketPurchase

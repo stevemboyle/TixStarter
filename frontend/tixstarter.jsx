@@ -6,6 +6,8 @@ var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 var HashHistory = require('react-router').hashHistory;
 
+var TicketStore = require('./stores/ticketPurchase');
+
 var Modal = require("react-modal");
 
 var App = require('./components/app.jsx');
@@ -38,8 +40,8 @@ var routes = (
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
     </Route>
     <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
-    <Route path="success" component={Success} />
-    // <Route path="ticket_purchases/:ticket_purchaseId" component={Home} />
+    <Route path="success/" component={Success} />
+    <Route path="ticket_purchases/:ticket_purchaseId" component={Success} />
   </Route>
 );
 

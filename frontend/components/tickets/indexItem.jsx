@@ -15,7 +15,7 @@ module.exports = React.createClass({
   },
 
   purchaseTicket: function(){
-    debugger;
+    // debugger;
     var ticketPurchaseData = {
       ticket_id: this.props.ticket.id,
       user_id: String(UserStore.user().id)
