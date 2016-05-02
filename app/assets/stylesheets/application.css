@@ -367,7 +367,7 @@ h1 {
  }
 
 
- .event-list-item, .showtime-list-item {
+ .event-list-item {
    border: thin solid red;
    padding: 10px;
    cursor: pointer;
@@ -376,6 +376,23 @@ h1 {
    border-radius: 5px;
    background: white;
    color: white;
+   height: 200px;
+   width: 275px;
+   background-size: cover;
+   display: inline-table;
+   margin: 10px;
+   padding: 10px;
+ }
+
+ .showtime-list-item {
+   border: thin solid red;
+   padding: 10px;
+   cursor: pointer;
+   list-style: none;
+   margin-bottom: 5px;
+   border-radius: 5px;
+   background: white;
+   color: black;
    height: 200px;
    width: 275px;
    background-size: cover;

@@ -21,7 +21,6 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    debugger;
     ClientActions.fetchSingleShowtime(parseInt(newProps.showtime.id));
   },
 
