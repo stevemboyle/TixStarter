@@ -27225,19 +27225,23 @@
 	        'div',
 	        { id: 'menubuttons' },
 	        React.createElement(
-	          'button',
-	          { onClick: this.openSignInModal },
-	          'Sign In'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openSignUpModal },
-	          'Sign Up'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.signInWithDemoAccount },
-	          'Demo Account'
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openSignInModal },
+	            'Sign In'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openSignUpModal },
+	            'Sign Up'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.signInWithDemoAccount },
+	            'Demo Account'
+	          )
 	        )
 	      )
 	    );

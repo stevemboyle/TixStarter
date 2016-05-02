@@ -143,9 +143,11 @@ module.exports = React.createClass({
         <p onClick={this.returnHome} className="hover-pointer cody-font">TixStarter</p>
         <p>{loggedInMessageForSteve}</p>
         <div id="menubuttons">
-          <button onClick={this.openSignInModal}>Sign In</button>
-          <button onClick={this.openSignUpModal}>Sign Up</button>
-          <button onClick={this.signInWithDemoAccount}>Demo Account</button>
+          <ul className="header-ul">
+            <li className="header-li"  onClick={this.openSignInModal}>Sign In</li>
+            <li className="header-li"  onClick={this.openSignUpModal}>Sign Up</li>
+            <li className="header-li"  onClick={this.signInWithDemoAccount}>Demo Account</li>
+          </ul>
         </div>
     </div>
     );
