@@ -332,6 +332,7 @@ h1 {
 
  .index-for-events {
    width: 100%;
+   text-align: center;
  }
 
  .event-list-item button {
