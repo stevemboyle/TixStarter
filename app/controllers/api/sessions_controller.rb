@@ -24,7 +24,6 @@ class Api::SessionsController < ApplicationController
   end
 
   def show
-    # debugger;
     token = session[:session_token]
     @user = User.find_by(session_token: token)
 

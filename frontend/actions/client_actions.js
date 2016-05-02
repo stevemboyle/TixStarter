@@ -42,6 +42,8 @@ module.exports = {
   },
 
   fetchSingleShowtime: function(id) {
+    console.log("ClientActions.fetchSingleShowtime");
+    console.log("Id is " + id);
     ApiUtil.fetchSingleShowtime(id);
   },
 

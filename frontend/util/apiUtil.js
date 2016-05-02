@@ -93,9 +93,12 @@ var ApiUtil = {
   },
 
   fetchSingleShowtime: function (id) {
+    console.log("api util fetch single showtime");
+    console.log("id is " + id);
     $.ajax({
       url: "api/showtimes/" + id,
       success: function (showtime) {
+        console.log("success function!");
         ServerActions.receiveSingleShowtime(showtime);
       }
     });
