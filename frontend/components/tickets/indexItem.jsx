@@ -1,6 +1,8 @@
 var React = require('react');
 var Modal = require("react-modal");
 var TicketsIndex = require('../tickets/indexItem.jsx');
+var UserStore = require('../../stores/user');
+var ClientActions = require('../../actions/client_actions.js');
 
 module.exports = React.createClass({
   //
@@ -12,6 +14,15 @@ module.exports = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
+  purchaseTicket: function(){
+    debugger;
+    var ticketPurchaseData = {
+      ticket_id: this.props.ticket.id,
+      user_id: String(UserStore.user().id)
+    };
+
+    ClientActions.createTicketPurchase(ticketPurchaseData);
+  },
 
 
   render: function () {
@@ -26,7 +37,7 @@ module.exports = React.createClass({
       <div>
         <div>
           <p>Hey!</p>
-          <li className="showtime-list-item">
+          <li onClick={this.purchaseTicket} className="showtime-list-item">
             <p>{this.props.ticket.tier}</p>
             <p>${this.props.ticket.price}</p>
           </li>

@@ -15,5 +15,6 @@ Rails.application.routes.draw do
 
     resources :showtimes, only: [:index, :create, :show, :update]
     resources :tickets, only: [:index, :create, :show, :update]
+    resources :ticket_purchases, only: [:index, :create, :show, :update]
   end
 end

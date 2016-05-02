@@ -59,5 +59,19 @@ module.exports = {
     ApiUtil.fetchSingleTicket(id);
   },
 
+  // TicketPurchase Functions
+
+  fetchAllTicketPurchases: function() {
+    ApiUtil.fetchAllTicketPurchases();
+  },
+
+  createTicketPurchase: function(ticketPurchaseData) {
+    ApiUtil.createTicketPurchase(ticketPurchaseData);
+  },
+
+  fetchSingleTicketPurchase: function(id) {
+    ApiUtil.fetchSingleTicketPurchase(id);
+  },
+
 
 };

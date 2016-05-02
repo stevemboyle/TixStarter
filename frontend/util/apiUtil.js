@@ -143,7 +143,41 @@ var ApiUtil = {
         callback && callback(ticket.id);
       }
     });
-  }
+  },
+
+  // TicketPurchase Functions
+
+  fetchAllTicketPurchases: function () {
+    $.ajax({
+      url: "api/ticket_purchases",
+      success: function (ticketPurchases) {
+        ServerActions.receiveAllTicketPurchases(ticketPurchases);
+      }
+    });
+  },
+
+  fetchSingleTicketPurchase: function (id) {
+    $.ajax({
+      url: "api/ticket_purchases/" + id,
+      success: function (ticketPurchase) {
+        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
+      }
+    });
+  },
+
+  createTicketPurchase: function (data) {
+    $.ajax({
+      url: "api/ticket_purchases",
+      // Changed "event" to "events"
+      method: "POST",
+      data: {ticket_purchase: data},
+      success: function (ticketPurchase) {
+        ServerActions.receiveSingleEvent(ticketPurchase);
+        // callback && callback(event.id);
+      }
+    });
+  },
+
 
 };
 

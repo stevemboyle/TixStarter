@@ -27871,6 +27871,20 @@
 	
 	  fetchSingleTicket: function (id) {
 	    ApiUtil.fetchSingleTicket(id);
+	  },
+	
+	  // TicketPurchase Functions
+	
+	  fetchAllTicketPurchases: function () {
+	    ApiUtil.fetchAllTicketPurchases();
+	  },
+	
+	  createTicketPurchase: function (ticketPurchaseData) {
+	    ApiUtil.createTicketPurchase(ticketPurchaseData);
+	  },
+	
+	  fetchSingleTicketPurchase: function (id) {
+	    ApiUtil.fetchSingleTicketPurchase(id);
 	  }
 	
 	};
@@ -28023,6 +28037,39 @@
 	        callback && callback(ticket.id);
 	      }
 	    });
+	  },
+	
+	  // TicketPurchase Functions
+	
+	  fetchAllTicketPurchases: function () {
+	    $.ajax({
+	      url: "api/ticket_purchases",
+	      success: function (ticketPurchases) {
+	        ServerActions.receiveAllTicketPurchases(ticketPurchases);
+	      }
+	    });
+	  },
+	
+	  fetchSingleTicketPurchase: function (id) {
+	    $.ajax({
+	      url: "api/ticket_purchases/" + id,
+	      success: function (ticketPurchase) {
+	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
+	      }
+	    });
+	  },
+	
+	  createTicketPurchase: function (data) {
+	    $.ajax({
+	      url: "api/ticket_purchases",
+	      // Changed "event" to "events"
+	      method: "POST",
+	      data: { ticket_purchase: data },
+	      success: function (ticketPurchase) {
+	        ServerActions.receiveSingleEvent(ticketPurchase);
+	        // callback && callback(event.id);
+	      }
+	    });
 	  }
 	
 	};
@@ -28040,6 +28087,7 @@
 	var EventConstants = __webpack_require__(251);
 	var UserConstants = __webpack_require__(252);
 	var ShowtimeConstants = __webpack_require__(253);
+	var TicketPurchaseConstants = __webpack_require__(305);
 	
 	module.exports = {
 	
@@ -28083,6 +28131,22 @@
 	    Dispatcher.dispatch({
 	      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
 	      showtime: showtime
+	    });
+	  },
+	
+	  // Events Functions:
+	
+	  receiveAllTicketPurchases: function (ticketPurchases) {
+	    Dispatcher.dispatch({
+	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+	      ticketPurchases: ticketPurchases
+	    });
+	  },
+	
+	  receiveSingleTicketPurchase: function (ticketPurchase) {
+	    Dispatcher.dispatch({
+	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+	      ticketPurchase: ticketPurchase
 	    });
 	  }
 	
@@ -35801,6 +35865,8 @@
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(218);
 	var TicketsIndex = __webpack_require__(282);
+	var UserStore = __webpack_require__(256);
+	var ClientActions = __webpack_require__(244);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35812,6 +35878,16 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  purchaseTicket: function () {
+	    debugger;
+	    var ticketPurchaseData = {
+	      ticket_id: this.props.ticket.id,
+	      user_id: String(UserStore.user().id)
+	    };
+	
+	    ClientActions.createTicketPurchase(ticketPurchaseData);
 	  },
 	
 	  render: function () {
@@ -35835,7 +35911,7 @@
 	        ),
 	        React.createElement(
 	          'li',
-	          { className: 'showtime-list-item' },
+	          { onClick: this.purchaseTicket, className: 'showtime-list-item' },
 	          React.createElement(
 	            'p',
 	            null,
@@ -39313,6 +39389,16 @@
 	    );
 	  }
 	});
+
+/***/ },
+/* 305 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  TICKET_PURCHASES_RECEIVED: "TICKET_PURCHASES_RECEIVED",
+	  TICKET_PURCHASE_RECEIVED: "TICKET_PURCHASE_RECEIVED",
+	  TICKET_PURCHASE_REMOVED: "TICKET_PURCHASE_REMOVED"
+	};
 
 /***/ }
 /******/ ]);

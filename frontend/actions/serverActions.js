@@ -2,6 +2,7 @@ var Dispatcher = require('../dispatcher/dispatcher.js');
 var EventConstants = require('../constants/eventConstants.js');
 var UserConstants = require('../constants/userConstants.js');
 var ShowtimeConstants = require('../constants/showtimeConstants.js');
+var TicketPurchaseConstants = require('../constants/ticketPurchaseConstants.js');
 
 module.exports = {
 
@@ -46,6 +47,23 @@ module.exports = {
       actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
       showtime: showtime
     });
-  }
+  },
+
+
+    // Events Functions:
+
+    receiveAllTicketPurchases: function (ticketPurchases) {
+      Dispatcher.dispatch({
+        actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+        ticketPurchases: ticketPurchases
+      });
+    },
+
+    receiveSingleTicketPurchase: function (ticketPurchase) {
+      Dispatcher.dispatch({
+        actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+        ticketPurchase: ticketPurchase
+      });
+    },
 
 };
