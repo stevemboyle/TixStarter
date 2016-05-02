@@ -77,7 +77,7 @@ module.exports = React.createClass({
           <br></br>
 
             <label> Date:
-              <input type="text"
+              <input type="date"
                       value={this.state.date}
                       onChange={this.dateChange}
                 />
@@ -86,7 +86,7 @@ module.exports = React.createClass({
           <br></br>
 
             <label> Time:
-              <input type="text"
+              <input type="time"
                       value={this.state.time}
                       onChange={this.timeChange}
                 />

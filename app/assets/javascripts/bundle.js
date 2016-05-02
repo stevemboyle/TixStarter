@@ -36979,7 +36979,7 @@
 	          'label',
 	          null,
 	          ' Date:',
-	          React.createElement('input', { type: 'text',
+	          React.createElement('input', { type: 'date',
 	            value: this.state.date,
 	            onChange: this.dateChange
 	          })
@@ -36989,7 +36989,7 @@
 	          'label',
 	          null,
 	          ' Time:',
-	          React.createElement('input', { type: 'text',
+	          React.createElement('input', { type: 'time',
 	            value: this.state.time,
 	            onChange: this.timeChange
 	          })
