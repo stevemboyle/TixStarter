@@ -53,6 +53,8 @@ module.exports = React.createClass({
 
   render: function(){
 
+    // var percentFunded = (this.state.event.revenue_status / this.state.event.revenue_goal);
+
     if(this.state.event === undefined) { return <div></div>; }
 
     return(
@@ -71,6 +73,8 @@ module.exports = React.createClass({
               {this.state.event.catchphrase}
               <br></br>
               <b>Revenue Status:</b> {this.state.event.revenue_status} | <b>Revenue Goal:</b> {this.state.event.revenue_goal}
+              <br></br>
+              <p>This event is {this.state.event.revenue_status / this.state.event.revenue_goal} % funded.</p>
             </h3>
           </div>
               <div id="home-buttons" className="home-buttons">

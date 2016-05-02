@@ -39231,6 +39231,8 @@
 	
 	  render: function () {
 	
+	    // var percentFunded = (this.state.event.revenue_status / this.state.event.revenue_goal);
+	
 	    if (this.state.event === undefined) {
 	      return React.createElement('div', null);
 	    }
@@ -39269,7 +39271,15 @@
 	              'Revenue Goal:'
 	            ),
 	            ' ',
-	            this.state.event.revenue_goal
+	            this.state.event.revenue_goal,
+	            React.createElement('br', null),
+	            React.createElement(
+	              'p',
+	              null,
+	              'This event is ',
+	              this.state.event.revenue_status / this.state.event.revenue_goal,
+	              ' % funded.'
+	            )
 	          )
 	        ),
 	        React.createElement(
