@@ -39480,6 +39480,26 @@
 	      'div',
 	      null,
 	      React.createElement(
+	        'p',
+	        null,
+	        'There\'s a lot still to do here.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You\'ll want to change this.state.tickets to this.myTickets'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You\'ll want to make sure the action of clicking the ticket is different --'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You don\'t want to buy it all over again!'
+	      ),
+	      React.createElement(
 	        'ul',
 	        null,
 	        React.createElement(
@@ -39488,7 +39508,7 @@
 	          'My Purchased Tickets:'
 	        ),
 	        React.createElement('br', null),
-	        this.myTickets().map(function (ticket) {
+	        this.state.tickets.map(function (ticket) {
 	
 	          return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
 	        })
