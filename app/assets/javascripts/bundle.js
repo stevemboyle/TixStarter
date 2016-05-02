@@ -64,6 +64,7 @@
 	var EventDetail = __webpack_require__(277);
 	var ShowtimeDetail = __webpack_require__(304);
 	var Success = __webpack_require__(309);
+	var TicketPurchase = __webpack_require__(311);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -87,7 +88,7 @@
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'success/', component: Success }),
-	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: Success })
+	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -39725,6 +39726,72 @@
 	window.TicketPurchaseStore = TicketPurchaseStore;
 	
 	module.exports = TicketPurchaseStore;
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  // getInitialState: function(){
+	  // },
+	
+	  componentDidMount: function () {
+	    // this.myListener = EventStore.addListener(this.handleChange);
+	    // ClientActions.fetchSingleEvent(this.props.params.eventId);
+	  },
+	
+	  componentWillUnmount: function () {
+	    // this.myListener.remove();
+	  },
+	
+	  render: function () {
+	
+	    debugger;
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.params.ticket_purchaseId
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Awesome! You bought tickets to the show.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'What would you like to do now?'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'Buy More Tickets'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'See My Tickets'
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

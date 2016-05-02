@@ -18,6 +18,7 @@ var ClientActions = require('./actions/client_actions');
 var EventDetail = require('./components/events/detail.jsx');
 var ShowtimeDetail = require('./components/showtimes/detail.jsx');
 var Success = require('./components/users/success.jsx');
+var TicketPurchase = require('./components/ticket_purchases/success.jsx');
 // var ApiUtil = require('./util/apiUtil');
 // var UserApiUtil = require('./util/userApiUtil');
 
@@ -41,7 +42,7 @@ var routes = (
     </Route>
     <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
     <Route path="success/" component={Success} />
-    <Route path="ticket_purchases/:ticket_purchaseId" component={Success} />
+    <Route path="ticket_purchases/:ticket_purchaseId" component={TicketPurchase}/>
   </Route>
 );
 
