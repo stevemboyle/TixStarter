@@ -54,6 +54,10 @@ UserStore.currentUser = function(){
   }
 };
 
+UserStore.currentUserEvents = function(){
+  debugger;
+};
+
 UserStore.setErrors = function(errors){
   _errors = errors;
 };

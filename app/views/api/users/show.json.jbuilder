@@ -8,5 +8,6 @@ json.extract!(
     :last_name,
     :bio_image_url,
     :bio_text,
-    :ticket_purchases
+    :ticket_purchases,
+    :events
 )

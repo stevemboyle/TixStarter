@@ -44,6 +44,8 @@ module.exports = React.createClass({
   },
 
   handleSubmit: function(keyboardEvent){
+    debugger;
+    
     keyboardEvent.preventDefault();
     var showtimeData = {
       event_id: this.state.event_id,
@@ -55,23 +57,42 @@ module.exports = React.createClass({
     ClientActions.createShowtime(showtimeData);
   },
 
+  // eventOptions: function(){
+  //   UserStore.user.events.map(function(event){
+  //     <div>
+  //       <option value=event.title>event.title}</option>
+  //     </div>
+  //   });
+  // },
+
   render: function(){
 
-
+    // <input type="text"
+    //         value={this.state.event_id}
+    //         onChange={this.eventIdChange}
+    //   />
+    // var eventOptions =
+    //   UserStore.user().events.map(function(event){
+    //     <option value={event.name}>{event.name}</option>
+    //   });
 
     return(
       <div>
+
 
         <h3>Create New Showtime</h3>
         <form onSubmit={this.handleSubmit}>
 
           <br></br>
 
-            <label> Event ID:
-              <input type="text"
-                      value={this.state.event_id}
-                      onChange={this.eventIdChange}
-                />
+            <label> Event:
+              <select value={this.state.eventId}
+              onChange={this.eventIdChange}>
+                {UserStore.user().events.map(function (event) {
+                  return <option key={event.id} value={event.id}>{event.title}</option>;
+                  // return <EventIndexItem key={event.id} event={event} />;
+                })}
+              </select>
             </label>
 
           <br></br>

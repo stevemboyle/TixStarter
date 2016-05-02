@@ -28842,6 +28842,10 @@
 	  }
 	};
 	
+	UserStore.currentUserEvents = function () {
+	  debugger;
+	};
+	
 	UserStore.setErrors = function (errors) {
 	  _errors = errors;
 	};
@@ -36940,6 +36944,8 @@
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
+	    debugger;
+	
 	    keyboardEvent.preventDefault();
 	    var showtimeData = {
 	      event_id: this.state.event_id,
@@ -36951,7 +36957,24 @@
 	    ClientActions.createShowtime(showtimeData);
 	  },
 	
+	  // eventOptions: function(){
+	  //   UserStore.user.events.map(function(event){
+	  //     <div>
+	  //       <option value=event.title>event.title}</option>
+	  //     </div>
+	  //   });
+	  // },
+	
 	  render: function () {
+	
+	    // <input type="text"
+	    //         value={this.state.event_id}
+	    //         onChange={this.eventIdChange}
+	    //   />
+	    // var eventOptions =
+	    //   UserStore.user().events.map(function(event){
+	    //     <option value={event.name}>{event.name}</option>
+	    //   });
 	
 	    return React.createElement(
 	      'div',
@@ -36968,11 +36991,20 @@
 	        React.createElement(
 	          'label',
 	          null,
-	          ' Event ID:',
-	          React.createElement('input', { type: 'text',
-	            value: this.state.event_id,
-	            onChange: this.eventIdChange
-	          })
+	          ' Event:',
+	          React.createElement(
+	            'select',
+	            { value: this.state.eventId,
+	              onChange: this.eventIdChange },
+	            UserStore.user().events.map(function (event) {
+	              return React.createElement(
+	                'option',
+	                { key: event.id, value: event.id },
+	                event.title
+	              );
+	              // return <EventIndexItem key={event.id} event={event} />;
+	            })
+	          )
 	        ),
 	        React.createElement('br', null),
 	        React.createElement(
