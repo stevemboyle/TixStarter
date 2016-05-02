@@ -39073,6 +39073,16 @@
 	          null,
 	          'Text!'
 	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'footer',
+	          className: 'footer' },
+	        React.createElement(
+	          'p',
+	          null,
+	          'Hello, I am a footer!'
+	        )
 	      )
 	    );
 	  }

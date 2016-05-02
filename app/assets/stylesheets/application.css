@@ -505,3 +505,11 @@ h1 {
  .detail-header {
    padding-top: 10px;
  }
+
+ #footer {
+   background: dodgerblue;
+   color: white;
+   text-align: center;
+   font-family: CodyStar;
+   height: 300px;
+ }
