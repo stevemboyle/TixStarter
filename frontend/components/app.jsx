@@ -20,6 +20,13 @@ var hashHistory = require("react-router").hashHistory;
 //Mixins
 var CurrentUserState = require('.././mixins/currentUserState');
 
+var CUSTOM_STYLE = {
+  content : {
+    'zIndex': '100000',
+    'margin': '100px'
+  }
+};
+
 module.exports = React.createClass({
 
   mixins: [CurrentUserState],
@@ -110,6 +117,14 @@ module.exports = React.createClass({
       );
     },
 
+    customModalStyle: function(){
+      return({
+        content : {
+          'z-index': 10000
+        }
+      });
+    },
+
     // notLoggedInMenu: function(){
     //   return(
     //     <div id="othermenu">
@@ -197,7 +212,8 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.signInModalOpen}
-          onRequestClose={this.closeSignInModal}>
+          onRequestClose={this.closeSignInModal}
+          style={CUSTOM_STYLE}>
 
           	<h1>Sign In</h1>
 
@@ -221,7 +237,8 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.signUpModalOpen}
-          onRequestClose={this.closeSignUpModal}>
+          onRequestClose={this.closeSignUpModal}
+          style={CUSTOM_STYLE}>
 
           	<h1>Sign Up</h1>
 
@@ -236,7 +253,8 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.demoAccountModalOpen}
-          onRequestClose={this.closeDemoAccountModal}>
+          onRequestClose={this.closeDemoAccountModal}
+          style={CUSTOM_STYLE}>
 
             <h2>Demo Account</h2>
 
@@ -267,7 +285,9 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.createEventModalOpen}
-          onRequestClose={this.closeCreateEventModal}>
+          onRequestClose={this.closeCreateEventModal}
+          style={CUSTOM_STYLE}
+          >
 
             <h2>CreateEventModal</h2>
 
@@ -277,7 +297,8 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.createShowtimeModalOpen}
-          onRequestClose={this.closeCreateShowtimeModal}>
+          onRequestClose={this.closeCreateShowtimeModal}
+          style={CUSTOM_STYLE}>
 
             <h2>CreateShowtimeModal</h2>
 
@@ -287,7 +308,8 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.myDashboardModalOpen}
-          onRequestClose={this.closeMyDashboardModal}>
+          onRequestClose={this.closeMyDashboardModal}
+          style={CUSTOM_STYLE}>
 
             <h2>MyDashboard</h2>
 
@@ -297,7 +319,8 @@ module.exports = React.createClass({
 
         <Modal
           isOpen={this.state.myTicketsModalOpen}
-          onRequestClose={this.closeMyTicketsModal}>
+          onRequestClose={this.closeMyTicketsModal}
+          style={CUSTOM_STYLE}>
 
             <h2>MyTickets</h2>
 

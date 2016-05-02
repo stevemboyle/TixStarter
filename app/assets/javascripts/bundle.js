@@ -52,7 +52,7 @@
 	var IndexRoute = __webpack_require__(159).IndexRoute;
 	var HashHistory = __webpack_require__(159).hashHistory;
 	
-	var TicketStore = __webpack_require__(310);
+	var TicketPurchaseStore = __webpack_require__(310);
 	
 	var Modal = __webpack_require__(218);
 	
@@ -27090,6 +27090,13 @@
 	//Mixins
 	var CurrentUserState = __webpack_require__(285);
 	
+	var CUSTOM_STYLE = {
+	  content: {
+	    'zIndex': '100000',
+	    'margin': '100px'
+	  }
+	};
+	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -27182,6 +27189,14 @@
 	      null,
 	      'Stand-In Menu'
 	    );
+	  },
+	
+	  customModalStyle: function () {
+	    return {
+	      content: {
+	        'z-index': 10000
+	      }
+	    };
 	  },
 	
 	  // notLoggedInMenu: function(){
@@ -27322,7 +27337,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.signInModalOpen,
-	          onRequestClose: this.closeSignInModal },
+	          onRequestClose: this.closeSignInModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h1',
 	          null,
@@ -27355,7 +27371,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.signUpModalOpen,
-	          onRequestClose: this.closeSignUpModal },
+	          onRequestClose: this.closeSignUpModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h1',
 	          null,
@@ -27382,7 +27399,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.demoAccountModalOpen,
-	          onRequestClose: this.closeDemoAccountModal },
+	          onRequestClose: this.closeDemoAccountModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h2',
 	          null,
@@ -27420,7 +27438,9 @@
 	        Modal,
 	        {
 	          isOpen: this.state.createEventModalOpen,
-	          onRequestClose: this.closeCreateEventModal },
+	          onRequestClose: this.closeCreateEventModal,
+	          style: CUSTOM_STYLE
+	        },
 	        React.createElement(
 	          'h2',
 	          null,
@@ -27432,7 +27452,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.createShowtimeModalOpen,
-	          onRequestClose: this.closeCreateShowtimeModal },
+	          onRequestClose: this.closeCreateShowtimeModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h2',
 	          null,
@@ -27444,7 +27465,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.myDashboardModalOpen,
-	          onRequestClose: this.closeMyDashboardModal },
+	          onRequestClose: this.closeMyDashboardModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h2',
 	          null,
@@ -27456,7 +27478,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.myTicketsModalOpen,
-	          onRequestClose: this.closeMyTicketsModal },
+	          onRequestClose: this.closeMyTicketsModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h2',
 	          null,
@@ -39732,26 +39755,31 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var TicketPurchaseStore = __webpack_require__(310);
+	var ClientActions = __webpack_require__(244);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	
-	  // getInitialState: function(){
-	  // },
+	  getInitialState: function () {
+	    var ticketPurchase = TicketPurchaseStore.find(this.props.params.ticket_purchaseId);
+	    return { ticket_purchase: ticketPurchase };
+	  },
 	
 	  componentDidMount: function () {
-	    // this.myListener = EventStore.addListener(this.handleChange);
-	    // ClientActions.fetchSingleEvent(this.props.params.eventId);
+	    this.myListener = TicketPurchaseStore.addListener(this.handleChange);
+	    ClientActions.fetchSingleTicketPurchase(this.props.params.ticker_purchaseId);
 	  },
 	
 	  componentWillUnmount: function () {
-	    // this.myListener.remove();
+	    this.myListener.remove();
 	  },
 	
 	  render: function () {
 	
 	    debugger;
+	    // <p>{this.state.ticket_purchase.id}</p>
 	
 	    return React.createElement(
 	      'div',
@@ -39767,13 +39795,38 @@
 	      React.createElement(
 	        'p',
 	        null,
+	        'Congratulations, ',
+	        this.state.ticket_purchase.user.first_name,
+	        '!'
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You\'ve just purchased a ticket to:'
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
 	        this.props.params.ticket_purchaseId
 	      ),
 	      React.createElement(
 	        'p',
 	        null,
-	        'Awesome! You bought tickets to the show.'
+	        this.state.ticket_purchase.id
 	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.state.ticket_purchase.event.title
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.state.ticket_purchase.showtime.date
+	      ),
+	      React.createElement('br', null),
 	      React.createElement(
 	        'p',
 	        null,

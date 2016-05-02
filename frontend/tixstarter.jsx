@@ -6,7 +6,7 @@ var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
 var HashHistory = require('react-router').hashHistory;
 
-var TicketStore = require('./stores/ticketPurchase');
+var TicketPurchaseStore = require('./stores/ticketPurchase');
 
 var Modal = require("react-modal");
 
