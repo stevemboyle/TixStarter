@@ -97,10 +97,7 @@ module.exports = React.createClass({
     // onClick={this.goToEventSplash}
 
     return(
-      <div>
-        <div>
-
-          <li onClick={this.goToEventSplash} className="event-list-item"
+        <div onClick={this.goToEventSplash} className="event-list-item"
             style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
 
             <h1 color="white" text-align="center"><b>{this.props.event.title}</b></h1>
@@ -110,10 +107,7 @@ module.exports = React.createClass({
             <button onClick={this.goToEventSplash}>Learn More</button>
 
             {editOptionForLoggedInUsers}
-          </li>
-        </div>
 
-          <div>
             <Modal
                isOpen={this.state.eventDetailModalOpen}
                onRequestClose={this.closeEventDetailModal}>
@@ -173,8 +167,6 @@ module.exports = React.createClass({
                   <EditEventModal event={this.props.event}/>
 
               </Modal>
-          </div>
-
 
       </div>
 

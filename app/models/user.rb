@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
 
   has_many :events
 
+  has_many :ticket_purchases
+
+  has_many :purchased_tickets,
+    through: :ticket_purchases,
+    source: :ticket
+
   after_initialize :ensure_session_token
 
     def self.find_by_credentials(username, password)

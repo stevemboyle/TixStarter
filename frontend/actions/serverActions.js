@@ -3,6 +3,7 @@ var EventConstants = require('../constants/eventConstants.js');
 var UserConstants = require('../constants/userConstants.js');
 var ShowtimeConstants = require('../constants/showtimeConstants.js');
 var TicketPurchaseConstants = require('../constants/ticketPurchaseConstants.js');
+var TicketConstants = require('../constants/ticketConstants.js');
 
 module.exports = {
 
@@ -48,6 +49,30 @@ module.exports = {
       showtime: showtime
     });
   },
+
+
+    // Events Functions:
+
+    receiveAllTickets: function (tickets) {
+      Dispatcher.dispatch({
+        actionType: TicketConstants.TICKETS_RECEIVED,
+        tickets: tickets
+      });
+    },
+
+    receiveSingleTicket: function (ticket) {
+      Dispatcher.dispatch({
+        actionType: TicketConstants.TICKET_RECEIVED,
+        ticket: ticket
+      });
+    },
+
+    removeTicket: function(ticket){
+      Dispatcher.dispatch({
+        actionType: TicketConstants.TICKET_REMOVED,
+        ticket: ticket
+      });
+    },
 
 
     // Events Functions:

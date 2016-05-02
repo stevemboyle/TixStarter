@@ -35,15 +35,13 @@ module.exports = React.createClass({
     }
 
     return(
-      <div>
-        <ul>
+      <div className="index-for-events">
           <h2>Experiences:</h2>
           <br></br>
           {this.state.events.map(function (event) {
 
             return <EventIndexItem key={event.id} event={event} />;
           })}
-        </ul>
       </div>
     );
   }

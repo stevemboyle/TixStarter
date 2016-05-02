@@ -117,7 +117,7 @@ var ApiUtil = {
 
   fetchAllTickets: function () {
     $.ajax({
-      url: "api/ticket",
+      url: "api/tickets",
       success: function (tickets) {
         ServerActions.receiveAllTickets(tickets);
       }
@@ -126,7 +126,7 @@ var ApiUtil = {
 
   fetchSingleTicket: function (id) {
     $.ajax({
-      url: "api/ticket/" + id,
+      url: "api/tickets/" + id,
       success: function (ticket) {
         ServerActions.receiveSingleTicket(ticket);
       }
@@ -135,7 +135,7 @@ var ApiUtil = {
 
   createTicket: function (ticket, callback) {
     $.ajax({
-      url: "api/ticket",
+      url: "api/tickets",
       method: "POST",
       data: {ticket: ticket},
       success: function (ticket) {

@@ -37,6 +37,7 @@ var routes = (
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
     </Route>
     <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
+    // <Route path="ticket_purchases/:ticket_purchaseId" component={Home} />
   </Route>
 );
 

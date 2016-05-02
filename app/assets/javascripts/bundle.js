@@ -82,7 +82,9 @@
 	  React.createElement(Route, { path: 'home-marketing', component: Home }),
 	  React.createElement(Route, { path: 'event/:eventId', component: EventSplash }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
-	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail })
+	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
+	  '// ',
+	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: Home })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -27078,6 +27080,7 @@
 	var UserApiUtil = __webpack_require__(254);
 	var SignInModal = __webpack_require__(300);
 	var MyDashboardModal = __webpack_require__(301);
+	var MyTicketsModal = __webpack_require__(306);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	//Mixins
@@ -27095,7 +27098,8 @@
 	      demoAccountModalOpen: false,
 	      createEventModalOpen: false,
 	      createShowtimeModalOpen: false,
-	      myDashboardModalOpen: false
+	      myDashboardModalOpen: false,
+	      myTicketsModalOpen: false
 	    };
 	  },
 	
@@ -27145,6 +27149,14 @@
 	
 	  closeMyDashboardModal: function () {
 	    this.setState({ myDashboardModalOpen: false });
+	  },
+	
+	  openMyTicketsModal: function () {
+	    this.setState({ myTicketsModalOpen: true });
+	  },
+	
+	  closeMyTicketsModal: function () {
+	    this.setState({ myTicketsModalOpen: false });
 	  },
 	
 	  justClickedLogOut: function () {
@@ -27256,6 +27268,11 @@
 	          'button',
 	          { onClick: this.openMyDashboardModal },
 	          'My Dashboard'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openMyTicketsModal },
+	          'My Tickets'
 	        ),
 	        React.createElement(
 	          'button',
@@ -27422,6 +27439,18 @@
 	          'MyDashboard'
 	        ),
 	        React.createElement(MyDashboardModal, null)
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.myTicketsModalOpen,
+	          onRequestClose: this.closeMyTicketsModal },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'MyTickets'
+	        ),
+	        React.createElement(MyTicketsModal, null)
 	      ),
 	      this.props.children
 	    );
@@ -28011,7 +28040,7 @@
 	
 	  fetchAllTickets: function () {
 	    $.ajax({
-	      url: "api/ticket",
+	      url: "api/tickets",
 	      success: function (tickets) {
 	        ServerActions.receiveAllTickets(tickets);
 	      }
@@ -28020,7 +28049,7 @@
 	
 	  fetchSingleTicket: function (id) {
 	    $.ajax({
-	      url: "api/ticket/" + id,
+	      url: "api/tickets/" + id,
 	      success: function (ticket) {
 	        ServerActions.receiveSingleTicket(ticket);
 	      }
@@ -28029,7 +28058,7 @@
 	
 	  createTicket: function (ticket, callback) {
 	    $.ajax({
-	      url: "api/ticket",
+	      url: "api/tickets",
 	      method: "POST",
 	      data: { ticket: ticket },
 	      success: function (ticket) {
@@ -28088,6 +28117,7 @@
 	var UserConstants = __webpack_require__(252);
 	var ShowtimeConstants = __webpack_require__(253);
 	var TicketPurchaseConstants = __webpack_require__(305);
+	var TicketConstants = __webpack_require__(308);
 	
 	module.exports = {
 	
@@ -28131,6 +28161,29 @@
 	    Dispatcher.dispatch({
 	      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
 	      showtime: showtime
+	    });
+	  },
+	
+	  // Events Functions:
+	
+	  receiveAllTickets: function (tickets) {
+	    Dispatcher.dispatch({
+	      actionType: TicketConstants.TICKETS_RECEIVED,
+	      tickets: tickets
+	    });
+	  },
+	
+	  receiveSingleTicket: function (ticket) {
+	    Dispatcher.dispatch({
+	      actionType: TicketConstants.TICKET_RECEIVED,
+	      ticket: ticket
+	    });
+	  },
+	
+	  removeTicket: function (ticket) {
+	    Dispatcher.dispatch({
+	      actionType: TicketConstants.TICKET_REMOVED,
+	      ticket: ticket
 	    });
 	  },
 	
@@ -35216,21 +35269,17 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'index-for-events' },
 	      React.createElement(
-	        'ul',
+	        'h2',
 	        null,
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Experiences:'
-	        ),
-	        React.createElement('br', null),
-	        this.state.events.map(function (event) {
+	        'Experiences:'
+	      ),
+	      React.createElement('br', null),
+	      this.state.events.map(function (event) {
 	
-	          return React.createElement(EventIndexItem, { key: event.id, event: event });
-	        })
-	      )
+	        return React.createElement(EventIndexItem, { key: event.id, event: event });
+	      })
 	    );
 	  }
 	});
@@ -35412,151 +35461,139 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { onClick: this.goToEventSplash, className: 'event-list-item',
+	        style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
 	      React.createElement(
-	        'div',
-	        null,
+	        'h1',
+	        { color: 'white', 'text-align': 'center' },
 	        React.createElement(
-	          'li',
-	          { onClick: this.goToEventSplash, className: 'event-list-item',
-	            style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
-	          React.createElement(
-	            'h1',
-	            { color: 'white', 'text-align': 'center' },
-	            React.createElement(
-	              'b',
-	              null,
-	              this.props.event.title
-	            )
-	          ),
-	          React.createElement(
-	            'p',
-	            { color: 'white' },
-	            React.createElement(
-	              'em',
-	              null,
-	              this.props.event.catchphrase
-	            )
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'button',
-	            { onClick: this.openEventDetailModal },
-	            'Get Tickets'
-	          ),
-	          React.createElement(
-	            'button',
-	            { onClick: this.goToEventSplash },
-	            'Learn More'
-	          ),
-	          editOptionForLoggedInUsers
+	          'b',
+	          null,
+	          this.props.event.title
 	        )
 	      ),
 	      React.createElement(
-	        'div',
-	        null,
+	        'p',
+	        { color: 'white' },
 	        React.createElement(
-	          Modal,
-	          {
-	            isOpen: this.state.eventDetailModalOpen,
-	            onRequestClose: this.closeEventDetailModal },
-	          React.createElement(
-	            'div',
-	            { style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
-	            React.createElement(
-	              'h1',
-	              null,
-	              'Hello, Welcome to this Modal!'
-	            ),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement('br', null),
-	            React.createElement(
-	              'h1',
-	              null,
-	              this.props.event.title
-	            ),
-	            React.createElement(
-	              'h1',
-	              null,
-	              this.props.event.catchphrase
-	            )
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            this.props.event.description
-	          ),
-	          React.createElement(
-	            'h2',
-	            null,
-	            'Im a modal!'
-	          ),
-	          React.createElement(EventModal, { event: this.props.event }),
-	          React.createElement(
-	            'p',
-	            null,
-	            'modal modal modal modal modal'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
-	          )
-	        ),
-	        React.createElement(
-	          Modal,
-	          {
-	
-	            isOpen: this.state.deleteEventModalOpen,
-	            onRequestClose: this.closeDeleteEventModal },
-	          React.createElement(
-	            'h1',
-	            null,
-	            'Delete Event'
-	          ),
-	          React.createElement(
-	            'h2',
-	            null,
-	            'Are you sure?'
-	          ),
-	          React.createElement(
-	            'button',
-	            { onClick: this.activateDeleteProcess },
-	            'Yes'
-	          ),
-	          React.createElement(
-	            'button',
-	            { onClick: this.closeDeleteEventModal },
-	            'No'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'modal modal modal modal modal'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
-	          )
-	        ),
-	        React.createElement(
-	          Modal,
-	          {
-	            isOpen: this.state.editEventModalOpen,
-	            onRequestClose: this.closeEditEventModal },
-	          React.createElement(
-	            'h1',
-	            null,
-	            'Edit Event Modal'
-	          ),
-	          React.createElement(EditEventModal, { event: this.props.event })
+	          'em',
+	          null,
+	          this.props.event.catchphrase
 	        )
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openEventDetailModal },
+	        'Get Tickets'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.goToEventSplash },
+	        'Learn More'
+	      ),
+	      editOptionForLoggedInUsers,
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.eventDetailModalOpen,
+	          onRequestClose: this.closeEventDetailModal },
+	        React.createElement(
+	          'div',
+	          { style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
+	          React.createElement(
+	            'h1',
+	            null,
+	            'Hello, Welcome to this Modal!'
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'h1',
+	            null,
+	            this.props.event.title
+	          ),
+	          React.createElement(
+	            'h1',
+	            null,
+	            this.props.event.catchphrase
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.props.event.description
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Im a modal!'
+	        ),
+	        React.createElement(EventModal, { event: this.props.event }),
+	        React.createElement(
+	          'p',
+	          null,
+	          'modal modal modal modal modal'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	
+	          isOpen: this.state.deleteEventModalOpen,
+	          onRequestClose: this.closeDeleteEventModal },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Delete Event'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Are you sure?'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.activateDeleteProcess },
+	          'Yes'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeDeleteEventModal },
+	          'No'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'modal modal modal modal modal'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.editEventModalOpen,
+	          onRequestClose: this.closeEditEventModal },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Edit Event Modal'
+	        ),
+	        React.createElement(EditEventModal, { event: this.props.event })
 	      )
 	    );
 	  }
@@ -39132,7 +39169,7 @@
 	          { id: 'event-splash-text', className: 'event-splash-text' },
 	          React.createElement(
 	            'h1',
-	            { color: 'white', 'text-align': 'center' },
+	            { color: 'white', 'text-align': 'center', className: 'splash-title' },
 	            this.state.event.title
 	          ),
 	          React.createElement(
@@ -39398,6 +39435,154 @@
 	  TICKET_PURCHASES_RECEIVED: "TICKET_PURCHASES_RECEIVED",
 	  TICKET_PURCHASE_RECEIVED: "TICKET_PURCHASE_RECEIVED",
 	  TICKET_PURCHASE_REMOVED: "TICKET_PURCHASE_REMOVED"
+	};
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var TicketStore = __webpack_require__(307);
+	var ClientActions = __webpack_require__(244);
+	var TicketIndexItem = __webpack_require__(282);
+	var UserStore = __webpack_require__(256);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    console.log("getInitialState");
+	    return { tickets: TicketStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    console.log('_onChange');
+	    this.setState({ tickets: TicketStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    console.log('componentDidMount');
+	    this.ticketListener = TicketStore.addListener(this._onChange);
+	    ClientActions.fetchAllTickets();
+	  },
+	
+	  compomentWillUnmount: function () {
+	    console.log('componentWillUnmount');
+	    this.ticketListener.remove();
+	  },
+	
+	  myTickets: function () {
+	    var result = [];
+	
+	    this.state.tickets.map(function (ticket) {
+	      if (ticket.user_id === UserStore.user().id) {
+	        result.push(ticket);
+	      }
+	    });
+	    return result;
+	  },
+	
+	  render: function () {
+	
+	    var test = "Nothing";
+	    if (this.state.tickets) {
+	      test = this.state.tickets;
+	      console.log(this.state.tickets);
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'h2',
+	          null,
+	          'My Purchased Tickets:'
+	        ),
+	        React.createElement('br', null),
+	        this.myTickets().map(function (ticket) {
+	
+	          return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
+	        })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(257).Store;
+	var AppDispatcher = __webpack_require__(247);
+	var TicketConstants = __webpack_require__(308);
+	var TicketStore = new Store(AppDispatcher);
+	
+	var _tickets = {};
+	
+	var resetTickets = function (tickets) {
+	  console.log('resetTickets');
+	  console.log(["tickets", tickets]);
+	  _tickets = {};
+	  tickets.forEach(function (ticket) {
+	    _tickets[ticket.id] = ticket;
+	  });
+	  console.log(["_tickets", _tickets]);
+	};
+	
+	var resetTicket = function (ticket) {
+	  _tickets[ticket.id] = ticket;
+	};
+	
+	var removeTicket = function (ticket) {
+	  console.log("ticketstore removeTicket");
+	  delete _tickets[ticket.id];
+	};
+	
+	TicketStore.all = function () {
+	  var tickets = [];
+	  for (var id in _tickets) {
+	    tickets.push(_tickets[id]);
+	  }
+	  return tickets;
+	};
+	
+	TicketStore.find = function (id) {
+	  return _tickets[id];
+	};
+	
+	TicketStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case TicketConstants.TICKETS_RECEIVED:
+	      resetTickets(payload.tickets);
+	      TicketStore.__emitChange();
+	      break;
+	    case TicketConstants.TICKET_RECEIVED:
+	      resetTicket(payload.ticket);
+	      TicketStore.__emitChange();
+	      break;
+	    case TicketConstants.TICKET_REMOVED:
+	      console.log("ticket store case EVENT_REMOVED");
+	      removeTicket(payload.ticket);
+	      break;
+	  }
+	};
+	
+	// TODO: Remove when done
+	window.TicketStore = TicketStore;
+	
+	module.exports = TicketStore;
+
+/***/ },
+/* 308 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  TICKETS_RECEIVED: "TICKETS_RECEIVED",
+	  TICKET_RECEIVED: "TICKET_RECEIVED",
+	  TICKET_REMOVED: "TICKET_REMOVED"
 	};
 
 /***/ }

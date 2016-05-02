@@ -14,6 +14,7 @@ var Modal = require("react-modal");
 var UserApiUtil = require('../util/userApiUtil');
 var SignInModal = require('./users/signInModal');
 var MyDashboardModal = require('./events/userDashboardEventsIndex');
+var MyTicketsModal = require('./tickets/userTicketsIndex');
 var hashHistory = require("react-router").hashHistory;
 
 //Mixins
@@ -29,7 +30,8 @@ module.exports = React.createClass({
               demoAccountModalOpen: false,
               createEventModalOpen: false,
               createShowtimeModalOpen: false,
-              myDashboardModalOpen: false
+              myDashboardModalOpen: false,
+              myTicketsModalOpen: false
             });
    },
 
@@ -79,6 +81,14 @@ module.exports = React.createClass({
 
     closeMyDashboardModal: function(){
       this.setState({ myDashboardModalOpen: false });
+    },
+
+    openMyTicketsModal: function(){
+        this.setState({ myTicketsModalOpen: true });
+    },
+
+    closeMyTicketsModal: function(){
+      this.setState({ myTicketsModalOpen: false });
     },
 
     justClickedLogOut: function(){
@@ -148,6 +158,7 @@ module.exports = React.createClass({
           <button onClick={this.openCreateEventModal}>Create Event</button>
           <button onClick={this.openCreateShowtimeModal}>Create Showtime</button>
           <button onClick={this.openMyDashboardModal}>My Dashboard</button>
+          <button onClick={this.openMyTicketsModal}>My Tickets</button>
           <button onClick={this.justClickedLogOut}>Log Out</button>
 
         </div>
@@ -277,6 +288,16 @@ module.exports = React.createClass({
             <h2>MyDashboard</h2>
 
             <MyDashboardModal />
+
+        </Modal>
+
+        <Modal
+          isOpen={this.state.myTicketsModalOpen}
+          onRequestClose={this.closeMyTicketsModal}>
+
+            <h2>MyTickets</h2>
+
+            <MyTicketsModal />
 
         </Modal>
 

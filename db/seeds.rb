@@ -65,6 +65,17 @@ Event.create({
         })
 
 Event.create({
+        title: "'Per Se' San Francisco Pop-Up",
+        catchphrase: "First Event Catchphrase",
+        description: "First Event Description",
+        image_url: "http://www.trbimg.com/img-55d25a07/turbine/spiaggia-switches-to-prix-fixe-tasting-menu-only",
+        video_url: "gKc31H6adR8",
+        user_id: 1,
+        revenue_goal: 20000,
+        revenue_status: 0
+        })
+
+Event.create({
         title: "Hamilton",
         catchphrase: "An American Musical",
         description: "Hamilton is a musical about Alexander Hamilton, with music, lyrics and book by Lin-Manuel Miranda. The show, inspired by the 2004 biography Alexander Hamilton, by historian Ron Chernow, has achieved both critical acclaim and box office success.",

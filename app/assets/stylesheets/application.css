@@ -69,6 +69,10 @@
     margin: auto;
   }
 
+  .splash-title {
+    font-size: 35px;
+  }
+
   .scroll-clue {
     width: 200px;
     margin: auto;
@@ -322,9 +326,12 @@ h1 {
  }
 
  .event-index-pane {
-   width: 33%;
    float: left;
    /*border: thin solid black;*/
+ }
+
+ .index-for-events {
+   width: 100%;
  }
 
  .event-list-item button {
@@ -369,8 +376,11 @@ h1 {
    background: white;
    color: white;
    height: 200px;
-   width: 350px;
+   width: 275px;
    background-size: cover;
+   display: inline-table;
+   margin: 10px;
+   padding: 10px;
  }
 
  .event-list-item:hover, .showtime-list-item:hover {
