@@ -219,7 +219,7 @@ module.exports = React.createClass({
 
           <div className="sign-in-modal-splash">
           	<h1>Sign In</h1>
-          </div>
+
 
             <h2>Sign In!</h2>
             <p>(The below component is SignInModal)</p>
@@ -236,6 +236,7 @@ module.exports = React.createClass({
             </iframe>
 
             <p>mooooooooodal!</p>
+            </div>
 
         </Modal>
 
@@ -259,7 +260,7 @@ module.exports = React.createClass({
           isOpen={this.state.demoAccountModalOpen}
           onRequestClose={this.closeDemoAccountModal}
           style={CUSTOM_STYLE}>
-
+          <div className="sign-in-modal-splash">
             <h2>Demo Account</h2>
 
             <p>This feature has not been built yet!</p>
@@ -284,7 +285,7 @@ module.exports = React.createClass({
             </iframe>
 
             <p>mooooooooodal!</p>
-
+            </div>
         </Modal>
 
         <Modal
@@ -292,44 +293,44 @@ module.exports = React.createClass({
           onRequestClose={this.closeCreateEventModal}
           style={CUSTOM_STYLE}
           >
-
+                <div className="sign-in-modal-splash">
             <h2>CreateEventModal</h2>
 
             <CreateEventModal />
-
+            </div>
         </Modal>
 
         <Modal
           isOpen={this.state.createShowtimeModalOpen}
           onRequestClose={this.closeCreateShowtimeModal}
           style={CUSTOM_STYLE}>
-
+      <div className="sign-in-modal-splash">
             <h2>CreateShowtimeModal</h2>
 
             <CreateShowtimeModal />
-
+            </div>
         </Modal>
 
         <Modal
           isOpen={this.state.myDashboardModalOpen}
           onRequestClose={this.closeMyDashboardModal}
           style={CUSTOM_STYLE}>
-
+      <div className="sign-in-modal-splash">
             <h2>MyDashboard</h2>
 
             <MyDashboardModal />
-
+            </div>
         </Modal>
 
         <Modal
           isOpen={this.state.myTicketsModalOpen}
           onRequestClose={this.closeMyTicketsModal}
           style={CUSTOM_STYLE}>
-
+      <div className="sign-in-modal-splash">
             <h2>MyTickets</h2>
 
             <MyTicketsModal />
-
+            </div>
         </Modal>
 
         {this.props.children}

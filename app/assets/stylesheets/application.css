@@ -39,6 +39,7 @@
 .sign-in-modal-splash {
   background-image: url(http://theme.co/media/x-img-demo-2.jpg);
   background-size: cover;
+  height: 100%;
 }
 
 .modal-background-image {

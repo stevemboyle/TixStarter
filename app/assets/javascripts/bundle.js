@@ -27348,29 +27348,29 @@
 	            'h1',
 	            null,
 	            'Sign In'
+	          ),
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Sign In!'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            '(The below component is SignInModal)'
+	          ),
+	          React.createElement(SignInModal, null),
+	          React.createElement('br', null),
+	          React.createElement('iframe', { width: '{854/1.5}',
+	            height: '{480/1.5}',
+	            src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
+	            frameborder: '0',
+	            allowfullscreen: true }),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
 	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Sign In!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(The below component is SignInModal)'
-	        ),
-	        React.createElement(SignInModal, null),
-	        React.createElement('br', null),
-	        React.createElement('iframe', { width: '{854/1.5}',
-	          height: '{480/1.5}',
-	          src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
-	          frameborder: '0',
-	          allowfullscreen: true }),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
 	        )
 	      ),
 	      React.createElement(
@@ -27408,36 +27408,40 @@
 	          onRequestClose: this.closeDemoAccountModal,
 	          style: CUSTOM_STYLE },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'Demo Account'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'This feature has not been built yet!'
-	        ),
-	        React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
-	          width: '480',
-	          height: '305',
-	          frameBorder: '0',
-	          'class': 'giphy-embed',
-	          allowFullScreen: true }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Here, distract yourself with Hamilton until I finish:'
-	        ),
-	        React.createElement('iframe', { width: '{854/1.2}',
-	          height: '{480/1.2}',
-	          src: 'https://www.youtube.com/embed/6ibySV-saJ8',
-	          frameborder: '0',
-	          allowfullscreen: true }),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Demo Account'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'This feature has not been built yet!'
+	          ),
+	          React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
+	            width: '480',
+	            height: '305',
+	            frameBorder: '0',
+	            'class': 'giphy-embed',
+	            allowFullScreen: true }),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Here, distract yourself with Hamilton until I finish:'
+	          ),
+	          React.createElement('iframe', { width: '{854/1.2}',
+	            height: '{480/1.2}',
+	            src: 'https://www.youtube.com/embed/6ibySV-saJ8',
+	            frameborder: '0',
+	            allowfullscreen: true }),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -27448,11 +27452,15 @@
 	          style: CUSTOM_STYLE
 	        },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'CreateEventModal'
-	        ),
-	        React.createElement(CreateEventModal, null)
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'CreateEventModal'
+	          ),
+	          React.createElement(CreateEventModal, null)
+	        )
 	      ),
 	      React.createElement(
 	        Modal,
@@ -27461,11 +27469,15 @@
 	          onRequestClose: this.closeCreateShowtimeModal,
 	          style: CUSTOM_STYLE },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'CreateShowtimeModal'
-	        ),
-	        React.createElement(CreateShowtimeModal, null)
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'CreateShowtimeModal'
+	          ),
+	          React.createElement(CreateShowtimeModal, null)
+	        )
 	      ),
 	      React.createElement(
 	        Modal,
@@ -27474,11 +27486,15 @@
 	          onRequestClose: this.closeMyDashboardModal,
 	          style: CUSTOM_STYLE },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'MyDashboard'
-	        ),
-	        React.createElement(MyDashboardModal, null)
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'MyDashboard'
+	          ),
+	          React.createElement(MyDashboardModal, null)
+	        )
 	      ),
 	      React.createElement(
 	        Modal,
@@ -27487,11 +27503,15 @@
 	          onRequestClose: this.closeMyTicketsModal,
 	          style: CUSTOM_STYLE },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'MyTickets'
-	        ),
-	        React.createElement(MyTicketsModal, null)
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'MyTickets'
+	          ),
+	          React.createElement(MyTicketsModal, null)
+	        )
 	      ),
 	      this.props.children
 	    );
