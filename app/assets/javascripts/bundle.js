@@ -27255,29 +27255,33 @@
 	        'div',
 	        { id: 'menubuttons' },
 	        React.createElement(
-	          'button',
-	          { onClick: this.openCreateEventModal },
-	          'Create Event'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openCreateShowtimeModal },
-	          'Create Showtime'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openMyDashboardModal },
-	          'My Dashboard'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openMyTicketsModal },
-	          'My Tickets'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.justClickedLogOut },
-	          'Log Out'
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openCreateEventModal },
+	            'Create Event'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openCreateShowtimeModal },
+	            'Create Showtime'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openMyDashboardModal },
+	            'My Dashboard'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openMyTicketsModal },
+	            'My Tickets'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.justClickedLogOut },
+	            'Log Out'
+	          )
 	        )
 	      )
 	    );

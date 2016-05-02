@@ -401,6 +401,26 @@ h1 {
    padding: 10px;
  }
 
+ .header-ul {
+
+ }
+
+ .header-li {
+   list-style: none;
+   display: inline;
+   padding: 10px;
+   color: white;
+   border-radius: 5px;
+   border: thin solid white;
+   margin: 5px;
+ }
+
+ .header-li:hover {
+   cursor: pointer;
+   background-color: white;
+   color: dodgerblue;
+ }
+
  .event-list-item:hover, .showtime-list-item:hover {
    background-color: tomato;
    color: white;

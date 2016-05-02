@@ -155,11 +155,13 @@ module.exports = React.createClass({
         <p onClick={this.returnHome} className="hover-pointer cody-font">TixStarter</p>
         <br></br>
         <div id="menubuttons">
-          <button onClick={this.openCreateEventModal}>Create Event</button>
-          <button onClick={this.openCreateShowtimeModal}>Create Showtime</button>
-          <button onClick={this.openMyDashboardModal}>My Dashboard</button>
-          <button onClick={this.openMyTicketsModal}>My Tickets</button>
-          <button onClick={this.justClickedLogOut}>Log Out</button>
+          <ul className="header-ul">
+            <li className="header-li" onClick={this.openCreateEventModal}>Create Event</li>
+            <li className="header-li" onClick={this.openCreateShowtimeModal}>Create Showtime</li>
+            <li className="header-li" onClick={this.openMyDashboardModal}>My Dashboard</li>
+            <li className="header-li" onClick={this.openMyTicketsModal}>My Tickets</li>
+            <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
+          </ul>
 
         </div>
       </div>
