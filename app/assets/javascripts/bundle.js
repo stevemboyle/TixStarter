@@ -27075,6 +27075,7 @@
 	var LoginModal = __webpack_require__(284);
 	var CreateEventModal = __webpack_require__(288);
 	var CreateShowtimeModal = __webpack_require__(289);
+	var CreateTicketModal = __webpack_require__(312);
 	var UserActions = __webpack_require__(255);
 	var SignUpModal = __webpack_require__(299);
 	
@@ -27112,7 +27113,8 @@
 	      createEventModalOpen: false,
 	      createShowtimeModalOpen: false,
 	      myDashboardModalOpen: false,
-	      myTicketsModalOpen: false
+	      myTicketsModalOpen: false,
+	      createTicketModalOpen: false
 	    };
 	  },
 	
@@ -27154,6 +27156,14 @@
 	
 	  closeCreateShowtimeModal: function () {
 	    this.setState({ createShowtimeModalOpen: false });
+	  },
+	
+	  openCreateTicketModal: function () {
+	    this.setState({ createTicketModalOpen: true });
+	  },
+	
+	  closeCreateTicketModal: function () {
+	    this.setState({ createTicketModalOpen: false });
 	  },
 	
 	  openMyDashboardModal: function () {
@@ -27291,6 +27301,11 @@
 	            'li',
 	            { className: 'header-li', onClick: this.openCreateShowtimeModal },
 	            'Create Showtime'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openCreateTicketModal },
+	            'Create Ticket'
 	          ),
 	          React.createElement(
 	            'li',
@@ -27477,6 +27492,23 @@
 	            'CreateShowtimeModal'
 	          ),
 	          React.createElement(CreateShowtimeModal, null)
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createTicketModalOpen,
+	          onRequestClose: this.closeCreateTicketModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'CreateTicketModal'
+	          ),
+	          React.createElement(CreateTicketModal, null)
 	        )
 	      ),
 	      React.createElement(
@@ -36944,7 +36976,6 @@
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
-	    debugger;
 	
 	    keyboardEvent.preventDefault();
 	    var showtimeData = {
@@ -39936,6 +39967,153 @@
 	      )
 	    );
 	  }
+	});
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(275);
+	var TicketsIndex = __webpack_require__(281);
+	var ClientActions = __webpack_require__(244);
+	var UserStore = __webpack_require__(256);
+	// var SelectEventDropdown = require('./SelectEventDropdown');
+	var Select = __webpack_require__(290);
+	
+	var ReactDropdown = __webpack_require__(297);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      showtime_id: "",
+	      price: "",
+	      tier: "",
+	      description: ""
+	    };
+	  },
+	
+	  eventIdChange: function (keyboardEvent) {
+	    var newEventId = keyboardEvent.target.value;
+	    this.setState({ event_id: newEventId });
+	    console.log("EventId: " + this.state.event_id);
+	  },
+	
+	  dateChange: function (keyboardEvent) {
+	    var newDate = keyboardEvent.target.value;
+	    this.setState({ date: newDate });
+	    console.log("Date: " + this.state.date);
+	  },
+	
+	  timeChange: function (keyboardEvent) {
+	    var newTime = keyboardEvent.target.value;
+	    this.setState({ time: newTime });
+	    console.log("Time: " + this.state.time);
+	  },
+	
+	  locationChange: function (keyboardEvent) {
+	    var newLocation = keyboardEvent.target.value;
+	    this.setState({ location: newLocation });
+	    console.log("Location: " + this.state.location);
+	  },
+	
+	  handleSubmit: function (keyboardEvent) {
+	
+	    keyboardEvent.preventDefault();
+	    var ticketData = {
+	      event_id: this.state.event_id,
+	      date: this.state.date,
+	      time: this.state.time,
+	      location: this.state.location
+	    };
+	
+	    ClientActions.createTicket(ticketData);
+	  },
+	
+	  // eventOptions: function(){
+	  //   UserStore.user.events.map(function(event){
+	  //     <div>
+	  //       <option value=event.title>event.title}</option>
+	  //     </div>
+	  //   });
+	  // },
+	
+	  render: function () {
+	
+	    // <input type="text"
+	    //         value={this.state.event_id}
+	    //         onChange={this.eventIdChange}
+	    //   />
+	    // var eventOptions =
+	    //   UserStore.user().events.map(function(event){
+	    //     <option value={event.name}>{event.name}</option>
+	    //   });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Create New Ticket'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Price:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.price,
+	            onChange: this.priceChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Tier:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.tier,
+	            onChange: this.tierChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Description:',
+	          React.createElement('input', { type: 'textarea',
+	            value: this.state.description,
+	            onChange: this.descriptionChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Create Ticket' }),
+	        React.createElement('br', null)
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        'To Do: ',
+	        React.createElement(
+	          'b',
+	          null,
+	          'Change Date/Time, Add Dropdown for MyShows'
+	        )
+	      )
+	    );
+	  }
+	
 	});
 
 /***/ }

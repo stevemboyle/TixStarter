@@ -5,6 +5,7 @@ var EventIndex = require('./events/index');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
 var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
+var CreateTicketModal = require('./tickets/createTicketModal');
 var UserActions = require('../actions/userActions');
 var SignUpModal = require('./users/signUpModal');
 
@@ -16,6 +17,7 @@ var SignInModal = require('./users/signInModal');
 var MyDashboardModal = require('./events/userDashboardEventsIndex');
 var MyTicketsModal = require('./tickets/userTicketsIndex');
 var hashHistory = require("react-router").hashHistory;
+
 
 //Mixins
 var CurrentUserState = require('.././mixins/currentUserState');
@@ -40,7 +42,8 @@ module.exports = React.createClass({
               createEventModalOpen: false,
               createShowtimeModalOpen: false,
               myDashboardModalOpen: false,
-              myTicketsModalOpen: false
+              myTicketsModalOpen: false,
+              createTicketModalOpen: false,
             });
    },
 
@@ -83,6 +86,15 @@ module.exports = React.createClass({
     closeCreateShowtimeModal: function(){
       this.setState({ createShowtimeModalOpen: false });
     },
+
+    openCreateTicketModal: function(){
+        this.setState({ createTicketModalOpen: true });
+    },
+
+    closeCreateTicketModal: function(){
+      this.setState({ createTicketModalOpen: false });
+    },
+
 
     openMyDashboardModal: function(){
         this.setState({ myDashboardModalOpen: true });
@@ -177,6 +189,7 @@ module.exports = React.createClass({
           <ul className="header-ul">
             <li className="header-li" onClick={this.openCreateEventModal}>Create Event</li>
             <li className="header-li" onClick={this.openCreateShowtimeModal}>Create Showtime</li>
+            <li className="header-li" onClick={this.openCreateTicketModal}>Create Ticket</li>
             <li className="header-li" onClick={this.openMyDashboardModal}>My Dashboard</li>
             <li className="header-li" onClick={this.openMyTicketsModal}>My Tickets</li>
             <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
@@ -308,6 +321,17 @@ module.exports = React.createClass({
             <h2>CreateShowtimeModal</h2>
 
             <CreateShowtimeModal />
+            </div>
+        </Modal>
+
+        <Modal
+          isOpen={this.state.createTicketModalOpen}
+          onRequestClose={this.closeCreateTicketModal}
+          style={CUSTOM_STYLE}>
+      <div className="sign-in-modal-splash">
+            <h2>CreateTicketModal</h2>
+
+            <CreateTicketModal />
             </div>
         </Modal>
 

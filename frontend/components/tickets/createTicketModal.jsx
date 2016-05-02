@@ -1,6 +1,6 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-var ShowtimesIndex = require('../showtimes/index.jsx');
+var TicketsIndex = require('../tickets/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
 var UserStore = require('../../stores/user');
 // var SelectEventDropdown = require('./SelectEventDropdown');
@@ -12,10 +12,10 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return({
-      event_id: "",
-      date: "",
-      time: "",
-      location: ""
+      showtime_id: "",
+      price: "",
+      tier: "",
+      description: "",
     });
   },
 
@@ -46,14 +46,14 @@ module.exports = React.createClass({
   handleSubmit: function(keyboardEvent){
 
     keyboardEvent.preventDefault();
-    var showtimeData = {
+    var ticketData = {
       event_id: this.state.event_id,
       date: this.state.date,
       time: this.state.time,
       location: this.state.location,
     };
 
-    ClientActions.createShowtime(showtimeData);
+    ClientActions.createTicket(ticketData);
   },
 
   // eventOptions: function(){
@@ -79,51 +79,46 @@ module.exports = React.createClass({
       <div>
 
 
-        <h3>Create New Showtime</h3>
+        <h3>Create New Ticket</h3>
         <form onSubmit={this.handleSubmit}>
 
           <br></br>
 
-            <label> Event:
-              <select value={this.state.eventId}
-              onChange={this.eventIdChange}>
-                {UserStore.user().events.map(function (event) {
-                  return <option key={event.id} value={event.id}>{event.title}</option>;
-                  // return <EventIndexItem key={event.id} event={event} />;
-                })}
-              </select>
-            </label>
-
-          <br></br>
-
-            <label> Date:
-              <input type="date"
-                      value={this.state.date}
-                      onChange={this.dateChange}
-                />
-            </label>
-
-          <br></br>
-
-            <label> Time:
-              <input type="time"
-                      value={this.state.time}
-                      onChange={this.timeChange}
-                />
-            </label>
-
-          <br></br>
-
-            <label> Location:
+            <label> Price:
               <input type="text"
-                      value={this.state.location}
-                      onChange={this.locationChange}
+                      value={this.state.price}
+                      onChange={this.priceChange}
                 />
             </label>
 
+
+          <br></br>
           <br></br>
 
-        <input type="submit" value="Create Showtime" />
+              <label> Tier:
+                <input type="text"
+                        value={this.state.tier}
+                        onChange={this.tierChange}
+                  />
+              </label>
+
+
+            <br></br>
+            <br></br>
+
+                <label> Description:
+                  <input type="textarea"
+                          value={this.state.description}
+                          onChange={this.descriptionChange}
+                    />
+                </label>
+
+
+              <br></br>
+
+          <br></br>
+
+        <input type="submit" value="Create Ticket" />
 
         <br></br>
 
