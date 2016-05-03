@@ -33,7 +33,7 @@ module.exports = React.createClass({
         <section id="home-splash">
 
           <div id="home-splash-text">
-            <h2 text-align="center" className="cody-font">Welcome to TixStarter</h2>
+            <h2 text-align="center" className="home-title">Welcome to TixStarter</h2>
             <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
 
               <a href="#home-events-index" text-align="center">

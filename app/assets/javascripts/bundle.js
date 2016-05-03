@@ -27262,7 +27262,7 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        { onClick: this.returnHome, className: 'hover-pointer cody-font' },
+	        { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
 	        'TixStarter'
 	      ),
 	      React.createElement(
@@ -27300,7 +27300,7 @@
 	      { id: 'othermenu' },
 	      React.createElement(
 	        'p',
-	        { onClick: this.returnHome, className: 'hover-pointer cody-font' },
+	        { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
 	        'TixStarter'
 	      ),
 	      React.createElement('br', null),
@@ -39227,7 +39227,7 @@
 	          { id: 'home-splash-text' },
 	          React.createElement(
 	            'h2',
-	            { 'text-align': 'center', className: 'cody-font' },
+	            { 'text-align': 'center', className: 'home-title' },
 	            'Welcome to TixStarter'
 	          ),
 	          React.createElement(
@@ -39405,7 +39405,7 @@
 	          { id: 'event-splash-text', className: 'event-splash-text' },
 	          React.createElement(
 	            'h1',
-	            { color: 'white', 'text-align': 'center', className: 'splash-title' },
+	            { color: 'white', 'text-align': 'center', className: 'home-title' },
 	            this.state.event.title
 	          ),
 	          React.createElement(

@@ -72,7 +72,7 @@ module.exports = React.createClass({
 
           <div id="event-splash-text" className="event-splash-text">
 
-            <h1 color="white" text-align="center" className="splash-title">
+            <h1 color="white" text-align="center" className="home-title">
               {this.state.event.title}
             </h1>
             <h3>

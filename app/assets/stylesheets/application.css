@@ -67,6 +67,10 @@
     font-family: Helvetica, sans-serif;
   }
 
+  .event-splash-text {
+    padding: 75px;
+  }
+
   #home-splash {
     height: 90vh;
     background-image: url(http://www.talentculture.com/wp-content/uploads/2015/07/bigstock-Photo-Of-Rock-Concert-3000.jpg);
@@ -76,6 +80,13 @@
   #home-splash-text {
     padding-top: 200px;
     text-align: center;
+  }
+
+  .home-title {
+    text-shadow: 2px 2px #4a5251;
+    color: white;
+    font-size: 100px;
+    font-family: 'Kaushan Script', cursive;
   }
 
   .title {

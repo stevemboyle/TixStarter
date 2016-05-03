@@ -185,7 +185,7 @@ module.exports = React.createClass({
 
     var notLoggedInMenu =(
       <div id="othermenu">
-        <p onClick={this.returnHome} className="hover-pointer cody-font">TixStarter</p>
+        <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
         <p>{loggedInMessageForSteve}</p>
         <div id="menubuttons">
           <ul className="header-ul">
@@ -199,7 +199,7 @@ module.exports = React.createClass({
 
     var loggedInMenu =(
       <div id="othermenu">
-        <p onClick={this.returnHome} className="hover-pointer cody-font">TixStarter</p>
+        <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
         <br></br>
         <div id="menubuttons">
           <ul className="header-ul">
