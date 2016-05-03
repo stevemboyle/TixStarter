@@ -39236,14 +39236,30 @@
 	            'Forward Fund Events with Ticket Sales'
 	          ),
 	          React.createElement(
-	            'a',
-	            { href: '#home-events-index', 'text-align': 'center' },
-	            'Browse Events'
-	          ),
-	          React.createElement(
-	            'a',
-	            { href: '#home-marketing', 'text-align': 'center' },
-	            'Learn More'
+	            'div',
+	            { id: 'menubuttons' },
+	            React.createElement(
+	              'ul',
+	              { className: 'index-item-menu-ul' },
+	              React.createElement(
+	                'li',
+	                { className: 'home-splash-li' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
+	                  'Browse Events'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'home-splash-li' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#home-marketing', 'text-align': 'center', className: 'scroll-a' },
+	                  'Learn More'
+	                )
+	              )
+	            )
 	          )
 	        )
 	      ),

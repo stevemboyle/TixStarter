@@ -564,6 +564,32 @@ input[type=button], input[type=submit], input[type=reset] {
     color: dodgerblue;
   }
 
+  .home-splash-li {
+    list-style: none;
+    display: inline;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    /*border: thin solid white;*/
+    margin: 5px;
+    background: dodgerblue;
+  }
+
+  .home-splash-li:hover {
+    cursor: pointer;
+    /*background-color: white;
+    color: dodgerblue;*/
+    border: thin solid white;
+  }
+
+  .scroll-a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: white;
+  }
+
   .edit-or-delete {
     list-style: none;
     display: inline;
