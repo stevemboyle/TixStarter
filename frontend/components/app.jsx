@@ -6,9 +6,9 @@ var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
 var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
 var CreateTicketModal = require('./tickets/createTicketModal');
-var UserActions = require('../actions/userActions');
+// var UserActions = require('../actions/userActions');
 var SignUpModal = require('./users/signUpModal');
-
+var ClientActions = require('../actions/client_actions');
 var UserStore = require('../stores/user');
 
 var Modal = require("react-modal");
@@ -44,7 +44,20 @@ module.exports = React.createClass({
               myDashboardModalOpen: false,
               myTicketsModalOpen: false,
               createTicketModalOpen: false,
+              currentUser: UserStore.user()
             });
+   },
+
+   componentDidMount: function(){
+      this.userStoreListener = UserStore.addListener(this._userChanged);
+   },
+
+   componentWillUnmount: function(){
+     this.userStoreListener.remove();
+   },
+
+   _userChanged: function(){
+     this.setState({currentUser: UserStore.user()});
    },
 
    openSignInModal: function(){
@@ -118,7 +131,7 @@ module.exports = React.createClass({
 
     signInWithDemoAccount: function(){
       console.log("app: sign in with demo account");
-      UserActions.login({username: "guest", password: "password"});
+      ClientActions.login({username: "guest", password: "password"});
     },
 
     returnHome: function(){

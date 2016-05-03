@@ -9,6 +9,23 @@ module.exports = {
     UserApiUtil.fetchCurrentUser();
   },
 
+  signup: function(data){
+    console.log("Client Actions, Sign Up");
+    UserApiUtil.signup(data);
+  },
+
+  login: function(data){
+    UserApiUtil.login(data);
+  },
+
+  guestLogin: function(){
+    UserApiUtil.guestLogin();
+  },
+
+  logout: function(){
+    UserApiUtil.logout();
+  },
+
   // Event Functions
 
   fetchAllEvents: function() {

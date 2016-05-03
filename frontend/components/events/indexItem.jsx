@@ -21,11 +21,22 @@ module.exports = React.createClass({
   getInitialState: function(){
     return({ eventDetailModalOpen: false,
               editEventModalOpen: false,
-              deleteEventModalOpen: false});
+              deleteEventModalOpen: false,
+              currentUser: UserStore.user()
+            });
+  },
+
+  _userChanged: function(){
+    this.setState({currentUser: UserStore.user()});
   },
 
   componentDidMount: function(){
     this.bigClickGo = true;
+    this.userStoreListener = UserStore.addListener(this._userChanged);
+  },
+
+  componentWillUnmount: function(){
+    this.userStoreListener.remove();
   },
 
   openEventDetailModal: function(){
@@ -81,6 +92,8 @@ module.exports = React.createClass({
 
     var editOptionForLoggedInUsers;
 
+    console.log("Is the user logged in?" + UserStore.loggedIn());
+    // debugger;
     if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
       editOptionForLoggedInUsers =(
         <div>

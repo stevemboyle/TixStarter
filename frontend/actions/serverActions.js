@@ -9,6 +9,29 @@ module.exports = {
 
   // User Functions:
 
+  receiveCurrentUser: function(user){
+    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+    console.log(["user", user]);
+    Dispatcher.dispatch({
+      actionType: UserConstants.LOGIN,
+      user: user
+    });
+  },
+
+  handleError: function(error) {
+    console.log("Handle Error Function in User Actions!");
+    Dispatcher.dispatch({
+      actionType: UserConstants.ERROR,
+      errors: error.responseJSON.errors
+    });
+  },
+
+  removeCurrentUser: function(){
+    Dispatcher.dispatch({
+      actionType: UserConstants.LOGOUT,
+    });
+  },
+
   // Events Functions:
 
   receiveAllEvents: function (events) {

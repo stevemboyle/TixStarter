@@ -39,7 +39,7 @@ module.exports = React.createClass({
 
   render: function () {
 
-    debugger;
+    // debugger;
 
     var test = "Nothing";
     if (this.state.tickets){

@@ -1,7 +1,7 @@
 var React = require("react");
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-
-var UserActions = require('../../actions/userActions');
+var ClientActions = require('../../actions/client_actions');
+// var UserActions = require('../../actions/userActions');
 var CurrentUserState = require('../../mixins/currentUserState');
 
 var LoginModal = React.createClass({
@@ -20,7 +20,7 @@ var LoginModal = React.createClass({
 
 	handleSubmit: function(keyboardEvent){
 		keyboardEvent.preventDefault();
-		UserActions[this.state.form]({
+		ClientActions[this.state.form]({
 			username: this.state.username,
 			password: this.state.password
 		});
@@ -28,7 +28,7 @@ var LoginModal = React.createClass({
 
 	logout: function(keyboardEvent){
 		keyboardEvent.preventDefault();
-		UserActions.logout();
+		ClientActions.logout();
 	},
 
 	greeting: function(){

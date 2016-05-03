@@ -1,5 +1,6 @@
 var React = require("react");
-var UserActions = require('../../actions/userActions');
+// var UserActions = require('../../actions/userActions');
+var ClientActions = require('../../actions/client_actions');
 
 var SignUpModal = React.createClass({
 
@@ -31,7 +32,7 @@ var SignUpModal = React.createClass({
 
     console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 
-    UserActions.signup(userData);
+    ClientActions.signup(userData);
   },
 
   render: function(){

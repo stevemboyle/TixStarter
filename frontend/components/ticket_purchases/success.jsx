@@ -17,10 +17,10 @@ module.exports = React.createClass({
   componentWillUnmount: function(){
     this.myListener.remove();
   },
-
+//
   render: function () {
 
-    debugger;
+    // debugger;
         // <p>{this.state.ticket_purchase.id}</p>
 
     return(

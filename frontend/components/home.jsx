@@ -5,7 +5,7 @@ var EventIndex = require('./events/index');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
 var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
-var UserActions = require('../actions/userActions');
+// var UserActions = require('../actions/userActions');
 var SignUpModal = require('./users/signUpModal');
 
 var UserStore = require('../stores/user');

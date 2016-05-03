@@ -24,6 +24,7 @@ UserStore.__onDispatch = function(payload){
 };
 
 UserStore.login = function(user){
+  // debugger;
   if (user['username']){
     _currentUser = user;
     _errors = null;
@@ -55,7 +56,7 @@ UserStore.currentUser = function(){
 };
 
 UserStore.currentUserEvents = function(){
-  debugger;
+  // debugger;
 };
 
 UserStore.setErrors = function(errors){

@@ -27076,9 +27076,9 @@
 	var CreateEventModal = __webpack_require__(288);
 	var CreateShowtimeModal = __webpack_require__(289);
 	var CreateTicketModal = __webpack_require__(312);
-	var UserActions = __webpack_require__(255);
+	// var UserActions = require('../actions/userActions');
 	var SignUpModal = __webpack_require__(299);
-	
+	var ClientActions = __webpack_require__(244);
 	var UserStore = __webpack_require__(256);
 	
 	var Modal = __webpack_require__(218);
@@ -27114,8 +27114,21 @@
 	      createShowtimeModalOpen: false,
 	      myDashboardModalOpen: false,
 	      myTicketsModalOpen: false,
-	      createTicketModalOpen: false
+	      createTicketModalOpen: false,
+	      currentUser: UserStore.user()
 	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.userStoreListener = UserStore.addListener(this._userChanged);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userStoreListener.remove();
+	  },
+	
+	  _userChanged: function () {
+	    this.setState({ currentUser: UserStore.user() });
 	  },
 	
 	  openSignInModal: function () {
@@ -27188,7 +27201,7 @@
 	
 	  signInWithDemoAccount: function () {
 	    console.log("app: sign in with demo account");
-	    UserActions.login({ username: "guest", password: "password" });
+	    ClientActions.login({ username: "guest", password: "password" });
 	  },
 	
 	  returnHome: function () {
@@ -27945,6 +27958,23 @@
 	    UserApiUtil.fetchCurrentUser();
 	  },
 	
+	  signup: function (data) {
+	    console.log("Client Actions, Sign Up");
+	    UserApiUtil.signup(data);
+	  },
+	
+	  login: function (data) {
+	    UserApiUtil.login(data);
+	  },
+	
+	  guestLogin: function () {
+	    UserApiUtil.guestLogin();
+	  },
+	
+	  logout: function () {
+	    UserApiUtil.logout();
+	  },
+	
 	  // Event Functions
 	
 	  fetchAllEvents: function () {
@@ -28225,6 +28255,29 @@
 	module.exports = {
 	
 	  // User Functions:
+	
+	  receiveCurrentUser: function (user) {
+	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+	    console.log(["user", user]);
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.LOGIN,
+	      user: user
+	    });
+	  },
+	
+	  handleError: function (error) {
+	    console.log("Handle Error Function in User Actions!");
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.ERROR,
+	      errors: error.responseJSON.errors
+	    });
+	  },
+	
+	  removeCurrentUser: function () {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.LOGOUT
+	    });
+	  },
 	
 	  // Events Functions:
 	
@@ -28662,10 +28715,57 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(247);
-	var UserActions = __webpack_require__(255);
+	// var ServerActions = require('../actions/userActions');
 	var UserConstants = __webpack_require__(252);
+	var ServerActions = __webpack_require__(246);
 	
 	var UserApiUtil = {
+	
+	  signup: function (data) {
+	    $.ajax({
+	      url: "/api/user",
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        // debugger;
+	        console.log("We're in the success function for SignUp");
+	        ServerActions.receiveCurrentUser(user);
+	      },
+	
+	      // success: function(){
+	      //   UserActions.receiveCurrentUser,
+	      //   App.closeSignInModal;
+	      //   App.closeSignUpModal;
+	      // },
+	      error: function (error) {
+	        console.log("We're in the error function for SignUp");
+	        ServerActions.handleError(error);
+	      }
+	    });
+	  },
+	
+	  login: function (data) {
+	    console.log("useractions login called");
+	    $.ajax({
+	      url: "/api/session",
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        // debugger;
+	        ServerActions.receiveCurrentUser(user);
+	      },
+	      error: function (error) {
+	        // debugger;
+	        ServerActions.handleError();
+	      }
+	
+	    });
+	  },
+	
+	  guestLogin: function () {
+	    ServerActions.login({ username: "guest", password: "password" });
+	  },
+	
 	  post: function (options) {
 	    $.ajax({
 	      url: options.url,
@@ -28681,10 +28781,10 @@
 	      url: "/api/session",
 	      method: "delete",
 	      success: function () {
-	        UserActions.removeCurrentUser();
+	        ServerActions.removeCurrentUser();
 	      },
 	      error: function () {
-	        UserActions.handleError();
+	        ServerActions.handleError();
 	      }
 	    });
 	  },
@@ -28700,11 +28800,11 @@
 	        console.log('success function for fetch current user');
 	        // So, right now, UserActions is an empty {} object
 	        // Why, I have no idea.
-	        UserActions.receiveCurrentUser(user);
+	        ServerActions.receiveCurrentUser(user);
 	      }.bind(this),
 	      error: function (error) {
 	        console.log('error function for fetch current user');
-	        UserActions.handleError(error);
+	        ServerActions.handleError(error);
 	      }
 	    });
 	  },
@@ -28721,100 +28821,7 @@
 	module.exports = UserApiUtil;
 
 /***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(247);
-	var UserConstants = __webpack_require__(252);
-	var UserApiUtil = __webpack_require__(254);
-	var UserStore = __webpack_require__(256);
-	var App = __webpack_require__(238);
-	
-	var UserActions = {
-	
-	  // TODO: Hard code success/error below into User Api Utils
-	  //
-	  // fetchCurrentUser: function(){
-	  //   UserApiUtil.fetchCurrentUser();
-	  // },
-	
-	  signup: function (data) {
-	    console.log("We in User Actions sign up");
-	    $.ajax({
-	      url: "/api/user",
-	      type: "post",
-	      data: { user: data },
-	      success: function (user) {
-	        console.log("We're in the success function for SignUp");
-	        UserActions.receiveCurrentUser(user);
-	      },
-	
-	      // success: function(){
-	      //   UserActions.receiveCurrentUser,
-	      //   App.closeSignInModal;
-	      //   App.closeSignUpModal;
-	      // },
-	      error: function (error) {
-	        console.log("We're in the error function for SignUp");
-	        UserActions.handleError(error);
-	      }
-	    });
-	  },
-	
-	  login: function (data) {
-	    console.log("useractions login called");
-	    $.ajax({
-	      url: "/api/session",
-	      type: "post",
-	      data: { user: data },
-	      success: function (user) {
-	        // debugger;
-	        UserActions.receiveCurrentUser(user);
-	      },
-	      error: function (error) {
-	        // debugger;
-	        UserActions.handleError();
-	      }
-	
-	    });
-	  },
-	
-	  guestLogin: function () {
-	    UserActions.login({ username: "guest", password: "password" });
-	  },
-	
-	  receiveCurrentUser: function (user) {
-	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-	    console.log(["user", user]);
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.LOGIN,
-	      user: user
-	    });
-	  },
-	
-	  handleError: function (error) {
-	    console.log("Handle Error Function in User Actions!");
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.ERROR,
-	      errors: error.responseJSON.errors
-	    });
-	  },
-	
-	  removeCurrentUser: function () {
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.LOGOUT
-	    });
-	  },
-	
-	  logout: function () {
-	    UserApiUtil.logout(UserActions.removeCurrentUser, UserActions.handleError);
-	  }
-	
-	};
-	
-	module.exports = UserActions;
-
-/***/ },
+/* 255 */,
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -28844,6 +28851,7 @@
 	};
 	
 	UserStore.login = function (user) {
+	  // debugger;
 	  if (user['username']) {
 	    _currentUser = user;
 	    _errors = null;
@@ -28875,7 +28883,7 @@
 	};
 	
 	UserStore.currentUserEvents = function () {
-	  debugger;
+	  // debugger;
 	};
 	
 	UserStore.setErrors = function (errors) {
@@ -35484,11 +35492,22 @@
 	  getInitialState: function () {
 	    return { eventDetailModalOpen: false,
 	      editEventModalOpen: false,
-	      deleteEventModalOpen: false };
+	      deleteEventModalOpen: false,
+	      currentUser: UserStore.user()
+	    };
+	  },
+	
+	  _userChanged: function () {
+	    this.setState({ currentUser: UserStore.user() });
 	  },
 	
 	  componentDidMount: function () {
 	    this.bigClickGo = true;
+	    this.userStoreListener = UserStore.addListener(this._userChanged);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userStoreListener.remove();
 	  },
 	
 	  openEventDetailModal: function () {
@@ -35544,6 +35563,8 @@
 	
 	    var editOptionForLoggedInUsers;
 	
+	    console.log("Is the user logged in?" + UserStore.loggedIn());
+	    // debugger;
 	    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id) {
 	      editOptionForLoggedInUsers = React.createElement(
 	        'div',
@@ -36117,8 +36138,8 @@
 
 	var React = __webpack_require__(1);
 	var LinkedStateMixin = __webpack_require__(240);
-	
-	var UserActions = __webpack_require__(255);
+	var ClientActions = __webpack_require__(244);
+	// var UserActions = require('../../actions/userActions');
 	var CurrentUserState = __webpack_require__(285);
 	
 	var LoginModal = React.createClass({
@@ -36139,7 +36160,7 @@
 	
 		handleSubmit: function (keyboardEvent) {
 			keyboardEvent.preventDefault();
-			UserActions[this.state.form]({
+			ClientActions[this.state.form]({
 				username: this.state.username,
 				password: this.state.password
 			});
@@ -36147,7 +36168,7 @@
 	
 		logout: function (keyboardEvent) {
 			keyboardEvent.preventDefault();
-			UserActions.logout();
+			ClientActions.logout();
 		},
 	
 		greeting: function () {
@@ -36371,38 +36392,39 @@
 
 /***/ },
 /* 285 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var UserStore = __webpack_require__(256);
-	var UserActions = __webpack_require__(255);
-	var UserApiUtil = __webpack_require__(254);
-	
-	var CurrentUserState = {
-	
-	  getInitialState: function () {
-	    return {
-	      currentUser: UserStore.currentUser(),
-	      userErrors: UserStore.errors()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    UserStore.addListener(this.updateUser);
-	    // if (typeof UserStore.currentUser() === 'undefined'){
-	    //   UserActions.fetchCurrentUser();
-	    // }
-	  },
-	
-	  updateUser: function () {
-	    this.setState({
-	      currentUser: UserStore.currentUser(),
-	      userErrors: UserStore.errors()
-	    });
-	  }
-	
-	};
-	
-	module.exports = CurrentUserState;
+	// var UserStore = require('../stores/user');
+	// // var UserActions = require('../actions/userActions');
+	// var UserApiUtil = require('../util/userApiUtil');
+	// // var ClientActions = require('../actions/client_actions');
+	//
+	// var CurrentUserState = {
+	//
+	//   getInitialState: function(){
+	//     return {
+	//       currentUser: UserStore.currentUser(),
+	//       userErrors: UserStore.errors()
+	//     };
+	//   },
+	//
+	//   componentDidMount: function(){
+	//     UserStore.addListener(this.updateUser);
+	//     // if (typeof UserStore.currentUser() === 'undefined'){
+	//     //   UserActions.fetchCurrentUser();
+	//     // }
+	//   },
+	//
+	//   updateUser: function(){
+	//     this.setState({
+	//       currentUser: UserStore.currentUser(),
+	//       userErrors: UserStore.errors()
+	//     });
+	//   }
+	//
+	// };
+	//
+	// module.exports = CurrentUserState;
 
 /***/ },
 /* 286 */
@@ -38869,7 +38891,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var UserActions = __webpack_require__(255);
+	// var UserActions = require('../../actions/userActions');
+	var ClientActions = __webpack_require__(244);
 	
 	var SignUpModal = React.createClass({
 	  displayName: "SignUpModal",
@@ -38903,7 +38926,7 @@
 	
 	    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 	
-	    UserActions.signup(userData);
+	    ClientActions.signup(userData);
 	  },
 	
 	  render: function () {
@@ -38953,7 +38976,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var UserActions = __webpack_require__(255);
+	var ClientActions = __webpack_require__(244);
+	// var UserActions = require('../../actions/userActions');
 	
 	var SignInModal = React.createClass({
 	  displayName: "SignInModal",
@@ -38987,7 +39011,7 @@
 	
 	    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 	
-	    UserActions.login(userData);
+	    ClientActions.login(userData);
 	  },
 	
 	  render: function () {
@@ -39116,7 +39140,7 @@
 	var LoginModal = __webpack_require__(284);
 	var CreateEventModal = __webpack_require__(288);
 	var CreateShowtimeModal = __webpack_require__(289);
-	var UserActions = __webpack_require__(255);
+	// var UserActions = require('../actions/userActions');
 	var SignUpModal = __webpack_require__(299);
 	
 	var UserStore = __webpack_require__(256);
@@ -39635,7 +39659,7 @@
 	
 	  render: function () {
 	
-	    debugger;
+	    // debugger;
 	
 	    var test = "Nothing";
 	    if (this.state.tickets) {
@@ -39898,10 +39922,10 @@
 	  componentWillUnmount: function () {
 	    this.myListener.remove();
 	  },
-	
+	  //
 	  render: function () {
 	
-	    debugger;
+	    // debugger;
 	    // <p>{this.state.ticket_purchase.id}</p>
 	
 	    return React.createElement(
