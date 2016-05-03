@@ -88,9 +88,9 @@
 	  React.createElement(Route, { path: 'event/:eventId', component: EventSplash }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
-	  React.createElement(Route, { path: 'success/', component: Success }),
+	  React.createElement(Route, { path: 'success', component: Success }),
 	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase }),
-	  React.createElement(Route, { path: 'dashboard/', component: UserDashboardEventsIndex })
+	  React.createElement(Route, { path: 'dashboard', component: UserDashboardEventsIndex })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -27073,6 +27073,7 @@
 	var React = __webpack_require__(1);
 	var EventForm = __webpack_require__(239);
 	var EventIndex = __webpack_require__(274);
+	var EventStore = __webpack_require__(275);
 	// var LoginForm = require('./users/usersLoginForm');
 	var LoginModal = __webpack_require__(284);
 	var CreateEventModal = __webpack_require__(288);
@@ -27096,14 +27097,17 @@
 	var CUSTOM_STYLE = {
 	  content: {
 	    'zIndex': '100000',
-	    'margin': '100px',
+	    'margin': '100px auto',
 	    'border': '5px solid dodgerblue',
-	    'padding': '20px',
-	    // 'background': 'grey'
-	    'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    'width': '6ix00px',
+	    'padding': '20px'
 	  }
 	};
 	
+	// 'background': 'grey'
+	// 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -27125,15 +27129,27 @@
 	
 	  componentDidMount: function () {
 	    this.userStoreListener = UserStore.addListener(this._userChanged);
+	    this.eventSuccessListener = EventStore.addListener(this._eventCreated);
 	    window.scrollTo(0, 0);
 	  },
 	
 	  componentWillUnmount: function () {
 	    this.userStoreListener.remove();
+	    this.eventSuccessListener.remove();
 	  },
 	
 	  _userChanged: function () {
 	    this.setState({ currentUser: UserStore.user() });
+	  },
+	
+	  _eventCreated: function () {
+	    //  debugger;
+	    if (EventStore.createSuccess()) {
+	      //  debugger;
+	      var id = EventStore.showNewEventId();
+	      this.closeCreateEventModal();
+	      hashHistory.push("/event/" + id);
+	    }
 	  },
 	
 	  openSignInModal: function () {
@@ -28064,6 +28080,7 @@
 
 	var ServerActions = __webpack_require__(246);
 	var hashHistory = __webpack_require__(159).hashHistory;
+	var app = __webpack_require__(238);
 	
 	var ApiUtil = {
 	
@@ -28107,9 +28124,10 @@
 	      method: "POST",
 	      data: { event: data },
 	      success: function (event) {
-	        debugger;
-	        hashHistory.push('/events/' + event.id);
+	        // debugger;
+	        // hashHistory.push('/event/' + event.id);
 	        ServerActions.receiveSingleEvent(event);
+	        // app.closeCreateEventModal();
 	        // callback && callback(event.id);
 	      }
 	    });
@@ -28306,6 +28324,7 @@
 	  },
 	
 	  receiveSingleEvent: function (event) {
+	    // debugger;
 	    Dispatcher.dispatch({
 	      actionType: EventConstants.EVENT_RECEIVED,
 	      event: event
@@ -35428,6 +35447,10 @@
 	
 	var _events = {};
 	
+	var _eventSuccess = false;
+	
+	var newEventId;
+	
 	var resetEvents = function (events) {
 	  console.log('resetEvents');
 	  console.log(["events", events]);
@@ -35445,6 +35468,18 @@
 	var removeEvent = function (event) {
 	  console.log("eventstore removeEvent");
 	  delete _events[event.id];
+	};
+	
+	EventStore.createSuccess = function () {
+	  return _eventSuccess;
+	};
+	
+	EventStore.setNewEventId = function (id) {
+	  newEventId = id;
+	};
+	
+	EventStore.showNewEventId = function () {
+	  return newEventId;
 	};
 	
 	EventStore.all = function () {
@@ -35467,7 +35502,13 @@
 	      break;
 	    case EventConstants.EVENT_RECEIVED:
 	      resetEvent(payload.event);
+	      _eventSuccess = true;
+	      EventStore.setNewEventId(payload.event.id);
+	      // debugger;
 	      EventStore.__emitChange();
+	      setTimeout(function () {
+	        _eventSuccess = false;
+	      }, 2000);
 	      break;
 	    case EventConstants.EVENT_REMOVED:
 	      console.log("event store case EVENT_REMOVED");

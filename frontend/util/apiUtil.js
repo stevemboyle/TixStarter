@@ -1,5 +1,6 @@
 var ServerActions = require('../actions/serverActions.js');
 var hashHistory = require("react-router").hashHistory;
+var app = require('../components/app');
 
 var ApiUtil = {
 
@@ -43,9 +44,10 @@ var ApiUtil = {
       method: "POST",
       data: {event: data},
       success: function (event) {
-        debugger;
-        hashHistory.push('/events/' + event.id);
+        // debugger;
+        // hashHistory.push('/event/' + event.id);
         ServerActions.receiveSingleEvent(event);
+        // app.closeCreateEventModal();
         // callback && callback(event.id);
       }
     });

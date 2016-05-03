@@ -1,6 +1,7 @@
 var React = require('react');
 var EventForm = require('./events/form');
 var EventIndex = require('./events/index');
+var EventStore = require('../stores/event');
 // var LoginForm = require('./users/usersLoginForm');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
@@ -25,11 +26,14 @@ var CurrentUserState = require('.././mixins/currentUserState');
 var CUSTOM_STYLE = {
   content : {
     'zIndex': '100000',
-    'margin': '100px',
+    'margin': '100px auto',
     'border': '5px solid dodgerblue',
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    'width' : '6ix00px',
     'padding': '20px',
     // 'background': 'grey'
-    'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
   }
 };
 
@@ -52,15 +56,27 @@ module.exports = React.createClass({
 
    componentDidMount: function(){
       this.userStoreListener = UserStore.addListener(this._userChanged);
+      this.eventSuccessListener = EventStore.addListener(this._eventCreated);
       window.scrollTo(0, 0);
    },
 
    componentWillUnmount: function(){
      this.userStoreListener.remove();
+     this.eventSuccessListener.remove();
    },
 
    _userChanged: function(){
      this.setState({currentUser: UserStore.user()});
+   },
+
+   _eventCreated: function(){
+    //  debugger;
+     if (EventStore.createSuccess()){
+      //  debugger;
+       var id = EventStore.showNewEventId();
+       this.closeCreateEventModal();
+       hashHistory.push("/event/" + id);
+     }
    },
 
    openSignInModal: function(){

@@ -42,9 +42,9 @@ var routes = (
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
     </Route>
     <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
-    <Route path="success/" component={Success} />
+    <Route path="success" component={Success} />
     <Route path="ticket_purchases/:ticket_purchaseId" component={TicketPurchase}/>
-    <Route path="dashboard/" component={UserDashboardEventsIndex}/>
+    <Route path="dashboard" component={UserDashboardEventsIndex}/>
   </Route>
 );
 

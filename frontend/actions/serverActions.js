@@ -42,6 +42,7 @@ module.exports = {
   },
 
   receiveSingleEvent: function (event) {
+    // debugger;
     Dispatcher.dispatch({
       actionType: EventConstants.EVENT_RECEIVED,
       event: event

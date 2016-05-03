@@ -5,6 +5,10 @@ var EventStore = new Store(AppDispatcher);
 
 var _events = {};
 
+var _eventSuccess = false;
+
+var newEventId;
+
 var resetEvents = function (events) {
   console.log('resetEvents');
   console.log(["events", events]);
@@ -22,6 +26,18 @@ var resetEvent = function (event) {
 var removeEvent = function(event){
   console.log("eventstore removeEvent");
   delete _events[event.id];
+};
+
+EventStore.createSuccess = function(){
+  return _eventSuccess;
+};
+
+EventStore.setNewEventId = function(id){
+  newEventId = id;
+};
+
+EventStore.showNewEventId = function(){
+  return newEventId;
 };
 
 EventStore.all = function () {
@@ -44,7 +60,13 @@ EventStore.__onDispatch = function (payload) {
       break;
     case EventConstants.EVENT_RECEIVED:
       resetEvent(payload.event);
+      _eventSuccess = true;
+      EventStore.setNewEventId(payload.event.id);
+      // debugger;
       EventStore.__emitChange();
+      setTimeout(function(){
+        _eventSuccess = false;
+      }, 2000);
       break;
     case EventConstants.EVENT_REMOVED:
       console.log("event store case EVENT_REMOVED");
