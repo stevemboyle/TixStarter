@@ -36908,6 +36908,28 @@
 	          })
 	        ),
 	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'We can embed a video!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'For this, head to YouTube and find a video you like.'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'If the URL is \'https://www.youtube.com/watch?v=JrbCFR1FsZk\','
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Copy \'JrbCFR1FsZk\' into the box below:'
+	        ),
+	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
 	          null,

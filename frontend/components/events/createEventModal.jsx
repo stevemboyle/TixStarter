@@ -124,7 +124,12 @@ module.exports = React.createClass({
           </label>
 
           <br></br>
-
+          <br></br>
+        <p>We can embed a video!</p>
+        <p>For this, head to YouTube and find a video you like.</p>
+        <p>If the URL is 'https://www.youtube.com/watch?v=JrbCFR1FsZk',</p>
+        <p>Copy 'JrbCFR1FsZk' into the box below:</p>
+<br></br>
           <label> URL for Video to Embed:
             <input type="text"
                     value={this.state.videoUrl}
