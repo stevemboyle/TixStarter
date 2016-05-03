@@ -46,8 +46,11 @@ module.exports = React.createClass({
 
     return(
       <div>
-        <ul>
-          <h2>My Created Events:</h2>
+        <div className="divider">
+            <h2 className="dashboard-title" font-size="15px">My Created Events:</h2>
+        </div>
+        <ul className="dashboard">
+
           <br></br>
           {this.myEvents().map(function (event) {
 

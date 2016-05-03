@@ -27245,6 +27245,10 @@
 	    };
 	  },
 	
+	  goToDashboard: function () {
+	    hashHistory.push("/dashboard");
+	  },
+	
 	  // notLoggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -27343,7 +27347,7 @@
 	          ),
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.openMyDashboardModal },
+	            { className: 'header-li', onClick: this.goToDashboard },
 	            'My Dashboard'
 	          ),
 	          React.createElement(
@@ -39219,13 +39223,17 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'ul',
-	        null,
+	        'div',
+	        { className: 'divider' },
 	        React.createElement(
 	          'h2',
-	          null,
+	          { className: 'dashboard-title', 'font-size': '15px' },
 	          'My Created Events:'
-	        ),
+	        )
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'dashboard' },
 	        React.createElement('br', null),
 	        this.myEvents().map(function (event) {
 	
