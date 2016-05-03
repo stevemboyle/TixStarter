@@ -27121,6 +27121,7 @@
 	
 	  componentDidMount: function () {
 	    this.userStoreListener = UserStore.addListener(this._userChanged);
+	    window.scrollTo(0, 0);
 	  },
 	
 	  componentWillUnmount: function () {
@@ -39157,6 +39158,10 @@
 	  displayName: 'exports',
 	
 	
+	  componentDidMount: function () {
+	    window.scrollTo(0, 0);
+	  },
+	
 	  render: function () {
 	
 	    return React.createElement(
@@ -39300,6 +39305,8 @@
 	  },
 	
 	  componentDidMount: function () {
+	    // $(window).scrollTop(0);
+	    window.scrollTo(0, 0);
 	    this.eventListener = EventStore.addListener(this._onChange);
 	    ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
 	  },

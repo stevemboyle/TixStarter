@@ -50,6 +50,7 @@ module.exports = React.createClass({
 
    componentDidMount: function(){
       this.userStoreListener = UserStore.addListener(this._userChanged);
+      window.scrollTo(0, 0);
    },
 
    componentWillUnmount: function(){

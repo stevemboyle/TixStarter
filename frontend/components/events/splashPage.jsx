@@ -35,6 +35,8 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function () {
+    // $(window).scrollTop(0);
+    window.scrollTo(0, 0);
     this.eventListener = EventStore.addListener(this._onChange);
     ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
   },
