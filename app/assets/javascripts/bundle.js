@@ -36906,7 +36906,7 @@
 	      ),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit },
+	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
@@ -36914,7 +36914,8 @@
 	          ' Title:',
 	          React.createElement('input', { type: 'text',
 	            value: this.state.title,
-	            onChange: this.titleChange
+	            onChange: this.titleChange,
+	            placeholder: 'Enter your event\'s title'
 	          })
 	        ),
 	        React.createElement('br', null),
@@ -36924,7 +36925,8 @@
 	          ' Catchphrase:',
 	          React.createElement('input', { type: 'text',
 	            value: this.state.catchphrase,
-	            onChange: this.catchphraseChange
+	            onChange: this.catchphraseChange,
+	            placeholder: 'Catchphrase'
 	          })
 	        ),
 	        React.createElement('br', null),
@@ -36934,7 +36936,8 @@
 	          ' Description:',
 	          React.createElement('input', { type: 'textarea',
 	            value: this.state.description,
-	            onChange: this.descriptionChange
+	            onChange: this.descriptionChange,
+	            placeholder: 'Description'
 	          })
 	        ),
 	        React.createElement('br', null),

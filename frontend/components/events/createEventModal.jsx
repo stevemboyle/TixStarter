@@ -85,7 +85,7 @@ module.exports = React.createClass({
     return(
       <div>
         <h3>Create New Event</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form-style-8">
 
           <br></br>
 
@@ -93,6 +93,7 @@ module.exports = React.createClass({
             <input type="text"
                     value={this.state.title}
                     onChange={this.titleChange}
+                    placeholder="Enter your event's title"
               />
           </label>
 
@@ -102,6 +103,7 @@ module.exports = React.createClass({
             <input type="text"
                     value={this.state.catchphrase}
                     onChange={this.catchphraseChange}
+                    placeholder="Catchphrase"
               />
           </label>
 
@@ -111,6 +113,7 @@ module.exports = React.createClass({
             <input type="textarea"
                     value={this.state.description}
                     onChange={this.descriptionChange}
+                    placeholder="Description"
               />
           </label>
 
