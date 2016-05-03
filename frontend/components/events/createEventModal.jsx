@@ -108,7 +108,7 @@ module.exports = React.createClass({
           <br></br>
 
           <label> Description:
-            <input type="text"
+            <input type="textarea"
                     value={this.state.description}
                     onChange={this.descriptionChange}
               />

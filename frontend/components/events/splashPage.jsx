@@ -55,6 +55,10 @@ module.exports = React.createClass({
 
   render: function(){
 
+    // <div className="header-section">
+    //   Let's Get Tickets! Start by Picking Your Showtime
+    // </div>
+
     // var percentFunded = (this.state.event.revenue_status / this.state.event.revenue_goal);
 
     if(this.state.event === undefined) { return <div></div>; }
@@ -117,11 +121,13 @@ module.exports = React.createClass({
           </div>
 
         </section>
-        <section id="event-page-showtimes">
-          <div className="header-section">
-            Let's Get Tickets! Start by Picking Your Showtime
-          </div>
+          <section id="lower-menu">
 
+      <br></br>
+
+    </section>
+        <section id="event-page-showtimes">
+      <h2 className="events-index-header">Showtimes:</h2>
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
 
         </section>

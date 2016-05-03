@@ -37,7 +37,7 @@
 }*/
 
 .sign-in-modal-splash {
-  background-image: url(http://theme.co/media/x-img-demo-2.jpg);
+  /*background-image: url(http://theme.co/media/x-img-demo-2.jpg);*/
   background-size: cover;
   height: 100%;
 }
@@ -78,6 +78,15 @@
     text-align: center;
   }
 
+  .title {
+    height: 100px;
+  }
+
+  .index-item-menu-ul {
+    display: flex;
+    justify-content: center;
+  }
+
   .home-buttons {
     width: 200px;
     margin: auto;
@@ -101,24 +110,24 @@
     cursor: pointer;
   }*/
 
-  #home-buttons a:link, a:visited {
+  /*#home-buttons a:link, a:visited {
     display: block;
     border-radius: 15px;
     width: 200px;
-    height: 20px;
+    height: 20px;*/
     /*width: 6em;*/
     /*padding: 0.2em;*/
-    line-height: 1.4;
-    background-color: purple;
+    /*line-height: 1.4;
+    background-color: purple;*/
     /*border: 1px solid black;*/
-    color: coral;
+    /*color: coral;
     text-decoration: none;
     text-align: center;
-  }
+  }*/
 
-  #home-buttons a:hover {
+  /*#home-buttons a:hover {
     background-color: green;
-  }
+  }*/
 
   #home-events-index {
     /*height: 100vh;*/
@@ -179,9 +188,10 @@
 
   #event-page-showtimes {
     height: 90vh;
-    background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);
-    background-size: cover;
+    /*background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);*/
+    background-size: contain;
     padding: 20px;
+    overflow: hidden;
   }
 
   .showtime-index {
@@ -303,7 +313,9 @@ h1 {
  }
 
 #menubuttons {
-  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
  #tixstarter {
@@ -403,6 +415,25 @@ h1 {
    padding: 10px;
  }
 
+  .showtime-list-item {
+    /*border: thin solid red;*/
+    padding: 10px;
+    cursor: pointer;
+    list-style: none;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background: #e6e6e6;
+    color: black;
+    height: 400px;
+    width: 275px;
+    background-size: cover;
+    display: inline-table;
+    margin: 10px;
+    padding: 10px;
+      /*background-image: url(http://www.inconcertaudio.com/wp-content/uploads/2015/10/Paramore_Concert-1.jpg);*/
+  }
+
+/*
  .showtime-list-item {
    border: thin solid red;
    padding: 10px;
@@ -414,13 +445,68 @@ h1 {
    color: white;
    /*background-image: url(http://static1.squarespace.com/static/553ea66ee4b06184ffa136c2/55470d16e4b0c316935ba950/554ea0f1e4b04605cb485e6a/1456683857587/?format=1000w);*/
    /*color: black;*/
-   height: 100px;
-   width: 275px;
+   /*height: 100px;
+   width: 275px;*/
    /*background-size: contain;*/
-   display: inline-table;
+   /*display: inline-table;
    margin: 10px;
-   padding: 10px;
- }
+   padding: 10px;*/
+ /*}*/
+
+ /*input {
+     width: 80%;
+     height: 20px;
+ }*/
+
+ input[type=text] {
+    width: 60%;
+    /*height: 20x*/
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid dodgerblue;
+    border-radius: 4px;
+    background-color: #3CBC8D;
+    color: white;
+}
+
+input[type=text]:focus {
+    background-color: lightblue;
+    border: 3px solid #555;
+}
+
+input[type=date]:focus {
+    background-color: lightblue;
+    border: 3px solid #555;
+}
+
+input[type=time]:focus {
+    background-color: lightblue;
+    border: 3px solid #555;
+}
+
+input[type=password]:focus {
+    background-color: lightblue;
+    border: 3px solid #555;
+}
+
+select {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
  .header-ul {
 
@@ -430,6 +516,7 @@ h1 {
    color: dodgerblue;
    font-family: CodyStar;
    font-size: 50px;
+   text-align: center;
  }
 
  .header-li {
@@ -447,6 +534,42 @@ h1 {
    background-color: white;
    color: dodgerblue;
  }
+
+
+  .index-item-menu-li {
+    list-style: none;
+    display: inline;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    border: thin solid white;
+    margin: 5px;
+    background: dodgerblue;
+  }
+
+  .index-item-menu-li:hover {
+    cursor: pointer;
+    background-color: white;
+    color: dodgerblue;
+  }
+
+  .edit-or-delete {
+    list-style: none;
+    display: inline;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    border: thin solid white;
+    margin: 5px;
+    background: red;
+  }
+
+  .edit-or-delete:hover {
+    cursor: pointer;
+    background-color: white;
+    color: dodgerblue;
+  }
+
 
  .header-section {
    background-color: dodgerblue;
@@ -479,12 +602,12 @@ h1 {
    color: white;
    /*border: thick solid dodgerblue;*/
  }
-
+/*
 .showtime-list-item:hover {
    background-color: tomato;
    color: white;
    border: thick solid dodgerblue;
- }
+ }*/
 
  .new-event > div {
    margin-bottom: 4px;

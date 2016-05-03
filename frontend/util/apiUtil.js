@@ -43,6 +43,8 @@ var ApiUtil = {
       method: "POST",
       data: {event: data},
       success: function (event) {
+        debugger;
+        hashHistory.push('/events/' + event.id);
         ServerActions.receiveSingleEvent(event);
         // callback && callback(event.id);
       }

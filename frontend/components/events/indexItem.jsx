@@ -97,8 +97,10 @@ module.exports = React.createClass({
     if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
       editOptionForLoggedInUsers =(
         <div>
-          <button onClick={this.openEditEventModal}>Edit Event</button>
-          <button onClick={this.openDeleteEventModal}>Delete Event</button>
+            <ul className="index-item-menu-ul">
+              <li className="edit-or-delete" onClick={this.openEditEventModal}>Edit Event</li>
+              <li className="edit-or-delete" onClick={this.openDeleteEventModal}>Delete Event</li>
+          </ul>
         </div>
       );
     }
@@ -116,12 +118,17 @@ module.exports = React.createClass({
             >
 
             <img src={this.props.event.image_url} width="275px" height="200px"></img>
-
-            <h1 color="white" text-align="center"><b>{this.props.event.title}</b></h1>
-            <p color="white"><em>{this.props.event.catchphrase}</em></p>
+            <div className="title">
+              <h1 color="white" text-align="center"><b>{this.props.event.title}</b></h1>
+              <p color="white"><em>{this.props.event.catchphrase}</em></p>
+            </div>
             <br></br>
-            <button onClick={this.openEventDetailModal}>Get Tickets</button>
-            <button onClick={this.goToEventSplash}>Learn More</button>
+              <div id="menubuttons">
+                <ul className="index-item-menu-ul">
+                  <li className="index-item-menu-li"  onClick={this.openEventDetailModal}>Get Tickets</li>
+                  <li className="index-item-menu-li"  onClick={this.goToEventSplash}>Learn More</li>
+                </ul>
+              </div>
 
             {editOptionForLoggedInUsers}
 

@@ -47,13 +47,7 @@ module.exports = React.createClass({
 
         </section><section id="lower-menu">
 
-        <a href="#home-events-index" text-align="center">
-          Browse Events
-        </a>
-
-        <a href="#home-marketing" text-align="center">
-          Learn More
-        </a>
+        <br></br>
 
       </section>
         <section id="home-events-index">
@@ -66,13 +60,21 @@ module.exports = React.createClass({
 
         {this.props.children}
 
-      </section><section id="home-marketing">
+      </section><section id="lower-menu">
+
+      <br></br>
+
+    </section><section id="home-marketing">
 
         <h1>Welcome to TixStarter</h1>
         <h3>Forward Fund Events with Ticket Sales</h3>
 
         <h4>Scroll down for More</h4>
-      </section><section  id="home-whitespace"
+      </section><section id="lower-menu">
+
+      <br></br>
+
+    </section><section  id="home-whitespace"
         className="white-bg padding-top-bottom"
         >
 

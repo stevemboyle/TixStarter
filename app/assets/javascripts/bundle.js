@@ -65,6 +65,7 @@
 	var ShowtimeDetail = __webpack_require__(304);
 	var Success = __webpack_require__(309);
 	var TicketPurchase = __webpack_require__(311);
+	var UserDashboardEventsIndex = __webpack_require__(301);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -88,7 +89,8 @@
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'success/', component: Success }),
-	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase })
+	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase }),
+	  React.createElement(Route, { path: 'dashboard/', component: UserDashboardEventsIndex })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -27096,10 +27098,12 @@
 	    'zIndex': '100000',
 	    'margin': '100px',
 	    'border': '5px solid dodgerblue',
-	    'padding': '0px'
+	    'padding': '20px'
 	  }
 	};
 	
+	// 'background': 'grey'
+	// 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -28093,6 +28097,8 @@
 	      method: "POST",
 	      data: { event: data },
 	      success: function (event) {
+	        debugger;
+	        hashHistory.push('/events/' + event.id);
 	        ServerActions.receiveSingleEvent(event);
 	        // callback && callback(event.id);
 	      }
@@ -35571,14 +35577,18 @@
 	        'div',
 	        null,
 	        React.createElement(
-	          'button',
-	          { onClick: this.openEditEventModal },
-	          'Edit Event'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.openDeleteEventModal },
-	          'Delete Event'
+	          'ul',
+	          { className: 'index-item-menu-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'edit-or-delete', onClick: this.openEditEventModal },
+	            'Edit Event'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'edit-or-delete', onClick: this.openDeleteEventModal },
+	            'Delete Event'
+	          )
 	        )
 	      );
 	    }
@@ -35597,33 +35607,45 @@
 	      },
 	      React.createElement('img', { src: this.props.event.image_url, width: '275px', height: '200px' }),
 	      React.createElement(
-	        'h1',
-	        { color: 'white', 'text-align': 'center' },
+	        'div',
+	        { className: 'title' },
 	        React.createElement(
-	          'b',
-	          null,
-	          this.props.event.title
-	        )
-	      ),
-	      React.createElement(
-	        'p',
-	        { color: 'white' },
+	          'h1',
+	          { color: 'white', 'text-align': 'center' },
+	          React.createElement(
+	            'b',
+	            null,
+	            this.props.event.title
+	          )
+	        ),
 	        React.createElement(
-	          'em',
-	          null,
-	          this.props.event.catchphrase
+	          'p',
+	          { color: 'white' },
+	          React.createElement(
+	            'em',
+	            null,
+	            this.props.event.catchphrase
+	          )
 	        )
 	      ),
 	      React.createElement('br', null),
 	      React.createElement(
-	        'button',
-	        { onClick: this.openEventDetailModal },
-	        'Get Tickets'
-	      ),
-	      React.createElement(
-	        'button',
-	        { onClick: this.goToEventSplash },
-	        'Learn More'
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'index-item-menu-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'index-item-menu-li', onClick: this.openEventDetailModal },
+	            'Get Tickets'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'index-item-menu-li', onClick: this.goToEventSplash },
+	            'Learn More'
+	          )
+	        )
 	      ),
 	      editOptionForLoggedInUsers,
 	      React.createElement(
@@ -35877,6 +35899,7 @@
 	            null,
 	            this.props.showtime.date
 	          ),
+	          React.createElement('img', { src: this.props.showtime.event.image_url, width: '275px', height: '200px' }),
 	          React.createElement(
 	            'p',
 	            null,
@@ -36899,7 +36922,7 @@
 	          'label',
 	          null,
 	          ' Description:',
-	          React.createElement('input', { type: 'text',
+	          React.createElement('input', { type: 'textarea',
 	            value: this.state.description,
 	            onChange: this.descriptionChange
 	          })
@@ -39227,16 +39250,7 @@
 	      React.createElement(
 	        'section',
 	        { id: 'lower-menu' },
-	        React.createElement(
-	          'a',
-	          { href: '#home-events-index', 'text-align': 'center' },
-	          'Browse Events'
-	        ),
-	        React.createElement(
-	          'a',
-	          { href: '#home-marketing', 'text-align': 'center' },
-	          'Learn More'
-	        )
+	        React.createElement('br', null)
 	      ),
 	      React.createElement(
 	        'section',
@@ -39251,6 +39265,11 @@
 	          )
 	        ),
 	        this.props.children
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'lower-menu' },
+	        React.createElement('br', null)
 	      ),
 	      React.createElement(
 	        'section',
@@ -39270,6 +39289,11 @@
 	          null,
 	          'Scroll down for More'
 	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'lower-menu' },
+	        React.createElement('br', null)
 	      ),
 	      React.createElement(
 	        'section',
@@ -39358,6 +39382,10 @@
 	  },
 	
 	  render: function () {
+	
+	    // <div className="header-section">
+	    //   Let's Get Tickets! Start by Picking Your Showtime
+	    // </div>
 	
 	    // var percentFunded = (this.state.event.revenue_status / this.state.event.revenue_goal);
 	
@@ -39510,11 +39538,16 @@
 	      ),
 	      React.createElement(
 	        'section',
+	        { id: 'lower-menu' },
+	        React.createElement('br', null)
+	      ),
+	      React.createElement(
+	        'section',
 	        { id: 'event-page-showtimes' },
 	        React.createElement(
-	          'div',
-	          { className: 'header-section' },
-	          'Let\'s Get Tickets! Start by Picking Your Showtime'
+	          'h2',
+	          { className: 'events-index-header' },
+	          'Showtimes:'
 	        ),
 	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
 	      ),
