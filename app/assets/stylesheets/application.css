@@ -122,7 +122,7 @@
 
   #home-events-index {
     /*height: 100vh;*/
-    background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);
+    /*background-image: url(http://9928-presscdn-0-75.pagely.netdna-cdn.com/wp-content/uploads/2011/02/rock-concert.jpg);*/
     background-size: cover;
     overflow: hidden;
     padding-bottom: 50px;
@@ -179,8 +179,13 @@
 
   #event-page-showtimes {
     height: 90vh;
-    /*background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);*/
+    background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);
     background-size: cover;
+    padding: 20px;
+  }
+
+  .showtime-index {
+    padding: 20px 100px;
   }
 
   .hover-pointer {
@@ -303,15 +308,15 @@ h1 {
 
  #tixstarter {
    /* height: 100%; */
-   width: 80%;
+   width: 95%;
    display: block;
    margin-left: auto;
    margin-right: auto;
    margin-top: 10px;
 
-   padding: 50px;
+   padding: 10px;
    background-color: white;
-   border: thin solid darkseagreen;
+   /*border: thin solid darkseagreen;*/
    opacity: 0.99;
  }
 
@@ -382,15 +387,15 @@ h1 {
 
 
  .event-list-item {
-   border: thin solid red;
+   /*border: thin solid red;*/
    padding: 10px;
    cursor: pointer;
    list-style: none;
    margin-bottom: 5px;
    border-radius: 5px;
-   background: white;
-   color: white;
-   height: 200px;
+   background: #e6e6e6;
+   color: black;
+   height: 400px;
    width: 275px;
    background-size: cover;
    display: inline-table;
@@ -421,6 +426,12 @@ h1 {
 
  }
 
+ .events-index-header {
+   color: dodgerblue;
+   font-family: CodyStar;
+   font-size: 50px;
+ }
+
  .header-li {
    list-style: none;
    display: inline;
@@ -437,7 +448,39 @@ h1 {
    color: dodgerblue;
  }
 
+ .header-section {
+   background-color: dodgerblue;
+   padding: 20px;
+   font-family: CodyStar;
+   font-size: 30px;
+   text-align: center;
+   color: white;
+   border: solid 5px white;
+   border-radius: 5px;
+   opacity: .95
+ }
+
+ #lower-menu {
+   background-color: dodgerblue;
+   color: white;
+ }
+/*
+  .header-buttons {
+    display: inline;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    border: thin solid white;
+    margin: 5px;
+  }*/
+
  .event-list-item:hover, .showtime-list-item:hover {
+   background-color: dodgerblue;
+   color: white;
+   /*border: thick solid dodgerblue;*/
+ }
+
+.showtime-list-item:hover {
    background-color: tomato;
    color: white;
    border: thick solid dodgerblue;

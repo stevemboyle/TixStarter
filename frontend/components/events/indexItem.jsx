@@ -109,9 +109,13 @@ module.exports = React.createClass({
     // TODO: Add this back to LI's
     // onClick={this.goToEventSplash}
 
+    // style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}
+
     return(
         <div onClick={this.goToEventSplash} className="event-list-item"
-            style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
+            >
+
+            <img src={this.props.event.image_url} width="275px" height="200px"></img>
 
             <h1 color="white" text-align="center"><b>{this.props.event.title}</b></h1>
             <p color="white"><em>{this.props.event.catchphrase}</em></p>

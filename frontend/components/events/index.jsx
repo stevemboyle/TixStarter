@@ -36,7 +36,7 @@ module.exports = React.createClass({
 
     return(
       <div className="index-for-events">
-          <h2>Experiences:</h2>
+          <h2 className="events-index-header">Experiences:</h2>
           <br></br>
           {this.state.events.map(function (event) {
 

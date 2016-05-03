@@ -117,11 +117,10 @@ module.exports = React.createClass({
           </div>
 
         </section>
-        <section id="event-page-showtimes" className="white-bg padding-top-bottom">
-
-          <p>
-            Showtimes Go Here
-          </p>
+        <section id="event-page-showtimes">
+          <div className="header-section">
+            Let's Get Tickets! Start by Picking Your Showtime
+          </div>
 
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
 

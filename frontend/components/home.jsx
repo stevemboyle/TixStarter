@@ -35,9 +35,6 @@ module.exports = React.createClass({
           <div id="home-splash-text">
             <h2 text-align="center" className="cody-font">Welcome to TixStarter</h2>
             <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
-          </div>
-
-          <div id="home-buttons" className="home-buttons">
 
               <a href="#home-events-index" text-align="center">
                 Browse Events
@@ -46,16 +43,20 @@ module.exports = React.createClass({
               <a href="#home-marketing" text-align="center">
                 Learn More
               </a>
-
           </div>
 
+        </section><section id="lower-menu">
 
+        <a href="#home-events-index" text-align="center">
+          Browse Events
+        </a>
 
+        <a href="#home-marketing" text-align="center">
+          Learn More
+        </a>
 
-        </section>
+      </section>
         <section id="home-events-index">
-
-        <h1>This is Now Home</h1>
 
           <div id="tixstarter">
             <div className="event-index-pane">

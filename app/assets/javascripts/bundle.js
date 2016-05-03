@@ -35389,7 +35389,7 @@
 	      { className: 'index-for-events' },
 	      React.createElement(
 	        'h2',
-	        null,
+	        { className: 'events-index-header' },
 	        'Experiences:'
 	      ),
 	      React.createElement('br', null),
@@ -35589,10 +35589,13 @@
 	    // TODO: Add this back to LI's
 	    // onClick={this.goToEventSplash}
 	
+	    // style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}
+	
 	    return React.createElement(
 	      'div',
-	      { onClick: this.goToEventSplash, className: 'event-list-item',
-	        style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
+	      { onClick: this.goToEventSplash, className: 'event-list-item'
+	      },
+	      React.createElement('img', { src: this.props.event.image_url, width: '275px', height: '200px' }),
 	      React.createElement(
 	        'h1',
 	        { color: 'white', 'text-align': 'center' },
@@ -35796,11 +35799,15 @@
 	
 	  render: function () {
 	    return React.createElement(
-	      'ul',
-	      null,
-	      this.props.showtimes && this.props.showtimes.map(function (showtime) {
-	        return React.createElement(ShowtimeIndexItem, { key: showtime.id, showtime: showtime });
-	      })
+	      'div',
+	      { className: 'showtime-index' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        this.props.showtimes && this.props.showtimes.map(function (showtime) {
+	          return React.createElement(ShowtimeIndexItem, { key: showtime.id, showtime: showtime });
+	        })
+	      )
 	    );
 	  }
 	});
@@ -39204,11 +39211,7 @@
 	            'h3',
 	            { 'text-align': 'center', className: 'cody-font' },
 	            'Forward Fund Events with Ticket Sales'
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { id: 'home-buttons', className: 'home-buttons' },
+	          ),
 	          React.createElement(
 	            'a',
 	            { href: '#home-events-index', 'text-align': 'center' },
@@ -39223,12 +39226,21 @@
 	      ),
 	      React.createElement(
 	        'section',
-	        { id: 'home-events-index' },
+	        { id: 'lower-menu' },
 	        React.createElement(
-	          'h1',
-	          null,
-	          'This is Now Home'
+	          'a',
+	          { href: '#home-events-index', 'text-align': 'center' },
+	          'Browse Events'
 	        ),
+	        React.createElement(
+	          'a',
+	          { href: '#home-marketing', 'text-align': 'center' },
+	          'Learn More'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { id: 'home-events-index' },
 	        React.createElement(
 	          'div',
 	          { id: 'tixstarter' },
@@ -39498,11 +39510,11 @@
 	      ),
 	      React.createElement(
 	        'section',
-	        { id: 'event-page-showtimes', className: 'white-bg padding-top-bottom' },
+	        { id: 'event-page-showtimes' },
 	        React.createElement(
-	          'p',
-	          null,
-	          'Showtimes Go Here'
+	          'div',
+	          { className: 'header-section' },
+	          'Let\'s Get Tickets! Start by Picking Your Showtime'
 	        ),
 	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
 	      ),
