@@ -79,9 +79,6 @@ module.exports = React.createClass({
 
         <h1>Text!</h1>
 
-      </section><section id="footer"
-        className="footer">
-        <p>Hello, I am a footer!</p>
       </section>
     </div>
 

@@ -375,6 +375,11 @@ module.exports = React.createClass({
 
         {this.props.children}
 
+        <section id="footer"
+          className="footer">
+          <p>Hello, I am a footer!</p>
+        </section>
+
       </div>
     );
   }

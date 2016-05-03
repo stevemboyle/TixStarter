@@ -75,23 +75,24 @@ module.exports = React.createClass({
             <h1 color="white" text-align="center" className="home-title">
               {this.state.event.title}
             </h1>
-            <h3>
+            <h3 color="white" text-align="center" className="home-catchphrase">
               {this.state.event.catchphrase}
+            </h3><h3>
               <br></br>
               <b>Revenue Status:</b> {this.state.event.revenue_status} | <b>Revenue Goal:</b> {this.state.event.revenue_goal}
               <br></br>
               <p>This event is {this.state.event.revenue_status / this.state.event.revenue_goal} % funded.</p>
             </h3>
           </div>
-              <div id="home-buttons" className="home-buttons">
+            <div id="menubuttons">
+              <ul className="index-item-menu-ul">
+                <li className="home-splash-li"><a href="#event-page-description" text-align="center" className="scroll-a">See Description</a></li>
+                <li className="home-splash-li"><a href="#event-page-video" text-align="center" className="scroll-a">Watch Video</a></li>
+                <li className="home-splash-li"><a href="#event-page-showtimes" text-align="center" className="scroll-a">See Showtimes</a></li>
                 <br></br>
-                <p><a href="#event-page-description">See Description</a></p>
-                <p><a href="#event-page-video">Watch Video</a></p>
-                <p><a href="#event-page-showtimes">See Showtimes</a></p>
-                <br></br>
-                <p><a href="#event-page-showtimes">Get Tickets</a></p>
-          </div>
-
+                <li className="home-splash-li"><a href="#event-page-showtimes" text-align="center" className="scroll-a">Get Tickets</a></li>
+              </ul>
+            </div>
 
         </section>
         <section

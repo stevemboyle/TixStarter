@@ -89,6 +89,13 @@
     font-family: 'Kaushan Script', cursive;
   }
 
+  .home-catchphrase {
+    text-shadow: 2px 2px #4a5251;
+    color: white;
+    font-size: 30px;
+    font-family: 'Kaushan Script', cursive;
+  }
+
   .title {
     height: 100px;
   }

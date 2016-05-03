@@ -27563,7 +27563,17 @@
 	          React.createElement(MyTicketsModal, null)
 	        )
 	      ),
-	      this.props.children
+	      this.props.children,
+	      React.createElement(
+	        'section',
+	        { id: 'footer',
+	          className: 'footer' },
+	        React.createElement(
+	          'p',
+	          null,
+	          'Hello, I am a footer!'
+	        )
+	      )
 	    );
 	  }
 	});
@@ -39321,16 +39331,6 @@
 	          null,
 	          'Text!'
 	        )
-	      ),
-	      React.createElement(
-	        'section',
-	        { id: 'footer',
-	          className: 'footer' },
-	        React.createElement(
-	          'p',
-	          null,
-	          'Hello, I am a footer!'
-	        )
 	      )
 	    );
 	  }
@@ -39426,8 +39426,12 @@
 	          ),
 	          React.createElement(
 	            'h3',
+	            { color: 'white', 'text-align': 'center', className: 'home-catchphrase' },
+	            this.state.event.catchphrase
+	          ),
+	          React.createElement(
+	            'h3',
 	            null,
-	            this.state.event.catchphrase,
 	            React.createElement('br', null),
 	            React.createElement(
 	              'b',
@@ -39456,43 +39460,46 @@
 	        ),
 	        React.createElement(
 	          'div',
-	          { id: 'home-buttons', className: 'home-buttons' },
-	          React.createElement('br', null),
+	          { id: 'menubuttons' },
 	          React.createElement(
-	            'p',
-	            null,
+	            'ul',
+	            { className: 'index-item-menu-ul' },
 	            React.createElement(
-	              'a',
-	              { href: '#event-page-description' },
-	              'See Description'
-	            )
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
+	              'li',
+	              { className: 'home-splash-li' },
+	              React.createElement(
+	                'a',
+	                { href: '#event-page-description', 'text-align': 'center', className: 'scroll-a' },
+	                'See Description'
+	              )
+	            ),
 	            React.createElement(
-	              'a',
-	              { href: '#event-page-video' },
-	              'Watch Video'
-	            )
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
+	              'li',
+	              { className: 'home-splash-li' },
+	              React.createElement(
+	                'a',
+	                { href: '#event-page-video', 'text-align': 'center', className: 'scroll-a' },
+	                'Watch Video'
+	              )
+	            ),
 	            React.createElement(
-	              'a',
-	              { href: '#event-page-showtimes' },
-	              'See Showtimes'
-	            )
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'p',
-	            null,
+	              'li',
+	              { className: 'home-splash-li' },
+	              React.createElement(
+	                'a',
+	                { href: '#event-page-showtimes', 'text-align': 'center', className: 'scroll-a' },
+	                'See Showtimes'
+	              )
+	            ),
+	            React.createElement('br', null),
 	            React.createElement(
-	              'a',
-	              { href: '#event-page-showtimes' },
-	              'Get Tickets'
+	              'li',
+	              { className: 'home-splash-li' },
+	              React.createElement(
+	                'a',
+	                { href: '#event-page-showtimes', 'text-align': 'center', className: 'scroll-a' },
+	                'Get Tickets'
+	              )
 	            )
 	          )
 	        )
