@@ -27098,12 +27098,12 @@
 	    'zIndex': '100000',
 	    'margin': '100px',
 	    'border': '5px solid dodgerblue',
-	    'padding': '20px'
+	    'padding': '20px',
+	    // 'background': 'grey'
+	    'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
 	  }
 	};
 	
-	// 'background': 'grey'
-	// 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -40015,6 +40015,7 @@
 	  },
 	
 	  componentDidMount: function () {
+	    window.scrollTo(0, 0);
 	    this.myListener = TicketPurchaseStore.addListener(this.handleChange);
 	    ClientActions.fetchSingleTicketPurchase(this.props.params.ticker_purchaseId);
 	  },
@@ -40030,7 +40031,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'success-page' },
 	      React.createElement('br', null),
 	      React.createElement('br', null),
 	      React.createElement('br', null),
@@ -40040,54 +40041,71 @@
 	      React.createElement('br', null),
 	      React.createElement('br', null),
 	      React.createElement(
-	        'p',
-	        null,
-	        'Congratulations, ',
-	        this.state.ticket_purchase.user.first_name,
-	        '!'
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You\'ve just purchased a ticket to:'
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.props.params.ticket_purchaseId
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.state.ticket_purchase.id
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.state.ticket_purchase.event.title
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.state.ticket_purchase.showtime.date
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'What would you like to do now?'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'Buy More Tickets'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'See My Tickets'
+	        'div',
+	        { id: 'home-splash-text' },
+	        React.createElement(
+	          'h2',
+	          { 'text-align': 'center', className: 'home-title' },
+	          'Success!'
+	        ),
+	        React.createElement(
+	          'h3',
+	          { 'text-align': 'center', className: 'cody-font' },
+	          'Forward Fund Events with Ticket Sales'
+	        ),
+	        React.createElement(
+	          'br',
+	          null,
+	          React.createElement(
+	            'p',
+	            null,
+	            'Congratulations, ',
+	            this.state.ticket_purchase.user.first_name,
+	            '!'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'You\'ve just purchased a ticket to:'
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.state.ticket_purchase.event.title
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.state.ticket_purchase.showtime.date
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.state.ticket_purchase.event.title,
+	            ' is now ',
+	            this.state.ticket_purchase.event.revenue_status / this.state.ticket_purchase.event.revenue_goal,
+	            '% funded.'
+	          ),
+	          React.createElement('br', null),
+	          '  '
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'What would you like to do now?'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Buy More Tickets'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'See My Tickets'
+	        )
 	      )
 	    );
 	  }

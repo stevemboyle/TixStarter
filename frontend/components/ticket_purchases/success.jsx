@@ -10,6 +10,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
+    window.scrollTo(0, 0);
     this.myListener = TicketPurchaseStore.addListener(this.handleChange);
     ClientActions.fetchSingleTicketPurchase(this.props.params.ticker_purchaseId);
   },
@@ -24,7 +25,7 @@ module.exports = React.createClass({
         // <p>{this.state.ticket_purchase.id}</p>
 
     return(
-      <div>
+      <div id="success-page">
         <br></br>
           <br></br>
             <br></br>
@@ -34,19 +35,27 @@ module.exports = React.createClass({
                     <br></br>
                       <br></br>
 
-        <p>Congratulations, {this.state.ticket_purchase.user.first_name}!</p>
-                        <br></br>
-        <p>You've just purchased a ticket to:</p>
-                        <br></br>
+      <div id="home-splash-text">
+        <h2 text-align="center" className="home-title">Success!</h2>
+        <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
+        <br>
+          <p>Congratulations, {this.state.ticket_purchase.user.first_name}!</p>
+          <p>You've just purchased a ticket to:</p>
+          <br></br>
+          <p>{this.state.ticket_purchase.event.title}</p>
+          <p>{this.state.ticket_purchase.showtime.date}</p>
+          <br></br>
+          <p>{this.state.ticket_purchase.event.title} is now {this.state.ticket_purchase.event.revenue_status / this.state.ticket_purchase.event.revenue_goal}% funded.</p>
 
-        <p>{this.props.params.ticket_purchaseId}</p>
-        <p>{this.state.ticket_purchase.id}</p>
-        <p>{this.state.ticket_purchase.event.title}</p>
-        <p>{this.state.ticket_purchase.showtime.date}</p>
-        <br></br>
+      <br></br>  </br>
+
         <p>What would you like to do now?</p>
         <p>Buy More Tickets</p>
         <p>See My Tickets</p>
+
+      </div>
+
+
       </div>
     );
   }

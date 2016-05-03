@@ -29,7 +29,7 @@ var CUSTOM_STYLE = {
     'border': '5px solid dodgerblue',
     'padding': '20px',
     // 'background': 'grey'
-    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+    'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
   }
 };
 

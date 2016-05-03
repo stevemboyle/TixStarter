@@ -13,6 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+ #success-page {
+       background-image: url(http://topthecharts.net/wp-content/uploads/2015/07/Silhouette-Rock-Concert-Wallpaper1.jpg);
+       background-size: cover;
+       height: 100vh;
+ }
+
  .form-style-8{
      font-family: 'Open Sans Condensed', arial, sans;
      width: 500px;
