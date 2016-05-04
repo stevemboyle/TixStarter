@@ -21,8 +21,13 @@
  }
 
  .create-event-background {
-   background-image: url(https://www.thestar.com/content/dam/thestar/news/gta/2012/08/19/sailin_movie_theatre_makes_waves_in_toronto/sailintheatre.jpeg);
-   background-size: cover;
+   padding: 75px;
+   background-color: dodgerblue;
+   /*background-image: url(https://www.thestar.com/content/dam/thestar/news/gta/2012/08/19/sailin_movie_theatre_makes_waves_in_toronto/sailintheatre.jpeg);
+   background-size: cover;*/
+   /*background-color: dodgerblue;
+   height: 100vh;
+   display: flex;*/
  }
 
  #success-page {
@@ -347,10 +352,10 @@
   }
 
   #event-page-showtimes {
-    height: 90vh;
+    /*height: 90vh;*/
     /*background-image: url(http://4.bp.blogspot.com/-d2Gkc_fS-dc/UxQsquGO3gI/AAAAAAAAFcQ/c5yoJ8GDGG8/s1600/Globe+theatre+at+night+2.jpg);*/
     background-size: contain;
-    padding: 20px;
+    padding: 40px 40px 100px 40px;
     overflow: hidden;
   }
 
@@ -527,7 +532,7 @@ h1 {
  }
 
  .event-list-item button {
-   background-color: red;
+   background-color: lightsteelblue;
    color: white;
    padding: 10px;
    radius: 15px;
@@ -748,7 +753,7 @@ input[type=time]:focus {
     border-radius: 5px;
     border: thin solid white;
     margin: 5px;
-    background: red;
+    background: lightsteelblue;
   }
 
   .edit-or-delete:hover {
