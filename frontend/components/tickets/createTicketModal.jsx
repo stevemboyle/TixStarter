@@ -29,6 +29,8 @@ module.exports = React.createClass({
     var defaultShowtime = defaultEventsShowtimes[0];
 
 
+        // debugger;
+
     this.setState({event_id: defaultEventId,
                   showtime_id: defaultShowtime.id});
 
@@ -46,8 +48,17 @@ module.exports = React.createClass({
 
   eventIdChange: function(keyboardEvent){
     var newEventId = keyboardEvent.target.value;
-    this.setState({ event_id: newEventId });
+
+    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+    var newEventsShowtimes = myShowtimes[newEventId];
+    var newShowtime = newEventsShowtimes[0];
+
     console.log("EventId: " + this.state.event_id);
+    console.log("ShowtimeId: " + this.state.showtime_id);
+
+    this.setState({ event_id: newEventId, showtime_id: newShowtime.id});
+
+
   },
 
   showtimeIdChange: function(keyboardEvent){
@@ -96,6 +107,7 @@ module.exports = React.createClass({
   // },
 
   render: function(){
+
 
     var myHTML = (
       <div></div>

@@ -107,6 +107,25 @@ module.exports = React.createClass({
     }
   },
 
+  getUpToDateRevenueStatus: function(){
+    var result = 0;
+    this.props.event.showtimes.forEach(function(showtime){
+      showtime.tickets.forEach(function(ticket){
+        ticket.ticket_purchases.forEach(function(ticket_purchase){
+          result = result + ticket_purchase.ticket.price;
+        });
+      });
+    });
+    return result;
+  },
+
+  percentFunded: function(){
+    var rawRatio = this.getUpToDateRevenueStatus() / this.props.event.revenue_goal;
+    var percentage = rawRatio * 100;
+    var roundedPercentage = Math.round(percentage);
+    return roundedPercentage;
+  },
+
   render: function () {
 
     var editOptionForLoggedInUsers;
@@ -140,6 +159,7 @@ module.exports = React.createClass({
             <div className="title">
               <h1 color="white" text-align="center" className="change"><b>{this.props.event.title}</b></h1>
               <p color="white"><em>{this.props.event.catchphrase}</em></p>
+              <p color="white">{this.percentFunded()}% Percent Funded</p>
             </div>
             <br></br>
               <div id="menubuttons">

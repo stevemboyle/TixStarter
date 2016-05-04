@@ -14,18 +14,6 @@ module.exports = React.createClass({
               showtimeModalOpen: false   };
   },
 
-  getUpToDateRevenueStatus: function(){
-    var result = 0;
-    this.state.event.showtimes.forEach(function(showtime){
-      showtime.tickets.forEach(function(ticket){
-        ticket.ticket_purchases.forEach(function(ticket_purchase){
-          result = result + ticket_purchase.ticket.price;
-        });
-      });
-    });
-    return result;
-  },
-
   openShowtimeModal: function(){
     this.setState({ showtimeModalOpen: true });
   },
@@ -77,6 +65,18 @@ module.exports = React.createClass({
 
   revenueGoal: function(){
     return this.giveNumberCommas(this.state.event.revenue_goal);
+  },
+
+  getUpToDateRevenueStatus: function(){
+    var result = 0;
+    this.state.event.showtimes.forEach(function(showtime){
+      showtime.tickets.forEach(function(ticket){
+        ticket.ticket_purchases.forEach(function(ticket_purchase){
+          result = result + ticket_purchase.ticket.price;
+        });
+      });
+    });
+    return result;
   },
 
   percentFunded: function(){

@@ -35665,6 +35665,25 @@
 	    }
 	  },
 	
+	  getUpToDateRevenueStatus: function () {
+	    var result = 0;
+	    this.props.event.showtimes.forEach(function (showtime) {
+	      showtime.tickets.forEach(function (ticket) {
+	        ticket.ticket_purchases.forEach(function (ticket_purchase) {
+	          result = result + ticket_purchase.ticket.price;
+	        });
+	      });
+	    });
+	    return result;
+	  },
+	
+	  percentFunded: function () {
+	    var rawRatio = this.getUpToDateRevenueStatus() / this.props.event.revenue_goal;
+	    var percentage = rawRatio * 100;
+	    var roundedPercentage = Math.round(percentage);
+	    return roundedPercentage;
+	  },
+	
 	  render: function () {
 	
 	    var editOptionForLoggedInUsers;
@@ -35725,6 +35744,12 @@
 	            null,
 	            this.props.event.catchphrase
 	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          { color: 'white' },
+	          this.percentFunded(),
+	          '% Percent Funded'
 	        )
 	      ),
 	      React.createElement('br', null),
@@ -39257,6 +39282,8 @@
 	    var defaultEventsShowtimes = myShowtimes[defaultEventId];
 	    var defaultShowtime = defaultEventsShowtimes[0];
 	
+	    // debugger;
+	
 	    this.setState({ event_id: defaultEventId,
 	      showtime_id: defaultShowtime.id });
 	
@@ -39274,8 +39301,15 @@
 	
 	  eventIdChange: function (keyboardEvent) {
 	    var newEventId = keyboardEvent.target.value;
-	    this.setState({ event_id: newEventId });
+	
+	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+	    var newEventsShowtimes = myShowtimes[newEventId];
+	    var newShowtime = newEventsShowtimes[0];
+	
 	    console.log("EventId: " + this.state.event_id);
+	    console.log("ShowtimeId: " + this.state.showtime_id);
+	
+	    this.setState({ event_id: newEventId, showtime_id: newShowtime.id });
 	  },
 	
 	  showtimeIdChange: function (keyboardEvent) {
@@ -40034,18 +40068,6 @@
 	      showtimeModalOpen: false };
 	  },
 	
-	  getUpToDateRevenueStatus: function () {
-	    var result = 0;
-	    this.state.event.showtimes.forEach(function (showtime) {
-	      showtime.tickets.forEach(function (ticket) {
-	        ticket.ticket_purchases.forEach(function (ticket_purchase) {
-	          result = result + ticket_purchase.ticket.price;
-	        });
-	      });
-	    });
-	    return result;
-	  },
-	
 	  openShowtimeModal: function () {
 	    this.setState({ showtimeModalOpen: true });
 	  },
@@ -40097,6 +40119,18 @@
 	
 	  revenueGoal: function () {
 	    return this.giveNumberCommas(this.state.event.revenue_goal);
+	  },
+	
+	  getUpToDateRevenueStatus: function () {
+	    var result = 0;
+	    this.state.event.showtimes.forEach(function (showtime) {
+	      showtime.tickets.forEach(function (ticket) {
+	        ticket.ticket_purchases.forEach(function (ticket_purchase) {
+	          result = result + ticket_purchase.ticket.price;
+	        });
+	      });
+	    });
+	    return result;
 	  },
 	
 	  percentFunded: function () {
