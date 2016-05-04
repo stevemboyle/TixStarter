@@ -3,6 +3,7 @@ var Modal = require("react-modal");
 var TicketsIndex = require('../tickets/indexItem.jsx');
 var UserStore = require('../../stores/user');
 var ClientActions = require('../../actions/client_actions.js');
+var ShowtimeStore = require('../../stores/showtime');
 
 module.exports = React.createClass({
   //
@@ -32,6 +33,7 @@ module.exports = React.createClass({
     // }.bind(this));
 
           // {attrs}
+          debugger;
 
     return(
       <div>
@@ -40,6 +42,9 @@ module.exports = React.createClass({
           <li onClick={this.purchaseTicket} className="showtime-list-item">
             <p>{this.props.ticket.tier}</p>
             <p>${this.props.ticket.price}</p>
+            <br></br>
+            <p><em>for</em></p>
+            <br></br>
           </li>
         </div>
       </div>

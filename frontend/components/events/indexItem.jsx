@@ -119,7 +119,7 @@ module.exports = React.createClass({
 
             <img src={this.props.event.image_url} width="275px" height="200px"></img>
             <div className="title">
-              <h1 color="white" text-align="center"><b>{this.props.event.title}</b></h1>
+              <h1 color="white" text-align="center" className="change"><b>{this.props.event.title}</b></h1>
               <p color="white"><em>{this.props.event.catchphrase}</em></p>
             </div>
             <br></br>

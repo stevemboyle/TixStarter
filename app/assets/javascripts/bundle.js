@@ -35672,7 +35672,7 @@
 	        { className: 'title' },
 	        React.createElement(
 	          'h1',
-	          { color: 'white', 'text-align': 'center' },
+	          { color: 'white', 'text-align': 'center', className: 'change' },
 	          React.createElement(
 	            'b',
 	            null,
@@ -36110,6 +36110,7 @@
 	var TicketsIndex = __webpack_require__(282);
 	var UserStore = __webpack_require__(256);
 	var ClientActions = __webpack_require__(244);
+	var ShowtimeStore = __webpack_require__(283);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36140,6 +36141,7 @@
 	    // }.bind(this));
 	
 	    // {attrs}
+	    debugger;
 	
 	    return React.createElement(
 	      'div',
@@ -36165,7 +36167,18 @@
 	            null,
 	            '$',
 	            this.props.ticket.price
-	          )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'p',
+	            null,
+	            React.createElement(
+	              'em',
+	              null,
+	              'for'
+	            )
+	          ),
+	          React.createElement('br', null)
 	        )
 	      )
 	    );
