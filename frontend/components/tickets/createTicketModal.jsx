@@ -12,7 +12,8 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return({
-      showtime_id: "",
+      event_id: undefined,
+      showtime_id: undefined,
       price: "",
       tier: "",
       description: "",
@@ -25,32 +26,38 @@ module.exports = React.createClass({
     console.log("EventId: " + this.state.event_id);
   },
 
-  dateChange: function(keyboardEvent){
-    var newDate = keyboardEvent.target.value;
-    this.setState({ date: newDate });
-    console.log("Date: " + this.state.date);
+  showtimeIdChange: function(keyboardEvent){
+    var newShowtimeId = keyboardEvent.target.value;
+    this.setState({ showtime_id: newShowtimeId });
+    console.log("ShowtimeId: " + this.state.showtime_id);
   },
 
-  timeChange: function(keyboardEvent){
-    var newTime = keyboardEvent.target.value;
-    this.setState({ time: newTime });
-    console.log("Time: " + this.state.time);
+  priceChange: function(keyboardEvent){
+    var newPrice = keyboardEvent.target.value;
+    this.setState({ price: newPrice });
+    console.log("Price: " + this.state.price);
   },
 
-  locationChange: function(keyboardEvent){
-    var newLocation = keyboardEvent.target.value;
-    this.setState({ location: newLocation });
-    console.log("Location: " + this.state.location);
+  tierChange: function(keyboardEvent){
+    var newTier = keyboardEvent.target.value;
+    this.setState({ tier: newTier });
+    console.log("Tier: " + this.state.tier);
+  },
+
+  descriptionChange: function(keyboardEvent){
+    var newDescription = keyboardEvent.target.value;
+      console.log(newDescription);
+    this.setState({ description: newDescription});
   },
 
   handleSubmit: function(keyboardEvent){
 
     keyboardEvent.preventDefault();
     var ticketData = {
-      event_id: this.state.event_id,
-      date: this.state.date,
-      time: this.state.time,
-      location: this.state.location,
+      showtime_id: this.state.showtime_id,
+      price: this.state.price,
+      tier: this.state.tier,
+      description: this.state.description,
     };
 
     ClientActions.createTicket(ticketData);
@@ -65,6 +72,29 @@ module.exports = React.createClass({
   // },
 
   render: function(){
+
+
+    var ShowtimeSelector;
+
+    if (this.state.eventId){
+      ShowtimeSelector = (
+        <div>
+          <br></br>
+
+            <label> Showtime:
+              <select value={this.state.showtimeId}
+              onChange={this.showtimeIdChange}>
+                {EventStore.find(this.state.eventId).showtimes.map(function (showtime) {
+                  return <option key={showtime.id} value={showtime.id}>{showtime.date} at {showtime.location}</option>;
+                  // return <EventIndexItem key={event.id} event={event} />;
+                })}
+              </select>
+            </label>
+
+          <br></br>
+        </div>
+      );
+    }
 
     // <input type="text"
     //         value={this.state.event_id}
@@ -81,6 +111,22 @@ module.exports = React.createClass({
 
         <h3>Create New Ticket</h3>
         <form onSubmit={this.handleSubmit} className="form-style-8">
+
+          <br></br>
+
+            <label> Event:
+              <select value={this.state.eventId}
+              onChange={this.eventIdChange}>
+                {UserStore.user().events.map(function (event) {
+                  return <option key={event.id} value={event.id}>{event.title}</option>;
+                  // return <EventIndexItem key={event.id} event={event} />;
+                })}
+              </select>
+            </label>
+
+            <br></br>
+
+          {ShowtimeSelector}
 
           <br></br>
 
@@ -107,10 +153,11 @@ module.exports = React.createClass({
             <br></br>
 
                 <label> Description:
-                  <input type="textarea"
-                          value={this.state.description}
-                          onChange={this.descriptionChange}
-                    />
+
+                  <textarea value={this.state.description}
+                  onChange={this.descriptionChange}
+                  rows="10" cols="50">Write something here</textarea>
+
                 </label>
 
 
