@@ -36,10 +36,10 @@ module.exports = React.createClass({
           debugger;
 
     return(
-      <div>
+      <div className="event-list-item">
         <div>
           <p>Hey!</p>
-          <li onClick={this.purchaseTicket} className="showtime-list-item">
+          <li onClick={this.purchaseTicket} className="event-list-item">
             <p>{this.props.ticket.tier}</p>
             <p>${this.props.ticket.price}</p>
             <br></br>

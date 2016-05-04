@@ -61,7 +61,7 @@ module.exports = React.createClass({
           of clicking the ticket is different --</p>
         <p>You don't want to buy it all over again!</p>
 
-        <ul className="dashboard">
+        <ul className="index-for-events">
           <h2>My Purchased Tickets:</h2>
           <br></br>
           {this.state.tickets.map(function (ticket) {

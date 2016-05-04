@@ -13,6 +13,25 @@ var hashHistory = require("react-router").hashHistory;
 var EditEventModal = require('./editEventModal');
 
 
+var CUSTOM_STYLE = {
+  content : {
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'align-items' : 'center',
+    'zIndex': '100000',
+    'margin': '100px auto  auto',
+    'border': '0px solid dodgerblue',
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'width' : '600px',
+    // 'height' : '350px',
+    'padding': '0px',
+    'box-shadow' : '0px 0px 15px grey'
+    // 'background': 'grey'
+    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+  }
+};
+
 module.exports = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired
@@ -134,7 +153,8 @@ module.exports = React.createClass({
 
             <Modal
                isOpen={this.state.eventDetailModalOpen}
-               onRequestClose={this.closeEventDetailModal}>
+               onRequestClose={this.closeEventDetailModal}
+               style={CUSTOM_STYLE}>
 
                <div   style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
 

@@ -35569,6 +35569,25 @@
 	var hashHistory = __webpack_require__(159).hashHistory;
 	var EditEventModal = __webpack_require__(289);
 	
+	var CUSTOM_STYLE = {
+	  content: {
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'align-items' : 'center',
+	    'zIndex': '100000',
+	    'margin': '100px auto  auto',
+	    'border': '0px solid dodgerblue',
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'width' : '600px',
+	    // 'height' : '350px',
+	    'padding': '0px',
+	    'box-shadow': '0px 0px 15px grey'
+	    // 'background': 'grey'
+	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	  }
+	};
+	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -35732,7 +35751,8 @@
 	        Modal,
 	        {
 	          isOpen: this.state.eventDetailModalOpen,
-	          onRequestClose: this.closeEventDetailModal },
+	          onRequestClose: this.closeEventDetailModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'div',
 	          { style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
@@ -35923,6 +35943,25 @@
 	var ShowtimeModal = __webpack_require__(281);
 	var EventsIndex = __webpack_require__(277);
 	
+	var CUSTOM_STYLE = {
+	  content: {
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'align-items' : 'center',
+	    'zIndex': '100000',
+	    'margin': '100px auto  auto',
+	    'border': '0px solid dodgerblue',
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'width' : '600px',
+	    // 'height' : '350px',
+	    'padding': '0px',
+	    'box-shadow': '0px 0px 15px grey'
+	    // 'background': 'grey'
+	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	  }
+	};
+	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -35999,7 +36038,8 @@
 	          Modal,
 	          {
 	            isOpen: this.state.showtimeModalOpen,
-	            onRequestClose: this.closeShowtimeAndEventModals },
+	            onRequestClose: this.closeShowtimeAndEventModals,
+	            style: CUSTOM_STYLE },
 	          React.createElement(
 	            'h2',
 	            null,
@@ -36164,7 +36204,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'event-list-item' },
 	      React.createElement(
 	        'div',
 	        null,
@@ -36175,7 +36215,7 @@
 	        ),
 	        React.createElement(
 	          'li',
-	          { onClick: this.purchaseTicket, className: 'showtime-list-item' },
+	          { onClick: this.purchaseTicket, className: 'event-list-item' },
 	          React.createElement(
 	            'p',
 	            null,
@@ -39672,7 +39712,7 @@
 	      ),
 	      React.createElement(
 	        'ul',
-	        { className: 'dashboard' },
+	        { className: 'index-for-events' },
 	        React.createElement(
 	          'h2',
 	          null,

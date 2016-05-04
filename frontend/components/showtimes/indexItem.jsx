@@ -3,6 +3,25 @@ var Modal = require("react-modal");
 var ShowtimeModal = require('./showtimeModal');
 var EventsIndex = require('../events/indexItem.jsx');
 
+var CUSTOM_STYLE = {
+  content : {
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'align-items' : 'center',
+    'zIndex': '100000',
+    'margin': '100px auto  auto',
+    'border': '0px solid dodgerblue',
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'width' : '600px',
+    // 'height' : '350px',
+    'padding': '0px',
+    'box-shadow' : '0px 0px 15px grey'
+    // 'background': 'grey'
+    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+  }
+};
+
 module.exports = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired
@@ -58,7 +77,8 @@ module.exports = React.createClass({
         <div>
           <Modal
              isOpen={this.state.showtimeModalOpen}
-             onRequestClose={this.closeShowtimeAndEventModals}>
+             onRequestClose={this.closeShowtimeAndEventModals}
+             style={CUSTOM_STYLE}>
 
                <h2>Im supposed to be a modal!</h2>
 
