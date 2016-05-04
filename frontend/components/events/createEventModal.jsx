@@ -32,6 +32,7 @@ module.exports = React.createClass({
 
   descriptionChange: function(keyboardEvent){
     var newDescription = keyboardEvent.target.value;
+      console.log(newDescription);
     this.setState({ description: newDescription});
   },
 
@@ -85,7 +86,7 @@ module.exports = React.createClass({
     return(
       <div className="create-event-background">
         <h3>Create New Event</h3>
-        <form onSubmit={this.handleSubmit} className="form-style-8">
+        <form id="create-event" onSubmit={this.handleSubmit} className="form-style-8">
 
           <br></br>
 
@@ -110,11 +111,12 @@ module.exports = React.createClass({
           <br></br>
 
           <label> Description:
-            <input type="textarea"
-                    value={this.state.description}
-                    onChange={this.descriptionChange}
-                    placeholder="Description"
-              />
+
+            <textarea value={this.state.description}
+            onChange={this.descriptionChange}
+            placeholder="Description" rows="10" cols="50">Write something here</textarea>
+
+
           </label>
 
           <br></br>
@@ -155,7 +157,9 @@ module.exports = React.createClass({
 
         <br></br>
 
+
         </form>
+
         <br></br>
         <p>To Do: <b>Add Deadlines</b></p>
       </div>

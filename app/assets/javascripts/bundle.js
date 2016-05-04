@@ -36991,6 +36991,7 @@
 	
 	  descriptionChange: function (keyboardEvent) {
 	    var newDescription = keyboardEvent.target.value;
+	    console.log(newDescription);
 	    this.setState({ description: newDescription });
 	  },
 	
@@ -37051,7 +37052,7 @@
 	      ),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
+	        { id: 'create-event', onSubmit: this.handleSubmit, className: 'form-style-8' },
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
@@ -37079,11 +37080,13 @@
 	          'label',
 	          null,
 	          ' Description:',
-	          React.createElement('input', { type: 'textarea',
-	            value: this.state.description,
-	            onChange: this.descriptionChange,
-	            placeholder: 'Description'
-	          })
+	          React.createElement(
+	            'textarea',
+	            { value: this.state.description,
+	              onChange: this.descriptionChange,
+	              placeholder: 'Description', rows: '10', cols: '50' },
+	            'Write something here'
+	          )
 	        ),
 	        React.createElement('br', null),
 	        React.createElement(

@@ -15,7 +15,10 @@
  */
 
  .sign-in-background {
-   background-color: dodgerblue;
+   /*background-color: dodgerblue;*/
+   /*background-image: url(https://www.omnihotels.com/-/media/images/hotels/sfodtn/destinations/sfodtn-omni-san-francisco-hotel-golden-gate-bridge.jpg?h=660&la=en&w=1170);*/
+   background-image: url(https://www.fest300.com/system/images/W1siZiIsIjIwMTQvMDQvMTgvMDUvMTcvMjkvNTg1L0hFUk9fSUJJWkFfQ0xPU0lOR19QQVJUSUVTX1ByaXZpbGVnZS5qcGciXSxbInAiLCJ0aHVtYiIsIjE2MDB4OTAwIyJdXQ/HERO_IBIZA_CLOSING_PARTIES_Privilege.jpg);
+   background-size: cover;
    height: 100vh;
    display: flex;
  }
@@ -88,7 +91,6 @@
  .form-style-8 input[type="time"],
  .form-style-8 input[type="url"],
  .form-style-8 input[type="password"],
- .form-style-8 textarea,
  .form-style-8 select
  {
      box-sizing: border-box;
@@ -106,6 +108,18 @@
      height: 45px;
  }
  .form-style-8 textarea{
+     box-sizing: border-box;
+     -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     outline: none;
+     display: block;
+     width: 100%;
+     padding: 7px;
+     border: none;
+     border-bottom: 1px solid dodgerblue;
+     background: azure;
+     margin-bottom: 10px;
+     font: 16px Arial, Helvetica, sans-serif;
      resize:none;
      overflow: hidden;
  }
