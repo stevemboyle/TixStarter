@@ -115,6 +115,7 @@ var ApiUtil = {
       method: "POST",
       data: {showtime: showtime},
       success: function (showtime) {
+        hashHistory.push('/event/' + showtime.event_id);
         ServerActions.receiveSingleShowtime(showtime);
         callback && callback(showtime.id);
       }
@@ -147,6 +148,7 @@ var ApiUtil = {
       method: "POST",
       data: {ticket: ticket},
       success: function (ticket) {
+        debugger;
         ServerActions.receiveSingleTicket(ticket);
         callback && callback(ticket.id);
       }

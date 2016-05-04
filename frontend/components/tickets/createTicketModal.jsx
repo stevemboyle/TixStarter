@@ -76,11 +76,11 @@ module.exports = React.createClass({
     //   });
 
     return(
-      <div>
+      <div className="create-event-background">
 
 
         <h3>Create New Ticket</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form-style-8">
 
           <br></br>
 

@@ -76,11 +76,11 @@ module.exports = React.createClass({
     //   });
 
     return(
-      <div>
+      <div className="create-event-background">
 
 
         <h3>Create New Showtime</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="form-style-8">
 
           <br></br>
 
@@ -129,7 +129,7 @@ module.exports = React.createClass({
 
         </form>
         <br></br>
-        <p>To Do: <b>Change Date/Time, Add Dropdown for MyShows</b></p>
+      
       </div>
     );
   }

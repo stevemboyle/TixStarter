@@ -22,6 +22,8 @@ var TicketPurchase = require('./components/ticket_purchases/success.jsx');
 var UserDashboardEventsIndex = require('./components/events/userDashboardEventsIndex');
 var UserTicketsIndex = require('./components/tickets/userTicketsIndex');
 var CreateEvent = require('./components/events/createEventModal');
+var CreateShowtime = require('./components/showtimes/createShowtimeModal');
+var CreateTicket = require('./components/tickets/createTicketModal');
 // var ApiUtil = require('./util/apiUtil');
 // var UserApiUtil = require('./util/userApiUtil');
 
@@ -49,6 +51,8 @@ var routes = (
     <Route path="dashboard" component={UserDashboardEventsIndex}/>
     <Route path="mytickets" component={UserTicketsIndex}/>
     <Route path="create-event" component={CreateEvent}/>
+    <Route path="create-showtime" component={CreateShowtime}/>
+    <Route path="create-ticket" component={CreateTicket}/>
   </Route>
 );
 

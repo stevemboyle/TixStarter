@@ -68,6 +68,8 @@
 	var UserDashboardEventsIndex = __webpack_require__(304);
 	var UserTicketsIndex = __webpack_require__(305);
 	var CreateEvent = __webpack_require__(290);
+	var CreateShowtime = __webpack_require__(291);
+	var CreateTicket = __webpack_require__(301);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -94,7 +96,9 @@
 	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase }),
 	  React.createElement(Route, { path: 'dashboard', component: UserDashboardEventsIndex }),
 	  React.createElement(Route, { path: 'mytickets', component: UserTicketsIndex }),
-	  React.createElement(Route, { path: 'create-event', component: CreateEvent })
+	  React.createElement(Route, { path: 'create-event', component: CreateEvent }),
+	  React.createElement(Route, { path: 'create-showtime', component: CreateShowtime }),
+	  React.createElement(Route, { path: 'create-ticket', component: CreateTicket })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -34097,6 +34101,14 @@
 	    hashHistory.push("/create-event");
 	  },
 	
+	  goToCreateShowtime: function () {
+	    hashHistory.push("/create-showtime");
+	  },
+	
+	  goToCreateTicket: function () {
+	    hashHistory.push("/create-ticket");
+	  },
+	
 	  // notLoggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -34185,12 +34197,12 @@
 	          ),
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.openCreateShowtimeModal },
+	            { className: 'header-li', onClick: this.goToCreateShowtime },
 	            'Create Showtime'
 	          ),
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.openCreateTicketModal },
+	            { className: 'header-li', onClick: this.goToCreateTicket },
 	            'Create Ticket'
 	          ),
 	          React.createElement(
@@ -35046,6 +35058,7 @@
 	      method: "POST",
 	      data: { showtime: showtime },
 	      success: function (showtime) {
+	        hashHistory.push('/event/' + showtime.event_id);
 	        ServerActions.receiveSingleShowtime(showtime);
 	        callback && callback(showtime.id);
 	      }
@@ -35078,6 +35091,7 @@
 	      method: "POST",
 	      data: { ticket: ticket },
 	      success: function (ticket) {
+	        debugger;
 	        ServerActions.receiveSingleTicket(ticket);
 	        callback && callback(ticket.id);
 	      }
@@ -37255,7 +37269,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'create-event-background' },
 	      React.createElement(
 	        'h3',
 	        null,
@@ -37263,7 +37277,7 @@
 	      ),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit },
+	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
@@ -37317,17 +37331,7 @@
 	        React.createElement('input', { type: 'submit', value: 'Create Showtime' }),
 	        React.createElement('br', null)
 	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'To Do: ',
-	        React.createElement(
-	          'b',
-	          null,
-	          'Change Date/Time, Add Dropdown for MyShows'
-	        )
-	      )
+	      React.createElement('br', null)
 	    );
 	  }
 	
@@ -39195,7 +39199,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'create-event-background' },
 	      React.createElement(
 	        'h3',
 	        null,
@@ -39203,7 +39207,7 @@
 	      ),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit },
+	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
 	        React.createElement('br', null),
 	        React.createElement(
 	          'label',
