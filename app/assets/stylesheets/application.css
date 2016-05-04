@@ -198,7 +198,7 @@
   }
 
   .event-splash-text {
-    padding: 75px;
+    padding: 35px;
   }
 
   #home-splash {
@@ -314,7 +314,7 @@
   #event-page-splash {
     color: white;
     text-align: center;
-    height: 75vh;
+    /*height: 75vh;*/
     background-image: url(https://res.cloudinary.com/nyphil/images/concerts-tickets/calendar/1617/memorial-day-concert-05252015-w.jpg);
     background-size: cover;
   }
