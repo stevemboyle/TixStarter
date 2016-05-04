@@ -35512,13 +35512,13 @@
 	      break;
 	    case EventConstants.EVENT_RECEIVED:
 	      resetEvent(payload.event);
-	      _eventSuccess = true;
-	      EventStore.setNewEventId(payload.event.id);
+	      // _eventSuccess = true;
+	      // EventStore.setNewEventId(payload.event.id);
 	      // debugger;
 	      EventStore.__emitChange();
-	      setTimeout(function () {
-	        _eventSuccess = false;
-	      }, 2000);
+	      // setTimeout(function(){
+	      //   _eventSuccess = false;
+	      // }, 2000);
 	      break;
 	    case EventConstants.EVENT_REMOVED:
 	      console.log("event store case EVENT_REMOVED");
@@ -36090,6 +36090,7 @@
 	
 	
 	  render: function () {
+	    debugger;
 	    return React.createElement(
 	      'ul',
 	      null,
