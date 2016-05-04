@@ -45,7 +45,7 @@ var ApiUtil = {
       data: {event: data},
       success: function (event) {
         // debugger;
-        // hashHistory.push('/event/' + event.id);
+        hashHistory.push('/event/' + event.id);
         ServerActions.receiveSingleEvent(event);
         // app.closeCreateEventModal();
         // callback && callback(event.id);

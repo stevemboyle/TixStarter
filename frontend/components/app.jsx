@@ -179,6 +179,10 @@ module.exports = React.createClass({
       hashHistory.push("/mytickets");
     },
 
+    goToCreateEvent: function(){
+      hashHistory.push("/create-event");
+    },
+
     // notLoggedInMenu: function(){
     //   return(
     //     <div id="othermenu">
@@ -227,7 +231,7 @@ module.exports = React.createClass({
         <br></br>
         <div id="menubuttons">
           <ul className="header-ul">
-            <li className="header-li" onClick={this.openCreateEventModal}>Create Event</li>
+            <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
             <li className="header-li" onClick={this.openCreateShowtimeModal}>Create Showtime</li>
             <li className="header-li" onClick={this.openCreateTicketModal}>Create Ticket</li>
             <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>

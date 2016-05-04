@@ -52,21 +52,22 @@
 	var IndexRoute = __webpack_require__(159).IndexRoute;
 	var HashHistory = __webpack_require__(159).hashHistory;
 	
-	var TicketPurchaseStore = __webpack_require__(310);
+	var TicketPurchaseStore = __webpack_require__(218);
 	
-	var Modal = __webpack_require__(218);
+	var Modal = __webpack_require__(241);
 	
-	var App = __webpack_require__(238);
-	var Home = __webpack_require__(302);
+	var App = __webpack_require__(261);
+	var Home = __webpack_require__(307);
 	
-	var EventSplash = __webpack_require__(303);
-	var ClientActions = __webpack_require__(244);
-	var EventDetail = __webpack_require__(277);
-	var ShowtimeDetail = __webpack_require__(304);
-	var Success = __webpack_require__(309);
+	var EventSplash = __webpack_require__(308);
+	var ClientActions = __webpack_require__(267);
+	var EventDetail = __webpack_require__(278);
+	var ShowtimeDetail = __webpack_require__(309);
+	var Success = __webpack_require__(310);
 	var TicketPurchase = __webpack_require__(311);
-	var UserDashboardEventsIndex = __webpack_require__(301);
-	var UserTicketsIndex = __webpack_require__(306);
+	var UserDashboardEventsIndex = __webpack_require__(304);
+	var UserTicketsIndex = __webpack_require__(305);
+	var CreateEvent = __webpack_require__(290);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -77,7 +78,7 @@
 	// var LoginForm = require('./components/LoginForm');
 	// Mixins
 	
-	var CurrentUserState = __webpack_require__(285);
+	var CurrentUserState = __webpack_require__(287);
 	
 	var routes = React.createElement(
 	  Route,
@@ -92,7 +93,8 @@
 	  React.createElement(Route, { path: 'success', component: Success }),
 	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase }),
 	  React.createElement(Route, { path: 'dashboard', component: UserDashboardEventsIndex }),
-	  React.createElement(Route, { path: 'mytickets', component: UserTicketsIndex })
+	  React.createElement(Route, { path: 'mytickets', component: UserTicketsIndex }),
+	  React.createElement(Route, { path: 'create-event', component: CreateEvent })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -25124,3848 +25126,92 @@
 /* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(219);
+	var Store = __webpack_require__(219).Store;
+	var AppDispatcher = __webpack_require__(237);
+	var TicketPurchaseConstants = __webpack_require__(240);
+	var hashHistory = __webpack_require__(159).hashHistory;
 	
-
+	var TicketPurchaseStore = new Store(AppDispatcher);
+	
+	var _ticketPurchases = {};
+	
+	var resetTicketPurchases = function (ticketPurchases) {
+	  console.log('resetTicketPurchases');
+	  console.log(["ticketPurchases", ticketPurchases]);
+	  _ticketPurchases = {};
+	  ticketPurchases.forEach(function (ticketPurchase) {
+	    _ticketPurchases[ticketPurchase.id] = ticketPurchase;
+	  });
+	  console.log(["_ticketPurchases", _ticketPurchases]);
+	};
+	
+	var resetTicketPurchase = function (ticketPurchase) {
+	  _ticketPurchases[ticketPurchase.id] = ticketPurchase;
+	  hashHistory.push('/ticket_purchases/' + ticketPurchase.id);
+	};
+	
+	var removeTicketPurchase = function (ticketPurchase) {
+	  console.log("ticketPurchasestore removeTicketPurchase");
+	  delete _ticketPurchases[ticketPurchase.id];
+	};
+	
+	TicketPurchaseStore.all = function () {
+	  var ticketPurchases = [];
+	  for (var id in _ticketPurchases) {
+	    ticketPurchases.push(_ticketPurchases[id]);
+	  }
+	  return ticketPurchases;
+	};
+	
+	TicketPurchaseStore.find = function (id) {
+	  return _ticketPurchases[id];
+	};
+	
+	TicketPurchaseStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
+	      resetTicketPurchases(payload.ticketPurchases);
+	      TicketPurchaseStore.__emitChange();
+	      break;
+	    case TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED:
+	      console.log("ticket purchase received");
+	      resetTicketPurchase(payload.ticketPurchase);
+	      TicketPurchaseStore.__emitChange();
+	      break;
+	    case TicketPurchaseConstants.TICKET_PURCHASE_REMOVED:
+	      console.log("ticketPurchase store case EVENT_REMOVED");
+	      removeTicketPurchase(payload.ticketPurchase);
+	      break;
+	  }
+	};
+	
+	// TODO: Remove when done
+	window.TicketPurchaseStore = TicketPurchaseStore;
+	
+	module.exports = TicketPurchaseStore;
 
 /***/ },
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(158);
-	var ExecutionEnvironment = __webpack_require__(220);
-	var ModalPortal = React.createFactory(__webpack_require__(221));
-	var ariaAppHider = __webpack_require__(236);
-	var elementClass = __webpack_require__(237);
-	var renderSubtreeIntoContainer = __webpack_require__(158).unstable_renderSubtreeIntoContainer;
-	var Assign = __webpack_require__(225);
+	/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
 	
-	var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
-	var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
-	
-	var Modal = React.createClass({
-	
-	  displayName: 'Modal',
-	  statics: {
-	    setAppElement: function(element) {
-	        AppElement = ariaAppHider.setElement(element);
-	    },
-	    injectCSS: function() {
-	      "production" !== process.env.NODE_ENV
-	        && console.warn('React-Modal: injectCSS has been deprecated ' +
-	                        'and no longer has any effect. It will be removed in a later version');
-	    }
-	  },
-	
-	  propTypes: {
-	    isOpen: React.PropTypes.bool.isRequired,
-	    style: React.PropTypes.shape({
-	      content: React.PropTypes.object,
-	      overlay: React.PropTypes.object
-	    }),
-	    appElement: React.PropTypes.instanceOf(SafeHTMLElement),
-	    onAfterOpen: React.PropTypes.func,
-	    onRequestClose: React.PropTypes.func,
-	    closeTimeoutMS: React.PropTypes.number,
-	    ariaHideApp: React.PropTypes.bool,
-	    shouldCloseOnOverlayClick: React.PropTypes.bool
-	  },
-	
-	  getDefaultProps: function () {
-	    return {
-	      isOpen: false,
-	      ariaHideApp: true,
-	      closeTimeoutMS: 0,
-	      shouldCloseOnOverlayClick: true
-	    };
-	  },
-	
-	  componentDidMount: function() {
-	    this.node = document.createElement('div');
-	    this.node.className = 'ReactModalPortal';
-	    AppElement.appendChild(this.node);
-	    this.renderPortal(this.props);
-	  },
-	
-	  componentWillReceiveProps: function(newProps) {
-	    this.renderPortal(newProps);
-	  },
-	
-	  componentWillUnmount: function() {
-	    ReactDOM.unmountComponentAtNode(this.node);
-	    AppElement.removeChild(this.node);
-	    elementClass(document.body).remove('ReactModal__Body--open');
-	  },
-	
-	  renderPortal: function(props) {
-	    if (props.isOpen) {
-	      elementClass(document.body).add('ReactModal__Body--open');
-	    } else {
-	      elementClass(document.body).remove('ReactModal__Body--open');
-	    }
-	
-	    if (props.ariaHideApp) {
-	      ariaAppHider.toggle(props.isOpen, props.appElement);
-	    }
-	
-	    this.portal = renderSubtreeIntoContainer(this, ModalPortal(Assign({}, props, {defaultStyles: Modal.defaultStyles})), this.node);
-	  },
-	
-	  render: function () {
-	    return React.DOM.noscript();
-	  }
-	});
-	
-	Modal.defaultStyles = {
-	  overlay: {
-	    position        : 'fixed',
-	    top             : 0,
-	    left            : 0,
-	    right           : 0,
-	    bottom          : 0,
-	    backgroundColor : 'rgba(255, 255, 255, 0.75)'
-	  },
-	  content: {
-	    position                : 'absolute',
-	    top                     : '40px',
-	    left                    : '40px',
-	    right                   : '40px',
-	    bottom                  : '40px',
-	    border                  : '1px solid #ccc',
-	    background              : '#fff',
-	    overflow                : 'auto',
-	    WebkitOverflowScrolling : 'touch',
-	    borderRadius            : '4px',
-	    outline                 : 'none',
-	    padding                 : '20px'
-	  }
-	}
-	
-	module.exports = Modal
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+	module.exports.Container = __webpack_require__(220);
+	module.exports.MapStore = __webpack_require__(224);
+	module.exports.Mixin = __webpack_require__(236);
+	module.exports.ReduceStore = __webpack_require__(225);
+	module.exports.Store = __webpack_require__(226);
+
 
 /***/ },
 /* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
-	  Based on code that is Copyright 2013-2015, Facebook, Inc.
-	  All rights reserved.
-	*/
-	
-	(function () {
-		'use strict';
-	
-		var canUseDOM = !!(
-			typeof window !== 'undefined' &&
-			window.document &&
-			window.document.createElement
-		);
-	
-		var ExecutionEnvironment = {
-	
-			canUseDOM: canUseDOM,
-	
-			canUseWorkers: typeof Worker !== 'undefined',
-	
-			canUseEventListeners:
-				canUseDOM && !!(window.addEventListener || window.attachEvent),
-	
-			canUseViewport: canUseDOM && !!window.screen
-	
-		};
-	
-		if (true) {
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return ExecutionEnvironment;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof module !== 'undefined' && module.exports) {
-			module.exports = ExecutionEnvironment;
-		} else {
-			window.ExecutionEnvironment = ExecutionEnvironment;
-		}
-	
-	}());
-
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var div = React.DOM.div;
-	var focusManager = __webpack_require__(222);
-	var scopeTab = __webpack_require__(224);
-	var Assign = __webpack_require__(225);
-	
-	// so that our CSS is statically analyzable
-	var CLASS_NAMES = {
-	  overlay: {
-	    base: 'ReactModal__Overlay',
-	    afterOpen: 'ReactModal__Overlay--after-open',
-	    beforeClose: 'ReactModal__Overlay--before-close'
-	  },
-	  content: {
-	    base: 'ReactModal__Content',
-	    afterOpen: 'ReactModal__Content--after-open',
-	    beforeClose: 'ReactModal__Content--before-close'
-	  }
-	};
-	
-	var ModalPortal = module.exports = React.createClass({
-	
-	  displayName: 'ModalPortal',
-	
-	  getDefaultProps: function() {
-	    return {
-	      style: {
-	        overlay: {},
-	        content: {}
-	      }
-	    };
-	  },
-	
-	  getInitialState: function() {
-	    return {
-	      afterOpen: false,
-	      beforeClose: false
-	    };
-	  },
-	
-	  componentDidMount: function() {
-	    // Focus needs to be set when mounting and already open
-	    if (this.props.isOpen) {
-	      this.setFocusAfterRender(true);
-	      this.open();
-	    }
-	  },
-	
-	  componentWillUnmount: function() {
-	    clearTimeout(this.closeTimer);
-	  },
-	
-	  componentWillReceiveProps: function(newProps) {
-	    // Focus only needs to be set once when the modal is being opened
-	    if (!this.props.isOpen && newProps.isOpen) {
-	      this.setFocusAfterRender(true);
-	      this.open();
-	    } else if (this.props.isOpen && !newProps.isOpen) {
-	      this.close();
-	    }
-	  },
-	
-	  componentDidUpdate: function () {
-	    if (this.focusAfterRender) {
-	      this.focusContent();
-	      this.setFocusAfterRender(false);
-	    }
-	  },
-	
-	  setFocusAfterRender: function (focus) {
-	    this.focusAfterRender = focus;
-	  },
-	
-	  open: function() {
-	    focusManager.setupScopedFocus(this.node);
-	    focusManager.markForFocusLater();
-	    this.setState({isOpen: true}, function() {
-	      this.setState({afterOpen: true});
-	
-	      if (this.props.isOpen && this.props.onAfterOpen) {
-	        this.props.onAfterOpen();
-	      }
-	    }.bind(this));
-	  },
-	
-	  close: function() {
-	    if (!this.ownerHandlesClose())
-	      return;
-	    if (this.props.closeTimeoutMS > 0)
-	      this.closeWithTimeout();
-	    else
-	      this.closeWithoutTimeout();
-	  },
-	
-	  focusContent: function() {
-	    this.refs.content.focus();
-	  },
-	
-	  closeWithTimeout: function() {
-	    this.setState({beforeClose: true}, function() {
-	      this.closeTimer = setTimeout(this.closeWithoutTimeout, this.props.closeTimeoutMS);
-	    }.bind(this));
-	  },
-	
-	  closeWithoutTimeout: function() {
-	    this.setState({
-	      afterOpen: false,
-	      beforeClose: false
-	    }, this.afterClose);
-	  },
-	
-	  afterClose: function() {
-	    focusManager.returnFocus();
-	    focusManager.teardownScopedFocus();
-	  },
-	
-	  handleKeyDown: function(event) {
-	    if (event.keyCode == 9 /*tab*/) scopeTab(this.refs.content, event);
-	    if (event.keyCode == 27 /*esc*/) {
-	      event.preventDefault();
-	      this.requestClose(event);
-	    }
-	  },
-	
-	  handleOverlayClick: function(event) {
-	    var node = event.target
-	
-	    while (node) {
-	      if (node === this.refs.content) return
-	      node = node.parentNode
-	    }
-	
-	    if (this.props.shouldCloseOnOverlayClick) {
-	      if (this.ownerHandlesClose())
-	        this.requestClose(event);
-	      else
-	        this.focusContent();
-	    }
-	  },
-	
-	  requestClose: function(event) {
-	    if (this.ownerHandlesClose())
-	      this.props.onRequestClose(event);
-	  },
-	
-	  ownerHandlesClose: function() {
-	    return this.props.onRequestClose;
-	  },
-	
-	  shouldBeClosed: function() {
-	    return !this.props.isOpen && !this.state.beforeClose;
-	  },
-	
-	  buildClassName: function(which, additional) {
-	    var className = CLASS_NAMES[which].base;
-	    if (this.state.afterOpen)
-	      className += ' '+CLASS_NAMES[which].afterOpen;
-	    if (this.state.beforeClose)
-	      className += ' '+CLASS_NAMES[which].beforeClose;
-	    return additional ? className + ' ' + additional : className;
-	  },
-	
-	  render: function() {
-	    var contentStyles = (this.props.className) ? {} : this.props.defaultStyles.content;
-	    var overlayStyles = (this.props.overlayClassName) ? {} : this.props.defaultStyles.overlay;
-	
-	    return this.shouldBeClosed() ? div() : (
-	      div({
-	        ref: "overlay",
-	        className: this.buildClassName('overlay', this.props.overlayClassName),
-	        style: Assign({}, overlayStyles, this.props.style.overlay || {}),
-	        onClick: this.handleOverlayClick
-	      },
-	        div({
-	          ref: "content",
-	          style: Assign({}, contentStyles, this.props.style.content || {}),
-	          className: this.buildClassName('content', this.props.className),
-	          tabIndex: "-1",
-	          onKeyDown: this.handleKeyDown
-	        },
-	          this.props.children
-	        )
-	      )
-	    );
-	  }
-	});
-
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var findTabbable = __webpack_require__(223);
-	var modalElement = null;
-	var focusLaterElement = null;
-	var needToFocus = false;
-	
-	function handleBlur(event) {
-	  needToFocus = true;
-	}
-	
-	function handleFocus(event) {
-	  if (needToFocus) {
-	    needToFocus = false;
-	    if (!modalElement) {
-	      return;
-	    }
-	    // need to see how jQuery shims document.on('focusin') so we don't need the
-	    // setTimeout, firefox doesn't support focusin, if it did, we could focus
-	    // the element outside of a setTimeout. Side-effect of this implementation 
-	    // is that the document.body gets focus, and then we focus our element right 
-	    // after, seems fine.
-	    setTimeout(function() {
-	      if (modalElement.contains(document.activeElement))
-	        return;
-	      var el = (findTabbable(modalElement)[0] || modalElement);
-	      el.focus();
-	    }, 0);
-	  }
-	}
-	
-	exports.markForFocusLater = function() {
-	  focusLaterElement = document.activeElement;
-	};
-	
-	exports.returnFocus = function() {
-	  try {
-	    focusLaterElement.focus();
-	  }
-	  catch (e) {
-	    console.warn('You tried to return focus to '+focusLaterElement+' but it is not in the DOM anymore');
-	  }
-	  focusLaterElement = null;
-	};
-	
-	exports.setupScopedFocus = function(element) {
-	  modalElement = element;
-	
-	  if (window.addEventListener) {
-	    window.addEventListener('blur', handleBlur, false);
-	    document.addEventListener('focus', handleFocus, true);
-	  } else {
-	    window.attachEvent('onBlur', handleBlur);
-	    document.attachEvent('onFocus', handleFocus);
-	  }
-	};
-	
-	exports.teardownScopedFocus = function() {
-	  modalElement = null;
-	
-	  if (window.addEventListener) {
-	    window.removeEventListener('blur', handleBlur);
-	    document.removeEventListener('focus', handleFocus);
-	  } else {
-	    window.detachEvent('onBlur', handleBlur);
-	    document.detachEvent('onFocus', handleFocus);
-	  }
-	};
-	
-	
-
-
-/***/ },
-/* 223 */
-/***/ function(module, exports) {
-
-	/*!
-	 * Adapted from jQuery UI core
-	 *
-	 * http://jqueryui.com
-	 *
-	 * Copyright 2014 jQuery Foundation and other contributors
-	 * Released under the MIT license.
-	 * http://jquery.org/license
-	 *
-	 * http://api.jqueryui.com/category/ui-core/
-	 */
-	
-	function focusable(element, isTabIndexNotNaN) {
-	  var nodeName = element.nodeName.toLowerCase();
-	  return (/input|select|textarea|button|object/.test(nodeName) ?
-	    !element.disabled :
-	    "a" === nodeName ?
-	      element.href || isTabIndexNotNaN :
-	      isTabIndexNotNaN) && visible(element);
-	}
-	
-	function hidden(el) {
-	  return (el.offsetWidth <= 0 && el.offsetHeight <= 0) ||
-	    el.style.display === 'none';
-	}
-	
-	function visible(element) {
-	  while (element) {
-	    if (element === document.body) break;
-	    if (hidden(element)) return false;
-	    element = element.parentNode;
-	  }
-	  return true;
-	}
-	
-	function tabbable(element) {
-	  var tabIndex = element.getAttribute('tabindex');
-	  if (tabIndex === null) tabIndex = undefined;
-	  var isTabIndexNaN = isNaN(tabIndex);
-	  return (isTabIndexNaN || tabIndex >= 0) && focusable(element, !isTabIndexNaN);
-	}
-	
-	function findTabbableDescendants(element) {
-	  return [].slice.call(element.querySelectorAll('*'), 0).filter(function(el) {
-	    return tabbable(el);
-	  });
-	}
-	
-	module.exports = findTabbableDescendants;
-	
-
-
-/***/ },
-/* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var findTabbable = __webpack_require__(223);
-	
-	module.exports = function(node, event) {
-	  var tabbable = findTabbable(node);
-	  if (!tabbable.length) {
-	      event.preventDefault();
-	      return;
-	  }
-	  var finalTabbable = tabbable[event.shiftKey ? 0 : tabbable.length - 1];
-	  var leavingFinalTabbable = (
-	    finalTabbable === document.activeElement ||
-	    // handle immediate shift+tab after opening with mouse
-	    node === document.activeElement
-	  );
-	  if (!leavingFinalTabbable) return;
-	  event.preventDefault();
-	  var target = tabbable[event.shiftKey ? tabbable.length - 1 : 0];
-	  target.focus();
-	};
-
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var baseAssign = __webpack_require__(226),
-	    createAssigner = __webpack_require__(232),
-	    keys = __webpack_require__(228);
-	
-	/**
-	 * A specialized version of `_.assign` for customizing assigned values without
-	 * support for argument juggling, multiple sources, and `this` binding `customizer`
-	 * functions.
-	 *
-	 * @private
-	 * @param {Object} object The destination object.
-	 * @param {Object} source The source object.
-	 * @param {Function} customizer The function to customize assigned values.
-	 * @returns {Object} Returns `object`.
-	 */
-	function assignWith(object, source, customizer) {
-	  var index = -1,
-	      props = keys(source),
-	      length = props.length;
-	
-	  while (++index < length) {
-	    var key = props[index],
-	        value = object[key],
-	        result = customizer(value, source[key], key, object, source);
-	
-	    if ((result === result ? (result !== value) : (value === value)) ||
-	        (value === undefined && !(key in object))) {
-	      object[key] = result;
-	    }
-	  }
-	  return object;
-	}
-	
-	/**
-	 * Assigns own enumerable properties of source object(s) to the destination
-	 * object. Subsequent sources overwrite property assignments of previous sources.
-	 * If `customizer` is provided it is invoked to produce the assigned values.
-	 * The `customizer` is bound to `thisArg` and invoked with five arguments:
-	 * (objectValue, sourceValue, key, object, source).
-	 *
-	 * **Note:** This method mutates `object` and is based on
-	 * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @alias extend
-	 * @category Object
-	 * @param {Object} object The destination object.
-	 * @param {...Object} [sources] The source objects.
-	 * @param {Function} [customizer] The function to customize assigned values.
-	 * @param {*} [thisArg] The `this` binding of `customizer`.
-	 * @returns {Object} Returns `object`.
-	 * @example
-	 *
-	 * _.assign({ 'user': 'barney' }, { 'age': 40 }, { 'user': 'fred' });
-	 * // => { 'user': 'fred', 'age': 40 }
-	 *
-	 * // using a customizer callback
-	 * var defaults = _.partialRight(_.assign, function(value, other) {
-	 *   return _.isUndefined(value) ? other : value;
-	 * });
-	 *
-	 * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
-	 * // => { 'user': 'barney', 'age': 36 }
-	 */
-	var assign = createAssigner(function(object, source, customizer) {
-	  return customizer
-	    ? assignWith(object, source, customizer)
-	    : baseAssign(object, source);
-	});
-	
-	module.exports = assign;
-
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var baseCopy = __webpack_require__(227),
-	    keys = __webpack_require__(228);
-	
-	/**
-	 * The base implementation of `_.assign` without support for argument juggling,
-	 * multiple sources, and `customizer` functions.
-	 *
-	 * @private
-	 * @param {Object} object The destination object.
-	 * @param {Object} source The source object.
-	 * @returns {Object} Returns `object`.
-	 */
-	function baseAssign(object, source) {
-	  return source == null
-	    ? object
-	    : baseCopy(source, keys(source), object);
-	}
-	
-	module.exports = baseAssign;
-
-
-/***/ },
-/* 227 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/**
-	 * Copies properties of `source` to `object`.
-	 *
-	 * @private
-	 * @param {Object} source The object to copy properties from.
-	 * @param {Array} props The property names to copy.
-	 * @param {Object} [object={}] The object to copy properties to.
-	 * @returns {Object} Returns `object`.
-	 */
-	function baseCopy(source, props, object) {
-	  object || (object = {});
-	
-	  var index = -1,
-	      length = props.length;
-	
-	  while (++index < length) {
-	    var key = props[index];
-	    object[key] = source[key];
-	  }
-	  return object;
-	}
-	
-	module.exports = baseCopy;
-
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.1.2 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var getNative = __webpack_require__(229),
-	    isArguments = __webpack_require__(230),
-	    isArray = __webpack_require__(231);
-	
-	/** Used to detect unsigned integer values. */
-	var reIsUint = /^\d+$/;
-	
-	/** Used for native method references. */
-	var objectProto = Object.prototype;
-	
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-	
-	/* Native method references for those with the same name as other `lodash` methods. */
-	var nativeKeys = getNative(Object, 'keys');
-	
-	/**
-	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
-	 * of an array-like value.
-	 */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-	
-	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-	
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-	
-	/**
-	 * Checks if `value` is array-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value));
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-	function isIndex(value, length) {
-	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
-	  length = length == null ? MAX_SAFE_INTEGER : length;
-	  return value > -1 && value % 1 == 0 && value < length;
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-	
-	/**
-	 * A fallback implementation of `Object.keys` which creates an array of the
-	 * own enumerable property names of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 */
-	function shimKeys(object) {
-	  var props = keysIn(object),
-	      propsLength = props.length,
-	      length = propsLength && object.length;
-	
-	  var allowIndexes = !!length && isLength(length) &&
-	    (isArray(object) || isArguments(object));
-	
-	  var index = -1,
-	      result = [];
-	
-	  while (++index < propsLength) {
-	    var key = props[index];
-	    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-	
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-	
-	/**
-	 * Creates an array of the own enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects. See the
-	 * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
-	 * for more details.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keys(new Foo);
-	 * // => ['a', 'b'] (iteration order is not guaranteed)
-	 *
-	 * _.keys('hi');
-	 * // => ['0', '1']
-	 */
-	var keys = !nativeKeys ? shimKeys : function(object) {
-	  var Ctor = object == null ? undefined : object.constructor;
-	  if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
-	      (typeof object != 'function' && isArrayLike(object))) {
-	    return shimKeys(object);
-	  }
-	  return isObject(object) ? nativeKeys(object) : [];
-	};
-	
-	/**
-	 * Creates an array of the own and inherited enumerable property names of `object`.
-	 *
-	 * **Note:** Non-object values are coerced to objects.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Object
-	 * @param {Object} object The object to query.
-	 * @returns {Array} Returns the array of property names.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 *   this.b = 2;
-	 * }
-	 *
-	 * Foo.prototype.c = 3;
-	 *
-	 * _.keysIn(new Foo);
-	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
-	 */
-	function keysIn(object) {
-	  if (object == null) {
-	    return [];
-	  }
-	  if (!isObject(object)) {
-	    object = Object(object);
-	  }
-	  var length = object.length;
-	  length = (length && isLength(length) &&
-	    (isArray(object) || isArguments(object)) && length) || 0;
-	
-	  var Ctor = object.constructor,
-	      index = -1,
-	      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
-	      result = Array(length),
-	      skipIndexes = length > 0;
-	
-	  while (++index < length) {
-	    result[index] = (index + '');
-	  }
-	  for (var key in object) {
-	    if (!(skipIndexes && isIndex(key, length)) &&
-	        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
-	      result.push(key);
-	    }
-	  }
-	  return result;
-	}
-	
-	module.exports = keys;
-
-
-/***/ },
-/* 229 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.9.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/** `Object#toString` result references. */
-	var funcTag = '[object Function]';
-	
-	/** Used to detect host constructors (Safari > 5). */
-	var reIsHostCtor = /^\[object .+?Constructor\]$/;
-	
-	/**
-	 * Checks if `value` is object-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-	
-	/** Used for native method references. */
-	var objectProto = Object.prototype;
-	
-	/** Used to resolve the decompiled source of functions. */
-	var fnToString = Function.prototype.toString;
-	
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-	
-	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objToString = objectProto.toString;
-	
-	/** Used to detect if a method is native. */
-	var reIsNative = RegExp('^' +
-	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
-	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-	);
-	
-	/**
-	 * Gets the native function at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the method to get.
-	 * @returns {*} Returns the function if it's native, else `undefined`.
-	 */
-	function getNative(object, key) {
-	  var value = object == null ? undefined : object[key];
-	  return isNative(value) ? value : undefined;
-	}
-	
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in older versions of Chrome and Safari which return 'function' for regexes
-	  // and Safari 8 equivalents which return 'object' for typed array constructors.
-	  return isObject(value) && objToString.call(value) == funcTag;
-	}
-	
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-	
-	/**
-	 * Checks if `value` is a native function.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
-	 * @example
-	 *
-	 * _.isNative(Array.prototype.push);
-	 * // => true
-	 *
-	 * _.isNative(_);
-	 * // => false
-	 */
-	function isNative(value) {
-	  if (value == null) {
-	    return false;
-	  }
-	  if (isFunction(value)) {
-	    return reIsNative.test(fnToString.call(value));
-	  }
-	  return isObjectLike(value) && reIsHostCtor.test(value);
-	}
-	
-	module.exports = getNative;
-
-
-/***/ },
-/* 230 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.8 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modularize exports="npm" -o ./`
-	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/** Used as references for various `Number` constants. */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-	
-	/** `Object#toString` result references. */
-	var argsTag = '[object Arguments]',
-	    funcTag = '[object Function]',
-	    genTag = '[object GeneratorFunction]';
-	
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-	
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-	
-	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-	
-	/** Built-in value references. */
-	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-	
-	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-	
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-	
-	/**
-	 * Checks if `value` is likely an `arguments` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isArguments(function() { return arguments; }());
-	 * // => true
-	 *
-	 * _.isArguments([1, 2, 3]);
-	 * // => false
-	 */
-	function isArguments(value) {
-	  // Safari 8.1 incorrectly makes `arguments.callee` enumerable in strict mode.
-	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
-	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
-	}
-	
-	/**
-	 * Checks if `value` is array-like. A value is considered array-like if it's
-	 * not a function and has a `value.length` that's an integer greater than or
-	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLike(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLike('abc');
-	 * // => true
-	 *
-	 * _.isArrayLike(_.noop);
-	 * // => false
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value)) && !isFunction(value);
-	}
-	
-	/**
-	 * This method is like `_.isArrayLike` except that it also checks if `value`
-	 * is an object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
-	 * @example
-	 *
-	 * _.isArrayLikeObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject(document.body.children);
-	 * // => true
-	 *
-	 * _.isArrayLikeObject('abc');
-	 * // => false
-	 *
-	 * _.isArrayLikeObject(_.noop);
-	 * // => false
-	 */
-	function isArrayLikeObject(value) {
-	  return isObjectLike(value) && isArrayLike(value);
-	}
-	
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 8 which returns 'object' for typed array and weak map constructors,
-	  // and PhantomJS 1.9 which returns 'function' for `NodeList` instances.
-	  var tag = isObject(value) ? objectToString.call(value) : '';
-	  return tag == funcTag || tag == genTag;
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 * @example
-	 *
-	 * _.isLength(3);
-	 * // => true
-	 *
-	 * _.isLength(Number.MIN_VALUE);
-	 * // => false
-	 *
-	 * _.isLength(Infinity);
-	 * // => false
-	 *
-	 * _.isLength('3');
-	 * // => false
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' &&
-	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-	
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(_.noop);
-	 * // => true
-	 *
-	 * _.isObject(null);
-	 * // => false
-	 */
-	function isObject(value) {
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-	
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-	
-	module.exports = isArguments;
-
-
-/***/ },
-/* 231 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.4 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/** `Object#toString` result references. */
-	var arrayTag = '[object Array]',
-	    funcTag = '[object Function]';
-	
-	/** Used to detect host constructors (Safari > 5). */
-	var reIsHostCtor = /^\[object .+?Constructor\]$/;
-	
-	/**
-	 * Checks if `value` is object-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-	
-	/** Used for native method references. */
-	var objectProto = Object.prototype;
-	
-	/** Used to resolve the decompiled source of functions. */
-	var fnToString = Function.prototype.toString;
-	
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-	
-	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objToString = objectProto.toString;
-	
-	/** Used to detect if a method is native. */
-	var reIsNative = RegExp('^' +
-	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
-	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-	);
-	
-	/* Native method references for those with the same name as other `lodash` methods. */
-	var nativeIsArray = getNative(Array, 'isArray');
-	
-	/**
-	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
-	 * of an array-like value.
-	 */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-	
-	/**
-	 * Gets the native function at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the method to get.
-	 * @returns {*} Returns the function if it's native, else `undefined`.
-	 */
-	function getNative(object, key) {
-	  var value = object == null ? undefined : object[key];
-	  return isNative(value) ? value : undefined;
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-	
-	/**
-	 * Checks if `value` is classified as an `Array` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isArray([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArray(function() { return arguments; }());
-	 * // => false
-	 */
-	var isArray = nativeIsArray || function(value) {
-	  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
-	};
-	
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in older versions of Chrome and Safari which return 'function' for regexes
-	  // and Safari 8 equivalents which return 'object' for typed array constructors.
-	  return isObject(value) && objToString.call(value) == funcTag;
-	}
-	
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-	
-	/**
-	 * Checks if `value` is a native function.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
-	 * @example
-	 *
-	 * _.isNative(Array.prototype.push);
-	 * // => true
-	 *
-	 * _.isNative(_);
-	 * // => false
-	 */
-	function isNative(value) {
-	  if (value == null) {
-	    return false;
-	  }
-	  if (isFunction(value)) {
-	    return reIsNative.test(fnToString.call(value));
-	  }
-	  return isObjectLike(value) && reIsHostCtor.test(value);
-	}
-	
-	module.exports = isArray;
-
-
-/***/ },
-/* 232 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * lodash 3.1.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	var bindCallback = __webpack_require__(233),
-	    isIterateeCall = __webpack_require__(234),
-	    restParam = __webpack_require__(235);
-	
-	/**
-	 * Creates a function that assigns properties of source object(s) to a given
-	 * destination object.
-	 *
-	 * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
-	 *
-	 * @private
-	 * @param {Function} assigner The function to assign values.
-	 * @returns {Function} Returns the new assigner function.
-	 */
-	function createAssigner(assigner) {
-	  return restParam(function(object, sources) {
-	    var index = -1,
-	        length = object == null ? 0 : sources.length,
-	        customizer = length > 2 ? sources[length - 2] : undefined,
-	        guard = length > 2 ? sources[2] : undefined,
-	        thisArg = length > 1 ? sources[length - 1] : undefined;
-	
-	    if (typeof customizer == 'function') {
-	      customizer = bindCallback(customizer, thisArg, 5);
-	      length -= 2;
-	    } else {
-	      customizer = typeof thisArg == 'function' ? thisArg : undefined;
-	      length -= (customizer ? 1 : 0);
-	    }
-	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
-	      customizer = length < 3 ? undefined : customizer;
-	      length = 1;
-	    }
-	    while (++index < length) {
-	      var source = sources[index];
-	      if (source) {
-	        assigner(object, source, customizer);
-	      }
-	    }
-	    return object;
-	  });
-	}
-	
-	module.exports = createAssigner;
-
-
-/***/ },
-/* 233 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/**
-	 * A specialized version of `baseCallback` which only supports `this` binding
-	 * and specifying the number of arguments to provide to `func`.
-	 *
-	 * @private
-	 * @param {Function} func The function to bind.
-	 * @param {*} thisArg The `this` binding of `func`.
-	 * @param {number} [argCount] The number of arguments to provide to `func`.
-	 * @returns {Function} Returns the callback.
-	 */
-	function bindCallback(func, thisArg, argCount) {
-	  if (typeof func != 'function') {
-	    return identity;
-	  }
-	  if (thisArg === undefined) {
-	    return func;
-	  }
-	  switch (argCount) {
-	    case 1: return function(value) {
-	      return func.call(thisArg, value);
-	    };
-	    case 3: return function(value, index, collection) {
-	      return func.call(thisArg, value, index, collection);
-	    };
-	    case 4: return function(accumulator, value, index, collection) {
-	      return func.call(thisArg, accumulator, value, index, collection);
-	    };
-	    case 5: return function(value, other, key, object, source) {
-	      return func.call(thisArg, value, other, key, object, source);
-	    };
-	  }
-	  return function() {
-	    return func.apply(thisArg, arguments);
-	  };
-	}
-	
-	/**
-	 * This method returns the first argument provided to it.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Utility
-	 * @param {*} value Any value.
-	 * @returns {*} Returns `value`.
-	 * @example
-	 *
-	 * var object = { 'user': 'fred' };
-	 *
-	 * _.identity(object) === object;
-	 * // => true
-	 */
-	function identity(value) {
-	  return value;
-	}
-	
-	module.exports = bindCallback;
-
-
-/***/ },
-/* 234 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.0.9 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/** Used to detect unsigned integer values. */
-	var reIsUint = /^\d+$/;
-	
-	/**
-	 * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
-	 * of an array-like value.
-	 */
-	var MAX_SAFE_INTEGER = 9007199254740991;
-	
-	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-	
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-	
-	/**
-	 * Checks if `value` is array-like.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
-	 */
-	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value));
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like index.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
-	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
-	 */
-	function isIndex(value, length) {
-	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
-	  length = length == null ? MAX_SAFE_INTEGER : length;
-	  return value > -1 && value % 1 == 0 && value < length;
-	}
-	
-	/**
-	 * Checks if the provided arguments are from an iteratee call.
-	 *
-	 * @private
-	 * @param {*} value The potential iteratee value argument.
-	 * @param {*} index The potential iteratee index or key argument.
-	 * @param {*} object The potential iteratee object argument.
-	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call, else `false`.
-	 */
-	function isIterateeCall(value, index, object) {
-	  if (!isObject(object)) {
-	    return false;
-	  }
-	  var type = typeof index;
-	  if (type == 'number'
-	      ? (isArrayLike(object) && isIndex(index, object.length))
-	      : (type == 'string' && index in object)) {
-	    var other = object[index];
-	    return value === value ? (value === other) : (other !== other);
-	  }
-	  return false;
-	}
-	
-	/**
-	 * Checks if `value` is a valid array-like length.
-	 *
-	 * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
-	 */
-	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-	}
-	
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-	  var type = typeof value;
-	  return !!value && (type == 'object' || type == 'function');
-	}
-	
-	module.exports = isIterateeCall;
-
-
-/***/ },
-/* 235 */
-/***/ function(module, exports) {
-
-	/**
-	 * lodash 3.6.1 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-	
-	/** Used as the `TypeError` message for "Functions" methods. */
-	var FUNC_ERROR_TEXT = 'Expected a function';
-	
-	/* Native method references for those with the same name as other `lodash` methods. */
-	var nativeMax = Math.max;
-	
-	/**
-	 * Creates a function that invokes `func` with the `this` binding of the
-	 * created function and arguments from `start` and beyond provided as an array.
-	 *
-	 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Function
-	 * @param {Function} func The function to apply a rest parameter to.
-	 * @param {number} [start=func.length-1] The start position of the rest parameter.
-	 * @returns {Function} Returns the new function.
-	 * @example
-	 *
-	 * var say = _.restParam(function(what, names) {
-	 *   return what + ' ' + _.initial(names).join(', ') +
-	 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
-	 * });
-	 *
-	 * say('hello', 'fred', 'barney', 'pebbles');
-	 * // => 'hello fred, barney, & pebbles'
-	 */
-	function restParam(func, start) {
-	  if (typeof func != 'function') {
-	    throw new TypeError(FUNC_ERROR_TEXT);
-	  }
-	  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
-	  return function() {
-	    var args = arguments,
-	        index = -1,
-	        length = nativeMax(args.length - start, 0),
-	        rest = Array(length);
-	
-	    while (++index < length) {
-	      rest[index] = args[start + index];
-	    }
-	    switch (start) {
-	      case 0: return func.call(this, rest);
-	      case 1: return func.call(this, args[0], rest);
-	      case 2: return func.call(this, args[0], args[1], rest);
-	    }
-	    var otherArgs = Array(start + 1);
-	    index = -1;
-	    while (++index < start) {
-	      otherArgs[index] = args[index];
-	    }
-	    otherArgs[start] = rest;
-	    return func.apply(this, otherArgs);
-	  };
-	}
-	
-	module.exports = restParam;
-
-
-/***/ },
-/* 236 */
-/***/ function(module, exports) {
-
-	var _element = typeof document !== 'undefined' ? document.body : null;
-	
-	function setElement(element) {
-	  if (typeof element === 'string') {
-	    var el = document.querySelectorAll(element);
-	    element = 'length' in el ? el[0] : el;
-	  }
-	  _element = element || _element;
-	  return _element;
-	}
-	
-	function hide(appElement) {
-	  validateElement(appElement);
-	  (appElement || _element).setAttribute('aria-hidden', 'true');
-	}
-	
-	function show(appElement) {
-	  validateElement(appElement);
-	  (appElement || _element).removeAttribute('aria-hidden');
-	}
-	
-	function toggle(shouldHide, appElement) {
-	  if (shouldHide)
-	    hide(appElement);
-	  else
-	    show(appElement);
-	}
-	
-	function validateElement(appElement) {
-	  if (!appElement && !_element)
-	    throw new Error('react-modal: You must set an element with `Modal.setAppElement(el)` to make this accessible');
-	}
-	
-	function resetForTesting() {
-	  _element = document.body;
-	}
-	
-	exports.toggle = toggle;
-	exports.setElement = setElement;
-	exports.show = show;
-	exports.hide = hide;
-	exports.resetForTesting = resetForTesting;
-
-
-/***/ },
-/* 237 */
-/***/ function(module, exports) {
-
-	module.exports = function(opts) {
-	  return new ElementClass(opts)
-	}
-	
-	function indexOf(arr, prop) {
-	  if (arr.indexOf) return arr.indexOf(prop)
-	  for (var i = 0, len = arr.length; i < len; i++)
-	    if (arr[i] === prop) return i
-	  return -1
-	}
-	
-	function ElementClass(opts) {
-	  if (!(this instanceof ElementClass)) return new ElementClass(opts)
-	  var self = this
-	  if (!opts) opts = {}
-	
-	  // similar doing instanceof HTMLElement but works in IE8
-	  if (opts.nodeType) opts = {el: opts}
-	
-	  this.opts = opts
-	  this.el = opts.el || document.body
-	  if (typeof this.el !== 'object') this.el = document.querySelector(this.el)
-	}
-	
-	ElementClass.prototype.add = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  if (el.className === "") return el.className = className
-	  var classes = el.className.split(' ')
-	  if (indexOf(classes, className) > -1) return classes
-	  classes.push(className)
-	  el.className = classes.join(' ')
-	  return classes
-	}
-	
-	ElementClass.prototype.remove = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  if (el.className === "") return
-	  var classes = el.className.split(' ')
-	  var idx = indexOf(classes, className)
-	  if (idx > -1) classes.splice(idx, 1)
-	  el.className = classes.join(' ')
-	  return classes
-	}
-	
-	ElementClass.prototype.has = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  var classes = el.className.split(' ')
-	  return indexOf(classes, className) > -1
-	}
-	
-	ElementClass.prototype.toggle = function(className) {
-	  var el = this.el
-	  if (!el) return
-	  if (this.has(className)) this.remove(className)
-	  else this.add(className)
-	}
-
-
-/***/ },
-/* 238 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var EventForm = __webpack_require__(239);
-	var EventIndex = __webpack_require__(274);
-	var EventStore = __webpack_require__(275);
-	// var LoginForm = require('./users/usersLoginForm');
-	var LoginModal = __webpack_require__(284);
-	var CreateEventModal = __webpack_require__(288);
-	var CreateShowtimeModal = __webpack_require__(289);
-	var CreateTicketModal = __webpack_require__(312);
-	// var UserActions = require('../actions/userActions');
-	var SignUpModal = __webpack_require__(299);
-	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(256);
-	
-	var Modal = __webpack_require__(218);
-	var UserApiUtil = __webpack_require__(254);
-	var SignInModal = __webpack_require__(300);
-	var MyDashboardModal = __webpack_require__(301);
-	var MyTicketsModal = __webpack_require__(306);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	//Mixins
-	var CurrentUserState = __webpack_require__(285);
-	
-	var CUSTOM_STYLE = {
-	  content: {
-	    'zIndex': '100000',
-	    'margin': '100px auto',
-	    'border': '5px solid dodgerblue',
-	    // 'display' : 'flex',
-	    // 'justify-content' : 'center',
-	    'width': '6ix00px',
-	    'padding': '20px'
-	  }
-	};
-	
-	// 'background': 'grey'
-	// 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	
-	  mixins: [CurrentUserState],
-	
-	  getInitialState: function () {
-	    return { signInModalOpen: false,
-	      signUpModalOpen: false,
-	      demoAccountModalOpen: false,
-	      createEventModalOpen: false,
-	      createShowtimeModalOpen: false,
-	      myDashboardModalOpen: false,
-	      myTicketsModalOpen: false,
-	      createTicketModalOpen: false,
-	      currentUser: UserStore.user()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.userStoreListener = UserStore.addListener(this._userChanged);
-	    this.eventSuccessListener = EventStore.addListener(this._eventCreated);
-	    window.scrollTo(0, 0);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.userStoreListener.remove();
-	    this.eventSuccessListener.remove();
-	  },
-	
-	  _userChanged: function () {
-	    this.setState({ currentUser: UserStore.user() });
-	  },
-	
-	  _eventCreated: function () {
-	    //  debugger;
-	    if (EventStore.createSuccess()) {
-	      //  debugger;
-	      var id = EventStore.showNewEventId();
-	      this.closeCreateEventModal();
-	      hashHistory.push("/event/" + id);
-	    }
-	  },
-	
-	  openSignInModal: function () {
-	    this.setState({ signInModalOpen: true });
-	  },
-	
-	  closeSignInModal: function () {
-	    this.setState({ signInModalOpen: false });
-	  },
-	
-	  openSignUpModal: function () {
-	    this.setState({ signUpModalOpen: true });
-	  },
-	
-	  closeSignUpModal: function () {
-	    this.setState({ signUpModalOpen: false });
-	  },
-	
-	  openDemoAccountModal: function () {
-	    this.setState({ demoAccountModalOpen: true });
-	  },
-	
-	  closeDemoAccountModal: function () {
-	    this.setState({ demoAccountModalOpen: false });
-	  },
-	
-	  openCreateEventModal: function () {
-	    this.setState({ createEventModalOpen: true });
-	  },
-	
-	  closeCreateEventModal: function () {
-	    this.setState({ createEventModalOpen: false });
-	  },
-	
-	  openCreateShowtimeModal: function () {
-	    this.setState({ createShowtimeModalOpen: true });
-	  },
-	
-	  closeCreateShowtimeModal: function () {
-	    this.setState({ createShowtimeModalOpen: false });
-	  },
-	
-	  openCreateTicketModal: function () {
-	    this.setState({ createTicketModalOpen: true });
-	  },
-	
-	  closeCreateTicketModal: function () {
-	    this.setState({ createTicketModalOpen: false });
-	  },
-	
-	  openMyDashboardModal: function () {
-	    this.setState({ myDashboardModalOpen: true });
-	  },
-	
-	  closeMyDashboardModal: function () {
-	    this.setState({ myDashboardModalOpen: false });
-	  },
-	
-	  openMyTicketsModal: function () {
-	    this.setState({ myTicketsModalOpen: true });
-	  },
-	
-	  closeMyTicketsModal: function () {
-	    this.setState({ myTicketsModalOpen: false });
-	  },
-	
-	  justClickedLogOut: function () {
-	    UserApiUtil.logout();
-	  },
-	
-	  signInWithDemoAccount: function () {
-	    console.log("app: sign in with demo account");
-	    ClientActions.login({ username: "guest", password: "password" });
-	  },
-	
-	  returnHome: function () {
-	    hashHistory.push("/");
-	  },
-	
-	  listMenu: function () {
-	    return React.createElement(
-	      'li',
-	      null,
-	      'Stand-In Menu'
-	    );
-	  },
-	
-	  customModalStyle: function () {
-	    return {
-	      content: {
-	        'z-index': 10000
-	      }
-	    };
-	  },
-	
-	  goToDashboard: function () {
-	    hashHistory.push("/dashboard");
-	  },
-	
-	  goToMyTickets: function () {
-	    hashHistory.push("/mytickets");
-	  },
-	
-	  // notLoggedInMenu: function(){
-	  //   return(
-	  //     <div id="othermenu">
-	  //       <p>hello</p>
-	  //       <button onClick={this.openSignInModal}>Sign In</button>
-	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
-	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
-	  //     </div>
-	  //   );
-	  // },
-	
-	  // loggedInMenu: function(){
-	  //   return(
-	  //     <div id="othermenu">
-	  //       <p>hello</p>
-	  //       <button onClick={this.openSignInModal}>Sign In</button>
-	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
-	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
-	  //     </div>
-	  //   );
-	  // },
-	
-	  render: function () {
-	
-	    var menu;
-	
-	    var notLoggedInMenu = React.createElement(
-	      'div',
-	      { id: 'othermenu' },
-	      React.createElement(
-	        'p',
-	        { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
-	        'TixStarter'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        loggedInMessageForSteve
-	      ),
-	      React.createElement(
-	        'div',
-	        { id: 'menubuttons' },
-	        React.createElement(
-	          'ul',
-	          { className: 'header-ul' },
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.openSignInModal },
-	            'Sign In'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.openSignUpModal },
-	            'Sign Up'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.signInWithDemoAccount },
-	            'Demo Account'
-	          )
-	        )
-	      )
-	    );
-	
-	    var loggedInMenu = React.createElement(
-	      'div',
-	      { id: 'othermenu' },
-	      React.createElement(
-	        'p',
-	        { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
-	        'TixStarter'
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'div',
-	        { id: 'menubuttons' },
-	        React.createElement(
-	          'ul',
-	          { className: 'header-ul' },
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.openCreateEventModal },
-	            'Create Event'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.openCreateShowtimeModal },
-	            'Create Showtime'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.openCreateTicketModal },
-	            'Create Ticket'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.goToDashboard },
-	            'My Dashboard'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.goToMyTickets },
-	            'My Tickets'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.justClickedLogOut },
-	            'Log Out'
-	          )
-	        )
-	      )
-	    );
-	
-	    var loggedInMessageForSteve;
-	
-	    if (UserStore.loggedIn()) {
-	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
-	      menu = loggedInMenu;
-	    } else {
-	      loggedInMessageForSteve = "NOT Logged In!";
-	      menu = notLoggedInMenu;
-	    }
-	
-	    // <header id="home-menu" className="home-menu">
-	    //   <h1 class="header-logo">
-	    //     TixStarter
-	    //   </h1>
-	    //   <ul class="header-list group">
-	    //     <li>Sample Button</li>
-	    //     <li>Sample Button</li>
-	    //   </ul>
-	    // </header>
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      menu,
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.signInModalOpen,
-	          onRequestClose: this.closeSignInModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h1',
-	            null,
-	            'Sign In'
-	          ),
-	          React.createElement(
-	            'h2',
-	            null,
-	            'Sign In!'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            '(The below component is SignInModal)'
-	          ),
-	          React.createElement(SignInModal, null),
-	          React.createElement('br', null),
-	          React.createElement('iframe', { width: '{854/1.5}',
-	            height: '{480/1.5}',
-	            src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
-	            frameborder: '0',
-	            allowfullscreen: true }),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.signUpModalOpen,
-	          onRequestClose: this.closeSignUpModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Sign Up'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Sign Up!!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(The below component is SignUpModal)'
-	        ),
-	        React.createElement(SignUpModal, null),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.demoAccountModalOpen,
-	          onRequestClose: this.closeDemoAccountModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'Demo Account'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'This feature has not been built yet!'
-	          ),
-	          React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
-	            width: '480',
-	            height: '305',
-	            frameBorder: '0',
-	            'class': 'giphy-embed',
-	            allowFullScreen: true }),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Here, distract yourself with Hamilton until I finish:'
-	          ),
-	          React.createElement('iframe', { width: '{854/1.2}',
-	            height: '{480/1.2}',
-	            src: 'https://www.youtube.com/embed/6ibySV-saJ8',
-	            frameborder: '0',
-	            allowfullscreen: true }),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createEventModalOpen,
-	          onRequestClose: this.closeCreateEventModal,
-	          style: CUSTOM_STYLE
-	        },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'CreateEventModal'
-	          ),
-	          React.createElement(CreateEventModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createShowtimeModalOpen,
-	          onRequestClose: this.closeCreateShowtimeModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'CreateShowtimeModal'
-	          ),
-	          React.createElement(CreateShowtimeModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createTicketModalOpen,
-	          onRequestClose: this.closeCreateTicketModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'CreateTicketModal'
-	          ),
-	          React.createElement(CreateTicketModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.myDashboardModalOpen,
-	          onRequestClose: this.closeMyDashboardModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'MyDashboard'
-	          ),
-	          React.createElement(MyDashboardModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.myTicketsModalOpen,
-	          onRequestClose: this.closeMyTicketsModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'MyTickets'
-	          ),
-	          React.createElement(MyTicketsModal, null)
-	        )
-	      ),
-	      this.props.children,
-	      React.createElement(
-	        'section',
-	        { id: 'footer',
-	          className: 'footer' },
-	        React.createElement(
-	          'p',
-	          null,
-	          'Hello, I am a footer!'
-	        )
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(240);
-	var ClientActions = __webpack_require__(244);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  mixins: [LinkedStateMixin],
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	
-	  blankAttrs: {
-	    title: '',
-	    description: ''
-	  },
-	
-	  getInitialState: function () {
-	    return this.blankAttrs;
-	  },
-	
-	  createEvent: function (keyEvent) {
-	    keyEvent.preventDefault();
-	    var event = {};
-	    Object.keys(this.state).forEach(function (key) {
-	      if (key !== "move_1" && key !== "move_2") {
-	        event[key] = this.state[key];
-	      }
-	    }.bind(this));
-	    event.moves = [this.state.move_1, this.state.move_2];
-	
-	    ClientActions.createEvent(event, function (id) {
-	      this.context.router.push("/event/" + id);
-	    }.bind(this));
-	    this.setState(this.blankAttrs);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'form',
-	      { className: 'new-event', onSubmit: this.createEvent },
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_name' },
-	          'Name:'
-	        ),
-	        React.createElement('input', {
-	          type: 'text',
-	          id: 'event_name',
-	          valueLink: this.linkState("name")
-	        })
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_image_url' },
-	          'Image URL:'
-	        ),
-	        React.createElement('input', {
-	          type: 'text',
-	          id: 'event_image_url',
-	          valueLink: this.linkState("image_url")
-	        })
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_poke_type' },
-	          'Type:'
-	        ),
-	        React.createElement('select', { className: 'type-selector', id: 'event_poke_type', valueLink: this.linkState("poke_type") })
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_attack' },
-	          'Attack:'
-	        ),
-	        React.createElement('input', {
-	          type: 'number',
-	          id: 'event_attack',
-	          valueLink: this.linkState("attack")
-	        })
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_defense' },
-	          'Defense:'
-	        ),
-	        React.createElement('input', {
-	          type: 'number',
-	          id: 'event_defense',
-	          valueLink: this.linkState("defense")
-	        })
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_move_1' },
-	          'Move #1:'
-	        ),
-	        React.createElement('input', {
-	          type: 'text',
-	          id: 'event_move_1',
-	          valueLink: this.linkState("move_1")
-	        })
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          { htmlFor: 'event_move_2' },
-	          'Move #2:'
-	        ),
-	        React.createElement('input', {
-	          type: 'text',
-	          id: 'event_move_2',
-	          valueLink: this.linkState("move_2")
-	        })
-	      ),
-	      React.createElement(
-	        'button',
-	        null,
-	        'Create Event'
-	      ),
-	      React.createElement('br', null)
-	    );
-	  }
-	});
-
-/***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(241);
-
-/***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule LinkedStateMixin
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	var ReactLink = __webpack_require__(242);
-	var ReactStateSetters = __webpack_require__(243);
-	
-	/**
-	 * A simple mixin around ReactLink.forState().
-	 */
-	var LinkedStateMixin = {
-	  /**
-	   * Create a ReactLink that's linked to part of this component's state. The
-	   * ReactLink will have the current value of this.state[key] and will call
-	   * setState() when a change is requested.
-	   *
-	   * @param {string} key state key to update. Note: you may want to use keyOf()
-	   * if you're using Google Closure Compiler advanced mode.
-	   * @return {ReactLink} ReactLink instance linking to the state.
-	   */
-	  linkState: function (key) {
-	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
-	  }
-	};
-	
-	module.exports = LinkedStateMixin;
-
-/***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactLink
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	/**
-	 * ReactLink encapsulates a common pattern in which a component wants to modify
-	 * a prop received from its parent. ReactLink allows the parent to pass down a
-	 * value coupled with a callback that, when invoked, expresses an intent to
-	 * modify that value. For example:
-	 *
-	 * React.createClass({
-	 *   getInitialState: function() {
-	 *     return {value: ''};
-	 *   },
-	 *   render: function() {
-	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
-	 *     return <input valueLink={valueLink} />;
-	 *   },
-	 *   _handleValueChange: function(newValue) {
-	 *     this.setState({value: newValue});
-	 *   }
-	 * });
-	 *
-	 * We have provided some sugary mixins to make the creation and
-	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
-	 */
-	
-	var React = __webpack_require__(2);
-	
-	/**
-	 * @param {*} value current value of the link
-	 * @param {function} requestChange callback to request a change
-	 */
-	function ReactLink(value, requestChange) {
-	  this.value = value;
-	  this.requestChange = requestChange;
-	}
-	
-	/**
-	 * Creates a PropType that enforces the ReactLink API and optionally checks the
-	 * type of the value being passed inside the link. Example:
-	 *
-	 * MyComponent.propTypes = {
-	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
-	 * }
-	 */
-	function createLinkTypeChecker(linkType) {
-	  var shapes = {
-	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
-	    requestChange: React.PropTypes.func.isRequired
-	  };
-	  return React.PropTypes.shape(shapes);
-	}
-	
-	ReactLink.PropTypes = {
-	  link: createLinkTypeChecker
-	};
-	
-	module.exports = ReactLink;
-
-/***/ },
-/* 243 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactStateSetters
-	 */
-	
-	'use strict';
-	
-	var ReactStateSetters = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (component, funcReturningState) {
-	    return function (a, b, c, d, e, f) {
-	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
-	      if (partialState) {
-	        component.setState(partialState);
-	      }
-	    };
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (component, key) {
-	    // Memoize the setters.
-	    var cache = component.__keySetters || (component.__keySetters = {});
-	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
-	  }
-	};
-	
-	function createStateKeySetter(component, key) {
-	  // Partial state is allocated outside of the function closure so it can be
-	  // reused with every call, avoiding memory allocation when this function
-	  // is called.
-	  var partialState = {};
-	  return function stateKeySetter(value) {
-	    partialState[key] = value;
-	    component.setState(partialState);
-	  };
-	}
-	
-	ReactStateSetters.Mixin = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateSetter(function(xValue) {
-	   *     return {x: xValue};
-	   *   })(1);
-	   *
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (funcReturningState) {
-	    return ReactStateSetters.createStateSetter(this, funcReturningState);
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateKeySetter('x')(1);
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (key) {
-	    return ReactStateSetters.createStateKeySetter(this, key);
-	  }
-	};
-	
-	module.exports = ReactStateSetters;
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ApiUtil = __webpack_require__(245);
-	var UserApiUtil = __webpack_require__(254);
-	
-	module.exports = {
-	
-	  // User Functions
-	
-	  fetchCurrentUser: function () {
-	    UserApiUtil.fetchCurrentUser();
-	  },
-	
-	  signup: function (data) {
-	    console.log("Client Actions, Sign Up");
-	    UserApiUtil.signup(data);
-	  },
-	
-	  login: function (data) {
-	    UserApiUtil.login(data);
-	  },
-	
-	  guestLogin: function () {
-	    UserApiUtil.guestLogin();
-	  },
-	
-	  logout: function () {
-	    UserApiUtil.logout();
-	  },
-	
-	  // Event Functions
-	
-	  fetchAllEvents: function () {
-	    ApiUtil.fetchAllEvents();
-	  },
-	
-	  createEvent: function (data) {
-	    ApiUtil.createEvent(data);
-	  },
-	
-	  fetchSingleEvent: function (id) {
-	    ApiUtil.fetchSingleEvent(id);
-	  },
-	
-	  editEvent: function (data) {
-	    ApiUtil.editEvent(data);
-	  },
-	
-	  deleteEvent: function (id) {
-	    ApiUtil.deleteEvent(id);
-	  },
-	
-	  // Showtime Functions
-	
-	  fetchAllShowtimes: function () {
-	    ApiUtil.fetchAllShowtimes();
-	  },
-	
-	  createShowtime: function (showtime, callback) {
-	    ApiUtil.createShowtime(showtime, callback);
-	  },
-	
-	  fetchSingleShowtime: function (id) {
-	    console.log("ClientActions.fetchSingleShowtime");
-	    console.log("Id is " + id);
-	    ApiUtil.fetchSingleShowtime(id);
-	  },
-	
-	  // Ticket Functions
-	
-	  fetchAllTickets: function () {
-	    ApiUtil.fetchAllTickets();
-	  },
-	
-	  createTicket: function (ticket, callback) {
-	    ApiUtil.createTicket(ticket, callback);
-	  },
-	
-	  fetchSingleTicket: function (id) {
-	    ApiUtil.fetchSingleTicket(id);
-	  },
-	
-	  // TicketPurchase Functions
-	
-	  fetchAllTicketPurchases: function () {
-	    ApiUtil.fetchAllTicketPurchases();
-	  },
-	
-	  createTicketPurchase: function (ticketPurchaseData) {
-	    ApiUtil.createTicketPurchase(ticketPurchaseData);
-	  },
-	
-	  fetchSingleTicketPurchase: function (id) {
-	    ApiUtil.fetchSingleTicketPurchase(id);
-	  }
-	
-	};
-
-/***/ },
-/* 245 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ServerActions = __webpack_require__(246);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	var app = __webpack_require__(238);
-	
-	var ApiUtil = {
-	
-	  // User Functions
-	
-	  createUser: function (data) {
-	    $.ajax({
-	      url: "api/users",
-	      type: "POST",
-	      data: { user: data },
-	      success: function (user) {
-	        ServerActions.receiveUser(user);
-	      }
-	    });
-	  },
-	
-	  // Event Functions
-	
-	  fetchAllEvents: function () {
-	    $.ajax({
-	      url: "api/events",
-	      success: function (events) {
-	        ServerActions.receiveAllEvents(events);
-	      }
-	    });
-	  },
-	
-	  fetchSingleEvent: function (id) {
-	    $.ajax({
-	      url: "api/events/" + id,
-	      success: function (event) {
-	        ServerActions.receiveSingleEvent(event);
-	      }
-	    });
-	  },
-	
-	  createEvent: function (data) {
-	    $.ajax({
-	      url: "api/events",
-	      // Changed "event" to "events"
-	      method: "POST",
-	      data: { event: data },
-	      success: function (event) {
-	        // debugger;
-	        // hashHistory.push('/event/' + event.id);
-	        ServerActions.receiveSingleEvent(event);
-	        // app.closeCreateEventModal();
-	        // callback && callback(event.id);
-	      }
-	    });
-	  },
-	
-	  editEvent: function (data) {
-	    $.ajax({
-	      url: "api/events/" + data.id,
-	      type: "PATCH",
-	      data: { event: { title: data.title,
-	          catchphrase: data.catchphrase,
-	          description: data.description,
-	          image_url: data.image_url,
-	          video_url: data.video_url,
-	          user_id: data.user_id,
-	          revenue_goal: data.revenue_goal,
-	          revenue_status: data.revenue_status
-	        }
-	      },
-	      success: function (post) {
-	        ServerActions.receiveSingleEvent(event);
-	      }
-	    });
-	  },
-	
-	  deleteEvent: function (id) {
-	    console.log("Api Util delete event");
-	    $.ajax({
-	      url: "api/events/" + id,
-	      type: "DELETE",
-	      success: function (event) {
-	        console.log("success function for Api Util!");
-	        ServerActions.removeEvent(event);
-	      }
-	    });
-	  },
-	
-	  // // Showtime Functions
-	  //
-	  fetchAllShowtimes: function () {
-	    $.ajax({
-	      url: "api/showtime",
-	      success: function (showtimes) {
-	        ServerActions.receiveAllShowtimes(showtimes);
-	      }
-	    });
-	  },
-	
-	  fetchSingleShowtime: function (id) {
-	    console.log("api util fetch single showtime");
-	    console.log("id is " + id);
-	    $.ajax({
-	      url: "api/showtimes/" + id,
-	      success: function (showtime) {
-	        console.log("success function!");
-	        ServerActions.receiveSingleShowtime(showtime);
-	      }
-	    });
-	  },
-	
-	  createShowtime: function (showtime, callback) {
-	    $.ajax({
-	      url: "api/showtimes",
-	      method: "POST",
-	      data: { showtime: showtime },
-	      success: function (showtime) {
-	        ServerActions.receiveSingleShowtime(showtime);
-	        callback && callback(showtime.id);
-	      }
-	    });
-	  },
-	
-	  // Ticket Functions
-	
-	  fetchAllTickets: function () {
-	    $.ajax({
-	      url: "api/tickets",
-	      success: function (tickets) {
-	        ServerActions.receiveAllTickets(tickets);
-	      }
-	    });
-	  },
-	
-	  fetchSingleTicket: function (id) {
-	    $.ajax({
-	      url: "api/tickets/" + id,
-	      success: function (ticket) {
-	        ServerActions.receiveSingleTicket(ticket);
-	      }
-	    });
-	  },
-	
-	  createTicket: function (ticket, callback) {
-	    $.ajax({
-	      url: "api/tickets",
-	      method: "POST",
-	      data: { ticket: ticket },
-	      success: function (ticket) {
-	        ServerActions.receiveSingleTicket(ticket);
-	        callback && callback(ticket.id);
-	      }
-	    });
-	  },
-	
-	  // TicketPurchase Functions
-	
-	  fetchAllTicketPurchases: function () {
-	    $.ajax({
-	      url: "api/ticket_purchases",
-	      success: function (ticketPurchases) {
-	        ServerActions.receiveAllTicketPurchases(ticketPurchases);
-	      }
-	    });
-	  },
-	
-	  fetchSingleTicketPurchase: function (id) {
-	    $.ajax({
-	      url: "api/ticket_purchases/" + id,
-	      success: function (ticketPurchase) {
-	        hashHistory.push('/success');
-	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
-	      }
-	    });
-	  },
-	
-	  createTicketPurchase: function (data) {
-	    console.log("create ticket purchase");
-	    $.ajax({
-	      url: "api/ticket_purchases",
-	      // Changed "event" to "events"
-	      method: "POST",
-	      data: { ticket_purchase: data },
-	      success: function (ticketPurchase) {
-	        console.log('create ticket purchase success');
-	        // hashHistory.push('/success');
-	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
-	        // callback && callback(event.id);
-	      }
-	    });
-	  }
-	
-	};
-	
-	//TODO: remove when done
-	window.ApiUtil = ApiUtil; //Just for testing
-	
-	module.exports = ApiUtil;
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(247);
-	var EventConstants = __webpack_require__(251);
-	var UserConstants = __webpack_require__(252);
-	var ShowtimeConstants = __webpack_require__(253);
-	var TicketPurchaseConstants = __webpack_require__(305);
-	var TicketConstants = __webpack_require__(308);
-	
-	module.exports = {
-	
-	  // User Functions:
-	
-	  receiveCurrentUser: function (user) {
-	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-	    console.log(["user", user]);
-	    Dispatcher.dispatch({
-	      actionType: UserConstants.LOGIN,
-	      user: user
-	    });
-	  },
-	
-	  handleError: function (error) {
-	    console.log("Handle Error Function in User Actions!");
-	    Dispatcher.dispatch({
-	      actionType: UserConstants.ERROR,
-	      errors: error.responseJSON.errors
-	    });
-	  },
-	
-	  removeCurrentUser: function () {
-	    Dispatcher.dispatch({
-	      actionType: UserConstants.LOGOUT
-	    });
-	  },
-	
-	  // Events Functions:
-	
-	  receiveAllEvents: function (events) {
-	    Dispatcher.dispatch({
-	      actionType: EventConstants.EVENTS_RECEIVED,
-	      events: events
-	    });
-	  },
-	
-	  receiveSingleEvent: function (event) {
-	    // debugger;
-	    Dispatcher.dispatch({
-	      actionType: EventConstants.EVENT_RECEIVED,
-	      event: event
-	    });
-	  },
-	
-	  removeEvent: function (event) {
-	    Dispatcher.dispatch({
-	      actionType: EventConstants.EVENT_REMOVED,
-	      event: event
-	    });
-	  },
-	
-	  // Showtimes Functions:
-	
-	  receiveAllShowtimes: function (showtimes) {
-	    console.log("receiveAllShowtime called");
-	    Dispatcher.dispatch({
-	      actionType: ShowtimeConstants.SHOWTIMES_RECEIVED,
-	      showtimes: showtimes
-	    });
-	  },
-	
-	  receiveSingleShowtime: function (showtime) {
-	    console.log("receiveSingleShowtime called");
-	    Dispatcher.dispatch({
-	      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
-	      showtime: showtime
-	    });
-	  },
-	
-	  // Events Functions:
-	
-	  receiveAllTickets: function (tickets) {
-	    Dispatcher.dispatch({
-	      actionType: TicketConstants.TICKETS_RECEIVED,
-	      tickets: tickets
-	    });
-	  },
-	
-	  receiveSingleTicket: function (ticket) {
-	    Dispatcher.dispatch({
-	      actionType: TicketConstants.TICKET_RECEIVED,
-	      ticket: ticket
-	    });
-	  },
-	
-	  removeTicket: function (ticket) {
-	    Dispatcher.dispatch({
-	      actionType: TicketConstants.TICKET_REMOVED,
-	      ticket: ticket
-	    });
-	  },
-	
-	  // Events Functions:
-	
-	  receiveAllTicketPurchases: function (ticketPurchases) {
-	    Dispatcher.dispatch({
-	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
-	      ticketPurchases: ticketPurchases
-	    });
-	  },
-	
-	  receiveSingleTicketPurchase: function (ticketPurchase) {
-	    console.log("server actions receive single ticket purchase");
-	    Dispatcher.dispatch({
-	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
-	      ticketPurchase: ticketPurchase
-	    });
-	  }
-	
-	};
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(248).Dispatcher;
-	module.exports = new Dispatcher();
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-	
-	module.exports.Dispatcher = __webpack_require__(249);
-
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule Dispatcher
-	 * 
-	 * @preventMunge
-	 */
-	
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	var invariant = __webpack_require__(250);
-	
-	var _prefix = 'ID_';
-	
-	/**
-	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
-	 * different from generic pub-sub systems in two ways:
-	 *
-	 *   1) Callbacks are not subscribed to particular events. Every payload is
-	 *      dispatched to every registered callback.
-	 *   2) Callbacks can be deferred in whole or part until other callbacks have
-	 *      been executed.
-	 *
-	 * For example, consider this hypothetical flight destination form, which
-	 * selects a default city when a country is selected:
-	 *
-	 *   var flightDispatcher = new Dispatcher();
-	 *
-	 *   // Keeps track of which country is selected
-	 *   var CountryStore = {country: null};
-	 *
-	 *   // Keeps track of which city is selected
-	 *   var CityStore = {city: null};
-	 *
-	 *   // Keeps track of the base flight price of the selected city
-	 *   var FlightPriceStore = {price: null}
-	 *
-	 * When a user changes the selected city, we dispatch the payload:
-	 *
-	 *   flightDispatcher.dispatch({
-	 *     actionType: 'city-update',
-	 *     selectedCity: 'paris'
-	 *   });
-	 *
-	 * This payload is digested by `CityStore`:
-	 *
-	 *   flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'city-update') {
-	 *       CityStore.city = payload.selectedCity;
-	 *     }
-	 *   });
-	 *
-	 * When the user selects a country, we dispatch the payload:
-	 *
-	 *   flightDispatcher.dispatch({
-	 *     actionType: 'country-update',
-	 *     selectedCountry: 'australia'
-	 *   });
-	 *
-	 * This payload is digested by both stores:
-	 *
-	 *   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'country-update') {
-	 *       CountryStore.country = payload.selectedCountry;
-	 *     }
-	 *   });
-	 *
-	 * When the callback to update `CountryStore` is registered, we save a reference
-	 * to the returned token. Using this token with `waitFor()`, we can guarantee
-	 * that `CountryStore` is updated before the callback that updates `CityStore`
-	 * needs to query its data.
-	 *
-	 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'country-update') {
-	 *       // `CountryStore.country` may not be updated.
-	 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
-	 *       // `CountryStore.country` is now guaranteed to be updated.
-	 *
-	 *       // Select the default city for the new country
-	 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
-	 *     }
-	 *   });
-	 *
-	 * The usage of `waitFor()` can be chained, for example:
-	 *
-	 *   FlightPriceStore.dispatchToken =
-	 *     flightDispatcher.register(function(payload) {
-	 *       switch (payload.actionType) {
-	 *         case 'country-update':
-	 *         case 'city-update':
-	 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
-	 *           FlightPriceStore.price =
-	 *             getFlightPriceStore(CountryStore.country, CityStore.city);
-	 *           break;
-	 *     }
-	 *   });
-	 *
-	 * The `country-update` payload will be guaranteed to invoke the stores'
-	 * registered callbacks in order: `CountryStore`, `CityStore`, then
-	 * `FlightPriceStore`.
-	 */
-	
-	var Dispatcher = (function () {
-	  function Dispatcher() {
-	    _classCallCheck(this, Dispatcher);
-	
-	    this._callbacks = {};
-	    this._isDispatching = false;
-	    this._isHandled = {};
-	    this._isPending = {};
-	    this._lastID = 1;
-	  }
-	
-	  /**
-	   * Registers a callback to be invoked with every dispatched payload. Returns
-	   * a token that can be used with `waitFor()`.
-	   */
-	
-	  Dispatcher.prototype.register = function register(callback) {
-	    var id = _prefix + this._lastID++;
-	    this._callbacks[id] = callback;
-	    return id;
-	  };
-	
-	  /**
-	   * Removes a callback based on its token.
-	   */
-	
-	  Dispatcher.prototype.unregister = function unregister(id) {
-	    !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
-	    delete this._callbacks[id];
-	  };
-	
-	  /**
-	   * Waits for the callbacks specified to be invoked before continuing execution
-	   * of the current callback. This method should only be used by a callback in
-	   * response to a dispatched payload.
-	   */
-	
-	  Dispatcher.prototype.waitFor = function waitFor(ids) {
-	    !this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Must be invoked while dispatching.') : invariant(false) : undefined;
-	    for (var ii = 0; ii < ids.length; ii++) {
-	      var id = ids[ii];
-	      if (this._isPending[id]) {
-	        !this._isHandled[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Circular dependency detected while ' + 'waiting for `%s`.', id) : invariant(false) : undefined;
-	        continue;
-	      }
-	      !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
-	      this._invokeCallback(id);
-	    }
-	  };
-	
-	  /**
-	   * Dispatches a payload to all registered callbacks.
-	   */
-	
-	  Dispatcher.prototype.dispatch = function dispatch(payload) {
-	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.') : invariant(false) : undefined;
-	    this._startDispatching(payload);
-	    try {
-	      for (var id in this._callbacks) {
-	        if (this._isPending[id]) {
-	          continue;
-	        }
-	        this._invokeCallback(id);
-	      }
-	    } finally {
-	      this._stopDispatching();
-	    }
-	  };
-	
-	  /**
-	   * Is this Dispatcher currently dispatching.
-	   */
-	
-	  Dispatcher.prototype.isDispatching = function isDispatching() {
-	    return this._isDispatching;
-	  };
-	
-	  /**
-	   * Call the callback stored with the given id. Also do some internal
-	   * bookkeeping.
-	   *
-	   * @internal
-	   */
-	
-	  Dispatcher.prototype._invokeCallback = function _invokeCallback(id) {
-	    this._isPending[id] = true;
-	    this._callbacks[id](this._pendingPayload);
-	    this._isHandled[id] = true;
-	  };
-	
-	  /**
-	   * Set up bookkeeping needed when dispatching.
-	   *
-	   * @internal
-	   */
-	
-	  Dispatcher.prototype._startDispatching = function _startDispatching(payload) {
-	    for (var id in this._callbacks) {
-	      this._isPending[id] = false;
-	      this._isHandled[id] = false;
-	    }
-	    this._pendingPayload = payload;
-	    this._isDispatching = true;
-	  };
-	
-	  /**
-	   * Clear bookkeeping used for dispatching.
-	   *
-	   * @internal
-	   */
-	
-	  Dispatcher.prototype._stopDispatching = function _stopDispatching() {
-	    delete this._pendingPayload;
-	    this._isDispatching = false;
-	  };
-	
-	  return Dispatcher;
-	})();
-	
-	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule invariant
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-	
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	    }
-	
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-	
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 251 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  EVENTS_RECEIVED: "EVENTS_RECEIVED",
-	  EVENT_RECEIVED: "EVENT_RECEIVED",
-	  EVENT_REMOVED: "EVENT_REMOVED"
-	};
-
-/***/ },
-/* 252 */
-/***/ function(module, exports) {
-
-	var UserConstants = {
-		LOGIN: "LOGIN",
-		ERROR: "ERROR",
-		LOGOUT: "LOGOUT",
-	
-		USER_RECEIVED: "USER_RECEIVED"
-	};
-	
-	module.exports = UserConstants;
-
-/***/ },
-/* 253 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  SHOWTIMES_RECEIVED: "SHOWTIMES_RECEIVED",
-	  SHOWTIME_RECEIVED: "SHOWTIME_RECEIVED"
-	};
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var AppDispatcher = __webpack_require__(247);
-	// var ServerActions = require('../actions/userActions');
-	var UserConstants = __webpack_require__(252);
-	var ServerActions = __webpack_require__(246);
-	
-	var UserApiUtil = {
-	
-	  signup: function (data) {
-	    $.ajax({
-	      url: "/api/user",
-	      type: "post",
-	      data: { user: data },
-	      success: function (user) {
-	        // debugger;
-	        console.log("We're in the success function for SignUp");
-	        ServerActions.receiveCurrentUser(user);
-	      },
-	
-	      // success: function(){
-	      //   UserActions.receiveCurrentUser,
-	      //   App.closeSignInModal;
-	      //   App.closeSignUpModal;
-	      // },
-	      error: function (error) {
-	        console.log("We're in the error function for SignUp");
-	        ServerActions.handleError(error);
-	      }
-	    });
-	  },
-	
-	  login: function (data) {
-	    console.log("useractions login called");
-	    $.ajax({
-	      url: "/api/session",
-	      type: "post",
-	      data: { user: data },
-	      success: function (user) {
-	        // debugger;
-	        ServerActions.receiveCurrentUser(user);
-	      },
-	      error: function (error) {
-	        // debugger;
-	        ServerActions.handleError();
-	      }
-	
-	    });
-	  },
-	
-	  guestLogin: function () {
-	    ServerActions.login({ username: "guest", password: "password" });
-	  },
-	
-	  post: function (options) {
-	    $.ajax({
-	      url: options.url,
-	      type: "post",
-	      data: { user: options.user },
-	      success: options.succes,
-	      error: options.error
-	    });
-	  },
-	
-	  logout: function () {
-	    $.ajax({
-	      url: "/api/session",
-	      method: "delete",
-	      success: function () {
-	        ServerActions.removeCurrentUser();
-	      },
-	      error: function () {
-	        ServerActions.handleError();
-	      }
-	    });
-	  },
-	
-	  // Server Actions method, rather than passed in
-	
-	  fetchCurrentUser: function () {
-	    console.log("Fetch Current User");
-	    $.ajax({
-	      url: "/api/session",
-	      method: "get",
-	      success: function (user) {
-	        console.log('success function for fetch current user');
-	        // So, right now, UserActions is an empty {} object
-	        // Why, I have no idea.
-	        ServerActions.receiveCurrentUser(user);
-	      }.bind(this),
-	      error: function (error) {
-	        console.log('error function for fetch current user');
-	        ServerActions.handleError(error);
-	      }
-	    });
-	  },
-	
-	  receiveCurrentUser: function (user) {
-	    AppDispatcher.dispatch({
-	      actionType: UserConstants.LOGIN,
-	      user: user
-	    });
-	  }
-	
-	};
-	
-	module.exports = UserApiUtil;
-
-/***/ },
-/* 255 */,
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(257).Store;
-	// var UserConstants = require('../constants/userConstants.js');
-	var AppDispatcher = __webpack_require__(247);
-	
-	var UserStore = new Store(AppDispatcher);
-	
-	var _currentUser, _errors;
-	
-	// TODO: Logged In Method
-	
-	UserStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case "LOGIN":
-	      UserStore.login(payload.user);
-	      break;
-	    case "LOGOUT":
-	      UserStore.logout();
-	      break;
-	    case "ERROR":
-	      UserStore.setErrors(payload.errors);
-	      break;
-	  }
-	  UserStore.__emitChange();
-	};
-	
-	UserStore.login = function (user) {
-	  // debugger;
-	  if (user['username']) {
-	    _currentUser = user;
-	    _errors = null;
-	  }
-	};
-	
-	UserStore.logout = function () {
-	  _currentUser = null;
-	  _errors = null;
-	};
-	
-	UserStore.loggedIn = function () {
-	  if (typeof UserStore.currentUser() === 'undefined') {
-	    return false;
-	  } else {
-	    return true;
-	  }
-	};
-	
-	UserStore.user = function () {
-	  return _currentUser;
-	};
-	
-	UserStore.currentUser = function () {
-	  if (_currentUser) {
-	    return $.extend({}, _currentUser);
-	    // TODO: What does this ^ mean?
-	  }
-	};
-	
-	UserStore.currentUserEvents = function () {
-	  // debugger;
-	};
-	
-	UserStore.setErrors = function (errors) {
-	  _errors = errors;
-	};
-	
-	UserStore.errors = function () {
-	  if (_errors) {
-	    return [].slice.call(_errors);
-	  }
-	};
-	
-	module.exports = UserStore;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-	
-	module.exports.Container = __webpack_require__(258);
-	module.exports.MapStore = __webpack_require__(261);
-	module.exports.Mixin = __webpack_require__(273);
-	module.exports.ReduceStore = __webpack_require__(262);
-	module.exports.Store = __webpack_require__(263);
-
-
-/***/ },
-/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28987,10 +25233,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(259);
+	var FluxStoreGroup = __webpack_require__(221);
 	
-	var invariant = __webpack_require__(250);
-	var shallowEqual = __webpack_require__(260);
+	var invariant = __webpack_require__(222);
+	var shallowEqual = __webpack_require__(223);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -29148,7 +25394,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 259 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29167,7 +25413,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(250);
+	var invariant = __webpack_require__(222);
 	
 	/**
 	 * FluxStoreGroup allows you to execute a callback on every dispatch after
@@ -29229,7 +25475,62 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 260 */
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule invariant
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var invariant = function (condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+	
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 223 */
 /***/ function(module, exports) {
 
 	/**
@@ -29284,7 +25585,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 261 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29305,10 +25606,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(262);
-	var Immutable = __webpack_require__(272);
+	var FluxReduceStore = __webpack_require__(225);
+	var Immutable = __webpack_require__(235);
 	
-	var invariant = __webpack_require__(250);
+	var invariant = __webpack_require__(222);
 	
 	/**
 	 * This is a simple store. It allows caching key value pairs. An implementation
@@ -29434,7 +25735,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 262 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29455,10 +25756,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(263);
+	var FluxStore = __webpack_require__(226);
 	
-	var abstractMethod = __webpack_require__(271);
-	var invariant = __webpack_require__(250);
+	var abstractMethod = __webpack_require__(234);
+	var invariant = __webpack_require__(222);
 	
 	var FluxReduceStore = (function (_FluxStore) {
 	  _inherits(FluxReduceStore, _FluxStore);
@@ -29541,7 +25842,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 263 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29560,11 +25861,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(264);
+	var _require = __webpack_require__(227);
 	
 	var EventEmitter = _require.EventEmitter;
 	
-	var invariant = __webpack_require__(250);
+	var invariant = __webpack_require__(222);
 	
 	/**
 	 * This class should be extended by the stores in your application, like so:
@@ -29724,7 +26025,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 264 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29737,14 +26038,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(265)
+	  EventEmitter: __webpack_require__(228)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 265 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29763,11 +26064,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(266);
-	var EventSubscriptionVendor = __webpack_require__(268);
+	var EmitterSubscription = __webpack_require__(229);
+	var EventSubscriptionVendor = __webpack_require__(231);
 	
-	var emptyFunction = __webpack_require__(270);
-	var invariant = __webpack_require__(269);
+	var emptyFunction = __webpack_require__(233);
+	var invariant = __webpack_require__(232);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -29941,7 +26242,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 266 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29962,7 +26263,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(267);
+	var EventSubscription = __webpack_require__(230);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -29994,7 +26295,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 267 */
+/* 230 */
 /***/ function(module, exports) {
 
 	/**
@@ -30048,7 +26349,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 268 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30067,7 +26368,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(269);
+	var invariant = __webpack_require__(232);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -30157,7 +26458,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 269 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30212,7 +26513,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 270 */
+/* 233 */
 /***/ function(module, exports) {
 
 	/**
@@ -30254,7 +26555,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 271 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30271,7 +26572,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(250);
+	var invariant = __webpack_require__(222);
 	
 	function abstractMethod(className, methodName) {
 	   true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Subclasses of %s must override %s() with their own implementation.', className, methodName) : invariant(false) : undefined;
@@ -30281,7 +26582,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 272 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35265,7 +31566,7 @@
 	}));
 
 /***/ },
-/* 273 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -35282,9 +31583,9 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(259);
+	var FluxStoreGroup = __webpack_require__(221);
 	
-	var invariant = __webpack_require__(250);
+	var invariant = __webpack_require__(222);
 	
 	/**
 	 * `FluxContainer` should be preferred over this mixin, but it requires using
@@ -35388,13 +31689,3728 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 274 */
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(238).Dispatcher;
+	module.exports = new Dispatcher();
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	module.exports.Dispatcher = __webpack_require__(239);
+
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright (c) 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule Dispatcher
+	 * 
+	 * @preventMunge
+	 */
+	
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	var invariant = __webpack_require__(222);
+	
+	var _prefix = 'ID_';
+	
+	/**
+	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
+	 * different from generic pub-sub systems in two ways:
+	 *
+	 *   1) Callbacks are not subscribed to particular events. Every payload is
+	 *      dispatched to every registered callback.
+	 *   2) Callbacks can be deferred in whole or part until other callbacks have
+	 *      been executed.
+	 *
+	 * For example, consider this hypothetical flight destination form, which
+	 * selects a default city when a country is selected:
+	 *
+	 *   var flightDispatcher = new Dispatcher();
+	 *
+	 *   // Keeps track of which country is selected
+	 *   var CountryStore = {country: null};
+	 *
+	 *   // Keeps track of which city is selected
+	 *   var CityStore = {city: null};
+	 *
+	 *   // Keeps track of the base flight price of the selected city
+	 *   var FlightPriceStore = {price: null}
+	 *
+	 * When a user changes the selected city, we dispatch the payload:
+	 *
+	 *   flightDispatcher.dispatch({
+	 *     actionType: 'city-update',
+	 *     selectedCity: 'paris'
+	 *   });
+	 *
+	 * This payload is digested by `CityStore`:
+	 *
+	 *   flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'city-update') {
+	 *       CityStore.city = payload.selectedCity;
+	 *     }
+	 *   });
+	 *
+	 * When the user selects a country, we dispatch the payload:
+	 *
+	 *   flightDispatcher.dispatch({
+	 *     actionType: 'country-update',
+	 *     selectedCountry: 'australia'
+	 *   });
+	 *
+	 * This payload is digested by both stores:
+	 *
+	 *   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'country-update') {
+	 *       CountryStore.country = payload.selectedCountry;
+	 *     }
+	 *   });
+	 *
+	 * When the callback to update `CountryStore` is registered, we save a reference
+	 * to the returned token. Using this token with `waitFor()`, we can guarantee
+	 * that `CountryStore` is updated before the callback that updates `CityStore`
+	 * needs to query its data.
+	 *
+	 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'country-update') {
+	 *       // `CountryStore.country` may not be updated.
+	 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
+	 *       // `CountryStore.country` is now guaranteed to be updated.
+	 *
+	 *       // Select the default city for the new country
+	 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
+	 *     }
+	 *   });
+	 *
+	 * The usage of `waitFor()` can be chained, for example:
+	 *
+	 *   FlightPriceStore.dispatchToken =
+	 *     flightDispatcher.register(function(payload) {
+	 *       switch (payload.actionType) {
+	 *         case 'country-update':
+	 *         case 'city-update':
+	 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
+	 *           FlightPriceStore.price =
+	 *             getFlightPriceStore(CountryStore.country, CityStore.city);
+	 *           break;
+	 *     }
+	 *   });
+	 *
+	 * The `country-update` payload will be guaranteed to invoke the stores'
+	 * registered callbacks in order: `CountryStore`, `CityStore`, then
+	 * `FlightPriceStore`.
+	 */
+	
+	var Dispatcher = (function () {
+	  function Dispatcher() {
+	    _classCallCheck(this, Dispatcher);
+	
+	    this._callbacks = {};
+	    this._isDispatching = false;
+	    this._isHandled = {};
+	    this._isPending = {};
+	    this._lastID = 1;
+	  }
+	
+	  /**
+	   * Registers a callback to be invoked with every dispatched payload. Returns
+	   * a token that can be used with `waitFor()`.
+	   */
+	
+	  Dispatcher.prototype.register = function register(callback) {
+	    var id = _prefix + this._lastID++;
+	    this._callbacks[id] = callback;
+	    return id;
+	  };
+	
+	  /**
+	   * Removes a callback based on its token.
+	   */
+	
+	  Dispatcher.prototype.unregister = function unregister(id) {
+	    !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
+	    delete this._callbacks[id];
+	  };
+	
+	  /**
+	   * Waits for the callbacks specified to be invoked before continuing execution
+	   * of the current callback. This method should only be used by a callback in
+	   * response to a dispatched payload.
+	   */
+	
+	  Dispatcher.prototype.waitFor = function waitFor(ids) {
+	    !this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Must be invoked while dispatching.') : invariant(false) : undefined;
+	    for (var ii = 0; ii < ids.length; ii++) {
+	      var id = ids[ii];
+	      if (this._isPending[id]) {
+	        !this._isHandled[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Circular dependency detected while ' + 'waiting for `%s`.', id) : invariant(false) : undefined;
+	        continue;
+	      }
+	      !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
+	      this._invokeCallback(id);
+	    }
+	  };
+	
+	  /**
+	   * Dispatches a payload to all registered callbacks.
+	   */
+	
+	  Dispatcher.prototype.dispatch = function dispatch(payload) {
+	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.') : invariant(false) : undefined;
+	    this._startDispatching(payload);
+	    try {
+	      for (var id in this._callbacks) {
+	        if (this._isPending[id]) {
+	          continue;
+	        }
+	        this._invokeCallback(id);
+	      }
+	    } finally {
+	      this._stopDispatching();
+	    }
+	  };
+	
+	  /**
+	   * Is this Dispatcher currently dispatching.
+	   */
+	
+	  Dispatcher.prototype.isDispatching = function isDispatching() {
+	    return this._isDispatching;
+	  };
+	
+	  /**
+	   * Call the callback stored with the given id. Also do some internal
+	   * bookkeeping.
+	   *
+	   * @internal
+	   */
+	
+	  Dispatcher.prototype._invokeCallback = function _invokeCallback(id) {
+	    this._isPending[id] = true;
+	    this._callbacks[id](this._pendingPayload);
+	    this._isHandled[id] = true;
+	  };
+	
+	  /**
+	   * Set up bookkeeping needed when dispatching.
+	   *
+	   * @internal
+	   */
+	
+	  Dispatcher.prototype._startDispatching = function _startDispatching(payload) {
+	    for (var id in this._callbacks) {
+	      this._isPending[id] = false;
+	      this._isHandled[id] = false;
+	    }
+	    this._pendingPayload = payload;
+	    this._isDispatching = true;
+	  };
+	
+	  /**
+	   * Clear bookkeeping used for dispatching.
+	   *
+	   * @internal
+	   */
+	
+	  Dispatcher.prototype._stopDispatching = function _stopDispatching() {
+	    delete this._pendingPayload;
+	    this._isDispatching = false;
+	  };
+	
+	  return Dispatcher;
+	})();
+	
+	module.exports = Dispatcher;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 240 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  TICKET_PURCHASES_RECEIVED: "TICKET_PURCHASES_RECEIVED",
+	  TICKET_PURCHASE_RECEIVED: "TICKET_PURCHASE_RECEIVED",
+	  TICKET_PURCHASE_REMOVED: "TICKET_PURCHASE_REMOVED"
+	};
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(242);
+	
+
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	var ExecutionEnvironment = __webpack_require__(243);
+	var ModalPortal = React.createFactory(__webpack_require__(244));
+	var ariaAppHider = __webpack_require__(259);
+	var elementClass = __webpack_require__(260);
+	var renderSubtreeIntoContainer = __webpack_require__(158).unstable_renderSubtreeIntoContainer;
+	var Assign = __webpack_require__(248);
+	
+	var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
+	var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
+	
+	var Modal = React.createClass({
+	
+	  displayName: 'Modal',
+	  statics: {
+	    setAppElement: function(element) {
+	        AppElement = ariaAppHider.setElement(element);
+	    },
+	    injectCSS: function() {
+	      "production" !== process.env.NODE_ENV
+	        && console.warn('React-Modal: injectCSS has been deprecated ' +
+	                        'and no longer has any effect. It will be removed in a later version');
+	    }
+	  },
+	
+	  propTypes: {
+	    isOpen: React.PropTypes.bool.isRequired,
+	    style: React.PropTypes.shape({
+	      content: React.PropTypes.object,
+	      overlay: React.PropTypes.object
+	    }),
+	    appElement: React.PropTypes.instanceOf(SafeHTMLElement),
+	    onAfterOpen: React.PropTypes.func,
+	    onRequestClose: React.PropTypes.func,
+	    closeTimeoutMS: React.PropTypes.number,
+	    ariaHideApp: React.PropTypes.bool,
+	    shouldCloseOnOverlayClick: React.PropTypes.bool
+	  },
+	
+	  getDefaultProps: function () {
+	    return {
+	      isOpen: false,
+	      ariaHideApp: true,
+	      closeTimeoutMS: 0,
+	      shouldCloseOnOverlayClick: true
+	    };
+	  },
+	
+	  componentDidMount: function() {
+	    this.node = document.createElement('div');
+	    this.node.className = 'ReactModalPortal';
+	    AppElement.appendChild(this.node);
+	    this.renderPortal(this.props);
+	  },
+	
+	  componentWillReceiveProps: function(newProps) {
+	    this.renderPortal(newProps);
+	  },
+	
+	  componentWillUnmount: function() {
+	    ReactDOM.unmountComponentAtNode(this.node);
+	    AppElement.removeChild(this.node);
+	    elementClass(document.body).remove('ReactModal__Body--open');
+	  },
+	
+	  renderPortal: function(props) {
+	    if (props.isOpen) {
+	      elementClass(document.body).add('ReactModal__Body--open');
+	    } else {
+	      elementClass(document.body).remove('ReactModal__Body--open');
+	    }
+	
+	    if (props.ariaHideApp) {
+	      ariaAppHider.toggle(props.isOpen, props.appElement);
+	    }
+	
+	    this.portal = renderSubtreeIntoContainer(this, ModalPortal(Assign({}, props, {defaultStyles: Modal.defaultStyles})), this.node);
+	  },
+	
+	  render: function () {
+	    return React.DOM.noscript();
+	  }
+	});
+	
+	Modal.defaultStyles = {
+	  overlay: {
+	    position        : 'fixed',
+	    top             : 0,
+	    left            : 0,
+	    right           : 0,
+	    bottom          : 0,
+	    backgroundColor : 'rgba(255, 255, 255, 0.75)'
+	  },
+	  content: {
+	    position                : 'absolute',
+	    top                     : '40px',
+	    left                    : '40px',
+	    right                   : '40px',
+	    bottom                  : '40px',
+	    border                  : '1px solid #ccc',
+	    background              : '#fff',
+	    overflow                : 'auto',
+	    WebkitOverflowScrolling : 'touch',
+	    borderRadius            : '4px',
+	    outline                 : 'none',
+	    padding                 : '20px'
+	  }
+	}
+	
+	module.exports = Modal
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Based on code that is Copyright 2013-2015, Facebook, Inc.
+	  All rights reserved.
+	*/
+	
+	(function () {
+		'use strict';
+	
+		var canUseDOM = !!(
+			typeof window !== 'undefined' &&
+			window.document &&
+			window.document.createElement
+		);
+	
+		var ExecutionEnvironment = {
+	
+			canUseDOM: canUseDOM,
+	
+			canUseWorkers: typeof Worker !== 'undefined',
+	
+			canUseEventListeners:
+				canUseDOM && !!(window.addEventListener || window.attachEvent),
+	
+			canUseViewport: canUseDOM && !!window.screen
+	
+		};
+	
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return ExecutionEnvironment;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module !== 'undefined' && module.exports) {
+			module.exports = ExecutionEnvironment;
+		} else {
+			window.ExecutionEnvironment = ExecutionEnvironment;
+		}
+	
+	}());
+
+
+/***/ },
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ClientActions = __webpack_require__(244);
-	var EventIndexItem = __webpack_require__(276);
+	var div = React.DOM.div;
+	var focusManager = __webpack_require__(245);
+	var scopeTab = __webpack_require__(247);
+	var Assign = __webpack_require__(248);
+	
+	// so that our CSS is statically analyzable
+	var CLASS_NAMES = {
+	  overlay: {
+	    base: 'ReactModal__Overlay',
+	    afterOpen: 'ReactModal__Overlay--after-open',
+	    beforeClose: 'ReactModal__Overlay--before-close'
+	  },
+	  content: {
+	    base: 'ReactModal__Content',
+	    afterOpen: 'ReactModal__Content--after-open',
+	    beforeClose: 'ReactModal__Content--before-close'
+	  }
+	};
+	
+	var ModalPortal = module.exports = React.createClass({
+	
+	  displayName: 'ModalPortal',
+	
+	  getDefaultProps: function() {
+	    return {
+	      style: {
+	        overlay: {},
+	        content: {}
+	      }
+	    };
+	  },
+	
+	  getInitialState: function() {
+	    return {
+	      afterOpen: false,
+	      beforeClose: false
+	    };
+	  },
+	
+	  componentDidMount: function() {
+	    // Focus needs to be set when mounting and already open
+	    if (this.props.isOpen) {
+	      this.setFocusAfterRender(true);
+	      this.open();
+	    }
+	  },
+	
+	  componentWillUnmount: function() {
+	    clearTimeout(this.closeTimer);
+	  },
+	
+	  componentWillReceiveProps: function(newProps) {
+	    // Focus only needs to be set once when the modal is being opened
+	    if (!this.props.isOpen && newProps.isOpen) {
+	      this.setFocusAfterRender(true);
+	      this.open();
+	    } else if (this.props.isOpen && !newProps.isOpen) {
+	      this.close();
+	    }
+	  },
+	
+	  componentDidUpdate: function () {
+	    if (this.focusAfterRender) {
+	      this.focusContent();
+	      this.setFocusAfterRender(false);
+	    }
+	  },
+	
+	  setFocusAfterRender: function (focus) {
+	    this.focusAfterRender = focus;
+	  },
+	
+	  open: function() {
+	    focusManager.setupScopedFocus(this.node);
+	    focusManager.markForFocusLater();
+	    this.setState({isOpen: true}, function() {
+	      this.setState({afterOpen: true});
+	
+	      if (this.props.isOpen && this.props.onAfterOpen) {
+	        this.props.onAfterOpen();
+	      }
+	    }.bind(this));
+	  },
+	
+	  close: function() {
+	    if (!this.ownerHandlesClose())
+	      return;
+	    if (this.props.closeTimeoutMS > 0)
+	      this.closeWithTimeout();
+	    else
+	      this.closeWithoutTimeout();
+	  },
+	
+	  focusContent: function() {
+	    this.refs.content.focus();
+	  },
+	
+	  closeWithTimeout: function() {
+	    this.setState({beforeClose: true}, function() {
+	      this.closeTimer = setTimeout(this.closeWithoutTimeout, this.props.closeTimeoutMS);
+	    }.bind(this));
+	  },
+	
+	  closeWithoutTimeout: function() {
+	    this.setState({
+	      afterOpen: false,
+	      beforeClose: false
+	    }, this.afterClose);
+	  },
+	
+	  afterClose: function() {
+	    focusManager.returnFocus();
+	    focusManager.teardownScopedFocus();
+	  },
+	
+	  handleKeyDown: function(event) {
+	    if (event.keyCode == 9 /*tab*/) scopeTab(this.refs.content, event);
+	    if (event.keyCode == 27 /*esc*/) {
+	      event.preventDefault();
+	      this.requestClose(event);
+	    }
+	  },
+	
+	  handleOverlayClick: function(event) {
+	    var node = event.target
+	
+	    while (node) {
+	      if (node === this.refs.content) return
+	      node = node.parentNode
+	    }
+	
+	    if (this.props.shouldCloseOnOverlayClick) {
+	      if (this.ownerHandlesClose())
+	        this.requestClose(event);
+	      else
+	        this.focusContent();
+	    }
+	  },
+	
+	  requestClose: function(event) {
+	    if (this.ownerHandlesClose())
+	      this.props.onRequestClose(event);
+	  },
+	
+	  ownerHandlesClose: function() {
+	    return this.props.onRequestClose;
+	  },
+	
+	  shouldBeClosed: function() {
+	    return !this.props.isOpen && !this.state.beforeClose;
+	  },
+	
+	  buildClassName: function(which, additional) {
+	    var className = CLASS_NAMES[which].base;
+	    if (this.state.afterOpen)
+	      className += ' '+CLASS_NAMES[which].afterOpen;
+	    if (this.state.beforeClose)
+	      className += ' '+CLASS_NAMES[which].beforeClose;
+	    return additional ? className + ' ' + additional : className;
+	  },
+	
+	  render: function() {
+	    var contentStyles = (this.props.className) ? {} : this.props.defaultStyles.content;
+	    var overlayStyles = (this.props.overlayClassName) ? {} : this.props.defaultStyles.overlay;
+	
+	    return this.shouldBeClosed() ? div() : (
+	      div({
+	        ref: "overlay",
+	        className: this.buildClassName('overlay', this.props.overlayClassName),
+	        style: Assign({}, overlayStyles, this.props.style.overlay || {}),
+	        onClick: this.handleOverlayClick
+	      },
+	        div({
+	          ref: "content",
+	          style: Assign({}, contentStyles, this.props.style.content || {}),
+	          className: this.buildClassName('content', this.props.className),
+	          tabIndex: "-1",
+	          onKeyDown: this.handleKeyDown
+	        },
+	          this.props.children
+	        )
+	      )
+	    );
+	  }
+	});
+
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var findTabbable = __webpack_require__(246);
+	var modalElement = null;
+	var focusLaterElement = null;
+	var needToFocus = false;
+	
+	function handleBlur(event) {
+	  needToFocus = true;
+	}
+	
+	function handleFocus(event) {
+	  if (needToFocus) {
+	    needToFocus = false;
+	    if (!modalElement) {
+	      return;
+	    }
+	    // need to see how jQuery shims document.on('focusin') so we don't need the
+	    // setTimeout, firefox doesn't support focusin, if it did, we could focus
+	    // the element outside of a setTimeout. Side-effect of this implementation 
+	    // is that the document.body gets focus, and then we focus our element right 
+	    // after, seems fine.
+	    setTimeout(function() {
+	      if (modalElement.contains(document.activeElement))
+	        return;
+	      var el = (findTabbable(modalElement)[0] || modalElement);
+	      el.focus();
+	    }, 0);
+	  }
+	}
+	
+	exports.markForFocusLater = function() {
+	  focusLaterElement = document.activeElement;
+	};
+	
+	exports.returnFocus = function() {
+	  try {
+	    focusLaterElement.focus();
+	  }
+	  catch (e) {
+	    console.warn('You tried to return focus to '+focusLaterElement+' but it is not in the DOM anymore');
+	  }
+	  focusLaterElement = null;
+	};
+	
+	exports.setupScopedFocus = function(element) {
+	  modalElement = element;
+	
+	  if (window.addEventListener) {
+	    window.addEventListener('blur', handleBlur, false);
+	    document.addEventListener('focus', handleFocus, true);
+	  } else {
+	    window.attachEvent('onBlur', handleBlur);
+	    document.attachEvent('onFocus', handleFocus);
+	  }
+	};
+	
+	exports.teardownScopedFocus = function() {
+	  modalElement = null;
+	
+	  if (window.addEventListener) {
+	    window.removeEventListener('blur', handleBlur);
+	    document.removeEventListener('focus', handleFocus);
+	  } else {
+	    window.detachEvent('onBlur', handleBlur);
+	    document.detachEvent('onFocus', handleFocus);
+	  }
+	};
+	
+	
+
+
+/***/ },
+/* 246 */
+/***/ function(module, exports) {
+
+	/*!
+	 * Adapted from jQuery UI core
+	 *
+	 * http://jqueryui.com
+	 *
+	 * Copyright 2014 jQuery Foundation and other contributors
+	 * Released under the MIT license.
+	 * http://jquery.org/license
+	 *
+	 * http://api.jqueryui.com/category/ui-core/
+	 */
+	
+	function focusable(element, isTabIndexNotNaN) {
+	  var nodeName = element.nodeName.toLowerCase();
+	  return (/input|select|textarea|button|object/.test(nodeName) ?
+	    !element.disabled :
+	    "a" === nodeName ?
+	      element.href || isTabIndexNotNaN :
+	      isTabIndexNotNaN) && visible(element);
+	}
+	
+	function hidden(el) {
+	  return (el.offsetWidth <= 0 && el.offsetHeight <= 0) ||
+	    el.style.display === 'none';
+	}
+	
+	function visible(element) {
+	  while (element) {
+	    if (element === document.body) break;
+	    if (hidden(element)) return false;
+	    element = element.parentNode;
+	  }
+	  return true;
+	}
+	
+	function tabbable(element) {
+	  var tabIndex = element.getAttribute('tabindex');
+	  if (tabIndex === null) tabIndex = undefined;
+	  var isTabIndexNaN = isNaN(tabIndex);
+	  return (isTabIndexNaN || tabIndex >= 0) && focusable(element, !isTabIndexNaN);
+	}
+	
+	function findTabbableDescendants(element) {
+	  return [].slice.call(element.querySelectorAll('*'), 0).filter(function(el) {
+	    return tabbable(el);
+	  });
+	}
+	
+	module.exports = findTabbableDescendants;
+	
+
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var findTabbable = __webpack_require__(246);
+	
+	module.exports = function(node, event) {
+	  var tabbable = findTabbable(node);
+	  if (!tabbable.length) {
+	      event.preventDefault();
+	      return;
+	  }
+	  var finalTabbable = tabbable[event.shiftKey ? 0 : tabbable.length - 1];
+	  var leavingFinalTabbable = (
+	    finalTabbable === document.activeElement ||
+	    // handle immediate shift+tab after opening with mouse
+	    node === document.activeElement
+	  );
+	  if (!leavingFinalTabbable) return;
+	  event.preventDefault();
+	  var target = tabbable[event.shiftKey ? tabbable.length - 1 : 0];
+	  target.focus();
+	};
+
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var baseAssign = __webpack_require__(249),
+	    createAssigner = __webpack_require__(255),
+	    keys = __webpack_require__(251);
+	
+	/**
+	 * A specialized version of `_.assign` for customizing assigned values without
+	 * support for argument juggling, multiple sources, and `this` binding `customizer`
+	 * functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {Function} customizer The function to customize assigned values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function assignWith(object, source, customizer) {
+	  var index = -1,
+	      props = keys(source),
+	      length = props.length;
+	
+	  while (++index < length) {
+	    var key = props[index],
+	        value = object[key],
+	        result = customizer(value, source[key], key, object, source);
+	
+	    if ((result === result ? (result !== value) : (value === value)) ||
+	        (value === undefined && !(key in object))) {
+	      object[key] = result;
+	    }
+	  }
+	  return object;
+	}
+	
+	/**
+	 * Assigns own enumerable properties of source object(s) to the destination
+	 * object. Subsequent sources overwrite property assignments of previous sources.
+	 * If `customizer` is provided it is invoked to produce the assigned values.
+	 * The `customizer` is bound to `thisArg` and invoked with five arguments:
+	 * (objectValue, sourceValue, key, object, source).
+	 *
+	 * **Note:** This method mutates `object` and is based on
+	 * [`Object.assign`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @alias extend
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} [sources] The source objects.
+	 * @param {Function} [customizer] The function to customize assigned values.
+	 * @param {*} [thisArg] The `this` binding of `customizer`.
+	 * @returns {Object} Returns `object`.
+	 * @example
+	 *
+	 * _.assign({ 'user': 'barney' }, { 'age': 40 }, { 'user': 'fred' });
+	 * // => { 'user': 'fred', 'age': 40 }
+	 *
+	 * // using a customizer callback
+	 * var defaults = _.partialRight(_.assign, function(value, other) {
+	 *   return _.isUndefined(value) ? other : value;
+	 * });
+	 *
+	 * defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
+	 * // => { 'user': 'barney', 'age': 36 }
+	 */
+	var assign = createAssigner(function(object, source, customizer) {
+	  return customizer
+	    ? assignWith(object, source, customizer)
+	    : baseAssign(object, source);
+	});
+	
+	module.exports = assign;
+
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.2.0 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var baseCopy = __webpack_require__(250),
+	    keys = __webpack_require__(251);
+	
+	/**
+	 * The base implementation of `_.assign` without support for argument juggling,
+	 * multiple sources, and `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseAssign(object, source) {
+	  return source == null
+	    ? object
+	    : baseCopy(source, keys(source), object);
+	}
+	
+	module.exports = baseAssign;
+
+
+/***/ },
+/* 250 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property names to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseCopy(source, props, object) {
+	  object || (object = {});
+	
+	  var index = -1,
+	      length = props.length;
+	
+	  while (++index < length) {
+	    var key = props[index];
+	    object[key] = source[key];
+	  }
+	  return object;
+	}
+	
+	module.exports = baseCopy;
+
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.1.2 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var getNative = __webpack_require__(252),
+	    isArguments = __webpack_require__(253),
+	    isArray = __webpack_require__(254);
+	
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^\d+$/;
+	
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeKeys = getNative(Object, 'keys');
+	
+	/**
+	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+	
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+	
+	/**
+	 * Checks if `value` is array-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value));
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return value > -1 && value % 1 == 0 && value < length;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * A fallback implementation of `Object.keys` which creates an array of the
+	 * own enumerable property names of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function shimKeys(object) {
+	  var props = keysIn(object),
+	      propsLength = props.length,
+	      length = propsLength && object.length;
+	
+	  var allowIndexes = !!length && isLength(length) &&
+	    (isArray(object) || isArguments(object));
+	
+	  var index = -1,
+	      result = [];
+	
+	  while (++index < propsLength) {
+	    var key = props[index];
+	    if ((allowIndexes && isIndex(key, length)) || hasOwnProperty.call(object, key)) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/6.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	var keys = !nativeKeys ? shimKeys : function(object) {
+	  var Ctor = object == null ? undefined : object.constructor;
+	  if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
+	      (typeof object != 'function' && isArrayLike(object))) {
+	    return shimKeys(object);
+	  }
+	  return isObject(object) ? nativeKeys(object) : [];
+	};
+	
+	/**
+	 * Creates an array of the own and inherited enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keysIn(new Foo);
+	 * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+	 */
+	function keysIn(object) {
+	  if (object == null) {
+	    return [];
+	  }
+	  if (!isObject(object)) {
+	    object = Object(object);
+	  }
+	  var length = object.length;
+	  length = (length && isLength(length) &&
+	    (isArray(object) || isArguments(object)) && length) || 0;
+	
+	  var Ctor = object.constructor,
+	      index = -1,
+	      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
+	      result = Array(length),
+	      skipIndexes = length > 0;
+	
+	  while (++index < length) {
+	    result[index] = (index + '');
+	  }
+	  for (var key in object) {
+	    if (!(skipIndexes && isIndex(key, length)) &&
+	        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+	
+	module.exports = keys;
+
+
+/***/ },
+/* 252 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.9.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/** `Object#toString` result references. */
+	var funcTag = '[object Function]';
+	
+	/** Used to detect host constructors (Safari > 5). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/**
+	 * Checks if `value` is object-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to resolve the decompiled source of functions. */
+	var fnToString = Function.prototype.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = object == null ? undefined : object[key];
+	  return isNative(value) ? value : undefined;
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in older versions of Chrome and Safari which return 'function' for regexes
+	  // and Safari 8 equivalents which return 'object' for typed array constructors.
+	  return isObject(value) && objToString.call(value) == funcTag;
+	}
+	
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is a native function.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
+	 * @example
+	 *
+	 * _.isNative(Array.prototype.push);
+	 * // => true
+	 *
+	 * _.isNative(_);
+	 * // => false
+	 */
+	function isNative(value) {
+	  if (value == null) {
+	    return false;
+	  }
+	  if (isFunction(value)) {
+	    return reIsNative.test(fnToString.call(value));
+	  }
+	  return isObjectLike(value) && reIsHostCtor.test(value);
+	}
+	
+	module.exports = getNative;
+
+
+/***/ },
+/* 253 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.8 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]';
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+	
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+	
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+	
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+	
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	function isArguments(value) {
+	  // Safari 8.1 incorrectly makes `arguments.callee` enumerable in strict mode.
+	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+	}
+	
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value)) && !isFunction(value);
+	}
+	
+	/**
+	 * This method is like `_.isArrayLike` except that it also checks if `value`
+	 * is an object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLikeObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLikeObject('abc');
+	 * // => false
+	 *
+	 * _.isArrayLikeObject(_.noop);
+	 * // => false
+	 */
+	function isArrayLikeObject(value) {
+	  return isObjectLike(value) && isArrayLike(value);
+	}
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8 which returns 'object' for typed array and weak map constructors,
+	  // and PhantomJS 1.9 which returns 'function' for `NodeList` instances.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	module.exports = isArguments;
+
+
+/***/ },
+/* 254 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.4 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/** `Object#toString` result references. */
+	var arrayTag = '[object Array]',
+	    funcTag = '[object Function]';
+	
+	/** Used to detect host constructors (Safari > 5). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/**
+	 * Checks if `value` is object-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+	
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to resolve the decompiled source of functions. */
+	var fnToString = Function.prototype.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeIsArray = getNative(Array, 'isArray');
+	
+	/**
+	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = object == null ? undefined : object[key];
+	  return isNative(value) ? value : undefined;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(function() { return arguments; }());
+	 * // => false
+	 */
+	var isArray = nativeIsArray || function(value) {
+	  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
+	};
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in older versions of Chrome and Safari which return 'function' for regexes
+	  // and Safari 8 equivalents which return 'object' for typed array constructors.
+	  return isObject(value) && objToString.call(value) == funcTag;
+	}
+	
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	/**
+	 * Checks if `value` is a native function.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
+	 * @example
+	 *
+	 * _.isNative(Array.prototype.push);
+	 * // => true
+	 *
+	 * _.isNative(_);
+	 * // => false
+	 */
+	function isNative(value) {
+	  if (value == null) {
+	    return false;
+	  }
+	  if (isFunction(value)) {
+	    return reIsNative.test(fnToString.call(value));
+	  }
+	  return isObjectLike(value) && reIsHostCtor.test(value);
+	}
+	
+	module.exports = isArray;
+
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * lodash 3.1.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	var bindCallback = __webpack_require__(256),
+	    isIterateeCall = __webpack_require__(257),
+	    restParam = __webpack_require__(258);
+	
+	/**
+	 * Creates a function that assigns properties of source object(s) to a given
+	 * destination object.
+	 *
+	 * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+	 *
+	 * @private
+	 * @param {Function} assigner The function to assign values.
+	 * @returns {Function} Returns the new assigner function.
+	 */
+	function createAssigner(assigner) {
+	  return restParam(function(object, sources) {
+	    var index = -1,
+	        length = object == null ? 0 : sources.length,
+	        customizer = length > 2 ? sources[length - 2] : undefined,
+	        guard = length > 2 ? sources[2] : undefined,
+	        thisArg = length > 1 ? sources[length - 1] : undefined;
+	
+	    if (typeof customizer == 'function') {
+	      customizer = bindCallback(customizer, thisArg, 5);
+	      length -= 2;
+	    } else {
+	      customizer = typeof thisArg == 'function' ? thisArg : undefined;
+	      length -= (customizer ? 1 : 0);
+	    }
+	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+	      customizer = length < 3 ? undefined : customizer;
+	      length = 1;
+	    }
+	    while (++index < length) {
+	      var source = sources[index];
+	      if (source) {
+	        assigner(object, source, customizer);
+	      }
+	    }
+	    return object;
+	  });
+	}
+	
+	module.exports = createAssigner;
+
+
+/***/ },
+/* 256 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/**
+	 * A specialized version of `baseCallback` which only supports `this` binding
+	 * and specifying the number of arguments to provide to `func`.
+	 *
+	 * @private
+	 * @param {Function} func The function to bind.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {number} [argCount] The number of arguments to provide to `func`.
+	 * @returns {Function} Returns the callback.
+	 */
+	function bindCallback(func, thisArg, argCount) {
+	  if (typeof func != 'function') {
+	    return identity;
+	  }
+	  if (thisArg === undefined) {
+	    return func;
+	  }
+	  switch (argCount) {
+	    case 1: return function(value) {
+	      return func.call(thisArg, value);
+	    };
+	    case 3: return function(value, index, collection) {
+	      return func.call(thisArg, value, index, collection);
+	    };
+	    case 4: return function(accumulator, value, index, collection) {
+	      return func.call(thisArg, accumulator, value, index, collection);
+	    };
+	    case 5: return function(value, other, key, object, source) {
+	      return func.call(thisArg, value, other, key, object, source);
+	    };
+	  }
+	  return function() {
+	    return func.apply(thisArg, arguments);
+	  };
+	}
+	
+	/**
+	 * This method returns the first argument provided to it.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Utility
+	 * @param {*} value Any value.
+	 * @returns {*} Returns `value`.
+	 * @example
+	 *
+	 * var object = { 'user': 'fred' };
+	 *
+	 * _.identity(object) === object;
+	 * // => true
+	 */
+	function identity(value) {
+	  return value;
+	}
+	
+	module.exports = bindCallback;
+
+
+/***/ },
+/* 257 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.0.9 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^\d+$/;
+	
+	/**
+	 * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+	 * of an array-like value.
+	 */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+	
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+	
+	/**
+	 * Gets the "length" property value of `object`.
+	 *
+	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
+	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {*} Returns the "length" value.
+	 */
+	var getLength = baseProperty('length');
+	
+	/**
+	 * Checks if `value` is array-like.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(getLength(value));
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return value > -1 && value % 1 == 0 && value < length;
+	}
+	
+	/**
+	 * Checks if the provided arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call, else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	      ? (isArrayLike(object) && isIndex(index, object.length))
+	      : (type == 'string' && index in object)) {
+	    var other = object[index];
+	    return value === value ? (value === other) : (other !== other);
+	  }
+	  return false;
+	}
+	
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+	
+	/**
+	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
+	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(1);
+	 * // => false
+	 */
+	function isObject(value) {
+	  // Avoid a V8 JIT bug in Chrome 19-20.
+	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+	
+	module.exports = isIterateeCall;
+
+
+/***/ },
+/* 258 */
+/***/ function(module, exports) {
+
+	/**
+	 * lodash 3.6.1 (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modern modularize exports="npm" -o ./`
+	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <https://lodash.com/license>
+	 */
+	
+	/** Used as the `TypeError` message for "Functions" methods. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+	
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+	
+	/**
+	 * Creates a function that invokes `func` with the `this` binding of the
+	 * created function and arguments from `start` and beyond provided as an array.
+	 *
+	 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Function
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 * @example
+	 *
+	 * var say = _.restParam(function(what, names) {
+	 *   return what + ' ' + _.initial(names).join(', ') +
+	 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+	 * });
+	 *
+	 * say('hello', 'fred', 'barney', 'pebbles');
+	 * // => 'hello fred, barney, & pebbles'
+	 */
+	function restParam(func, start) {
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        rest = Array(length);
+	
+	    while (++index < length) {
+	      rest[index] = args[start + index];
+	    }
+	    switch (start) {
+	      case 0: return func.call(this, rest);
+	      case 1: return func.call(this, args[0], rest);
+	      case 2: return func.call(this, args[0], args[1], rest);
+	    }
+	    var otherArgs = Array(start + 1);
+	    index = -1;
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = rest;
+	    return func.apply(this, otherArgs);
+	  };
+	}
+	
+	module.exports = restParam;
+
+
+/***/ },
+/* 259 */
+/***/ function(module, exports) {
+
+	var _element = typeof document !== 'undefined' ? document.body : null;
+	
+	function setElement(element) {
+	  if (typeof element === 'string') {
+	    var el = document.querySelectorAll(element);
+	    element = 'length' in el ? el[0] : el;
+	  }
+	  _element = element || _element;
+	  return _element;
+	}
+	
+	function hide(appElement) {
+	  validateElement(appElement);
+	  (appElement || _element).setAttribute('aria-hidden', 'true');
+	}
+	
+	function show(appElement) {
+	  validateElement(appElement);
+	  (appElement || _element).removeAttribute('aria-hidden');
+	}
+	
+	function toggle(shouldHide, appElement) {
+	  if (shouldHide)
+	    hide(appElement);
+	  else
+	    show(appElement);
+	}
+	
+	function validateElement(appElement) {
+	  if (!appElement && !_element)
+	    throw new Error('react-modal: You must set an element with `Modal.setAppElement(el)` to make this accessible');
+	}
+	
+	function resetForTesting() {
+	  _element = document.body;
+	}
+	
+	exports.toggle = toggle;
+	exports.setElement = setElement;
+	exports.show = show;
+	exports.hide = hide;
+	exports.resetForTesting = resetForTesting;
+
+
+/***/ },
+/* 260 */
+/***/ function(module, exports) {
+
+	module.exports = function(opts) {
+	  return new ElementClass(opts)
+	}
+	
+	function indexOf(arr, prop) {
+	  if (arr.indexOf) return arr.indexOf(prop)
+	  for (var i = 0, len = arr.length; i < len; i++)
+	    if (arr[i] === prop) return i
+	  return -1
+	}
+	
+	function ElementClass(opts) {
+	  if (!(this instanceof ElementClass)) return new ElementClass(opts)
+	  var self = this
+	  if (!opts) opts = {}
+	
+	  // similar doing instanceof HTMLElement but works in IE8
+	  if (opts.nodeType) opts = {el: opts}
+	
+	  this.opts = opts
+	  this.el = opts.el || document.body
+	  if (typeof this.el !== 'object') this.el = document.querySelector(this.el)
+	}
+	
+	ElementClass.prototype.add = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  if (el.className === "") return el.className = className
+	  var classes = el.className.split(' ')
+	  if (indexOf(classes, className) > -1) return classes
+	  classes.push(className)
+	  el.className = classes.join(' ')
+	  return classes
+	}
+	
+	ElementClass.prototype.remove = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  if (el.className === "") return
+	  var classes = el.className.split(' ')
+	  var idx = indexOf(classes, className)
+	  if (idx > -1) classes.splice(idx, 1)
+	  el.className = classes.join(' ')
+	  return classes
+	}
+	
+	ElementClass.prototype.has = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  var classes = el.className.split(' ')
+	  return indexOf(classes, className) > -1
+	}
+	
+	ElementClass.prototype.toggle = function(className) {
+	  var el = this.el
+	  if (!el) return
+	  if (this.has(className)) this.remove(className)
+	  else this.add(className)
+	}
+
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventForm = __webpack_require__(262);
+	var EventIndex = __webpack_require__(275);
+	var EventStore = __webpack_require__(276);
+	// var LoginForm = require('./users/usersLoginForm');
+	var LoginModal = __webpack_require__(286);
+	var CreateEventModal = __webpack_require__(290);
+	var CreateShowtimeModal = __webpack_require__(291);
+	var CreateTicketModal = __webpack_require__(301);
+	// var UserActions = require('../actions/userActions');
+	var SignUpModal = __webpack_require__(302);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
+	
+	var Modal = __webpack_require__(241);
+	var UserApiUtil = __webpack_require__(274);
+	var SignInModal = __webpack_require__(303);
+	var MyDashboardModal = __webpack_require__(304);
+	var MyTicketsModal = __webpack_require__(305);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	//Mixins
+	var CurrentUserState = __webpack_require__(287);
+	
+	var CUSTOM_STYLE = {
+	  content: {
+	    'zIndex': '100000',
+	    'margin': '100px auto',
+	    'border': '5px solid dodgerblue',
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    'width': '6ix00px',
+	    'padding': '20px'
+	  }
+	};
+	
+	// 'background': 'grey'
+	// 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  mixins: [CurrentUserState],
+	
+	  getInitialState: function () {
+	    return { signInModalOpen: false,
+	      signUpModalOpen: false,
+	      demoAccountModalOpen: false,
+	      createEventModalOpen: false,
+	      createShowtimeModalOpen: false,
+	      myDashboardModalOpen: false,
+	      myTicketsModalOpen: false,
+	      createTicketModalOpen: false,
+	      currentUser: UserStore.user()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.userStoreListener = UserStore.addListener(this._userChanged);
+	    this.eventSuccessListener = EventStore.addListener(this._eventCreated);
+	    window.scrollTo(0, 0);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userStoreListener.remove();
+	    this.eventSuccessListener.remove();
+	  },
+	
+	  _userChanged: function () {
+	    this.setState({ currentUser: UserStore.user() });
+	  },
+	
+	  _eventCreated: function () {
+	    //  debugger;
+	    if (EventStore.createSuccess()) {
+	      //  debugger;
+	      var id = EventStore.showNewEventId();
+	      this.closeCreateEventModal();
+	      hashHistory.push("/event/" + id);
+	    }
+	  },
+	
+	  openSignInModal: function () {
+	    this.setState({ signInModalOpen: true });
+	  },
+	
+	  closeSignInModal: function () {
+	    this.setState({ signInModalOpen: false });
+	  },
+	
+	  openSignUpModal: function () {
+	    this.setState({ signUpModalOpen: true });
+	  },
+	
+	  closeSignUpModal: function () {
+	    this.setState({ signUpModalOpen: false });
+	  },
+	
+	  openDemoAccountModal: function () {
+	    this.setState({ demoAccountModalOpen: true });
+	  },
+	
+	  closeDemoAccountModal: function () {
+	    this.setState({ demoAccountModalOpen: false });
+	  },
+	
+	  openCreateEventModal: function () {
+	    this.setState({ createEventModalOpen: true });
+	  },
+	
+	  closeCreateEventModal: function () {
+	    this.setState({ createEventModalOpen: false });
+	  },
+	
+	  openCreateShowtimeModal: function () {
+	    this.setState({ createShowtimeModalOpen: true });
+	  },
+	
+	  closeCreateShowtimeModal: function () {
+	    this.setState({ createShowtimeModalOpen: false });
+	  },
+	
+	  openCreateTicketModal: function () {
+	    this.setState({ createTicketModalOpen: true });
+	  },
+	
+	  closeCreateTicketModal: function () {
+	    this.setState({ createTicketModalOpen: false });
+	  },
+	
+	  openMyDashboardModal: function () {
+	    this.setState({ myDashboardModalOpen: true });
+	  },
+	
+	  closeMyDashboardModal: function () {
+	    this.setState({ myDashboardModalOpen: false });
+	  },
+	
+	  openMyTicketsModal: function () {
+	    this.setState({ myTicketsModalOpen: true });
+	  },
+	
+	  closeMyTicketsModal: function () {
+	    this.setState({ myTicketsModalOpen: false });
+	  },
+	
+	  justClickedLogOut: function () {
+	    UserApiUtil.logout();
+	  },
+	
+	  signInWithDemoAccount: function () {
+	    console.log("app: sign in with demo account");
+	    ClientActions.login({ username: "guest", password: "password" });
+	  },
+	
+	  returnHome: function () {
+	    hashHistory.push("/");
+	  },
+	
+	  listMenu: function () {
+	    return React.createElement(
+	      'li',
+	      null,
+	      'Stand-In Menu'
+	    );
+	  },
+	
+	  customModalStyle: function () {
+	    return {
+	      content: {
+	        'z-index': 10000
+	      }
+	    };
+	  },
+	
+	  goToDashboard: function () {
+	    hashHistory.push("/dashboard");
+	  },
+	
+	  goToMyTickets: function () {
+	    hashHistory.push("/mytickets");
+	  },
+	
+	  goToCreateEvent: function () {
+	    hashHistory.push("/create-event");
+	  },
+	
+	  // notLoggedInMenu: function(){
+	  //   return(
+	  //     <div id="othermenu">
+	  //       <p>hello</p>
+	  //       <button onClick={this.openSignInModal}>Sign In</button>
+	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
+	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
+	  //     </div>
+	  //   );
+	  // },
+	
+	  // loggedInMenu: function(){
+	  //   return(
+	  //     <div id="othermenu">
+	  //       <p>hello</p>
+	  //       <button onClick={this.openSignInModal}>Sign In</button>
+	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
+	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
+	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
+	  //     </div>
+	  //   );
+	  // },
+	
+	  render: function () {
+	
+	    var menu;
+	
+	    var notLoggedInMenu = React.createElement(
+	      'div',
+	      { id: 'othermenu' },
+	      React.createElement(
+	        'p',
+	        { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
+	        'TixStarter'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        loggedInMessageForSteve
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openSignInModal },
+	            'Sign In'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openSignUpModal },
+	            'Sign Up'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.signInWithDemoAccount },
+	            'Demo Account'
+	          )
+	        )
+	      )
+	    );
+	
+	    var loggedInMenu = React.createElement(
+	      'div',
+	      { id: 'othermenu' },
+	      React.createElement(
+	        'p',
+	        { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
+	        'TixStarter'
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.goToCreateEvent },
+	            'Create Event'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openCreateShowtimeModal },
+	            'Create Showtime'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.openCreateTicketModal },
+	            'Create Ticket'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.goToDashboard },
+	            'My Dashboard'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.goToMyTickets },
+	            'My Tickets'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.justClickedLogOut },
+	            'Log Out'
+	          )
+	        )
+	      )
+	    );
+	
+	    var loggedInMessageForSteve;
+	
+	    if (UserStore.loggedIn()) {
+	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
+	      menu = loggedInMenu;
+	    } else {
+	      loggedInMessageForSteve = "NOT Logged In!";
+	      menu = notLoggedInMenu;
+	    }
+	
+	    // <header id="home-menu" className="home-menu">
+	    //   <h1 class="header-logo">
+	    //     TixStarter
+	    //   </h1>
+	    //   <ul class="header-list group">
+	    //     <li>Sample Button</li>
+	    //     <li>Sample Button</li>
+	    //   </ul>
+	    // </header>
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      menu,
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signInModalOpen,
+	          onRequestClose: this.closeSignInModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h1',
+	            null,
+	            'Sign In'
+	          ),
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Sign In!'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            '(The below component is SignInModal)'
+	          ),
+	          React.createElement(SignInModal, null),
+	          React.createElement('br', null),
+	          React.createElement('iframe', { width: '{854/1.5}',
+	            height: '{480/1.5}',
+	            src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
+	            frameborder: '0',
+	            allowfullscreen: true }),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.signUpModalOpen,
+	          onRequestClose: this.closeSignUpModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Sign Up'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Sign Up!!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '(The below component is SignUpModal)'
+	        ),
+	        React.createElement(SignUpModal, null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'mooooooooodal!'
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.demoAccountModalOpen,
+	          onRequestClose: this.closeDemoAccountModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Demo Account'
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'This feature has not been built yet!'
+	          ),
+	          React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
+	            width: '480',
+	            height: '305',
+	            frameBorder: '0',
+	            'class': 'giphy-embed',
+	            allowFullScreen: true }),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Here, distract yourself with Hamilton until I finish:'
+	          ),
+	          React.createElement('iframe', { width: '{854/1.2}',
+	            height: '{480/1.2}',
+	            src: 'https://www.youtube.com/embed/6ibySV-saJ8',
+	            frameborder: '0',
+	            allowfullscreen: true }),
+	          React.createElement(
+	            'p',
+	            null,
+	            'mooooooooodal!'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createEventModalOpen,
+	          onRequestClose: this.closeCreateEventModal,
+	          style: CUSTOM_STYLE
+	        },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'CreateEventModal'
+	          ),
+	          React.createElement(CreateEventModal, null)
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createShowtimeModalOpen,
+	          onRequestClose: this.closeCreateShowtimeModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'CreateShowtimeModal'
+	          ),
+	          React.createElement(CreateShowtimeModal, null)
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.createTicketModalOpen,
+	          onRequestClose: this.closeCreateTicketModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'CreateTicketModal'
+	          ),
+	          React.createElement(CreateTicketModal, null)
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.myDashboardModalOpen,
+	          onRequestClose: this.closeMyDashboardModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'MyDashboard'
+	          ),
+	          React.createElement(MyDashboardModal, null)
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.myTicketsModalOpen,
+	          onRequestClose: this.closeMyTicketsModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'div',
+	          { className: 'sign-in-modal-splash' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'MyTickets'
+	          ),
+	          React.createElement(MyTicketsModal, null)
+	        )
+	      ),
+	      this.props.children,
+	      React.createElement(
+	        'section',
+	        { id: 'footer',
+	          className: 'footer' },
+	        React.createElement(
+	          'p',
+	          null,
+	          'Hello, I am a footer!'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var LinkedStateMixin = __webpack_require__(263);
+	var ClientActions = __webpack_require__(267);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  mixins: [LinkedStateMixin],
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  blankAttrs: {
+	    title: '',
+	    description: ''
+	  },
+	
+	  getInitialState: function () {
+	    return this.blankAttrs;
+	  },
+	
+	  createEvent: function (keyEvent) {
+	    keyEvent.preventDefault();
+	    var event = {};
+	    Object.keys(this.state).forEach(function (key) {
+	      if (key !== "move_1" && key !== "move_2") {
+	        event[key] = this.state[key];
+	      }
+	    }.bind(this));
+	    event.moves = [this.state.move_1, this.state.move_2];
+	
+	    ClientActions.createEvent(event, function (id) {
+	      this.context.router.push("/event/" + id);
+	    }.bind(this));
+	    this.setState(this.blankAttrs);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { className: 'new-event', onSubmit: this.createEvent },
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_name' },
+	          'Name:'
+	        ),
+	        React.createElement('input', {
+	          type: 'text',
+	          id: 'event_name',
+	          valueLink: this.linkState("name")
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_image_url' },
+	          'Image URL:'
+	        ),
+	        React.createElement('input', {
+	          type: 'text',
+	          id: 'event_image_url',
+	          valueLink: this.linkState("image_url")
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_poke_type' },
+	          'Type:'
+	        ),
+	        React.createElement('select', { className: 'type-selector', id: 'event_poke_type', valueLink: this.linkState("poke_type") })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_attack' },
+	          'Attack:'
+	        ),
+	        React.createElement('input', {
+	          type: 'number',
+	          id: 'event_attack',
+	          valueLink: this.linkState("attack")
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_defense' },
+	          'Defense:'
+	        ),
+	        React.createElement('input', {
+	          type: 'number',
+	          id: 'event_defense',
+	          valueLink: this.linkState("defense")
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_move_1' },
+	          'Move #1:'
+	        ),
+	        React.createElement('input', {
+	          type: 'text',
+	          id: 'event_move_1',
+	          valueLink: this.linkState("move_1")
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          { htmlFor: 'event_move_2' },
+	          'Move #2:'
+	        ),
+	        React.createElement('input', {
+	          type: 'text',
+	          id: 'event_move_2',
+	          valueLink: this.linkState("move_2")
+	        })
+	      ),
+	      React.createElement(
+	        'button',
+	        null,
+	        'Create Event'
+	      ),
+	      React.createElement('br', null)
+	    );
+	  }
+	});
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(264);
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	var ReactLink = __webpack_require__(265);
+	var ReactStateSetters = __webpack_require__(266);
+	
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function (key) {
+	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+	  }
+	};
+	
+	module.exports = LinkedStateMixin;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   _handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+	
+	var React = __webpack_require__(2);
+	
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+	
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+	
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+	
+	module.exports = ReactLink;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+	
+	'use strict';
+	
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (component, funcReturningState) {
+	    return function (a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+	
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+	
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+	
+	module.exports = ReactStateSetters;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ApiUtil = __webpack_require__(268);
+	var UserApiUtil = __webpack_require__(274);
+	
+	module.exports = {
+	
+	  // User Functions
+	
+	  fetchCurrentUser: function () {
+	    UserApiUtil.fetchCurrentUser();
+	  },
+	
+	  signup: function (data) {
+	    console.log("Client Actions, Sign Up");
+	    UserApiUtil.signup(data);
+	  },
+	
+	  login: function (data) {
+	    UserApiUtil.login(data);
+	  },
+	
+	  guestLogin: function () {
+	    UserApiUtil.guestLogin();
+	  },
+	
+	  logout: function () {
+	    UserApiUtil.logout();
+	  },
+	
+	  // Event Functions
+	
+	  fetchAllEvents: function () {
+	    ApiUtil.fetchAllEvents();
+	  },
+	
+	  createEvent: function (data) {
+	    ApiUtil.createEvent(data);
+	  },
+	
+	  fetchSingleEvent: function (id) {
+	    ApiUtil.fetchSingleEvent(id);
+	  },
+	
+	  editEvent: function (data) {
+	    ApiUtil.editEvent(data);
+	  },
+	
+	  deleteEvent: function (id) {
+	    ApiUtil.deleteEvent(id);
+	  },
+	
+	  // Showtime Functions
+	
+	  fetchAllShowtimes: function () {
+	    ApiUtil.fetchAllShowtimes();
+	  },
+	
+	  createShowtime: function (showtime, callback) {
+	    ApiUtil.createShowtime(showtime, callback);
+	  },
+	
+	  fetchSingleShowtime: function (id) {
+	    console.log("ClientActions.fetchSingleShowtime");
+	    console.log("Id is " + id);
+	    ApiUtil.fetchSingleShowtime(id);
+	  },
+	
+	  // Ticket Functions
+	
+	  fetchAllTickets: function () {
+	    ApiUtil.fetchAllTickets();
+	  },
+	
+	  createTicket: function (ticket, callback) {
+	    ApiUtil.createTicket(ticket, callback);
+	  },
+	
+	  fetchSingleTicket: function (id) {
+	    ApiUtil.fetchSingleTicket(id);
+	  },
+	
+	  // TicketPurchase Functions
+	
+	  fetchAllTicketPurchases: function () {
+	    ApiUtil.fetchAllTicketPurchases();
+	  },
+	
+	  createTicketPurchase: function (ticketPurchaseData) {
+	    ApiUtil.createTicketPurchase(ticketPurchaseData);
+	  },
+	
+	  fetchSingleTicketPurchase: function (id) {
+	    ApiUtil.fetchSingleTicketPurchase(id);
+	  }
+	
+	};
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ServerActions = __webpack_require__(269);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var app = __webpack_require__(261);
+	
+	var ApiUtil = {
+	
+	  // User Functions
+	
+	  createUser: function (data) {
+	    $.ajax({
+	      url: "api/users",
+	      type: "POST",
+	      data: { user: data },
+	      success: function (user) {
+	        ServerActions.receiveUser(user);
+	      }
+	    });
+	  },
+	
+	  // Event Functions
+	
+	  fetchAllEvents: function () {
+	    $.ajax({
+	      url: "api/events",
+	      success: function (events) {
+	        ServerActions.receiveAllEvents(events);
+	      }
+	    });
+	  },
+	
+	  fetchSingleEvent: function (id) {
+	    $.ajax({
+	      url: "api/events/" + id,
+	      success: function (event) {
+	        ServerActions.receiveSingleEvent(event);
+	      }
+	    });
+	  },
+	
+	  createEvent: function (data) {
+	    $.ajax({
+	      url: "api/events",
+	      // Changed "event" to "events"
+	      method: "POST",
+	      data: { event: data },
+	      success: function (event) {
+	        // debugger;
+	        hashHistory.push('/event/' + event.id);
+	        ServerActions.receiveSingleEvent(event);
+	        // app.closeCreateEventModal();
+	        // callback && callback(event.id);
+	      }
+	    });
+	  },
+	
+	  editEvent: function (data) {
+	    $.ajax({
+	      url: "api/events/" + data.id,
+	      type: "PATCH",
+	      data: { event: { title: data.title,
+	          catchphrase: data.catchphrase,
+	          description: data.description,
+	          image_url: data.image_url,
+	          video_url: data.video_url,
+	          user_id: data.user_id,
+	          revenue_goal: data.revenue_goal,
+	          revenue_status: data.revenue_status
+	        }
+	      },
+	      success: function (post) {
+	        ServerActions.receiveSingleEvent(event);
+	      }
+	    });
+	  },
+	
+	  deleteEvent: function (id) {
+	    console.log("Api Util delete event");
+	    $.ajax({
+	      url: "api/events/" + id,
+	      type: "DELETE",
+	      success: function (event) {
+	        console.log("success function for Api Util!");
+	        ServerActions.removeEvent(event);
+	      }
+	    });
+	  },
+	
+	  // // Showtime Functions
+	  //
+	  fetchAllShowtimes: function () {
+	    $.ajax({
+	      url: "api/showtime",
+	      success: function (showtimes) {
+	        ServerActions.receiveAllShowtimes(showtimes);
+	      }
+	    });
+	  },
+	
+	  fetchSingleShowtime: function (id) {
+	    console.log("api util fetch single showtime");
+	    console.log("id is " + id);
+	    $.ajax({
+	      url: "api/showtimes/" + id,
+	      success: function (showtime) {
+	        console.log("success function!");
+	        ServerActions.receiveSingleShowtime(showtime);
+	      }
+	    });
+	  },
+	
+	  createShowtime: function (showtime, callback) {
+	    $.ajax({
+	      url: "api/showtimes",
+	      method: "POST",
+	      data: { showtime: showtime },
+	      success: function (showtime) {
+	        ServerActions.receiveSingleShowtime(showtime);
+	        callback && callback(showtime.id);
+	      }
+	    });
+	  },
+	
+	  // Ticket Functions
+	
+	  fetchAllTickets: function () {
+	    $.ajax({
+	      url: "api/tickets",
+	      success: function (tickets) {
+	        ServerActions.receiveAllTickets(tickets);
+	      }
+	    });
+	  },
+	
+	  fetchSingleTicket: function (id) {
+	    $.ajax({
+	      url: "api/tickets/" + id,
+	      success: function (ticket) {
+	        ServerActions.receiveSingleTicket(ticket);
+	      }
+	    });
+	  },
+	
+	  createTicket: function (ticket, callback) {
+	    $.ajax({
+	      url: "api/tickets",
+	      method: "POST",
+	      data: { ticket: ticket },
+	      success: function (ticket) {
+	        ServerActions.receiveSingleTicket(ticket);
+	        callback && callback(ticket.id);
+	      }
+	    });
+	  },
+	
+	  // TicketPurchase Functions
+	
+	  fetchAllTicketPurchases: function () {
+	    $.ajax({
+	      url: "api/ticket_purchases",
+	      success: function (ticketPurchases) {
+	        ServerActions.receiveAllTicketPurchases(ticketPurchases);
+	      }
+	    });
+	  },
+	
+	  fetchSingleTicketPurchase: function (id) {
+	    $.ajax({
+	      url: "api/ticket_purchases/" + id,
+	      success: function (ticketPurchase) {
+	        hashHistory.push('/success');
+	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
+	      }
+	    });
+	  },
+	
+	  createTicketPurchase: function (data) {
+	    console.log("create ticket purchase");
+	    $.ajax({
+	      url: "api/ticket_purchases",
+	      // Changed "event" to "events"
+	      method: "POST",
+	      data: { ticket_purchase: data },
+	      success: function (ticketPurchase) {
+	        console.log('create ticket purchase success');
+	        // hashHistory.push('/success');
+	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
+	        // callback && callback(event.id);
+	      }
+	    });
+	  }
+	
+	};
+	
+	//TODO: remove when done
+	window.ApiUtil = ApiUtil; //Just for testing
+	
+	module.exports = ApiUtil;
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(237);
+	var EventConstants = __webpack_require__(270);
+	var UserConstants = __webpack_require__(271);
+	var ShowtimeConstants = __webpack_require__(272);
+	var TicketPurchaseConstants = __webpack_require__(240);
+	var TicketConstants = __webpack_require__(273);
+	
+	module.exports = {
+	
+	  // User Functions:
+	
+	  receiveCurrentUser: function (user) {
+	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+	    console.log(["user", user]);
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.LOGIN,
+	      user: user
+	    });
+	  },
+	
+	  handleError: function (error) {
+	    console.log("Handle Error Function in User Actions!");
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.ERROR,
+	      errors: error.responseJSON.errors
+	    });
+	  },
+	
+	  removeCurrentUser: function () {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.LOGOUT
+	    });
+	  },
+	
+	  // Events Functions:
+	
+	  receiveAllEvents: function (events) {
+	    Dispatcher.dispatch({
+	      actionType: EventConstants.EVENTS_RECEIVED,
+	      events: events
+	    });
+	  },
+	
+	  receiveSingleEvent: function (event) {
+	    // debugger;
+	    Dispatcher.dispatch({
+	      actionType: EventConstants.EVENT_RECEIVED,
+	      event: event
+	    });
+	  },
+	
+	  removeEvent: function (event) {
+	    Dispatcher.dispatch({
+	      actionType: EventConstants.EVENT_REMOVED,
+	      event: event
+	    });
+	  },
+	
+	  // Showtimes Functions:
+	
+	  receiveAllShowtimes: function (showtimes) {
+	    console.log("receiveAllShowtime called");
+	    Dispatcher.dispatch({
+	      actionType: ShowtimeConstants.SHOWTIMES_RECEIVED,
+	      showtimes: showtimes
+	    });
+	  },
+	
+	  receiveSingleShowtime: function (showtime) {
+	    console.log("receiveSingleShowtime called");
+	    Dispatcher.dispatch({
+	      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
+	      showtime: showtime
+	    });
+	  },
+	
+	  // Events Functions:
+	
+	  receiveAllTickets: function (tickets) {
+	    Dispatcher.dispatch({
+	      actionType: TicketConstants.TICKETS_RECEIVED,
+	      tickets: tickets
+	    });
+	  },
+	
+	  receiveSingleTicket: function (ticket) {
+	    Dispatcher.dispatch({
+	      actionType: TicketConstants.TICKET_RECEIVED,
+	      ticket: ticket
+	    });
+	  },
+	
+	  removeTicket: function (ticket) {
+	    Dispatcher.dispatch({
+	      actionType: TicketConstants.TICKET_REMOVED,
+	      ticket: ticket
+	    });
+	  },
+	
+	  // Events Functions:
+	
+	  receiveAllTicketPurchases: function (ticketPurchases) {
+	    Dispatcher.dispatch({
+	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+	      ticketPurchases: ticketPurchases
+	    });
+	  },
+	
+	  receiveSingleTicketPurchase: function (ticketPurchase) {
+	    console.log("server actions receive single ticket purchase");
+	    Dispatcher.dispatch({
+	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+	      ticketPurchase: ticketPurchase
+	    });
+	  }
+	
+	};
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  EVENTS_RECEIVED: "EVENTS_RECEIVED",
+	  EVENT_RECEIVED: "EVENT_RECEIVED",
+	  EVENT_REMOVED: "EVENT_REMOVED"
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports) {
+
+	var UserConstants = {
+		LOGIN: "LOGIN",
+		ERROR: "ERROR",
+		LOGOUT: "LOGOUT",
+	
+		USER_RECEIVED: "USER_RECEIVED"
+	};
+	
+	module.exports = UserConstants;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  SHOWTIMES_RECEIVED: "SHOWTIMES_RECEIVED",
+	  SHOWTIME_RECEIVED: "SHOWTIME_RECEIVED"
+	};
+
+/***/ },
+/* 273 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  TICKETS_RECEIVED: "TICKETS_RECEIVED",
+	  TICKET_RECEIVED: "TICKET_RECEIVED",
+	  TICKET_REMOVED: "TICKET_REMOVED"
+	};
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(237);
+	// var ServerActions = require('../actions/userActions');
+	var UserConstants = __webpack_require__(271);
+	var ServerActions = __webpack_require__(269);
+	
+	var UserApiUtil = {
+	
+	  signup: function (data) {
+	    $.ajax({
+	      url: "/api/user",
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        // debugger;
+	        console.log("We're in the success function for SignUp");
+	        ServerActions.receiveCurrentUser(user);
+	      },
+	
+	      // success: function(){
+	      //   UserActions.receiveCurrentUser,
+	      //   App.closeSignInModal;
+	      //   App.closeSignUpModal;
+	      // },
+	      error: function (error) {
+	        console.log("We're in the error function for SignUp");
+	        ServerActions.handleError(error);
+	      }
+	    });
+	  },
+	
+	  login: function (data) {
+	    console.log("useractions login called");
+	    $.ajax({
+	      url: "/api/session",
+	      type: "post",
+	      data: { user: data },
+	      success: function (user) {
+	        // debugger;
+	        ServerActions.receiveCurrentUser(user);
+	      },
+	      error: function (error) {
+	        // debugger;
+	        ServerActions.handleError();
+	      }
+	
+	    });
+	  },
+	
+	  guestLogin: function () {
+	    ServerActions.login({ username: "guest", password: "password" });
+	  },
+	
+	  post: function (options) {
+	    $.ajax({
+	      url: options.url,
+	      type: "post",
+	      data: { user: options.user },
+	      success: options.succes,
+	      error: options.error
+	    });
+	  },
+	
+	  logout: function () {
+	    $.ajax({
+	      url: "/api/session",
+	      method: "delete",
+	      success: function () {
+	        ServerActions.removeCurrentUser();
+	      },
+	      error: function () {
+	        ServerActions.handleError();
+	      }
+	    });
+	  },
+	
+	  // Server Actions method, rather than passed in
+	
+	  fetchCurrentUser: function () {
+	    console.log("Fetch Current User");
+	    $.ajax({
+	      url: "/api/session",
+	      method: "get",
+	      success: function (user) {
+	        console.log('success function for fetch current user');
+	        // So, right now, UserActions is an empty {} object
+	        // Why, I have no idea.
+	        ServerActions.receiveCurrentUser(user);
+	      }.bind(this),
+	      error: function (error) {
+	        console.log('error function for fetch current user');
+	        ServerActions.handleError(error);
+	      }
+	    });
+	  },
+	
+	  receiveCurrentUser: function (user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.LOGIN,
+	      user: user
+	    });
+	  }
+	
+	};
+	
+	module.exports = UserApiUtil;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(276);
+	var ClientActions = __webpack_require__(267);
+	var EventIndexItem = __webpack_require__(277);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35447,12 +35463,12 @@
 	});
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(257).Store;
-	var AppDispatcher = __webpack_require__(247);
-	var EventConstants = __webpack_require__(251);
+	var Store = __webpack_require__(219).Store;
+	var AppDispatcher = __webpack_require__(237);
+	var EventConstants = __webpack_require__(270);
 	var EventStore = new Store(AppDispatcher);
 	
 	var _events = {};
@@ -35533,22 +35549,22 @@
 	module.exports = EventStore;
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// TODO: Right now, the Edit Event option is based on being logged in.
 	// TODO: It SHOULD be based on the Event's User-Id being the User's
 	
 	var React = __webpack_require__(1);
-	var Modal = __webpack_require__(218);
-	var EventDetail = __webpack_require__(277);
+	var Modal = __webpack_require__(241);
+	var EventDetail = __webpack_require__(278);
 	// var EventsIndex = require('./index');
-	var LoginModal = __webpack_require__(284);
-	var EventModal = __webpack_require__(286);
-	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(256);
+	var LoginModal = __webpack_require__(286);
+	var EventModal = __webpack_require__(288);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var EditEventModal = __webpack_require__(287);
+	var EditEventModal = __webpack_require__(289);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35798,13 +35814,13 @@
 	//  <EventDetail event={this.props.event} />
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
-	var ClientActions = __webpack_require__(244);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35871,11 +35887,11 @@
 	});
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShowtimeIndexItem = __webpack_require__(279);
+	var ShowtimeIndexItem = __webpack_require__(280);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35896,13 +35912,13 @@
 	});
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Modal = __webpack_require__(218);
-	var ShowtimeModal = __webpack_require__(280);
-	var EventsIndex = __webpack_require__(276);
+	var Modal = __webpack_require__(241);
+	var ShowtimeModal = __webpack_require__(281);
+	var EventsIndex = __webpack_require__(277);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36009,15 +36025,15 @@
 	});
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
-	var ClientActions = __webpack_require__(244);
-	var TicketsIndex = __webpack_require__(281);
-	var ShowtimeStore = __webpack_require__(283);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var TicketsIndex = __webpack_require__(282);
+	var ShowtimeStore = __webpack_require__(285);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36079,11 +36095,11 @@
 	});
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TicketIndexItem = __webpack_require__(282);
+	var TicketIndexItem = __webpack_require__(283);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36102,15 +36118,15 @@
 	});
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Modal = __webpack_require__(218);
-	var TicketsIndex = __webpack_require__(282);
-	var UserStore = __webpack_require__(256);
-	var ClientActions = __webpack_require__(244);
-	var ShowtimeStore = __webpack_require__(283);
+	var Modal = __webpack_require__(241);
+	var TicketsIndex = __webpack_require__(283);
+	var UserStore = __webpack_require__(284);
+	var ClientActions = __webpack_require__(267);
+	var ShowtimeStore = __webpack_require__(285);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36186,15 +36202,92 @@
 	});
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(257).Store;
-	var AppDispatcher = __webpack_require__(247);
-	var ShowtimeConstants = __webpack_require__(253);
+	var Store = __webpack_require__(219).Store;
+	// var UserConstants = require('../constants/userConstants.js');
+	var AppDispatcher = __webpack_require__(237);
+	
+	var UserStore = new Store(AppDispatcher);
+	
+	var _currentUser, _errors;
+	
+	// TODO: Logged In Method
+	
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case "LOGIN":
+	      UserStore.login(payload.user);
+	      break;
+	    case "LOGOUT":
+	      UserStore.logout();
+	      break;
+	    case "ERROR":
+	      UserStore.setErrors(payload.errors);
+	      break;
+	  }
+	  UserStore.__emitChange();
+	};
+	
+	UserStore.login = function (user) {
+	  // debugger;
+	  if (user['username']) {
+	    _currentUser = user;
+	    _errors = null;
+	  }
+	};
+	
+	UserStore.logout = function () {
+	  _currentUser = null;
+	  _errors = null;
+	};
+	
+	UserStore.loggedIn = function () {
+	  if (typeof UserStore.currentUser() === 'undefined') {
+	    return false;
+	  } else {
+	    return true;
+	  }
+	};
+	
+	UserStore.user = function () {
+	  return _currentUser;
+	};
+	
+	UserStore.currentUser = function () {
+	  if (_currentUser) {
+	    return $.extend({}, _currentUser);
+	    // TODO: What does this ^ mean?
+	  }
+	};
+	
+	UserStore.currentUserEvents = function () {
+	  // debugger;
+	};
+	
+	UserStore.setErrors = function (errors) {
+	  _errors = errors;
+	};
+	
+	UserStore.errors = function () {
+	  if (_errors) {
+	    return [].slice.call(_errors);
+	  }
+	};
+	
+	module.exports = UserStore;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(219).Store;
+	var AppDispatcher = __webpack_require__(237);
+	var ShowtimeConstants = __webpack_require__(272);
 	var ShowtimeStore = new Store(AppDispatcher);
-	var ClientActions = __webpack_require__(244);
-	var ApiUtil = __webpack_require__(245);
+	var ClientActions = __webpack_require__(267);
+	var ApiUtil = __webpack_require__(268);
 	
 	var _showtimes = {};
 	
@@ -36239,14 +36332,14 @@
 	module.exports = ShowtimeStore;
 
 /***/ },
-/* 284 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var LinkedStateMixin = __webpack_require__(240);
-	var ClientActions = __webpack_require__(244);
+	var LinkedStateMixin = __webpack_require__(263);
+	var ClientActions = __webpack_require__(267);
 	// var UserActions = require('../../actions/userActions');
-	var CurrentUserState = __webpack_require__(285);
+	var CurrentUserState = __webpack_require__(287);
 	
 	var LoginModal = React.createClass({
 		displayName: 'LoginModal',
@@ -36497,7 +36590,7 @@
 	module.exports = LoginModal;
 
 /***/ },
-/* 285 */
+/* 287 */
 /***/ function(module, exports) {
 
 	// var UserStore = require('../stores/user');
@@ -36533,19 +36626,19 @@
 	// module.exports = CurrentUserState;
 
 /***/ },
-/* 286 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// TODO: Right now, the Edit Event option is based on being logged in.
 	// TODO: It SHOULD be based on the Event's User-Id being the User's
 	
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
-	var ClientActions = __webpack_require__(244);
-	var Modal = __webpack_require__(218);
-	var EditEventModal = __webpack_require__(287);
-	var UserStore = __webpack_require__(256);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var Modal = __webpack_require__(241);
+	var EditEventModal = __webpack_require__(289);
+	var UserStore = __webpack_require__(284);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	module.exports = React.createClass({
@@ -36664,14 +36757,14 @@
 	});
 
 /***/ },
-/* 287 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
 	var Link = __webpack_require__(159).Link;
-	var ClientActions = __webpack_require__(244);
+	var ClientActions = __webpack_require__(267);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36872,14 +36965,14 @@
 	});
 
 /***/ },
-/* 288 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
-	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(256);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -37078,18 +37171,18 @@
 	});
 
 /***/ },
-/* 289 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
-	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(256);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
 	// var SelectEventDropdown = require('./SelectEventDropdown');
-	var Select = __webpack_require__(290);
+	var Select = __webpack_require__(292);
 	
-	var ReactDropdown = __webpack_require__(297);
+	var ReactDropdown = __webpack_require__(299);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -37241,7 +37334,7 @@
 	});
 
 /***/ },
-/* 290 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37262,27 +37355,27 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reactInputAutosize = __webpack_require__(291);
+	var _reactInputAutosize = __webpack_require__(293);
 	
 	var _reactInputAutosize2 = _interopRequireDefault(_reactInputAutosize);
 	
-	var _classnames = __webpack_require__(292);
+	var _classnames = __webpack_require__(294);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _utilsStripDiacritics = __webpack_require__(293);
+	var _utilsStripDiacritics = __webpack_require__(295);
 	
 	var _utilsStripDiacritics2 = _interopRequireDefault(_utilsStripDiacritics);
 	
-	var _Async = __webpack_require__(294);
+	var _Async = __webpack_require__(296);
 	
 	var _Async2 = _interopRequireDefault(_Async);
 	
-	var _Option = __webpack_require__(295);
+	var _Option = __webpack_require__(297);
 	
 	var _Option2 = _interopRequireDefault(_Option);
 	
-	var _Value = __webpack_require__(296);
+	var _Value = __webpack_require__(298);
 	
 	var _Value2 = _interopRequireDefault(_Value);
 	
@@ -38158,7 +38251,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 291 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38289,7 +38382,7 @@
 	module.exports = AutosizeInput;
 
 /***/ },
-/* 292 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -38343,7 +38436,7 @@
 
 
 /***/ },
-/* 293 */
+/* 295 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38358,7 +38451,7 @@
 	};
 
 /***/ },
-/* 294 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38371,11 +38464,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Select = __webpack_require__(290);
+	var _Select = __webpack_require__(292);
 	
 	var _Select2 = _interopRequireDefault(_Select);
 	
-	var _utilsStripDiacritics = __webpack_require__(293);
+	var _utilsStripDiacritics = __webpack_require__(295);
 	
 	var _utilsStripDiacritics2 = _interopRequireDefault(_utilsStripDiacritics);
 	
@@ -38531,7 +38624,7 @@
 	module.exports = Async;
 
 /***/ },
-/* 295 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38542,7 +38635,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(292);
+	var _classnames = __webpack_require__(294);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38640,7 +38733,7 @@
 	module.exports = Option;
 
 /***/ },
-/* 296 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38651,7 +38744,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(292);
+	var _classnames = __webpack_require__(294);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38749,7 +38842,7 @@
 	module.exports = Value;
 
 /***/ },
-/* 297 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38768,7 +38861,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(298);
+	var _classnames = __webpack_require__(300);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38964,7 +39057,7 @@
 	exports.default = Dropdown;
 
 /***/ },
-/* 298 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -39018,12 +39111,159 @@
 
 
 /***/ },
-/* 299 */
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(276);
+	var TicketsIndex = __webpack_require__(282);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
+	// var SelectEventDropdown = require('./SelectEventDropdown');
+	var Select = __webpack_require__(292);
+	
+	var ReactDropdown = __webpack_require__(299);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      showtime_id: "",
+	      price: "",
+	      tier: "",
+	      description: ""
+	    };
+	  },
+	
+	  eventIdChange: function (keyboardEvent) {
+	    var newEventId = keyboardEvent.target.value;
+	    this.setState({ event_id: newEventId });
+	    console.log("EventId: " + this.state.event_id);
+	  },
+	
+	  dateChange: function (keyboardEvent) {
+	    var newDate = keyboardEvent.target.value;
+	    this.setState({ date: newDate });
+	    console.log("Date: " + this.state.date);
+	  },
+	
+	  timeChange: function (keyboardEvent) {
+	    var newTime = keyboardEvent.target.value;
+	    this.setState({ time: newTime });
+	    console.log("Time: " + this.state.time);
+	  },
+	
+	  locationChange: function (keyboardEvent) {
+	    var newLocation = keyboardEvent.target.value;
+	    this.setState({ location: newLocation });
+	    console.log("Location: " + this.state.location);
+	  },
+	
+	  handleSubmit: function (keyboardEvent) {
+	
+	    keyboardEvent.preventDefault();
+	    var ticketData = {
+	      event_id: this.state.event_id,
+	      date: this.state.date,
+	      time: this.state.time,
+	      location: this.state.location
+	    };
+	
+	    ClientActions.createTicket(ticketData);
+	  },
+	
+	  // eventOptions: function(){
+	  //   UserStore.user.events.map(function(event){
+	  //     <div>
+	  //       <option value=event.title>event.title}</option>
+	  //     </div>
+	  //   });
+	  // },
+	
+	  render: function () {
+	
+	    // <input type="text"
+	    //         value={this.state.event_id}
+	    //         onChange={this.eventIdChange}
+	    //   />
+	    // var eventOptions =
+	    //   UserStore.user().events.map(function(event){
+	    //     <option value={event.name}>{event.name}</option>
+	    //   });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Create New Ticket'
+	      ),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Price:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.price,
+	            onChange: this.priceChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Tier:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.tier,
+	            onChange: this.tierChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Description:',
+	          React.createElement('input', { type: 'textarea',
+	            value: this.state.description,
+	            onChange: this.descriptionChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Create Ticket' }),
+	        React.createElement('br', null)
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'p',
+	        null,
+	        'To Do: ',
+	        React.createElement(
+	          'b',
+	          null,
+	          'Change Date/Time, Add Dropdown for MyShows'
+	        )
+	      )
+	    );
+	  }
+	
+	});
+
+/***/ },
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	// var UserActions = require('../../actions/userActions');
-	var ClientActions = __webpack_require__(244);
+	var ClientActions = __webpack_require__(267);
 	
 	var SignUpModal = React.createClass({
 	  displayName: "SignUpModal",
@@ -39103,11 +39343,11 @@
 	module.exports = SignUpModal;
 
 /***/ },
-/* 300 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ClientActions = __webpack_require__(244);
+	var ClientActions = __webpack_require__(267);
 	// var UserActions = require('../../actions/userActions');
 	
 	var SignInModal = React.createClass({
@@ -39188,14 +39428,14 @@
 	module.exports = SignInModal;
 
 /***/ },
-/* 301 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var ClientActions = __webpack_require__(244);
-	var EventIndexItem = __webpack_require__(276);
-	var UserStore = __webpack_require__(256);
+	var EventStore = __webpack_require__(276);
+	var ClientActions = __webpack_require__(267);
+	var EventIndexItem = __webpack_require__(277);
+	var UserStore = __webpack_require__(284);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -39265,28 +39505,197 @@
 	});
 
 /***/ },
-/* 302 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventForm = __webpack_require__(239);
-	var EventIndex = __webpack_require__(274);
+	var TicketStore = __webpack_require__(306);
+	var ClientActions = __webpack_require__(267);
+	var TicketIndexItem = __webpack_require__(283);
+	var UserStore = __webpack_require__(284);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	  getInitialState: function () {
+	    console.log("getInitialState");
+	    return { tickets: TicketStore.all() };
+	  },
+	
+	  _onChange: function () {
+	    console.log('_onChange');
+	    this.setState({ tickets: TicketStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    console.log('componentDidMount');
+	    this.ticketListener = TicketStore.addListener(this._onChange);
+	    ClientActions.fetchAllTickets();
+	  },
+	
+	  compomentWillUnmount: function () {
+	    console.log('componentWillUnmount');
+	    this.ticketListener.remove();
+	  },
+	
+	  myTickets: function () {
+	    var result = [];
+	
+	    this.state.tickets.map(function (ticket) {
+	      if (ticket.user_id === UserStore.user().id) {
+	        result.push(ticket);
+	      }
+	    });
+	    return result;
+	  },
+	
+	  render: function () {
+	
+	    // debugger;
+	
+	    var test = "Nothing";
+	    if (this.state.tickets) {
+	      test = this.state.tickets;
+	      console.log(this.state.tickets);
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'tickets-divider' },
+	        React.createElement(
+	          'h2',
+	          { className: 'dashboard-title', 'font-size': '15px' },
+	          'My Purchased Tickets:'
+	        )
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'There\'s a lot still to do here.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You\'ll want to change this.state.tickets to this.myTickets'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You\'ll want to make sure the action of clicking the ticket is different --'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'You don\'t want to buy it all over again!'
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'dashboard' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'My Purchased Tickets:'
+	        ),
+	        React.createElement('br', null),
+	        this.state.tickets.map(function (ticket) {
+	
+	          return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
+	        })
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(219).Store;
+	var AppDispatcher = __webpack_require__(237);
+	var TicketConstants = __webpack_require__(273);
+	var TicketStore = new Store(AppDispatcher);
+	
+	var _tickets = {};
+	
+	var resetTickets = function (tickets) {
+	  console.log('resetTickets');
+	  console.log(["tickets", tickets]);
+	  _tickets = {};
+	  tickets.forEach(function (ticket) {
+	    _tickets[ticket.id] = ticket;
+	  });
+	  console.log(["_tickets", _tickets]);
+	};
+	
+	var resetTicket = function (ticket) {
+	  _tickets[ticket.id] = ticket;
+	};
+	
+	var removeTicket = function (ticket) {
+	  console.log("ticketstore removeTicket");
+	  delete _tickets[ticket.id];
+	};
+	
+	TicketStore.all = function () {
+	  var tickets = [];
+	  for (var id in _tickets) {
+	    tickets.push(_tickets[id]);
+	  }
+	  return tickets;
+	};
+	
+	TicketStore.find = function (id) {
+	  return _tickets[id];
+	};
+	
+	TicketStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case TicketConstants.TICKETS_RECEIVED:
+	      resetTickets(payload.tickets);
+	      TicketStore.__emitChange();
+	      break;
+	    case TicketConstants.TICKET_RECEIVED:
+	      resetTicket(payload.ticket);
+	      TicketStore.__emitChange();
+	      break;
+	    case TicketConstants.TICKET_REMOVED:
+	      console.log("ticket store case EVENT_REMOVED");
+	      removeTicket(payload.ticket);
+	      break;
+	  }
+	};
+	
+	// TODO: Remove when done
+	window.TicketStore = TicketStore;
+	
+	module.exports = TicketStore;
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventForm = __webpack_require__(262);
+	var EventIndex = __webpack_require__(275);
 	// var LoginForm = require('./users/usersLoginForm');
-	var LoginModal = __webpack_require__(284);
-	var CreateEventModal = __webpack_require__(288);
-	var CreateShowtimeModal = __webpack_require__(289);
+	var LoginModal = __webpack_require__(286);
+	var CreateEventModal = __webpack_require__(290);
+	var CreateShowtimeModal = __webpack_require__(291);
 	// var UserActions = require('../actions/userActions');
-	var SignUpModal = __webpack_require__(299);
+	var SignUpModal = __webpack_require__(302);
 	
-	var UserStore = __webpack_require__(256);
+	var UserStore = __webpack_require__(284);
 	
-	var Modal = __webpack_require__(218);
-	var UserApiUtil = __webpack_require__(254);
-	var SignInModal = __webpack_require__(300);
-	var MyDashboardModal = __webpack_require__(301);
+	var Modal = __webpack_require__(241);
+	var UserApiUtil = __webpack_require__(274);
+	var SignInModal = __webpack_require__(303);
+	var MyDashboardModal = __webpack_require__(304);
 	
 	//Mixins
-	var CurrentUserState = __webpack_require__(285);
+	var CurrentUserState = __webpack_require__(287);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -39409,16 +39818,16 @@
 	});
 
 /***/ },
-/* 303 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Modal = __webpack_require__(218);
-	var ShowtimeModal = __webpack_require__(280);
-	var EventStore = __webpack_require__(275);
-	var ShowtimesIndex = __webpack_require__(278);
-	var ClientActions = __webpack_require__(244);
-	var ApiUtil = __webpack_require__(245);
+	var Modal = __webpack_require__(241);
+	var ShowtimeModal = __webpack_require__(281);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var ApiUtil = __webpack_require__(268);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -39679,11 +40088,11 @@
 	});
 
 /***/ },
-/* 304 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
+	var EventStore = __webpack_require__(276);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -39772,196 +40181,7 @@
 	});
 
 /***/ },
-/* 305 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  TICKET_PURCHASES_RECEIVED: "TICKET_PURCHASES_RECEIVED",
-	  TICKET_PURCHASE_RECEIVED: "TICKET_PURCHASE_RECEIVED",
-	  TICKET_PURCHASE_REMOVED: "TICKET_PURCHASE_REMOVED"
-	};
-
-/***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var TicketStore = __webpack_require__(307);
-	var ClientActions = __webpack_require__(244);
-	var TicketIndexItem = __webpack_require__(282);
-	var UserStore = __webpack_require__(256);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  getInitialState: function () {
-	    console.log("getInitialState");
-	    return { tickets: TicketStore.all() };
-	  },
-	
-	  _onChange: function () {
-	    console.log('_onChange');
-	    this.setState({ tickets: TicketStore.all() });
-	  },
-	
-	  componentDidMount: function () {
-	    console.log('componentDidMount');
-	    this.ticketListener = TicketStore.addListener(this._onChange);
-	    ClientActions.fetchAllTickets();
-	  },
-	
-	  compomentWillUnmount: function () {
-	    console.log('componentWillUnmount');
-	    this.ticketListener.remove();
-	  },
-	
-	  myTickets: function () {
-	    var result = [];
-	
-	    this.state.tickets.map(function (ticket) {
-	      if (ticket.user_id === UserStore.user().id) {
-	        result.push(ticket);
-	      }
-	    });
-	    return result;
-	  },
-	
-	  render: function () {
-	
-	    // debugger;
-	
-	    var test = "Nothing";
-	    if (this.state.tickets) {
-	      test = this.state.tickets;
-	      console.log(this.state.tickets);
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'tickets-divider' },
-	        React.createElement(
-	          'h2',
-	          { className: 'dashboard-title', 'font-size': '15px' },
-	          'My Purchased Tickets:'
-	        )
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'There\'s a lot still to do here.'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You\'ll want to change this.state.tickets to this.myTickets'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You\'ll want to make sure the action of clicking the ticket is different --'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You don\'t want to buy it all over again!'
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'dashboard' },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'My Purchased Tickets:'
-	        ),
-	        React.createElement('br', null),
-	        this.state.tickets.map(function (ticket) {
-	
-	          return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
-	        })
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(257).Store;
-	var AppDispatcher = __webpack_require__(247);
-	var TicketConstants = __webpack_require__(308);
-	var TicketStore = new Store(AppDispatcher);
-	
-	var _tickets = {};
-	
-	var resetTickets = function (tickets) {
-	  console.log('resetTickets');
-	  console.log(["tickets", tickets]);
-	  _tickets = {};
-	  tickets.forEach(function (ticket) {
-	    _tickets[ticket.id] = ticket;
-	  });
-	  console.log(["_tickets", _tickets]);
-	};
-	
-	var resetTicket = function (ticket) {
-	  _tickets[ticket.id] = ticket;
-	};
-	
-	var removeTicket = function (ticket) {
-	  console.log("ticketstore removeTicket");
-	  delete _tickets[ticket.id];
-	};
-	
-	TicketStore.all = function () {
-	  var tickets = [];
-	  for (var id in _tickets) {
-	    tickets.push(_tickets[id]);
-	  }
-	  return tickets;
-	};
-	
-	TicketStore.find = function (id) {
-	  return _tickets[id];
-	};
-	
-	TicketStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case TicketConstants.TICKETS_RECEIVED:
-	      resetTickets(payload.tickets);
-	      TicketStore.__emitChange();
-	      break;
-	    case TicketConstants.TICKET_RECEIVED:
-	      resetTicket(payload.ticket);
-	      TicketStore.__emitChange();
-	      break;
-	    case TicketConstants.TICKET_REMOVED:
-	      console.log("ticket store case EVENT_REMOVED");
-	      removeTicket(payload.ticket);
-	      break;
-	  }
-	};
-	
-	// TODO: Remove when done
-	window.TicketStore = TicketStore;
-	
-	module.exports = TicketStore;
-
-/***/ },
-/* 308 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  TICKETS_RECEIVED: "TICKETS_RECEIVED",
-	  TICKET_RECEIVED: "TICKET_RECEIVED",
-	  TICKET_REMOVED: "TICKET_REMOVED"
-	};
-
-/***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -40008,80 +40228,12 @@
 	});
 
 /***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(257).Store;
-	var AppDispatcher = __webpack_require__(247);
-	var TicketPurchaseConstants = __webpack_require__(305);
-	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	var TicketPurchaseStore = new Store(AppDispatcher);
-	
-	var _ticketPurchases = {};
-	
-	var resetTicketPurchases = function (ticketPurchases) {
-	  console.log('resetTicketPurchases');
-	  console.log(["ticketPurchases", ticketPurchases]);
-	  _ticketPurchases = {};
-	  ticketPurchases.forEach(function (ticketPurchase) {
-	    _ticketPurchases[ticketPurchase.id] = ticketPurchase;
-	  });
-	  console.log(["_ticketPurchases", _ticketPurchases]);
-	};
-	
-	var resetTicketPurchase = function (ticketPurchase) {
-	  _ticketPurchases[ticketPurchase.id] = ticketPurchase;
-	  hashHistory.push('/ticket_purchases/' + ticketPurchase.id);
-	};
-	
-	var removeTicketPurchase = function (ticketPurchase) {
-	  console.log("ticketPurchasestore removeTicketPurchase");
-	  delete _ticketPurchases[ticketPurchase.id];
-	};
-	
-	TicketPurchaseStore.all = function () {
-	  var ticketPurchases = [];
-	  for (var id in _ticketPurchases) {
-	    ticketPurchases.push(_ticketPurchases[id]);
-	  }
-	  return ticketPurchases;
-	};
-	
-	TicketPurchaseStore.find = function (id) {
-	  return _ticketPurchases[id];
-	};
-	
-	TicketPurchaseStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
-	      resetTicketPurchases(payload.ticketPurchases);
-	      TicketPurchaseStore.__emitChange();
-	      break;
-	    case TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED:
-	      console.log("ticket purchase received");
-	      resetTicketPurchase(payload.ticketPurchase);
-	      TicketPurchaseStore.__emitChange();
-	      break;
-	    case TicketPurchaseConstants.TICKET_PURCHASE_REMOVED:
-	      console.log("ticketPurchase store case EVENT_REMOVED");
-	      removeTicketPurchase(payload.ticketPurchase);
-	      break;
-	  }
-	};
-	
-	// TODO: Remove when done
-	window.TicketPurchaseStore = TicketPurchaseStore;
-	
-	module.exports = TicketPurchaseStore;
-
-/***/ },
 /* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TicketPurchaseStore = __webpack_require__(310);
-	var ClientActions = __webpack_require__(244);
+	var TicketPurchaseStore = __webpack_require__(218);
+	var ClientActions = __webpack_require__(267);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -40187,153 +40339,6 @@
 	      )
 	    );
 	  }
-	});
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(275);
-	var TicketsIndex = __webpack_require__(281);
-	var ClientActions = __webpack_require__(244);
-	var UserStore = __webpack_require__(256);
-	// var SelectEventDropdown = require('./SelectEventDropdown');
-	var Select = __webpack_require__(290);
-	
-	var ReactDropdown = __webpack_require__(297);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	
-	  getInitialState: function () {
-	    return {
-	      showtime_id: "",
-	      price: "",
-	      tier: "",
-	      description: ""
-	    };
-	  },
-	
-	  eventIdChange: function (keyboardEvent) {
-	    var newEventId = keyboardEvent.target.value;
-	    this.setState({ event_id: newEventId });
-	    console.log("EventId: " + this.state.event_id);
-	  },
-	
-	  dateChange: function (keyboardEvent) {
-	    var newDate = keyboardEvent.target.value;
-	    this.setState({ date: newDate });
-	    console.log("Date: " + this.state.date);
-	  },
-	
-	  timeChange: function (keyboardEvent) {
-	    var newTime = keyboardEvent.target.value;
-	    this.setState({ time: newTime });
-	    console.log("Time: " + this.state.time);
-	  },
-	
-	  locationChange: function (keyboardEvent) {
-	    var newLocation = keyboardEvent.target.value;
-	    this.setState({ location: newLocation });
-	    console.log("Location: " + this.state.location);
-	  },
-	
-	  handleSubmit: function (keyboardEvent) {
-	
-	    keyboardEvent.preventDefault();
-	    var ticketData = {
-	      event_id: this.state.event_id,
-	      date: this.state.date,
-	      time: this.state.time,
-	      location: this.state.location
-	    };
-	
-	    ClientActions.createTicket(ticketData);
-	  },
-	
-	  // eventOptions: function(){
-	  //   UserStore.user.events.map(function(event){
-	  //     <div>
-	  //       <option value=event.title>event.title}</option>
-	  //     </div>
-	  //   });
-	  // },
-	
-	  render: function () {
-	
-	    // <input type="text"
-	    //         value={this.state.event_id}
-	    //         onChange={this.eventIdChange}
-	    //   />
-	    // var eventOptions =
-	    //   UserStore.user().events.map(function(event){
-	    //     <option value={event.name}>{event.name}</option>
-	    //   });
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Create New Ticket'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Price:',
-	          React.createElement('input', { type: 'text',
-	            value: this.state.price,
-	            onChange: this.priceChange
-	          })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Tier:',
-	          React.createElement('input', { type: 'text',
-	            value: this.state.tier,
-	            onChange: this.tierChange
-	          })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Description:',
-	          React.createElement('input', { type: 'textarea',
-	            value: this.state.description,
-	            onChange: this.descriptionChange
-	          })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Create Ticket' }),
-	        React.createElement('br', null)
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'To Do: ',
-	        React.createElement(
-	          'b',
-	          null,
-	          'Change Date/Time, Add Dropdown for MyShows'
-	        )
-	      )
-	    );
-	  }
-	
 	});
 
 /***/ }
