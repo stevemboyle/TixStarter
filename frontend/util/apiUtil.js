@@ -142,15 +142,16 @@ var ApiUtil = {
     });
   },
 
-  createTicket: function (ticket, callback) {
+  createTicket: function (data) {
     $.ajax({
       url: "api/tickets",
       method: "POST",
-      data: {ticket: ticket},
+      data: {ticket: data},
       success: function (ticket) {
         debugger;
+        hashHistory.push('/');
         ServerActions.receiveSingleTicket(ticket);
-        callback && callback(ticket.id);
+        // callback && callback(ticket.id);
       }
     });
   },

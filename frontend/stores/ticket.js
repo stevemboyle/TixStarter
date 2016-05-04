@@ -43,6 +43,7 @@ TicketStore.__onDispatch = function (payload) {
       TicketStore.__emitChange();
       break;
     case TicketConstants.TICKET_RECEIVED:
+      debugger;
       resetTicket(payload.ticket);
       TicketStore.__emitChange();
       break;

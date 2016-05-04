@@ -28,6 +28,21 @@ var removeEvent = function(event){
   delete _events[event.id];
 };
 
+EventStore.findShowtimes = function(userId){
+  var result = {};
+
+  for (var eventId in _events){
+
+    var currentEvent = _events[eventId];
+
+    if (currentEvent.user_id === userId){
+      result[currentEvent.id] = currentEvent.showtimes;
+    }
+  }
+
+  return result;
+};
+
 EventStore.createSuccess = function(){
   return _eventSuccess;
 };

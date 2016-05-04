@@ -12,13 +12,37 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return({
-      event_id: undefined,
-      showtime_id: undefined,
+      event_id: "",
+      showtime_id: "",
       price: "",
       tier: "",
       description: "",
+      showtimes: ""
     });
   },
+
+  componentDidMount: function(){
+    // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
+    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+    var defaultEventId = UserStore.user().events[0].id;
+    var defaultEventsShowtimes = myShowtimes[defaultEventId];
+    var defaultShowtime = defaultEventsShowtimes[0];
+
+
+    this.setState({event_id: defaultEventId,
+                  showtime_id: defaultShowtime.id});
+
+    // this.setState({showtime_id: m})
+  },
+
+  updateShowtimes: function(){
+    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+    this.setState({showtimes: myShowtimes});
+  },
+  //
+  // componentWillUnmount: function(){
+  //   // this.eventStoreListener.remove();
+  // },
 
   eventIdChange: function(keyboardEvent){
     var newEventId = keyboardEvent.target.value;
@@ -73,18 +97,23 @@ module.exports = React.createClass({
 
   render: function(){
 
+    var myHTML = (
+      <div></div>
+    );
+
+    // var showtimes = EventStore.findShowtimes(UserStore.user().id);
 
     var ShowtimeSelector;
 
-    if (this.state.eventId){
+    if (this.state.event_id){
       ShowtimeSelector = (
         <div>
           <br></br>
 
             <label> Showtime:
-              <select value={this.state.showtimeId}
+              <select value={this.state.showtime_id}
               onChange={this.showtimeIdChange}>
-                {EventStore.find(this.state.eventId).showtimes.map(function (showtime) {
+                {EventStore.find(this.state.event_id).showtimes.map(function (showtime) {
                   return <option key={showtime.id} value={showtime.id}>{showtime.date} at {showtime.location}</option>;
                   // return <EventIndexItem key={event.id} event={event} />;
                 })}
@@ -96,6 +125,78 @@ module.exports = React.createClass({
       );
     }
 
+        if (UserStore.user()){
+          myHTML = (
+            <div className="create-event-background">
+
+
+              <h3>Create New Ticket</h3>
+              <form onSubmit={this.handleSubmit} className="form-style-8">
+
+                <br></br>
+
+                  <label> Event:
+                    <select value={this.state.eventId}
+                    onChange={this.eventIdChange}>
+                      {UserStore.user().events.map(function (event) {
+                        return <option key={event.id} value={event.id}>{event.title}</option>;
+                        // return <EventIndexItem key={event.id} event={event} />;
+                      })}
+                    </select>
+                  </label>
+
+                  <br></br>
+
+                {ShowtimeSelector}
+
+                <br></br>
+
+                  <label> Price:
+                    <input type="text"
+                            value={this.state.price}
+                            onChange={this.priceChange}
+                      />
+                  </label>
+
+
+                <br></br>
+                <br></br>
+
+                    <label> Tier:
+                      <input type="text"
+                              value={this.state.tier}
+                              onChange={this.tierChange}
+                        />
+                    </label>
+
+
+                  <br></br>
+                  <br></br>
+
+                      <label> Description:
+
+                        <textarea value={this.state.description}
+                        onChange={this.descriptionChange}
+                        rows="10" cols="50">Write something here</textarea>
+
+                      </label>
+
+
+                    <br></br>
+
+                <br></br>
+
+              <input type="submit" value="Create Ticket" />
+
+              <br></br>
+
+              </form>
+              <br></br>
+              <p>To Do: <b>Change Date/Time, Add Dropdown for MyShows</b></p>
+            </div>
+          );
+        }
+
     // <input type="text"
     //         value={this.state.event_id}
     //         onChange={this.eventIdChange}
@@ -106,72 +207,8 @@ module.exports = React.createClass({
     //   });
 
     return(
-      <div className="create-event-background">
-
-
-        <h3>Create New Ticket</h3>
-        <form onSubmit={this.handleSubmit} className="form-style-8">
-
-          <br></br>
-
-            <label> Event:
-              <select value={this.state.eventId}
-              onChange={this.eventIdChange}>
-                {UserStore.user().events.map(function (event) {
-                  return <option key={event.id} value={event.id}>{event.title}</option>;
-                  // return <EventIndexItem key={event.id} event={event} />;
-                })}
-              </select>
-            </label>
-
-            <br></br>
-
-          {ShowtimeSelector}
-
-          <br></br>
-
-            <label> Price:
-              <input type="text"
-                      value={this.state.price}
-                      onChange={this.priceChange}
-                />
-            </label>
-
-
-          <br></br>
-          <br></br>
-
-              <label> Tier:
-                <input type="text"
-                        value={this.state.tier}
-                        onChange={this.tierChange}
-                  />
-              </label>
-
-
-            <br></br>
-            <br></br>
-
-                <label> Description:
-
-                  <textarea value={this.state.description}
-                  onChange={this.descriptionChange}
-                  rows="10" cols="50">Write something here</textarea>
-
-                </label>
-
-
-              <br></br>
-
-          <br></br>
-
-        <input type="submit" value="Create Ticket" />
-
-        <br></br>
-
-        </form>
-        <br></br>
-        <p>To Do: <b>Change Date/Time, Add Dropdown for MyShows</b></p>
+      <div>
+        {myHTML}
       </div>
     );
   }

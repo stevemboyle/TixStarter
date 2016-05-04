@@ -35056,15 +35056,16 @@
 	    });
 	  },
 	
-	  createTicket: function (ticket, callback) {
+	  createTicket: function (data) {
 	    $.ajax({
 	      url: "api/tickets",
 	      method: "POST",
-	      data: { ticket: ticket },
+	      data: { ticket: data },
 	      success: function (ticket) {
 	        debugger;
+	        hashHistory.push('/');
 	        ServerActions.receiveSingleTicket(ticket);
-	        callback && callback(ticket.id);
+	        // callback && callback(ticket.id);
 	      }
 	    });
 	  },
@@ -35481,6 +35482,21 @@
 	var removeEvent = function (event) {
 	  console.log("eventstore removeEvent");
 	  delete _events[event.id];
+	};
+	
+	EventStore.findShowtimes = function (userId) {
+	  var result = {};
+	
+	  for (var eventId in _events) {
+	
+	    var currentEvent = _events[eventId];
+	
+	    if (currentEvent.user_id === userId) {
+	      result[currentEvent.id] = currentEvent.showtimes;
+	    }
+	  }
+	
+	  return result;
 	};
 	
 	EventStore.createSuccess = function () {
@@ -39110,13 +39126,36 @@
 	
 	  getInitialState: function () {
 	    return {
-	      event_id: undefined,
-	      showtime_id: undefined,
+	      event_id: "",
+	      showtime_id: "",
 	      price: "",
 	      tier: "",
-	      description: ""
+	      description: "",
+	      showtimes: ""
 	    };
 	  },
+	
+	  componentDidMount: function () {
+	    // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
+	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+	    var defaultEventId = UserStore.user().events[0].id;
+	    var defaultEventsShowtimes = myShowtimes[defaultEventId];
+	    var defaultShowtime = defaultEventsShowtimes[0];
+	
+	    this.setState({ event_id: defaultEventId,
+	      showtime_id: defaultShowtime.id });
+	
+	    // this.setState({showtime_id: m})
+	  },
+	
+	  updateShowtimes: function () {
+	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+	    this.setState({ showtimes: myShowtimes });
+	  },
+	  //
+	  // componentWillUnmount: function(){
+	  //   // this.eventStoreListener.remove();
+	  // },
 	
 	  eventIdChange: function (keyboardEvent) {
 	    var newEventId = keyboardEvent.target.value;
@@ -39171,9 +39210,13 @@
 	
 	  render: function () {
 	
+	    var myHTML = React.createElement('div', null);
+	
+	    // var showtimes = EventStore.findShowtimes(UserStore.user().id);
+	
 	    var ShowtimeSelector;
 	
-	    if (this.state.eventId) {
+	    if (this.state.event_id) {
 	      ShowtimeSelector = React.createElement(
 	        'div',
 	        null,
@@ -39184,9 +39227,9 @@
 	          ' Showtime:',
 	          React.createElement(
 	            'select',
-	            { value: this.state.showtimeId,
+	            { value: this.state.showtime_id,
 	              onChange: this.showtimeIdChange },
-	            EventStore.find(this.state.eventId).showtimes.map(function (showtime) {
+	            EventStore.find(this.state.event_id).showtimes.map(function (showtime) {
 	              return React.createElement(
 	                'option',
 	                { key: showtime.id, value: showtime.id },
@@ -39202,6 +39245,93 @@
 	      );
 	    }
 	
+	    if (UserStore.user()) {
+	      myHTML = React.createElement(
+	        'div',
+	        { className: 'create-event-background' },
+	        React.createElement(
+	          'h3',
+	          null,
+	          'Create New Ticket'
+	        ),
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.handleSubmit, className: 'form-style-8' },
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Event:',
+	            React.createElement(
+	              'select',
+	              { value: this.state.eventId,
+	                onChange: this.eventIdChange },
+	              UserStore.user().events.map(function (event) {
+	                return React.createElement(
+	                  'option',
+	                  { key: event.id, value: event.id },
+	                  event.title
+	                );
+	                // return <EventIndexItem key={event.id} event={event} />;
+	              })
+	            )
+	          ),
+	          React.createElement('br', null),
+	          ShowtimeSelector,
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Price:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.price,
+	              onChange: this.priceChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Tier:',
+	            React.createElement('input', { type: 'text',
+	              value: this.state.tier,
+	              onChange: this.tierChange
+	            })
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'label',
+	            null,
+	            ' Description:',
+	            React.createElement(
+	              'textarea',
+	              { value: this.state.description,
+	                onChange: this.descriptionChange,
+	                rows: '10', cols: '50' },
+	              'Write something here'
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit', value: 'Create Ticket' }),
+	          React.createElement('br', null)
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          null,
+	          'To Do: ',
+	          React.createElement(
+	            'b',
+	            null,
+	            'Change Date/Time, Add Dropdown for MyShows'
+	          )
+	        )
+	      );
+	    }
+	
 	    // <input type="text"
 	    //         value={this.state.event_id}
 	    //         onChange={this.eventIdChange}
@@ -39213,87 +39343,8 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'create-event-background' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Create New Ticket'
-	      ),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Event:',
-	          React.createElement(
-	            'select',
-	            { value: this.state.eventId,
-	              onChange: this.eventIdChange },
-	            UserStore.user().events.map(function (event) {
-	              return React.createElement(
-	                'option',
-	                { key: event.id, value: event.id },
-	                event.title
-	              );
-	              // return <EventIndexItem key={event.id} event={event} />;
-	            })
-	          )
-	        ),
-	        React.createElement('br', null),
-	        ShowtimeSelector,
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Price:',
-	          React.createElement('input', { type: 'text',
-	            value: this.state.price,
-	            onChange: this.priceChange
-	          })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Tier:',
-	          React.createElement('input', { type: 'text',
-	            value: this.state.tier,
-	            onChange: this.tierChange
-	          })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          ' Description:',
-	          React.createElement(
-	            'textarea',
-	            { value: this.state.description,
-	              onChange: this.descriptionChange,
-	              rows: '10', cols: '50' },
-	            'Write something here'
-	          )
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Create Ticket' }),
-	        React.createElement('br', null)
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'To Do: ',
-	        React.createElement(
-	          'b',
-	          null,
-	          'Change Date/Time, Add Dropdown for MyShows'
-	        )
-	      )
+	      null,
+	      myHTML
 	    );
 	  }
 	
@@ -39686,6 +39737,7 @@
 	      TicketStore.__emitChange();
 	      break;
 	    case TicketConstants.TICKET_RECEIVED:
+	      debugger;
 	      resetTicket(payload.ticket);
 	      TicketStore.__emitChange();
 	      break;

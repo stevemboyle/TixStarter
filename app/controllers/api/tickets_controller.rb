@@ -26,8 +26,6 @@ class Api::TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(
-
-    )
+    params.require(:ticket).permit(:showtime_id, :price, :tier, :description)
   end
 end
