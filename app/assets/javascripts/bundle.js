@@ -37056,7 +37056,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'create-event-background' },
 	      React.createElement(
 	        'h3',
 	        null,
