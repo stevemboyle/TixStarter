@@ -53,6 +53,20 @@ module.exports = React.createClass({
     });
   },
 
+  giveNumberCommas: function(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  },
+
+  revenueStatus: function(){
+  // debugger;
+    return this.giveNumberCommas(this.state.event.revenue_status);
+  },
+
+  revenueGoal: function(){
+    return this.giveNumberCommas(this.state.event.revenue_goal);
+  },
+
+
   render: function(){
 
     // <div className="header-section">
@@ -79,7 +93,7 @@ module.exports = React.createClass({
               {this.state.event.catchphrase}
             </h3><h3>
               <br></br>
-              <b>Revenue Status:</b> {this.state.event.revenue_status} | <b>Revenue Goal:</b> {this.state.event.revenue_goal}
+              <b>Revenue Status:</b> ${this.revenueStatus()} | <b>Revenue Goal:</b> ${this.revenueGoal()}
               <br></br>
               <p>This event is {this.state.event.revenue_status / this.state.event.revenue_goal} % funded.</p>
             </h3>
@@ -103,8 +117,8 @@ module.exports = React.createClass({
           <h1>{this.state.event.title}</h1>
           <p>{this.state.event.description}</p>
           <br></br>
-          <p><b>Revenue Status:</b> {this.state.event.revenue_status}</p>
-          <p><b>Revenue Goal:</b> {this.state.event.revenue_goal}</p>
+          <p><b>Revenue Status:</b> ${this.revenueStatus()}</p>
+          <p><b>Revenue Goal:</b> ${this.revenueGoal()}</p>
           <br></br>
 
           <br></br>

@@ -40073,6 +40073,19 @@
 	    };
 	  },
 	
+	  giveNumberCommas: function (number) {
+	    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	  },
+	
+	  revenueStatus: function () {
+	    // debugger;
+	    return this.giveNumberCommas(this.state.event.revenue_status);
+	  },
+	
+	  revenueGoal: function () {
+	    return this.giveNumberCommas(this.state.event.revenue_goal);
+	  },
+	
 	  render: function () {
 	
 	    // <div className="header-section">
@@ -40114,16 +40127,16 @@
 	              null,
 	              'Revenue Status:'
 	            ),
-	            ' ',
-	            this.state.event.revenue_status,
+	            ' $',
+	            this.revenueStatus(),
 	            ' | ',
 	            React.createElement(
 	              'b',
 	              null,
 	              'Revenue Goal:'
 	            ),
-	            ' ',
-	            this.state.event.revenue_goal,
+	            ' $',
+	            this.revenueGoal(),
 	            React.createElement('br', null),
 	            React.createElement(
 	              'p',
@@ -40205,8 +40218,8 @@
 	            null,
 	            'Revenue Status:'
 	          ),
-	          ' ',
-	          this.state.event.revenue_status
+	          ' $',
+	          this.revenueStatus()
 	        ),
 	        React.createElement(
 	          'p',
@@ -40216,8 +40229,8 @@
 	            null,
 	            'Revenue Goal:'
 	          ),
-	          ' ',
-	          this.state.event.revenue_goal
+	          ' $',
+	          this.revenueGoal()
 	        ),
 	        React.createElement('br', null),
 	        React.createElement('br', null)
