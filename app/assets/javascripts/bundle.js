@@ -66,6 +66,7 @@
 	var Success = __webpack_require__(309);
 	var TicketPurchase = __webpack_require__(311);
 	var UserDashboardEventsIndex = __webpack_require__(301);
+	var UserTicketsIndex = __webpack_require__(306);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -90,7 +91,8 @@
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'success', component: Success }),
 	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase }),
-	  React.createElement(Route, { path: 'dashboard', component: UserDashboardEventsIndex })
+	  React.createElement(Route, { path: 'dashboard', component: UserDashboardEventsIndex }),
+	  React.createElement(Route, { path: 'mytickets', component: UserTicketsIndex })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -27249,6 +27251,10 @@
 	    hashHistory.push("/dashboard");
 	  },
 	
+	  goToMyTickets: function () {
+	    hashHistory.push("/mytickets");
+	  },
+	
 	  // notLoggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -27352,7 +27358,7 @@
 	          ),
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.openMyTicketsModal },
+	            { className: 'header-li', onClick: this.goToMyTickets },
 	            'My Tickets'
 	          ),
 	          React.createElement(
@@ -39820,6 +39826,15 @@
 	      'div',
 	      null,
 	      React.createElement(
+	        'div',
+	        { className: 'tickets-divider' },
+	        React.createElement(
+	          'h2',
+	          { className: 'dashboard-title', 'font-size': '15px' },
+	          'My Purchased Tickets:'
+	        )
+	      ),
+	      React.createElement(
 	        'p',
 	        null,
 	        'There\'s a lot still to do here.'
@@ -39841,7 +39856,7 @@
 	      ),
 	      React.createElement(
 	        'ul',
-	        null,
+	        { className: 'dashboard' },
 	        React.createElement(
 	          'h2',
 	          null,
