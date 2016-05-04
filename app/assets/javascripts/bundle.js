@@ -40034,6 +40034,16 @@
 	      showtimeModalOpen: false };
 	  },
 	
+	  getUpToDateRevenueStatus: function () {
+	    var result = 0;
+	    this.state.event.showtimes.forEach(function (showtime) {
+	      showtime.tickets.forEach(function (ticket) {
+	        result = result + ticket.price;
+	      });
+	    });
+	    return result;
+	  },
+	
 	  openShowtimeModal: function () {
 	    this.setState({ showtimeModalOpen: true });
 	  },
@@ -40079,11 +40089,19 @@
 	
 	  revenueStatus: function () {
 	    // debugger;
-	    return this.giveNumberCommas(this.state.event.revenue_status);
+	    // return this.giveNumberCommas(this.state.event.revenue_status);
+	    return this.giveNumberCommas(this.getUpToDateRevenueStatus());
 	  },
 	
 	  revenueGoal: function () {
 	    return this.giveNumberCommas(this.state.event.revenue_goal);
+	  },
+	
+	  percentFunded: function () {
+	    var rawRatio = this.getUpToDateRevenueStatus() / this.state.event.revenue_goal;
+	    var percentage = rawRatio * 100;
+	    var roundedPercentage = Math.round(percentage);
+	    return roundedPercentage;
 	  },
 	
 	  render: function () {
@@ -40142,8 +40160,8 @@
 	              'p',
 	              null,
 	              'This event is ',
-	              this.state.event.revenue_status / this.state.event.revenue_goal,
-	              ' % funded.'
+	              this.percentFunded(),
+	              '% funded.'
 	            )
 	          )
 	        ),
@@ -40480,7 +40498,7 @@
 	      React.createElement('br', null),
 	      React.createElement(
 	        'div',
-	        { id: 'home-splash-text' },
+	        { id: 'success-text' },
 	        React.createElement(
 	          'h2',
 	          { 'text-align': 'center', className: 'home-title' },

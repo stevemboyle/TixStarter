@@ -14,6 +14,16 @@ module.exports = React.createClass({
               showtimeModalOpen: false   };
   },
 
+  getUpToDateRevenueStatus: function(){
+    var result = 0;
+    this.state.event.showtimes.forEach(function(showtime){
+      showtime.tickets.forEach(function(ticket){
+        result = result + ticket.price;
+      });
+    });
+    return result;
+  },
+
   openShowtimeModal: function(){
     this.setState({ showtimeModalOpen: true });
   },
@@ -59,11 +69,19 @@ module.exports = React.createClass({
 
   revenueStatus: function(){
   // debugger;
-    return this.giveNumberCommas(this.state.event.revenue_status);
+    // return this.giveNumberCommas(this.state.event.revenue_status);
+    return this.giveNumberCommas(this.getUpToDateRevenueStatus());
   },
 
   revenueGoal: function(){
     return this.giveNumberCommas(this.state.event.revenue_goal);
+  },
+
+  percentFunded: function(){
+    var rawRatio = this.getUpToDateRevenueStatus() / this.state.event.revenue_goal;
+    var percentage = rawRatio * 100;
+    var roundedPercentage = Math.round(percentage);
+    return roundedPercentage;
   },
 
 
@@ -95,7 +113,7 @@ module.exports = React.createClass({
               <br></br>
               <b>Revenue Status:</b> ${this.revenueStatus()} | <b>Revenue Goal:</b> ${this.revenueGoal()}
               <br></br>
-              <p>This event is {this.state.event.revenue_status / this.state.event.revenue_goal} % funded.</p>
+              <p>This event is {this.percentFunded()}% funded.</p>
             </h3>
           </div>
             <div id="menubuttons">

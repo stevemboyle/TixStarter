@@ -231,6 +231,10 @@
     text-align: center;
   }
 
+  #success-text {
+    text-align: center;
+  }
+
   .home-title {
     text-shadow: 2px 2px #4a5251;
     color: white;

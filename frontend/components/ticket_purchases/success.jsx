@@ -35,7 +35,7 @@ module.exports = React.createClass({
                     <br></br>
                       <br></br>
 
-      <div id="home-splash-text">
+      <div id="success-text">
         <h2 text-align="center" className="home-title">Success!</h2>
         <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
         <br>
