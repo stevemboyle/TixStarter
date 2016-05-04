@@ -233,6 +233,7 @@ module.exports = React.createClass({
 
     var menu;
 
+
     var notLoggedInMenu =(
       <div id="othermenu">
         <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>

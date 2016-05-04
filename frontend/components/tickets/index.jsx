@@ -5,7 +5,7 @@ module.exports = React.createClass({
 
 
   render: function () {
-    debugger;
+    // debugger;
     return(
       <ul>
         {this.props.tickets && this.props.tickets.map(function (ticket) {
