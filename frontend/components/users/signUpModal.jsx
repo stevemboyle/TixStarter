@@ -38,11 +38,8 @@ var SignUpModal = React.createClass({
   render: function(){
 
     return(
-      <div>
-        <h3>Create New User</h3>
-        <form onSubmit={this.handleSubmit}>
-
-        <br></br>
+      <div className="sign-in-background">
+        <form onSubmit={this.handleSubmit} className="form-style-8">
 
         <label> Username:
           <input type="text"
@@ -60,7 +57,6 @@ var SignUpModal = React.createClass({
 
         <input type="submit" value="Sign Up!" />
 
-          <br></br>
 
           </form>
 

@@ -24,6 +24,8 @@ var UserTicketsIndex = require('./components/tickets/userTicketsIndex');
 var CreateEvent = require('./components/events/createEventModal');
 var CreateShowtime = require('./components/showtimes/createShowtimeModal');
 var CreateTicket = require('./components/tickets/createTicketModal');
+var SignIn = require('./components/users/signInModal');
+var SignUp = require('./components/users/signUpModal');
 // var ApiUtil = require('./util/apiUtil');
 // var UserApiUtil = require('./util/userApiUtil');
 
@@ -53,6 +55,8 @@ var routes = (
     <Route path="create-event" component={CreateEvent}/>
     <Route path="create-showtime" component={CreateShowtime}/>
     <Route path="create-ticket" component={CreateTicket}/>
+    <Route path="sign-in" component={SignIn}/>
+    <Route path="sign-up" component={SignUp}/>
   </Route>
 );
 

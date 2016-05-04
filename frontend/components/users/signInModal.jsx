@@ -38,32 +38,22 @@ var SignInModal = React.createClass({
   render: function(){
 
     return(
-      <div>
-        <h3>Create New User</h3>
-        <form onSubmit={this.handleSubmit}>
-
-        <br></br>
-
+      <div className="sign-in-background">
+        <form onSubmit={this.handleSubmit} className="form-style-8">
         <label> Username:
           <input type="text"
                   value={this.state.username}
                   onChange={this.usernameChange}
             />
         </label>
-
         <label> Password:
           <input type="password"
                   value={this.state.password}
                   onChange={this.passwordChange}
             />
         </label>
-
         <input type="submit" value="Sign In!" />
-
-          <br></br>
-
           </form>
-
       </div>
     );
   }

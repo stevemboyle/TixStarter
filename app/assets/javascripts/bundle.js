@@ -70,6 +70,8 @@
 	var CreateEvent = __webpack_require__(290);
 	var CreateShowtime = __webpack_require__(291);
 	var CreateTicket = __webpack_require__(301);
+	var SignIn = __webpack_require__(303);
+	var SignUp = __webpack_require__(302);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -98,7 +100,9 @@
 	  React.createElement(Route, { path: 'mytickets', component: UserTicketsIndex }),
 	  React.createElement(Route, { path: 'create-event', component: CreateEvent }),
 	  React.createElement(Route, { path: 'create-showtime', component: CreateShowtime }),
-	  React.createElement(Route, { path: 'create-ticket', component: CreateTicket })
+	  React.createElement(Route, { path: 'create-ticket', component: CreateTicket }),
+	  React.createElement(Route, { path: 'sign-in', component: SignIn }),
+	  React.createElement(Route, { path: 'sign-up', component: SignUp })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -33940,18 +33944,23 @@
 	
 	var CUSTOM_STYLE = {
 	  content: {
+	    'display': 'flex',
+	    'justify-content': 'center',
+	    'align-items': 'center',
 	    'zIndex': '100000',
 	    'margin': '100px auto',
-	    'border': '5px solid dodgerblue',
+	    'border': '0px solid dodgerblue',
 	    // 'display' : 'flex',
 	    // 'justify-content' : 'center',
-	    'width': '6ix00px',
-	    'padding': '20px'
+	    'width': '600px',
+	    'height': '350px',
+	    'padding': '0px',
+	    'box-shadow': '0px 0px 15px grey'
+	    // 'background': 'grey'
+	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
 	  }
 	};
 	
-	// 'background': 'grey'
-	// 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -34109,6 +34118,14 @@
 	    hashHistory.push("/create-ticket");
 	  },
 	
+	  goToSignUp: function () {
+	    hashHistory.push("/sign-up");
+	  },
+	
+	  goToSignIn: function () {
+	    hashHistory.push("/sign-in");
+	  },
+	
 	  // notLoggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -34158,12 +34175,12 @@
 	          { className: 'header-ul' },
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.openSignInModal },
+	            { className: 'header-li', onClick: this.goToSignIn },
 	            'Sign In'
 	          ),
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.openSignUpModal },
+	            { className: 'header-li', onClick: this.goToSignUp },
 	            'Sign Up'
 	          ),
 	          React.createElement(
@@ -34257,33 +34274,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h1',
-	            null,
-	            'Sign In'
-	          ),
-	          React.createElement(
-	            'h2',
-	            null,
-	            'Sign In!'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            '(The below component is SignInModal)'
-	          ),
-	          React.createElement(SignInModal, null),
-	          React.createElement('br', null),
-	          React.createElement('iframe', { width: '{854/1.5}',
-	            height: '{480/1.5}',
-	            src: 'https://www.youtube.com/embed/eOdWU-EnOEk',
-	            frameborder: '0',
-	            allowfullscreen: true }),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
-	          )
+	          React.createElement(SignInModal, null)
 	        )
 	      ),
 	      React.createElement(
@@ -34292,27 +34283,7 @@
 	          isOpen: this.state.signUpModalOpen,
 	          onRequestClose: this.closeSignUpModal,
 	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Sign Up'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Sign Up!!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(The below component is SignUpModal)'
-	        ),
-	        React.createElement(SignUpModal, null),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
+	        React.createElement(SignUpModal, null)
 	      ),
 	      React.createElement(
 	        Modal,
@@ -35315,7 +35286,7 @@
 	// var ServerActions = require('../actions/userActions');
 	var UserConstants = __webpack_require__(271);
 	var ServerActions = __webpack_require__(269);
-	
+	var hashHistory = __webpack_require__(159).hashHistory;
 	var UserApiUtil = {
 	
 	  signup: function (data) {
@@ -35324,6 +35295,7 @@
 	      type: "post",
 	      data: { user: data },
 	      success: function (user) {
+	        hashHistory.push('/home');
 	        // debugger;
 	        console.log("We're in the success function for SignUp");
 	        ServerActions.receiveCurrentUser(user);
@@ -35348,6 +35320,7 @@
 	      type: "post",
 	      data: { user: data },
 	      success: function (user) {
+	        hashHistory.push('/home');
 	        // debugger;
 	        ServerActions.receiveCurrentUser(user);
 	      },
@@ -39308,16 +39281,10 @@
 	
 	    return React.createElement(
 	      "div",
-	      null,
-	      React.createElement(
-	        "h3",
-	        null,
-	        "Create New User"
-	      ),
+	      { className: "sign-in-background" },
 	      React.createElement(
 	        "form",
-	        { onSubmit: this.handleSubmit },
-	        React.createElement("br", null),
+	        { onSubmit: this.handleSubmit, className: "form-style-8" },
 	        React.createElement(
 	          "label",
 	          null,
@@ -39336,8 +39303,7 @@
 	            onChange: this.passwordChange
 	          })
 	        ),
-	        React.createElement("input", { type: "submit", value: "Sign Up!" }),
-	        React.createElement("br", null)
+	        React.createElement("input", { type: "submit", value: "Sign Up!" })
 	      )
 	    );
 	  }
@@ -39393,16 +39359,10 @@
 	
 	    return React.createElement(
 	      "div",
-	      null,
-	      React.createElement(
-	        "h3",
-	        null,
-	        "Create New User"
-	      ),
+	      { className: "sign-in-background" },
 	      React.createElement(
 	        "form",
-	        { onSubmit: this.handleSubmit },
-	        React.createElement("br", null),
+	        { onSubmit: this.handleSubmit, className: "form-style-8" },
 	        React.createElement(
 	          "label",
 	          null,
@@ -39421,8 +39381,7 @@
 	            onChange: this.passwordChange
 	          })
 	        ),
-	        React.createElement("input", { type: "submit", value: "Sign In!" }),
-	        React.createElement("br", null)
+	        React.createElement("input", { type: "submit", value: "Sign In!" })
 	      )
 	    );
 	  }
@@ -40290,6 +40249,32 @@
 	        React.createElement(
 	          'br',
 	          null,
+	          React.createElement(
+	            'div',
+	            { id: 'menubuttons' },
+	            React.createElement(
+	              'ul',
+	              { className: 'index-item-menu-ul' },
+	              React.createElement(
+	                'li',
+	                { className: 'home-splash-li' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
+	                  'Browse Events'
+	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'home-splash-li' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#home-marketing', 'text-align': 'center', className: 'scroll-a' },
+	                  'Learn More'
+	                )
+	              )
+	            )
+	          ),
 	          React.createElement(
 	            'p',
 	            null,

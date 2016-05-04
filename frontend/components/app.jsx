@@ -25,13 +25,18 @@ var CurrentUserState = require('.././mixins/currentUserState');
 
 var CUSTOM_STYLE = {
   content : {
+    'display' : 'flex',
+    'justify-content' : 'center',
+    'align-items' : 'center',
     'zIndex': '100000',
     'margin': '100px auto',
-    'border': '5px solid dodgerblue',
+    'border': '0px solid dodgerblue',
     // 'display' : 'flex',
     // 'justify-content' : 'center',
-    'width' : '6ix00px',
-    'padding': '20px',
+    'width' : '600px',
+    'height' : '350px',
+    'padding': '0px',
+    'box-shadow' : '0px 0px 15px grey'
     // 'background': 'grey'
     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
   }
@@ -191,6 +196,14 @@ module.exports = React.createClass({
       hashHistory.push("/create-ticket");
     },
 
+    goToSignUp: function(){
+      hashHistory.push("/sign-up");
+    },
+
+    goToSignIn: function(){
+      hashHistory.push("/sign-in");
+    },
+
 
     // notLoggedInMenu: function(){
     //   return(
@@ -226,8 +239,8 @@ module.exports = React.createClass({
         <p>{loggedInMessageForSteve}</p>
         <div id="menubuttons">
           <ul className="header-ul">
-            <li className="header-li"  onClick={this.openSignInModal}>Sign In</li>
-            <li className="header-li"  onClick={this.openSignUpModal}>Sign Up</li>
+            <li className="header-li"  onClick={this.goToSignIn}>Sign In</li>
+            <li className="header-li"  onClick={this.goToSignUp}>Sign Up</li>
             <li className="header-li"  onClick={this.signInWithDemoAccount}>Demo Account</li>
           </ul>
         </div>
@@ -284,24 +297,7 @@ module.exports = React.createClass({
           style={CUSTOM_STYLE}>
 
           <div className="sign-in-modal-splash">
-          	<h1>Sign In</h1>
-
-
-            <h2>Sign In!</h2>
-            <p>(The below component is SignInModal)</p>
-
             <SignInModal />
-
-            <br></br>
-
-            <iframe width="{854/1.5}"
-                    height="{480/1.5}"
-                    src="https://www.youtube.com/embed/eOdWU-EnOEk"
-                    frameborder="0"
-                    allowfullscreen>
-            </iframe>
-
-            <p>mooooooooodal!</p>
             </div>
 
         </Modal>
@@ -310,15 +306,8 @@ module.exports = React.createClass({
           isOpen={this.state.signUpModalOpen}
           onRequestClose={this.closeSignUpModal}
           style={CUSTOM_STYLE}>
-
-          	<h1>Sign Up</h1>
-
-            <h2>Sign Up!!</h2>
-            <p>(The below component is SignUpModal)</p>
-
             <SignUpModal />
 
-            <p>mooooooooodal!</p>
 
         </Modal>
 

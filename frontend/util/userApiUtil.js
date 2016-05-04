@@ -2,7 +2,7 @@ var AppDispatcher = require("../dispatcher/dispatcher");
 // var ServerActions = require('../actions/userActions');
 var UserConstants = require('../constants/userConstants.js');
 var ServerActions = require('../actions/serverActions');
-
+var hashHistory = require("react-router").hashHistory;
 var UserApiUtil = {
 
   signup: function(data){
@@ -11,6 +11,7 @@ var UserApiUtil = {
       type: "post",
       data: {user: data},
       success: function(user){
+        hashHistory.push('/home');
         // debugger;
         console.log("We're in the success function for SignUp");
         ServerActions.receiveCurrentUser(user);
@@ -35,6 +36,7 @@ var UserApiUtil = {
       type: "post",
       data: { user: data },
       success: function(user){
+        hashHistory.push('/home');
         // debugger;
         ServerActions.receiveCurrentUser(user);
       },
