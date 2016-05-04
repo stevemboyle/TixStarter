@@ -40038,7 +40038,9 @@
 	    var result = 0;
 	    this.state.event.showtimes.forEach(function (showtime) {
 	      showtime.tickets.forEach(function (ticket) {
-	        result = result + ticket.price;
+	        ticket.ticket_purchases.forEach(function (ticket_purchase) {
+	          result = result + ticket_purchase.ticket.price;
+	        });
 	      });
 	    });
 	    return result;
