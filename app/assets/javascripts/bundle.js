@@ -35886,7 +35886,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'showtime-index' },
+	      { className: 'index-for-events' },
 	      React.createElement(
 	        'ul',
 	        null,
@@ -35951,13 +35951,13 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'event-list-item' },
 	      React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
 	          'li',
-	          { onClick: this.openShowtimeModal, className: 'showtime-list-item' },
+	          { onClick: this.openShowtimeModal, className: 'event-list-item' },
 	          React.createElement(
 	            'h1',
 	            null,
