@@ -3,6 +3,7 @@ var EventStore = require('../../stores/event.js');
 var TicketsIndex = require('../tickets/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
 var UserStore = require('../../stores/user');
+var ShowtimeStore = require('../../stores/showtime');
 // var SelectEventDropdown = require('./SelectEventDropdown');
 var Select = require('react-select');
 
@@ -11,9 +12,13 @@ var ReactDropdown = require('react-dropdown');
 module.exports = React.createClass({
 
   getInitialState: function(){
+
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+
     return({
-      event_id: "",
-      showtime_id: "",
+      events: myEvents,
+      event_id: myEvents[0].id,
+      showtime_id: myEvents[0].showtimes.reverse()[0].id,
       price: "",
       tier: "",
       description: "",
@@ -22,20 +27,45 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
+
+    debugger;
+
+    this.EventListener = EventStore.addListener(this._seedChange);
+    this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
+
+
     // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
     var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
-    var defaultEventId = UserStore.user().events[0].id;
-        debugger;
-    var defaultEventsShowtimes = myShowtimes[defaultEventId];
+    // var defaultEventId = UserStore.user().events[0].id;
+    // debugger;
+    var defaultEventsShowtimes = myShowtimes[this.state.event_id];
     var defaultShowtime = defaultEventsShowtimes[0];
 
 
         // debugger;
-
-    this.setState({event_id: defaultEventId,
-                  showtime_id: defaultShowtime.id});
+    //
+    // this.setState({event_id: defaultEventId,
+    //               showtime_id: defaultShowtime.id});
 
     // this.setState({showtime_id: m})
+  },
+
+  _seedChange: function(){
+
+    debugger;
+
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+
+    this.setState({
+      events: myEvents,
+      event_id: myEvents[0].id,
+      showtime_id: myEvents[0].showtimes.reverse()[0],
+    })
+  },
+
+  componentWillUnmount: function(){
+    this.EventListener.remove();
+    this.ShowtimeListener.remove();
   },
 
   updateShowtimes: function(){
@@ -151,7 +181,7 @@ module.exports = React.createClass({
                   <label> Event:
                     <select value={this.state.eventId}
                     onChange={this.eventIdChange}>
-                      {UserStore.user().events.map(function (event) {
+                      {this.state.events.map(function (event) {
                         return <option key={event.id} value={event.id}>{event.title}</option>;
                         // return <EventIndexItem key={event.id} event={event} />;
                       })}

@@ -11,8 +11,14 @@ var ReactDropdown = require('react-dropdown');
 module.exports = React.createClass({
 
   getInitialState: function(){
+
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+
+    // debugger;
+
     return({
-      event_id: "",
+      events: myEvents,
+      event_id: myEvents[0].id,
       date: "",
       time: "",
       location: ""
@@ -20,8 +26,20 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    var defaultEventId = UserStore.user().events[0].id;
-    this.setState({event_id: defaultEventId});
+    // ClientActions.fetchAllEvents();
+    // debugger;
+    // var defaultEventId = UserStore.user().events[0].id;
+    // this.setState({event_id: defaultEventId});
+    this.EventListener = EventStore.addListener(this._eventsChanged);
+  },
+
+  _eventsChanged: function(){
+    // debugger;
+    this.setState({events: EventStore.allEventsForUser(UserStore.user().id)});
+  },
+
+  componentWillUnmount: function(){
+    this.EventListener.remove();
   },
 
   eventIdChange: function(keyboardEvent){
@@ -71,6 +89,8 @@ module.exports = React.createClass({
 
   render: function(){
 
+    // debugger;
+
     // <input type="text"
     //         value={this.state.event_id}
     //         onChange={this.eventIdChange}
@@ -92,7 +112,7 @@ module.exports = React.createClass({
             <label> Event:
               <select value={this.state.eventId}
               onChange={this.eventIdChange}>
-                {UserStore.user().events.map(function (event) {
+                {this.state.events.map(function (event) {
                   return <option key={event.id} value={event.id}>{event.title}</option>;
                   // return <EventIndexItem key={event.id} event={event} />;
                 })}

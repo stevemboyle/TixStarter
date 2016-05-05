@@ -20,12 +20,29 @@ var resetEvents = function (events) {
 };
 
 var resetEvent = function (event) {
+  console.log("reset Event!");
   _events[event.id] = event;
 };
 
 var removeEvent = function(event){
   console.log("eventstore removeEvent");
   delete _events[event.id];
+};
+
+EventStore.allEventsForUser = function(id){
+  var result = [];
+
+  for (var eventId in _events){
+
+    var currentEvent = _events[eventId];
+
+    if (currentEvent.user_id === userId){
+      result.push(currentEvent);
+    }
+
+  }
+
+  return result;
 };
 
 EventStore.findShowtimes = function(userId){
