@@ -102,11 +102,8 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <div>
-        <h6>Now we are inside the Edit Event Modal</h6>
-          <div>
-            <h3>Create New Event</h3>
-            <form onSubmit={this.handleSubmit}>
+      <div className="create-event-background">
+            <form onSubmit={this.handleSubmit} className="form-style-8">
 
               <br></br>
 
@@ -178,7 +175,6 @@ module.exports = React.createClass({
             <br></br>
 
             </form>
-          </div>
 
       </div>
     );

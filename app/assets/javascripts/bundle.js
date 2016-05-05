@@ -35569,19 +35569,61 @@
 	var hashHistory = __webpack_require__(159).hashHistory;
 	var EditEventModal = __webpack_require__(289);
 	
+	// var CUSTOM_STYLE = {
+	//   content : {
+	//     // 'display' : 'flex',
+	//     // 'justify-content' : 'center',
+	//     // 'align-items' : 'center',
+	//     'zIndex': '100000',
+	//     'margin': '100px auto  auto',
+	//     'border': '0px solid dodgerblue',
+	//     // 'display' : 'flex',
+	//     // 'justify-content' : 'center',
+	//     // 'width' : '600px',
+	//     // 'height' : '350px',
+	//     'padding': '0px',
+	//     'box-shadow' : '0px 0px 15px grey'
+	//     // 'background': 'grey'
+	//     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	//   }
+	// };
+	
 	var CUSTOM_STYLE = {
 	  content: {
 	    // 'display' : 'flex',
 	    // 'justify-content' : 'center',
 	    // 'align-items' : 'center',
-	    'zIndex': '100000',
-	    'margin': '100px auto  auto',
+	    // 'zIndex': '100000',
+	    'background-color': 'dodgerblue',
+	    'text-align': 'center',
+	    'margin': '100px auto',
 	    'border': '0px solid dodgerblue',
 	    // 'display' : 'flex',
 	    // 'justify-content' : 'center',
-	    // 'width' : '600px',
-	    // 'height' : '350px',
-	    'padding': '0px',
+	    'width': '600px',
+	    'height': '350px',
+	    'padding': '100px',
+	    'box-shadow': '0px 0px 15px grey'
+	    // 'background': 'grey'
+	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	  }
+	};
+	
+	var CUSTOM_STYLE_2 = {
+	  content: {
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'align-items' : 'center',
+	    'zIndex': '100000',
+	    'background-color': 'dodgerblue',
+	    'text-align': 'center',
+	    'margin': '75px auto',
+	    'border': '0px solid dodgerblue',
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    'width': '90%',
+	    'height': '75vh',
+	    'padding': '5px',
 	    'box-shadow': '0px 0px 15px grey'
 	    // 'background': 'grey'
 	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
@@ -35655,6 +35697,7 @@
 	    console.log("activateDeleteProcess");
 	    console.log(this.props.event.id);
 	    ClientActions.deleteEvent(this.props.event.id);
+	    this.setState({ deleteEventModalOpen: false });
 	  },
 	
 	  goToEventSplash: function (clickEvent) {
@@ -35811,7 +35854,8 @@
 	        {
 	
 	          isOpen: this.state.deleteEventModalOpen,
-	          onRequestClose: this.closeDeleteEventModal },
+	          onRequestClose: this.closeDeleteEventModal,
+	          style: CUSTOM_STYLE },
 	        React.createElement(
 	          'h1',
 	          null,
@@ -35823,36 +35867,30 @@
 	          'Are you sure?'
 	        ),
 	        React.createElement(
-	          'button',
-	          { onClick: this.activateDeleteProcess },
-	          'Yes'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeDeleteEventModal },
-	          'No'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'modal modal modal modal modal'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
+	          'div',
+	          { id: 'menubuttons' },
+	          React.createElement(
+	            'ul',
+	            { className: 'index-item-menu-ul' },
+	            React.createElement(
+	              'li',
+	              { className: 'index-item-menu-li', onClick: this.activateDeleteProcess },
+	              'Yes'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'index-item-menu-li', onClick: this.closeDeleteEventModal },
+	              'No'
+	            )
+	          )
 	        )
 	      ),
 	      React.createElement(
 	        Modal,
 	        {
 	          isOpen: this.state.editEventModalOpen,
-	          onRequestClose: this.closeEditEventModal },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Edit Event Modal'
-	        ),
+	          onRequestClose: this.closeEditEventModal,
+	          style: CUSTOM_STYLE_2 },
 	        React.createElement(EditEventModal, { event: this.props.event })
 	      )
 	    );
@@ -37010,97 +37048,83 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'create-event-background' },
 	      React.createElement(
-	        'h6',
-	        null,
-	        'Now we are inside the Edit Event Modal'
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
+	        'form',
+	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
+	        React.createElement('br', null),
 	        React.createElement(
-	          'h3',
+	          'label',
 	          null,
-	          'Create New Event'
+	          ' Title:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.title,
+	            onChange: this.titleChange
+	          })
 	        ),
+	        React.createElement('br', null),
 	        React.createElement(
-	          'form',
-	          { onSubmit: this.handleSubmit },
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' Title:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.title,
-	              onChange: this.titleChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' Catchphrase:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.catchphrase,
-	              onChange: this.catchphraseChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' Description:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.description,
-	              onChange: this.descriptionChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' URL for Image to Embed:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.imageUrl,
-	              onChange: this.imageUrlChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' URL for Video to Embed:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.videoUrl,
-	              onChange: this.videoUrlChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' User Id:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.userId,
-	              onChange: this.userIdChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            ' Revenue Goal:',
-	            React.createElement('input', { type: 'text',
-	              value: this.state.revenueGoal,
-	              onChange: this.revenueGoalChange
-	            })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'submit', value: 'Save Changes' }),
-	          React.createElement('br', null)
-	        )
+	          'label',
+	          null,
+	          ' Catchphrase:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.catchphrase,
+	            onChange: this.catchphraseChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Description:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.description,
+	            onChange: this.descriptionChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' URL for Image to Embed:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.imageUrl,
+	            onChange: this.imageUrlChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' URL for Video to Embed:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.videoUrl,
+	            onChange: this.videoUrlChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' User Id:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.userId,
+	            onChange: this.userIdChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          null,
+	          ' Revenue Goal:',
+	          React.createElement('input', { type: 'text',
+	            value: this.state.revenueGoal,
+	            onChange: this.revenueGoalChange
+	          })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Save Changes' }),
+	        React.createElement('br', null)
 	      )
 	    );
 	  }

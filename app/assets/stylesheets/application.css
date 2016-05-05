@@ -560,9 +560,9 @@ h1 {
    background-color: green;
  }
 
- .modal-experiment {
+ /*.modal-experiment {
    z-index: 1000000;
- }
+ }*/
 
  .event-detail-pane {
  /*   width: 50%; */

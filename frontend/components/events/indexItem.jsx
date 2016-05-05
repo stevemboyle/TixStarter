@@ -13,19 +13,61 @@ var hashHistory = require("react-router").hashHistory;
 var EditEventModal = require('./editEventModal');
 
 
+// var CUSTOM_STYLE = {
+//   content : {
+//     // 'display' : 'flex',
+//     // 'justify-content' : 'center',
+//     // 'align-items' : 'center',
+//     'zIndex': '100000',
+//     'margin': '100px auto  auto',
+//     'border': '0px solid dodgerblue',
+//     // 'display' : 'flex',
+//     // 'justify-content' : 'center',
+//     // 'width' : '600px',
+//     // 'height' : '350px',
+//     'padding': '0px',
+//     'box-shadow' : '0px 0px 15px grey'
+//     // 'background': 'grey'
+//     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+//   }
+// };
+
 var CUSTOM_STYLE = {
   content : {
     // 'display' : 'flex',
     // 'justify-content' : 'center',
     // 'align-items' : 'center',
-    'zIndex': '100000',
-    'margin': '100px auto  auto',
+    // 'zIndex': '100000',
+    'background-color' : 'dodgerblue',
+    'text-align' : 'center',
+    'margin': '100px auto',
     'border': '0px solid dodgerblue',
     // 'display' : 'flex',
     // 'justify-content' : 'center',
-    // 'width' : '600px',
-    // 'height' : '350px',
-    'padding': '0px',
+    'width' : '600px',
+    'height' : '350px',
+    'padding': '100px',
+    'box-shadow' : '0px 0px 15px grey'
+    // 'background': 'grey'
+    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+  }
+};
+
+var CUSTOM_STYLE_2 = {
+  content : {
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'align-items' : 'center',
+    'zIndex': '100000',
+    'background-color' : 'dodgerblue',
+    'text-align' : 'center',
+    'margin': '75px auto',
+    'border': '0px solid dodgerblue',
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    'width' : '90%',
+    'height' : '75vh',
+    'padding': '5px',
     'box-shadow' : '0px 0px 15px grey'
     // 'background': 'grey'
     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
@@ -97,6 +139,7 @@ module.exports = React.createClass({
     console.log("activateDeleteProcess");
     console.log(this.props.event.id);
     ClientActions.deleteEvent(this.props.event.id);
+    this.setState({ deleteEventModalOpen: false });
   },
 
   goToEventSplash: function(clickEvent){
@@ -198,26 +241,26 @@ module.exports = React.createClass({
              <Modal
 
                 isOpen={this.state.deleteEventModalOpen}
-                onRequestClose={this.closeDeleteEventModal}>
+                onRequestClose={this.closeDeleteEventModal}
+                style={CUSTOM_STYLE}>
 
                   <h1>Delete Event</h1>
 
                   <h2>Are you sure?</h2>
 
-                  <button onClick={this.activateDeleteProcess}>Yes</button>
-                  <button onClick={this.closeDeleteEventModal}>No</button>
-
-
-                  <p>modal modal modal modal modal</p>
-                  <p>mooooooooodal!</p>
+                    <div id="menubuttons">
+                      <ul className="index-item-menu-ul">
+                        <li className="index-item-menu-li"  onClick={this.activateDeleteProcess}>Yes</li>
+                        <li className="index-item-menu-li"  onClick={this.closeDeleteEventModal}>No</li>
+                      </ul>
+                    </div>
 
               </Modal>
 
               <Modal
                 isOpen={this.state.editEventModalOpen}
-                onRequestClose={this.closeEditEventModal}>
-
-                  <h1>Edit Event Modal</h1>
+                onRequestClose={this.closeEditEventModal}
+                style={CUSTOM_STYLE_2}>
 
                   <EditEventModal event={this.props.event}/>
 
