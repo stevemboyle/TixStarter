@@ -109,7 +109,7 @@ module.exports = React.createClass({
                  <h3 className="home-catchphrase">{this.props.showtime.event.title}</h3>
                  </div>
 
-                <h1 className="home-title" textAlign="center">Next, pick your ticket!</h1>
+                <h1 className="home-title" textAlign="center">Pick your ticket!</h1>
                 <h3 className="home-catchphrase">Choose your price and tier from the options below:</h3>
 
                   <ShowtimeModal showtime={this.props.showtime}/>

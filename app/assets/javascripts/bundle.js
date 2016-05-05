@@ -34427,16 +34427,8 @@
 	        )
 	      ),
 	      this.props.children,
-	      React.createElement(
-	        'section',
-	        { id: 'footer',
-	          className: 'footer' },
-	        React.createElement(
-	          'p',
-	          null,
-	          'Hello, I am a footer!'
-	        )
-	      )
+	      React.createElement('section', { id: 'footer',
+	        className: 'footer' })
 	    );
 	  }
 	});
@@ -36188,7 +36180,7 @@
 	            React.createElement(
 	              'h1',
 	              { className: 'home-title', textAlign: 'center' },
-	              'Next, pick your ticket!'
+	              'Pick your ticket!'
 	            ),
 	            React.createElement(
 	              'h3',
@@ -40378,6 +40370,11 @@
 	      ),
 	      React.createElement(
 	        'section',
+	        { id: 'lower-menu' },
+	        React.createElement('br', null)
+	      ),
+	      React.createElement(
+	        'section',
 	        {
 	          id: 'event-page-description',
 	          className: 'white-bg padding-top-bottom'
@@ -40387,6 +40384,12 @@
 	          null,
 	          this.state.event.title
 	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          this.state.event.catchphrase
+	        ),
+	        React.createElement('br', null),
 	        React.createElement(
 	          'p',
 	          null,

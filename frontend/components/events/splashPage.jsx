@@ -128,13 +128,19 @@ module.exports = React.createClass({
               </ul>
             </div>
 
-        </section>
+        </section><section id="lower-menu">
+
+        <br></br>
+
+      </section>
         <section
           id="event-page-description"
           className="white-bg padding-top-bottom"
           >
 
           <h1>{this.state.event.title}</h1>
+          <p>{this.state.event.catchphrase}</p>
+          <br></br>
           <p>{this.state.event.description}</p>
           <br></br>
           <p><b>Revenue Status:</b> ${this.revenueStatus()}</p>

@@ -405,7 +405,7 @@ module.exports = React.createClass({
 
         <section id="footer"
           className="footer">
-          <p>Hello, I am a footer!</p>
+          
         </section>
 
       </div>
