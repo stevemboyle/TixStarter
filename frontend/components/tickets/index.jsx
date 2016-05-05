@@ -7,11 +7,13 @@ module.exports = React.createClass({
   render: function () {
     // debugger;
     return(
-      <ul>
-        {this.props.tickets && this.props.tickets.map(function (ticket) {
-          return <TicketIndexItem key={ticket.id} ticket={ticket} />;
-        })}
-      </ul>
+      <div className="index-for-events">
+        <ul>
+          {this.props.tickets && this.props.tickets.map(function (ticket) {
+            return <TicketIndexItem key={ticket.id} ticket={ticket} />;
+          })}
+        </ul>
+      </div>
     );
   }
 });

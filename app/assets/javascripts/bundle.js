@@ -36050,6 +36050,26 @@
 	var ShowtimeModal = __webpack_require__(281);
 	var EventsIndex = __webpack_require__(277);
 	
+	var GET_TIX_STYLE = {
+	  content: {
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'align-items' : 'center',
+	    'zIndex': '100000',
+	    'margin': '100px auto  auto',
+	    'width': '80%',
+	    'border': '0px solid dodgerblue',
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'width' : '600px',
+	    // 'height' : '350px',
+	    'padding': '0px',
+	    'box-shadow': '0px 0px 15px grey'
+	    // 'background': 'dodgerblue'
+	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	  }
+	};
+	
 	var CUSTOM_STYLE = {
 	  content: {
 	    // 'display' : 'flex',
@@ -36152,27 +36172,46 @@
 	          {
 	            isOpen: this.state.showtimeModalOpen,
 	            onRequestClose: this.closeShowtimeAndEventModals,
-	            style: CUSTOM_STYLE },
+	            style: GET_TIX_STYLE },
 	          React.createElement(
-	            'h2',
-	            null,
-	            'Im supposed to be a modal!'
-	          ),
-	          React.createElement(ShowtimeModal, { showtime: this.props.showtime }),
-	          React.createElement(
-	            'button',
-	            { onClick: this.closeShowtimeModal },
-	            'Back'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'modal modal modal modal modal'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
+	            'div',
+	            { style: { background: "dodgerblue" } },
+	            React.createElement(
+	              'div',
+	              null,
+	              React.createElement(
+	                'h3',
+	                { className: 'home-catchphrase' },
+	                this.props.showtime.event.title
+	              )
+	            ),
+	            React.createElement(
+	              'h1',
+	              { className: 'home-title', textAlign: 'center' },
+	              'Next, pick your ticket!'
+	            ),
+	            React.createElement(
+	              'h3',
+	              { className: 'home-catchphrase' },
+	              'Choose your price and tier from the options below:'
+	            ),
+	            React.createElement(ShowtimeModal, { showtime: this.props.showtime }),
+	            React.createElement(
+	              'div',
+	              { style: { background: "dodgerblue" } },
+	              React.createElement(
+	                'h3',
+	                { className: 'home-catchphrase' },
+	                this.props.showtime.date,
+	                ' at ',
+	                this.props.showtime.location
+	              )
+	            ),
+	            React.createElement(
+	              'button',
+	              { onClick: this.closeShowtimeModal },
+	              'Back'
+	            )
 	          )
 	        )
 	      )
@@ -36229,22 +36268,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        'Hello!'
-	      ),
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Hello! This is the ShowtimeModal!'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.state.showtime.location
-	      ),
+	      { style: { backgroundImage: "url(" + this.state.showtime.event.image_url + ")" } },
 	      React.createElement(TicketsIndex, { tickets: this.state.showtime.tickets })
 	    );
 	  }
@@ -36264,11 +36288,15 @@
 	  render: function () {
 	    // debugger;
 	    return React.createElement(
-	      'ul',
-	      null,
-	      this.props.tickets && this.props.tickets.map(function (ticket) {
-	        return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
-	      })
+	      'div',
+	      { className: 'index-for-events' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        this.props.tickets && this.props.tickets.map(function (ticket) {
+	          return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
+	        })
+	      )
 	    );
 	  }
 	});

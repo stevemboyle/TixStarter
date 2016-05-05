@@ -3,6 +3,27 @@ var Modal = require("react-modal");
 var ShowtimeModal = require('./showtimeModal');
 var EventsIndex = require('../events/indexItem.jsx');
 
+var GET_TIX_STYLE = {
+  content : {
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'align-items' : 'center',
+    'zIndex': '100000',
+    'margin': '100px auto  auto',
+    'width' : '80%',
+    'border': '0px solid dodgerblue',
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'width' : '600px',
+    // 'height' : '350px',
+    'padding': '0px',
+    'box-shadow' : '0px 0px 15px grey'
+    // 'background': 'dodgerblue'
+    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+  }
+};
+
+
 var CUSTOM_STYLE = {
   content : {
     // 'display' : 'flex',
@@ -81,16 +102,23 @@ module.exports = React.createClass({
           <Modal
              isOpen={this.state.showtimeModalOpen}
              onRequestClose={this.closeShowtimeAndEventModals}
-             style={CUSTOM_STYLE}>
+             style={GET_TIX_STYLE}>
 
-               <h2>Im supposed to be a modal!</h2>
+             <div style={{background: "dodgerblue"}}>
+               <div>
+                 <h3 className="home-catchphrase">{this.props.showtime.event.title}</h3>
+                 </div>
 
-              <ShowtimeModal showtime={this.props.showtime}/>
+                <h1 className="home-title" textAlign="center">Next, pick your ticket!</h1>
+                <h3 className="home-catchphrase">Choose your price and tier from the options below:</h3>
 
-              <button onClick={this.closeShowtimeModal}>Back</button>
+                  <ShowtimeModal showtime={this.props.showtime}/>
 
-               <p>modal modal modal modal modal</p>
-               <p>mooooooooodal!</p>
+                   <div style={{background: "dodgerblue"}}>
+                       <h3 className="home-catchphrase">{this.props.showtime.date} at {this.props.showtime.location}</h3>
+                   </div>
+                     <button onClick={this.closeShowtimeModal}>Back</button>
+                 </div>
 
            </Modal>
         </div>

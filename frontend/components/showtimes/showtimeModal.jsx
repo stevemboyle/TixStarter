@@ -39,13 +39,7 @@ module.exports = React.createClass({
 
 
     return(
-      <div>
-
-        <p>Hello!</p>
-
-        <h1>Hello! This is the ShowtimeModal!</h1>
-
-        <p>{this.state.showtime.location}</p>
+      <div style={{backgroundImage: "url(" + this.state.showtime.event.image_url + ")"}}>
 
         <TicketsIndex tickets={this.state.showtime.tickets} />
 
