@@ -8,5 +8,8 @@ class Ticket < ActiveRecord::Base
     through: :ticket_purchases,
     source: :user
 
+  has_one :event,
+    through: :showtime,
+    source: :event
 
 end

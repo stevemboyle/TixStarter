@@ -18,7 +18,7 @@ module.exports = React.createClass({
     return({
       events: myEvents,
       event_id: myEvents[0].id,
-      showtime_id: myEvents[0].showtimes.reverse()[0].id,
+      showtime_id: "",
       price: "",
       tier: "",
       description: "",
@@ -28,9 +28,7 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
 
-    debugger;
-
-    this.EventListener = EventStore.addListener(this._seedChange);
+    // this.EventListener = EventStore.addListener(this._seedChange);
     this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
 
 
@@ -52,9 +50,12 @@ module.exports = React.createClass({
 
   _seedChange: function(){
 
-    debugger;
-
     var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+
+    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
+    /// input myEvents[0].id
+
+
 
     this.setState({
       events: myEvents,
@@ -64,7 +65,7 @@ module.exports = React.createClass({
   },
 
   componentWillUnmount: function(){
-    this.EventListener.remove();
+    // this.EventListener.remove();
     this.ShowtimeListener.remove();
   },
 

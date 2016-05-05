@@ -4,7 +4,8 @@ json.extract!(
     :showtime_id,
     :tier,
     :description,
-    :price
+    :price,
+    :event
 )
 
 json.ticket_purchases do

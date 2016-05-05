@@ -18,6 +18,7 @@ module.exports = React.createClass({
 
     return({
       events: myEvents,
+      // event_id: myEvents[0].id,
       event_id: myEvents[0].id,
       date: "",
       time: "",
@@ -35,7 +36,14 @@ module.exports = React.createClass({
 
   _eventsChanged: function(){
     // debugger;
+    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    // this.setState({
+    //   events: myEvents,
+    //   event_id: myEvents[0].id,
+    // });
+
     this.setState({events: EventStore.allEventsForUser(UserStore.user().id)});
+
   },
 
   componentWillUnmount: function(){

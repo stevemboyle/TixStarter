@@ -151,7 +151,7 @@ var ApiUtil = {
       data: {ticket: data},
       success: function (ticket) {
         debugger;
-        hashHistory.push('/');
+        hashHistory.push('/event/' + ticket.event.id);
         ServerActions.receiveSingleTicket(ticket);
         // callback && callback(ticket.id);
       }

@@ -35077,7 +35077,7 @@
 	      data: { ticket: data },
 	      success: function (ticket) {
 	        debugger;
-	        hashHistory.push('/');
+	        hashHistory.push('/event/' + ticket.event.id);
 	        ServerActions.receiveSingleTicket(ticket);
 	        // callback && callback(ticket.id);
 	      }
@@ -36084,6 +36084,7 @@
 	  },
 	
 	  render: function () {
+	    // <h1>{this.props.showtime.time.slice(11, 19)}</h1>
 	
 	    //
 	    // var attributeArray = ['id',
@@ -37394,6 +37395,7 @@
 	
 	    return {
 	      events: myEvents,
+	      // event_id: myEvents[0].id,
 	      event_id: myEvents[0].id,
 	      date: "",
 	      time: "",
@@ -37411,6 +37413,12 @@
 	
 	  _eventsChanged: function () {
 	    // debugger;
+	    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	    // this.setState({
+	    //   events: myEvents,
+	    //   event_id: myEvents[0].id,
+	    // });
+	
 	    this.setState({ events: EventStore.allEventsForUser(UserStore.user().id) });
 	  },
 	
@@ -39349,7 +39357,7 @@
 	    return {
 	      events: myEvents,
 	      event_id: myEvents[0].id,
-	      showtime_id: myEvents[0].showtimes.reverse()[0].id,
+	      showtime_id: "",
 	      price: "",
 	      tier: "",
 	      description: "",
@@ -39359,9 +39367,7 @@
 	
 	  componentDidMount: function () {
 	
-	    debugger;
-	
-	    this.EventListener = EventStore.addListener(this._seedChange);
+	    // this.EventListener = EventStore.addListener(this._seedChange);
 	    this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
 	
 	    // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
@@ -39381,9 +39387,10 @@
 	
 	  _seedChange: function () {
 	
-	    debugger;
-	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	
+	    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
+	    /// input myEvents[0].id
 	
 	    this.setState({
 	      events: myEvents,
@@ -39393,7 +39400,7 @@
 	  },
 	
 	  componentWillUnmount: function () {
-	    this.EventListener.remove();
+	    // this.EventListener.remove();
 	    this.ShowtimeListener.remove();
 	  },
 	
