@@ -19,6 +19,11 @@ module.exports = React.createClass({
     });
   },
 
+  componentDidMount: function(){
+    var defaultEventId = UserStore.user().events[0].id;
+    this.setState({event_id: defaultEventId});
+  },
+
   eventIdChange: function(keyboardEvent){
     var newEventId = keyboardEvent.target.value;
     this.setState({ event_id: newEventId });
@@ -129,7 +134,7 @@ module.exports = React.createClass({
 
         </form>
         <br></br>
-      
+
       </div>
     );
   }

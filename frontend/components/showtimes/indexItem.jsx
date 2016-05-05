@@ -51,6 +51,7 @@ module.exports = React.createClass({
 
   render: function () {
 
+
     //
     // var attributeArray = ['id',
     //                       'event_id',
@@ -69,6 +70,7 @@ module.exports = React.createClass({
         <div>
           <li onClick={this.openShowtimeModal} className="event-list-item">
               <h1>{this.props.showtime.date}</h1>
+              <h1>{this.props.showtime.time.slice(11, 19)}</h1>
               <img src={this.props.showtime.event.image_url} width="275px" height="200px"></img>
             <p>{this.props.showtime.event.title}</p>
             <p>{this.props.showtime.location}</p>

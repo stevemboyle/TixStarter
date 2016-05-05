@@ -36081,6 +36081,11 @@
 	            null,
 	            this.props.showtime.date
 	          ),
+	          React.createElement(
+	            'h1',
+	            null,
+	            this.props.showtime.time.slice(11, 19)
+	          ),
 	          React.createElement('img', { src: this.props.showtime.event.image_url, width: '275px', height: '200px' }),
 	          React.createElement(
 	            'p',
@@ -37365,6 +37370,11 @@
 	      time: "",
 	      location: ""
 	    };
+	  },
+	
+	  componentDidMount: function () {
+	    var defaultEventId = UserStore.user().events[0].id;
+	    this.setState({ event_id: defaultEventId });
 	  },
 	
 	  eventIdChange: function (keyboardEvent) {
