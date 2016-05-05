@@ -736,10 +736,20 @@ input[type=time]:focus {
    margin: 5px;
  }
 
+ .header-li-reverse {
+   background: white;
+   color: dodgerblue;
+ }
+
  .header-li:hover {
    cursor: pointer;
    background-color: white;
    color: dodgerblue;
+ }
+
+ .header-li-reverse:hover {
+   background-color: dodgerblue;
+   color: white;
  }
 
 

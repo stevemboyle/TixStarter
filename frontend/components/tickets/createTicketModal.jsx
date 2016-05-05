@@ -25,6 +25,7 @@ module.exports = React.createClass({
     // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
     var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
     var defaultEventId = UserStore.user().events[0].id;
+        debugger;
     var defaultEventsShowtimes = myShowtimes[defaultEventId];
     var defaultShowtime = defaultEventsShowtimes[0];
 

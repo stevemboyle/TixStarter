@@ -27,6 +27,10 @@ var CreateTicket = require('./components/tickets/createTicketModal');
 var SignIn = require('./components/users/signInModal');
 var SignUp = require('./components/users/signUpModal');
 var TicketIndex = require('./components/tickets/index');
+var NewEventWizard = require('./components/events/NewEventWizard');
+var EventWizardForm = require('./components/events/wizardForm');
+var ShowtimeWizardForm = require('./components/showtimes/wizardForm');
+var TicketWizardForm = require('./components/tickets/wizardForm');
 // var ApiUtil = require('./util/apiUtil');
 // var UserApiUtil = require('./util/userApiUtil');
 
@@ -59,6 +63,10 @@ var routes = (
     <Route path="create-ticket" component={CreateTicket}/>
     <Route path="sign-in" component={SignIn}/>
     <Route path="sign-up" component={SignUp}/>
+    <Route path="wizard" component={NewEventWizard}/>
+    <Route path="wizard-event" component={EventWizardForm}/>
+    <Route path="wizard-showtime" component={ShowtimeWizardForm}/>
+    <Route path="wizard-ticket" component={TicketWizardForm}/>
   </Route>
 );
 

@@ -185,7 +185,8 @@ module.exports = React.createClass({
     },
 
     goToCreateEvent: function(){
-      hashHistory.push("/create-event");
+      // hashHistory.push("/create-event");
+      hashHistory.push("/wizard");
     },
 
     goToCreateShowtime: function(){

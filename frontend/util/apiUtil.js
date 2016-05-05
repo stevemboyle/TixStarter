@@ -45,7 +45,8 @@ var ApiUtil = {
       data: {event: data},
       success: function (event) {
         // debugger;
-        hashHistory.push('/event/' + event.id);
+        hashHistory.push("/wizard-showtime");
+        // hashHistory.push('/event/' + event.id);
         ServerActions.receiveSingleEvent(event);
         // app.closeCreateEventModal();
         // callback && callback(event.id);
@@ -115,7 +116,8 @@ var ApiUtil = {
       method: "POST",
       data: {showtime: showtime},
       success: function (showtime) {
-        hashHistory.push('/event/' + showtime.event_id);
+        // hashHistory.push('/event/' + showtime.event_id);
+        hashHistory.push("/wizard-ticket");
         ServerActions.receiveSingleShowtime(showtime);
         callback && callback(showtime.id);
       }

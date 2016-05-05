@@ -73,6 +73,10 @@
 	var SignIn = __webpack_require__(303);
 	var SignUp = __webpack_require__(302);
 	var TicketIndex = __webpack_require__(282);
+	var NewEventWizard = __webpack_require__(312);
+	var EventWizardForm = __webpack_require__(313);
+	var ShowtimeWizardForm = __webpack_require__(314);
+	var TicketWizardForm = __webpack_require__(315);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -104,7 +108,11 @@
 	  React.createElement(Route, { path: 'create-showtime', component: CreateShowtime }),
 	  React.createElement(Route, { path: 'create-ticket', component: CreateTicket }),
 	  React.createElement(Route, { path: 'sign-in', component: SignIn }),
-	  React.createElement(Route, { path: 'sign-up', component: SignUp })
+	  React.createElement(Route, { path: 'sign-up', component: SignUp }),
+	  React.createElement(Route, { path: 'wizard', component: NewEventWizard }),
+	  React.createElement(Route, { path: 'wizard-event', component: EventWizardForm }),
+	  React.createElement(Route, { path: 'wizard-showtime', component: ShowtimeWizardForm }),
+	  React.createElement(Route, { path: 'wizard-ticket', component: TicketWizardForm })
 	);
 	
 	document.addEventListener("DOMContentLoaded", function () {
@@ -34110,7 +34118,8 @@
 	  },
 	
 	  goToCreateEvent: function () {
-	    hashHistory.push("/create-event");
+	    // hashHistory.push("/create-event");
+	    hashHistory.push("/wizard");
 	  },
 	
 	  goToCreateShowtime: function () {
@@ -34963,7 +34972,8 @@
 	      data: { event: data },
 	      success: function (event) {
 	        // debugger;
-	        hashHistory.push('/event/' + event.id);
+	        hashHistory.push("/wizard-showtime");
+	        // hashHistory.push('/event/' + event.id);
 	        ServerActions.receiveSingleEvent(event);
 	        // app.closeCreateEventModal();
 	        // callback && callback(event.id);
@@ -35032,7 +35042,8 @@
 	      method: "POST",
 	      data: { showtime: showtime },
 	      success: function (showtime) {
-	        hashHistory.push('/event/' + showtime.event_id);
+	        // hashHistory.push('/event/' + showtime.event_id);
+	        hashHistory.push("/wizard-ticket");
 	        ServerActions.receiveSingleShowtime(showtime);
 	        callback && callback(showtime.id);
 	      }
@@ -39309,6 +39320,7 @@
 	    // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
 	    var defaultEventId = UserStore.user().events[0].id;
+	    debugger;
 	    var defaultEventsShowtimes = myShowtimes[defaultEventId];
 	    var defaultShowtime = defaultEventsShowtimes[0];
 	
@@ -40642,6 +40654,185 @@
 	      )
 	    );
 	  }
+	});
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  goToCreateEvent: function () {
+	    hashHistory.push("/wizard-event");
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'create-event-background' },
+	      React.createElement(
+	        'h1',
+	        { className: 'home-title' },
+	        'Welcome to the Event Creation Wizard'
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li header-li-reverse', onClick: this.goToCreateEvent },
+	            'Get Started'
+	          )
+	        )
+	      )
+	    );
+	  }
+	
+	});
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
+	var CreateEventModal = __webpack_require__(290);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'create-event-background' },
+	      React.createElement(
+	        'h1',
+	        { className: 'home-title' },
+	        'Welcome to the Event Creation Wizard'
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li header-li-reverse', onClick: this.goToCreateEvent },
+	            'Get Started'
+	          )
+	        ),
+	        React.createElement(CreateEventModal, null)
+	      )
+	    );
+	  }
+	
+	});
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	// var EventStore = require('../../stores/event.js');
+	// var ShowtimesIndex = require('../showtimes/index.jsx');
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
+	var CreateShowtimeModal = __webpack_require__(291);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'create-event-background' },
+	      React.createElement(
+	        'h1',
+	        { className: 'home-title' },
+	        'Welcome to the Event Creation Wizard'
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li header-li-reverse', onClick: this.goToCreateEvent },
+	            'Get Started'
+	          )
+	        ),
+	        React.createElement(CreateShowtimeModal, null)
+	      )
+	    );
+	  }
+	
+	});
+
+/***/ },
+/* 315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	// var EventStore = require('../../stores/event.js');
+	// var ShowtimesIndex = require('../showtimes/index.jsx');
+	var ClientActions = __webpack_require__(267);
+	// var UserStore = require('../../stores/user');
+	var CreateTicketModal = __webpack_require__(301);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'create-event-background' },
+	      React.createElement(
+	        'h1',
+	        { className: 'home-title' },
+	        'Welcome to the Event Creation Wizard'
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li header-li-reverse', onClick: this.goToCreateEvent },
+	            'Get Started'
+	          )
+	        ),
+	        React.createElement(CreateTicketModal, null)
+	      )
+	    );
+	  }
+	
 	});
 
 /***/ }
