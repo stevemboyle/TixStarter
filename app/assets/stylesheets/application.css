@@ -240,6 +240,7 @@
     color: white;
     font-size: 100px;
     font-family: 'Kaushan Script', cursive;
+    text-align: center;
   }
 
   .change {
@@ -259,6 +260,7 @@
     color: white;
     font-size: 30px;
     font-family: 'Kaushan Script', cursive;
+    text-align: center;
   }
 
   .title {
@@ -565,6 +567,7 @@ h1 {
  }*/
 
  .event-detail-pane {
+   background-color: white;
  /*   width: 50%; */
    width: 100%;
    float: left;

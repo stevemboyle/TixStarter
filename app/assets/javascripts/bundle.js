@@ -35599,24 +35599,27 @@
 	var hashHistory = __webpack_require__(159).hashHistory;
 	var EditEventModal = __webpack_require__(289);
 	
-	// var CUSTOM_STYLE = {
-	//   content : {
-	//     // 'display' : 'flex',
-	//     // 'justify-content' : 'center',
-	//     // 'align-items' : 'center',
-	//     'zIndex': '100000',
-	//     'margin': '100px auto  auto',
-	//     'border': '0px solid dodgerblue',
-	//     // 'display' : 'flex',
-	//     // 'justify-content' : 'center',
-	//     // 'width' : '600px',
-	//     // 'height' : '350px',
-	//     'padding': '0px',
-	//     'box-shadow' : '0px 0px 15px grey'
-	//     // 'background': 'grey'
-	//     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
-	//   }
-	// };
+	// <div style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
+	
+	var GET_TIX_STYLE = {
+	  content: {
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'align-items' : 'center',
+	    'zIndex': '100000',
+	    'margin': '100px auto  auto',
+	    'width': '80%',
+	    'border': '0px solid dodgerblue',
+	    // 'display' : 'flex',
+	    // 'justify-content' : 'center',
+	    // 'width' : '600px',
+	    // 'height' : '350px',
+	    'padding': '0px',
+	    'box-shadow': '0px 0px 15px grey'
+	    // 'background': 'dodgerblue'
+	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+	  }
+	};
 	
 	var CUSTOM_STYLE = {
 	  content: {
@@ -35850,34 +35853,45 @@
 	        {
 	          isOpen: this.state.eventDetailModalOpen,
 	          onRequestClose: this.closeEventDetailModal,
-	          style: CUSTOM_STYLE },
+	          style: GET_TIX_STYLE },
 	        React.createElement(
 	          'div',
-	          { style: { backgroundImage: "url(" + this.props.event.image_url + ")" } },
+	          { style: { background: "dodgerblue" } },
 	          React.createElement(
-	            'h1',
+	            'div',
 	            null,
-	            'Hello, Welcome to this Modal!'
+	            React.createElement(
+	              'h3',
+	              { className: 'home-catchphrase' },
+	              this.props.event.title
+	            )
 	          ),
-	          React.createElement('br', null),
-	          React.createElement('br', null),
-	          React.createElement('br', null),
-	          React.createElement('br', null),
-	          React.createElement('br', null),
-	          React.createElement('br', null),
-	          React.createElement('br', null),
 	          React.createElement(
 	            'h1',
-	            null,
-	            this.props.event.title
+	            { className: 'home-title', textAlign: 'center' },
+	            'Let\'s get tickets!'
+	          ),
+	          React.createElement(
+	            'h3',
+	            { className: 'home-catchphrase' },
+	            'First, pick your showtime from the options below:'
+	          ),
+	          React.createElement(EventModal, { event: this.props.event }),
+	          React.createElement(
+	            'div',
+	            { style: { background: 'white' } },
+	            React.createElement('br', null)
+	          ),
+	          React.createElement(
+	            'div',
+	            { style: { background: "dodgerblue" } },
+	            React.createElement(
+	              'h3',
+	              { className: 'home-catchphrase' },
+	              this.props.event.title
+	            )
 	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          this.props.event.description
-	        ),
-	        React.createElement(EventModal, { event: this.props.event })
+	        )
 	      ),
 	      React.createElement(
 	        Modal,
@@ -36854,6 +36868,11 @@
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
+	
+	  // style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}
+	
+	  // <h3 className="home-catchphrase">{this.state.event.title}</h3>
+	
 	  // getStateFromStore: function () {
 	  //   return { event: EventStore.find(parseInt(this.props.event.id)) };
 	  // },
@@ -36909,46 +36928,29 @@
 	
 	    var editOptionForLoggedInUsers;
 	
-	    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id) {
-	      editOptionForLoggedInUsers = React.createElement(
-	        'button',
-	        { onClick: this.openEditEventModal },
-	        'Edit Event'
-	      );
-	    }
+	    // if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
+	    //   editOptionForLoggedInUsers =(
+	    //     <button onClick={this.openEditEventModal}>Edit Event</button>
+	    //   );
+	    // }
 	
 	    // {['title', 'description'].map(function (attr) {
 	    //   return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
 	    // }.bind(this))}
 	    // <br></br>
 	
+	    // <div style={{background: "dodgerblue"}}>
+	    //   <button onClick={this.goToEventSplash}>Learn More</button>
+	    //   {editOptionForLoggedInUsers}
+	    // </div>
+	
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        'h1',
-	        null,
-	        this.state.event.title
-	      ),
-	      React.createElement(
 	        'div',
 	        { className: 'event-detail-pane' },
-	        React.createElement(
-	          'div',
-	          null,
-	          React.createElement(
-	            'button',
-	            { onClick: this.goToEventSplash },
-	            'Learn More'
-	          ),
-	          editOptionForLoggedInUsers
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'detail-header' },
-	          'Showtimes: '
-	        ),
-	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
+	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes, backgroundImage: true })
 	      ),
 	      React.createElement(
 	        Modal,

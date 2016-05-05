@@ -11,6 +11,12 @@ var UserStore = require('../../stores/user');
 var hashHistory = require("react-router").hashHistory;
 
 module.exports = React.createClass({
+
+  // style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}
+
+        // <h3 className="home-catchphrase">{this.state.event.title}</h3>
+
+
   // getStateFromStore: function () {
   //   return { event: EventStore.find(parseInt(this.props.event.id)) };
   // },
@@ -66,33 +72,28 @@ module.exports = React.createClass({
 
     var editOptionForLoggedInUsers;
 
-    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
-      editOptionForLoggedInUsers =(
-        <button onClick={this.openEditEventModal}>Edit Event</button>
-      );
-    }
+    // if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
+    //   editOptionForLoggedInUsers =(
+    //     <button onClick={this.openEditEventModal}>Edit Event</button>
+    //   );
+    // }
 
     // {['title', 'description'].map(function (attr) {
     //   return <p key={attr}>{attr}: {this.state.event[attr]}</p>;
     // }.bind(this))}
     // <br></br>
 
+    // <div style={{background: "dodgerblue"}}>
+    //   <button onClick={this.goToEventSplash}>Learn More</button>
+    //   {editOptionForLoggedInUsers}
+    // </div>
+
     return(
       <div>
 
-      <h1>{this.state.event.title}</h1>
-
         <div className="event-detail-pane">
 
-          <div>
-            <button onClick={this.goToEventSplash}>Learn More</button>
-            {editOptionForLoggedInUsers}
-          </div>
-
-          <h2 className='detail-header'>Showtimes: </h2>
-          <ShowtimesIndex showtimes={this.state.event.showtimes} />
-
-
+          <ShowtimesIndex showtimes={this.state.event.showtimes} backgroundImage={true} />
 
         </div>
 

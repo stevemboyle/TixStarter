@@ -12,25 +12,27 @@ var UserStore = require('../../stores/user');
 var hashHistory = require("react-router").hashHistory;
 var EditEventModal = require('./editEventModal');
 
+    // <div style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
 
-// var CUSTOM_STYLE = {
-//   content : {
-//     // 'display' : 'flex',
-//     // 'justify-content' : 'center',
-//     // 'align-items' : 'center',
-//     'zIndex': '100000',
-//     'margin': '100px auto  auto',
-//     'border': '0px solid dodgerblue',
-//     // 'display' : 'flex',
-//     // 'justify-content' : 'center',
-//     // 'width' : '600px',
-//     // 'height' : '350px',
-//     'padding': '0px',
-//     'box-shadow' : '0px 0px 15px grey'
-//     // 'background': 'grey'
-//     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
-//   }
-// };
+var GET_TIX_STYLE = {
+  content : {
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'align-items' : 'center',
+    'zIndex': '100000',
+    'margin': '100px auto  auto',
+    'width' : '80%',
+    'border': '0px solid dodgerblue',
+    // 'display' : 'flex',
+    // 'justify-content' : 'center',
+    // 'width' : '600px',
+    // 'height' : '350px',
+    'padding': '0px',
+    'box-shadow' : '0px 0px 15px grey'
+    // 'background': 'dodgerblue'
+    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
+  }
+};
 
 var CUSTOM_STYLE = {
   content : {
@@ -217,24 +219,26 @@ module.exports = React.createClass({
             <Modal
                isOpen={this.state.eventDetailModalOpen}
                onRequestClose={this.closeEventDetailModal}
-               style={CUSTOM_STYLE}>
+               style={GET_TIX_STYLE}>
 
-               <div   style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
+              <div style={{background: "dodgerblue"}}>
+                <div>
+                  <h3 className="home-catchphrase">{this.props.event.title}</h3>
+                  </div>
 
-                 <h1>Hello, Welcome to this Modal!</h1>
-                 <br></br>
-                 <br></br>
-                 <br></br>
-                 <br></br>
-                 <br></br>
-                 <br></br>
-                 <br></br>
-                 <h1>{this.props.event.title}</h1>
-               </div>
+                 <h1 className="home-title" textAlign="center">Let's get tickets!</h1>
+                 <h3 className="home-catchphrase">First, pick your showtime from the options below:</h3>
 
-                  <p>{this.props.event.description}</p>
+                    <EventModal event={this.props.event}/>
 
-                 <EventModal event={this.props.event}/>
+
+                    <div style={{background: 'white'}}>
+                      <br></br>
+                    </div>
+                    <div style={{background: "dodgerblue"}}>
+                        <h3 className="home-catchphrase">{this.props.event.title}</h3>
+                    </div>
+                  </div>
 
              </Modal>
 
