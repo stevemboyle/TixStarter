@@ -26,6 +26,28 @@ module.exports = React.createClass({
 
   render: function () {
 
+    //TODO: Add Marketing Content (Commented Out Below) Back IN
+
+      // <li className="home-splash-li"><a href="#home-marketing" text-align="center" className="scroll-a">Learn More</a></li>
+
+      // <section id="home-marketing">
+      //
+      //     <h1>Welcome to TixStarter</h1>
+      //     <h3>Forward Fund Events with Ticket Sales</h3>
+      //
+      //     <h4>Scroll down for More</h4>
+      //   </section><section id="lower-menu">
+      //
+      //   <br></br>
+      //
+      // </section><section  id="home-whitespace"
+      //     className="white-bg padding-top-bottom"
+      //     >
+      //
+      //     <h1>Text!</h1>
+      //
+      //   </section>
+
     return(
 
       <div>
@@ -39,7 +61,7 @@ module.exports = React.createClass({
               <div id="menubuttons">
                 <ul className="index-item-menu-ul">
                   <li className="home-splash-li"><a href="#home-events-index" text-align="center" className="scroll-a">Browse Events</a></li>
-                  <li className="home-splash-li"><a href="#home-marketing" text-align="center" className="scroll-a">Learn More</a></li>
+
                 </ul>
               </div>
           </div>
@@ -63,23 +85,7 @@ module.exports = React.createClass({
 
       <br></br>
 
-    </section><section id="home-marketing">
-
-        <h1>Welcome to TixStarter</h1>
-        <h3>Forward Fund Events with Ticket Sales</h3>
-
-        <h4>Scroll down for More</h4>
-      </section><section id="lower-menu">
-
-      <br></br>
-
-    </section><section  id="home-whitespace"
-        className="white-bg padding-top-bottom"
-        >
-
-        <h1>Text!</h1>
-
-      </section>
+    </section>
     </div>
 
     );

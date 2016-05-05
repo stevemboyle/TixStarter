@@ -39970,6 +39970,28 @@
 	
 	  render: function () {
 	
+	    //TODO: Add Marketing Content (Commented Out Below) Back IN
+	
+	    // <li className="home-splash-li"><a href="#home-marketing" text-align="center" className="scroll-a">Learn More</a></li>
+	
+	    // <section id="home-marketing">
+	    //
+	    //     <h1>Welcome to TixStarter</h1>
+	    //     <h3>Forward Fund Events with Ticket Sales</h3>
+	    //
+	    //     <h4>Scroll down for More</h4>
+	    //   </section><section id="lower-menu">
+	    //
+	    //   <br></br>
+	    //
+	    // </section><section  id="home-whitespace"
+	    //     className="white-bg padding-top-bottom"
+	    //     >
+	    //
+	    //     <h1>Text!</h1>
+	    //
+	    //   </section>
+	
 	    return React.createElement(
 	      'div',
 	      null,
@@ -40003,15 +40025,6 @@
 	                  { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
 	                  'Browse Events'
 	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                { className: 'home-splash-li' },
-	                React.createElement(
-	                  'a',
-	                  { href: '#home-marketing', 'text-align': 'center', className: 'scroll-a' },
-	                  'Learn More'
-	                )
 	              )
 	            )
 	          )
@@ -40040,41 +40053,6 @@
 	        'section',
 	        { id: 'lower-menu' },
 	        React.createElement('br', null)
-	      ),
-	      React.createElement(
-	        'section',
-	        { id: 'home-marketing' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Welcome to TixStarter'
-	        ),
-	        React.createElement(
-	          'h3',
-	          null,
-	          'Forward Fund Events with Ticket Sales'
-	        ),
-	        React.createElement(
-	          'h4',
-	          null,
-	          'Scroll down for More'
-	        )
-	      ),
-	      React.createElement(
-	        'section',
-	        { id: 'lower-menu' },
-	        React.createElement('br', null)
-	      ),
-	      React.createElement(
-	        'section',
-	        { id: 'home-whitespace',
-	          className: 'white-bg padding-top-bottom'
-	        },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Text!'
-	        )
 	      )
 	    );
 	  }
