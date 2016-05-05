@@ -616,6 +616,30 @@ h1 {
       /*background-image: url(http://www.inconcertaudio.com/wp-content/uploads/2015/10/Paramore_Concert-1.jpg);*/
   }
 
+  .ticket-list-item {
+    /*border: thin solid red;*/
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Kaushan Script', cursive;
+    text-align: center;
+    cursor: pointer;
+    list-style: none;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-image: url(http://www.ultimateupcycle.com/wp-content/uploads/2015/02/bigstock-Old-paper-background-16732721a-1277x618.jpg);
+    color: white;
+    height: 400px;
+    width: 275px;
+    background-size: cover;
+    display: inline-table;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .ticket-list-item:hover {
+    background: dodgerblue;
+  }
+
 /*
  .showtime-list-item {
    border: thin solid red;

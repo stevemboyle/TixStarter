@@ -75,14 +75,13 @@ module.exports = React.createClass({
           // debugger;
 
     return(
-      <div className="event-list-item">
+      <div className="ticket-list-item">
         <div>
-          <p>Hey!</p>
-          <li onClick={this.openConfirmationModal} className="event-list-item">
+          <li onClick={this.openConfirmationModal} className="ticket-list-item">
             <p>{this.props.ticket.tier}</p>
+            <p>{this.props.ticket.description}</p>
             <p>${this.props.ticket.price}</p>
             <br></br>
-            <p><em>for</em></p>
             <br></br>
           </li>
         </div>

@@ -26,6 +26,7 @@ var CreateShowtime = require('./components/showtimes/createShowtimeModal');
 var CreateTicket = require('./components/tickets/createTicketModal');
 var SignIn = require('./components/users/signInModal');
 var SignUp = require('./components/users/signUpModal');
+var TicketIndex = require('./components/tickets/index');
 // var ApiUtil = require('./util/apiUtil');
 // var UserApiUtil = require('./util/userApiUtil');
 
@@ -48,6 +49,7 @@ var routes = (
       <Route path="showtimes/:showtimeId" component={ShowtimeDetail}>
     </Route>
     <Route path="showtimes/:showtimeId" component={ShowtimeDetail} />
+    <Route path="tickets" component={TicketIndex} />
     <Route path="success" component={Success} />
     <Route path="ticket_purchases/:ticket_purchaseId" component={TicketPurchase}/>
     <Route path="dashboard" component={UserDashboardEventsIndex}/>

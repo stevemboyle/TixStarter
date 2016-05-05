@@ -12,9 +12,11 @@ UserStore.__onDispatch = function(payload){
   switch(payload.actionType) {
     case "LOGIN":
       UserStore.login(payload.user);
+      window.userId = payload.user.id;
       break;
     case "LOGOUT":
       UserStore.logout();
+      window.userId = undefined;
       break;
     case "ERROR":
       UserStore.setErrors(payload.errors);

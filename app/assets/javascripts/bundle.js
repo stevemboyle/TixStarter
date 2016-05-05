@@ -72,6 +72,7 @@
 	var CreateTicket = __webpack_require__(301);
 	var SignIn = __webpack_require__(303);
 	var SignUp = __webpack_require__(302);
+	var TicketIndex = __webpack_require__(282);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -94,6 +95,7 @@
 	  React.createElement(Route, { path: 'event/:eventId', component: EventSplash }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
 	  React.createElement(Route, { path: 'showtimes/:showtimeId', component: ShowtimeDetail }),
+	  React.createElement(Route, { path: 'tickets', component: TicketIndex }),
 	  React.createElement(Route, { path: 'success', component: Success }),
 	  React.createElement(Route, { path: 'ticket_purchases/:ticket_purchaseId', component: TicketPurchase }),
 	  React.createElement(Route, { path: 'dashboard', component: UserDashboardEventsIndex }),
@@ -25178,6 +25180,7 @@
 	TicketPurchaseStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
+	      console.log("ticket purchases received");
 	      resetTicketPurchases(payload.ticketPurchases);
 	      TicketPurchaseStore.__emitChange();
 	      break;
@@ -35221,7 +35224,7 @@
 	
 	  receiveAllTicketPurchases: function (ticketPurchases) {
 	    Dispatcher.dispatch({
-	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+	      actionType: TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED,
 	      ticketPurchases: ticketPurchases
 	    });
 	  },
@@ -36311,18 +36314,13 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'event-list-item' },
+	      { className: 'ticket-list-item' },
 	      React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
-	          'p',
-	          null,
-	          'Hey!'
-	        ),
-	        React.createElement(
 	          'li',
-	          { onClick: this.openConfirmationModal, className: 'event-list-item' },
+	          { onClick: this.openConfirmationModal, className: 'ticket-list-item' },
 	          React.createElement(
 	            'p',
 	            null,
@@ -36331,19 +36329,15 @@
 	          React.createElement(
 	            'p',
 	            null,
+	            this.props.ticket.description
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
 	            '$',
 	            this.props.ticket.price
 	          ),
 	          React.createElement('br', null),
-	          React.createElement(
-	            'p',
-	            null,
-	            React.createElement(
-	              'em',
-	              null,
-	              'for'
-	            )
-	          ),
 	          React.createElement('br', null)
 	        )
 	      ),
@@ -36405,9 +36399,11 @@
 	  switch (payload.actionType) {
 	    case "LOGIN":
 	      UserStore.login(payload.user);
+	      window.userId = payload.user.id;
 	      break;
 	    case "LOGOUT":
 	      UserStore.logout();
+	      window.userId = undefined;
 	      break;
 	    case "ERROR":
 	      UserStore.setErrors(payload.errors);
@@ -39772,6 +39768,7 @@
 
 	var React = __webpack_require__(1);
 	var TicketStore = __webpack_require__(306);
+	var TicketPurchaseStore = __webpack_require__(218);
 	var ClientActions = __webpack_require__(267);
 	var TicketIndexItem = __webpack_require__(283);
 	var UserStore = __webpack_require__(284);
@@ -39781,18 +39778,22 @@
 	
 	  getInitialState: function () {
 	    console.log("getInitialState");
-	    return { tickets: TicketStore.all() };
+	    return { tickets: TicketStore.all(),
+	      ticket_purchases: TicketPurchaseStore.all() };
 	  },
 	
 	  _onChange: function () {
 	    console.log('_onChange');
-	    this.setState({ tickets: TicketStore.all() });
+	    this.setState({ tickets: TicketStore.all(),
+	      ticket_purchases: TicketPurchaseStore.all() });
 	  },
 	
 	  componentDidMount: function () {
 	    console.log('componentDidMount');
 	    this.ticketListener = TicketStore.addListener(this._onChange);
+	    this.ticketPurchaseListener = TicketPurchaseStore.addListener(this._onChange);
 	    ClientActions.fetchAllTickets();
+	    ClientActions.fetchAllTicketPurchases();
 	  },
 	
 	  compomentWillUnmount: function () {
@@ -39803,11 +39804,13 @@
 	  myTickets: function () {
 	    var result = [];
 	
-	    this.state.tickets.map(function (ticket) {
-	      if (ticket.user_id === UserStore.user().id) {
+	    this.state.ticket_purchases.map(function (ticketPurchase) {
+	      if (ticketPurchase.user_id === window.userId) {
+	        var ticket = TicketStore.find(ticketPurchase.ticket_id);
 	        result.push(ticket);
 	      }
 	    });
+	
 	    return result;
 	  },
 	
@@ -39862,9 +39865,9 @@
 	          'My Purchased Tickets:'
 	        ),
 	        React.createElement('br', null),
-	        this.state.tickets.map(function (ticket) {
+	        this.myTickets().map(function (ticket) {
 	
-	          return React.createElement(TicketIndexItem, { key: ticket.id, ticket: ticket });
+	          return React.createElement(TicketIndexItem, { ticket: ticket });
 	        })
 	      )
 	    );

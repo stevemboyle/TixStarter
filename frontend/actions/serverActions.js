@@ -103,7 +103,7 @@ module.exports = {
 
     receiveAllTicketPurchases: function (ticketPurchases) {
       Dispatcher.dispatch({
-        actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
+        actionType: TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED,
         ticketPurchases: ticketPurchases
       });
     },

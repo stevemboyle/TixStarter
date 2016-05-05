@@ -42,6 +42,7 @@ TicketPurchaseStore.find = function (id) {
 TicketPurchaseStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
+      console.log("ticket purchases received");
       resetTicketPurchases(payload.ticketPurchases);
       TicketPurchaseStore.__emitChange();
       break;
