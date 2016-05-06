@@ -1,5 +1,143 @@
 == README
 
+
+
+Welcome to TixStarter!
+
+# TixStarter
+
+[Heroku link][heroku]
+
+[heroku]: http://www.herokuapp.com
+
+## Minimum Viable Product
+
+TixStarter is a web application for creating `Events` and buying `Tickets`. Inspired by Kickstarter, `Events` must achieve a revenue goal in order to be funded. The aesthetic design is inspired in part by TicketLeap, and in part by a desire to create a more beautiful ticketing app.
+
+By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+
+* Basic AppAcademy Features:
+
+- [x] New account creation, login, and guest/demo login
+- [ ] Smooth, bug-free navigation
+- [ ] Adequate seed data to demonstrate the site's features
+- [x] Hosting on Heroku
+- [ ] CSS styling that is satisfactorily visually appealing
+- [ ] A production README, replacing this README
+
+* TixStarter Specific Features:
+
+- [ ] CRUD functionality for Events, `Showtimes`, and Tickets
+- [ ] A simulated process for "buying" `Tickets`
+
+## Product Goals and Priorities
+
+TixStarter will allow users to do the following:
+
+- [X] Create an account (MVP)
+- [X] Sign In, Log Out, and Sign Up, including as a Guest/Demo User (MVP)
+- [X] Create, read, edit, and delete `Events` (MVP)
+- [X] Create, read, edit, and delete `Showtimes` for those `Events` (MVP)
+- [ ] Create, read, edit, and delete `Tickets` for those `Showtimes` (MVP)
+- [ ] Simulate buying `Tickets` (MVP)
+
+## Implementation Timeline
+
+### Phase 1: Backend Setup and User Authentication (0.5 days)
+
+**Targeted Completion Date:** Tuesday
+**Objective:** Functioning rails project with Authentication
+
+- [X] create new project
+- [X] create `User` model
+- [X] authentication
+- [X] user signup/signin pages
+- [X] blank landing page after signin
+
+### Phase 2: Events Model, API, and basic APIUtil (0.5 Days)
+
+**Targeted Completion Date:** Wednesday
+**Objective:** Events can be created, read, edited and destroyed through the API.
+
+- [X] create `Event` model
+- [X] seed the database with a small amount of test data
+- [X] CRUD API for `Events` (`EventsController`)
+- [X] jBuilder views for `Events`
+- [X] setup Webpack & Flux scaffold
+- [X] setup `APIUtil` to interact with the API
+- [X] test out API interaction in the console.
+
+### Phase 3: Flux Architecture and Router (0.5 Days)
+
+**Targeted Completion Date:** Wednesday
+**Objective:** Events can be created, read, edited and destroyed with the user interface.
+
+- [X] setup the flux loop with skeleton files
+- [X] setup React Router
+- Implement each note component, building out the flux loop as needed.
+  - [X] `EventsIndex`
+  - [X] `EventIndexItem`
+  - [X] `EventForm`
+
+### Phase 4: `Showtimes` (1 Day)
+
+**Targeted Completion Date:** Thursday
+**Objective:** ``Showtimes`` can be created, read, edited and destroyed through the API.
+
+  - [X] Create `Showtime` model
+  - Build out API, Flux loop, and components for:
+     - [x] `Showtime` CRUD
+	   - [X] Fetching `Showtimes`
+     - [X] `ShowtimesIndex`
+     - [X] `ShowtimeIndexItem`
+     - [X] `ShowtimeForm`
+     - [X] `ShowtimeDetail`
+
+### Phase 5: Tickets (1 Day)
+
+**Targeted Completion Date:** Friday
+**Objective:** `Tickets` can be created, read, edited and destroyed through the API.
+
+- [ ] Create `Ticket` model
+- Build out API, Flux loop, and components for:
+   - [ ] `Ticket` CRUD
+   - [ ] Fetching `Tickets`
+   - [ ] `TicketsIndex`
+   - [ ] `TicketIndexItem`
+   - [ ] `TicketForm`
+   - [ ] `TicketDetail`
+
+### Phase 6: Aesthetics (4 days)
+
+**Targeted Completion Date:** Thursday
+**Objective:** Make it sexy!
+
+- [X] Implement modals
+- [ ] Style menus
+- [ ] Style splashes
+- [ ] Style buttons
+- [ ] Style modals
+- [ ] Ensure appropriate sizing for components
+- [ ] Implement video embedding
+- [ ] Get feedback on my UI from others
+
+### Phase 7: Styling Cleanup and Seeding (1 day)
+
+**objective:** Make the site feel clean and purposeful.
+
+- [ ] Get feedback on my UI from others
+- [ ] Refactor HTML classes & CSS rules
+
+### Bonus Features (TBD)
+- [ ] Instant Search for Events Index
+- [ ] Pagination / infinite scroll for Events Index
+- [ ] Animations on load
+- [ ] Video background on homepage
+- [ ] Animations for demo account login
+- [ ] Parallax Scrolling
+
+---
+
 Welcome to TixStarter!
 
 # TixStarter
