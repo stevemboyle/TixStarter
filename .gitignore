@@ -1,4 +1,4 @@
 node_modules
 bundle.js*
 tmp
-*.log
+log
