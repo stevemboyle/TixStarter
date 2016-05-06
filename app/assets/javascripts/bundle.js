@@ -35683,6 +35683,7 @@
 	    return { eventDetailModalOpen: false,
 	      editEventModalOpen: false,
 	      deleteEventModalOpen: false,
+	      signUpInDemoModalOpen: false,
 	      currentUser: UserStore.user()
 	    };
 	  },
@@ -35700,6 +35701,14 @@
 	    this.userStoreListener.remove();
 	  },
 	
+	  goToEventDetailModal: function () {
+	    if (UserStore.loggedIn()) {
+	      this.openEventDetailModal();
+	    } else {
+	      this.openSignUpInDemoModal();
+	    }
+	  },
+	
 	  openEventDetailModal: function () {
 	    this.bigClickGo = false;
 	    this.setState({ eventDetailModalOpen: true });
@@ -35707,6 +35716,16 @@
 	
 	  closeEventDetailModal: function () {
 	    this.setState({ eventDetailModalOpen: false });
+	    this.bigClickGo = true;
+	  },
+	
+	  openSignUpInDemoModal: function () {
+	    this.bigClickGo = false;
+	    this.setState({ signUpInDemoModalOpen: true });
+	  },
+	
+	  closeSignUpInDemoModal: function () {
+	    this.setState({ signUpInDemoModalOpen: false });
 	    this.bigClickGo = true;
 	  },
 	
@@ -35846,7 +35865,7 @@
 	          { className: 'index-item-menu-ul' },
 	          React.createElement(
 	            'li',
-	            { className: 'index-item-menu-li', onClick: this.openEventDetailModal },
+	            { className: 'index-item-menu-li', onClick: this.goToEventDetailModal },
 	            'Get Tickets'
 	          ),
 	          React.createElement(
@@ -35936,6 +35955,19 @@
 	              'No'
 	            )
 	          )
+	        )
+	      ),
+	      React.createElement(
+	        Modal,
+	        {
+	
+	          isOpen: this.state.signUpInDemoModalOpen,
+	          onRequestClose: this.closeSignUpInDemoModal,
+	          style: CUSTOM_STYLE },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Sign In!'
 	        )
 	      ),
 	      React.createElement(
@@ -40143,7 +40175,7 @@
 	          React.createElement(
 	            'h3',
 	            { 'text-align': 'center', className: 'home-dropphrase' },
-	            'Forward Fund Experiences with Ticket Sales'
+	            'Forward Fund Live Experiences with Ticket Sales'
 	          ),
 	          React.createElement(
 	            'div',

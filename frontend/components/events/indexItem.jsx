@@ -85,6 +85,7 @@ module.exports = React.createClass({
     return({ eventDetailModalOpen: false,
               editEventModalOpen: false,
               deleteEventModalOpen: false,
+              signUpInDemoModalOpen: false,
               currentUser: UserStore.user()
             });
   },
@@ -102,6 +103,14 @@ module.exports = React.createClass({
     this.userStoreListener.remove();
   },
 
+  goToEventDetailModal: function(){
+    if (UserStore.loggedIn()){
+      this.openEventDetailModal();
+    } else {
+      this.openSignUpInDemoModal();
+    }
+  },
+
   openEventDetailModal: function(){
     this.bigClickGo = false;
     this.setState({ eventDetailModalOpen: true });
@@ -109,6 +118,16 @@ module.exports = React.createClass({
 
   closeEventDetailModal: function(){
     this.setState({ eventDetailModalOpen: false });
+    this.bigClickGo = true;
+  },
+
+  openSignUpInDemoModal: function(){
+    this.bigClickGo = false;
+    this.setState({ signUpInDemoModalOpen: true });
+  },
+
+  closeSignUpInDemoModal: function(){
+    this.setState({ signUpInDemoModalOpen: false });
     this.bigClickGo = true;
   },
 
@@ -209,7 +228,7 @@ module.exports = React.createClass({
             <br></br>
               <div id="menubuttons">
                 <ul className="index-item-menu-ul">
-                  <li className="index-item-menu-li"  onClick={this.openEventDetailModal}>Get Tickets</li>
+                  <li className="index-item-menu-li"  onClick={this.goToEventDetailModal}>Get Tickets</li>
                   <li className="index-item-menu-li"  onClick={this.goToEventSplash}>Learn More</li>
                 </ul>
               </div>
@@ -260,6 +279,15 @@ module.exports = React.createClass({
                     </div>
 
               </Modal>
+              <Modal
+
+                 isOpen={this.state.signUpInDemoModalOpen}
+                 onRequestClose={this.closeSignUpInDemoModal}
+                 style={CUSTOM_STYLE}>
+
+                   <h1>Sign In!</h1>
+
+               </Modal>
 
               <Modal
                 isOpen={this.state.editEventModalOpen}

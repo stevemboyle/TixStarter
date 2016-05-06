@@ -56,7 +56,7 @@ module.exports = React.createClass({
 
           <div id="home-splash-text">
             <h2 text-align="center" className="home-title">Welcome to TixStarter</h2>
-            <h3 text-align="center" className="home-dropphrase">Forward Fund Experiences with Ticket Sales</h3>
+            <h3 text-align="center" className="home-dropphrase">Forward Fund Live Experiences with Ticket Sales</h3>
 
               <div id="menubuttons">
                 <ul className="index-item-menu-ul">
