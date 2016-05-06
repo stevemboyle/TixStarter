@@ -36564,7 +36564,7 @@
 	          ),
 	          React.createElement(
 	            'p',
-	            null,
+	            { className: 'open-sans' },
 	            this.props.ticket.description
 	          ),
 	          React.createElement(
@@ -40143,7 +40143,8 @@
 	
 	    var content;
 	
-	    if (this.state.ticket_purchases) {
+	    if (this.state.ticket_purchases.length > 0 && this.state.tickets.length > 0) {
+	      // debugger;
 	      content = React.createElement(
 	        'div',
 	        null,

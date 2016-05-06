@@ -59,7 +59,8 @@ module.exports = React.createClass({
 
     var content;
 
-    if (this.state.ticket_purchases){
+    if (this.state.ticket_purchases.length > 0 && this.state.tickets.length > 0){
+      // debugger;
       content = (
         <div>
           <div className="tickets-divider">

@@ -81,7 +81,7 @@ module.exports = React.createClass({
         <div>
           <li onClick={this.openConfirmationModal} className="ticket-list-item">
             <p>{this.props.ticket.tier}</p>
-            <p>{this.props.ticket.description}</p>
+            <p className="open-sans">{this.props.ticket.description}</p>
             <p>${this.props.ticket.price}</p>
             <br></br>
             <br></br>

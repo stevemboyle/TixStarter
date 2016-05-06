@@ -667,6 +667,10 @@ h1 {
     background: dodgerblue;
   }
 
+  .open-sans {
+    font-family: 'Open Sans', sans-serif;
+  }
+
 /*
  .showtime-list-item {
    border: thin solid red;
