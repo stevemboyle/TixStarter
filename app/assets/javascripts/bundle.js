@@ -36126,6 +36126,9 @@
 	var Modal = __webpack_require__(241);
 	var ShowtimeModal = __webpack_require__(281);
 	var EventsIndex = __webpack_require__(277);
+	var UserStore = __webpack_require__(284);
+	var hashHistory = __webpack_require__(159).hashHistory;
+	var ClientActions = __webpack_require__(267);
 	
 	var GET_TIX_STYLE = {
 	  content: {
@@ -36152,14 +36155,16 @@
 	    // 'display' : 'flex',
 	    // 'justify-content' : 'center',
 	    // 'align-items' : 'center',
-	    'zIndex': '100000',
-	    'margin': '100px auto  auto',
+	    // 'zIndex': '100000',
+	    'background-color': 'dodgerblue',
+	    'text-align': 'center',
+	    'margin': '100px auto',
 	    'border': '0px solid dodgerblue',
 	    // 'display' : 'flex',
 	    // 'justify-content' : 'center',
-	    // 'width' : '600px',
-	    // 'height' : '350px',
-	    'padding': '0px',
+	    'width': '600px',
+	    'height': '350px',
+	    'padding': '100px',
 	    'box-shadow': '0px 0px 15px grey'
 	    // 'background': 'grey'
 	    // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
@@ -36174,7 +36179,30 @@
 	  },
 	
 	  getInitialState: function () {
-	    return { showtimeModalOpen: false };
+	    return { showtimeModalOpen: false,
+	      signUpInDemoModalOpen: false,
+	      currentUser: UserStore.user()
+	    };
+	  },
+	
+	  _userChanged: function () {
+	    this.setState({ currentUser: UserStore.user() });
+	  },
+	
+	  componentDidMount: function () {
+	    this.userStoreListener = UserStore.addListener(this._userChanged);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userStoreListener.remove();
+	  },
+	
+	  goToShowtimeModal: function () {
+	    if (UserStore.loggedIn()) {
+	      this.openShowtimeModal();
+	    } else {
+	      this.openSignUpInDemoModal();
+	    }
 	  },
 	
 	  openShowtimeModal: function () {
@@ -36186,12 +36214,35 @@
 	    this.setState({ showtimeModalOpen: false });
 	  },
 	
+	  openSignUpInDemoModal: function () {
+	    this.bigClickGo = false;
+	    this.setState({ signUpInDemoModalOpen: true });
+	  },
+	
+	  closeSignUpInDemoModal: function () {
+	    this.setState({ signUpInDemoModalOpen: false });
+	    this.bigClickGo = true;
+	  },
+	
 	  closeShowtimeAndEventModals: function () {
 	    this.closeShowtimeModal();
 	
 	    //TODO: Figure out how to close all modals.
 	
 	    // EventsIndex.closeEventDetailModal();
+	  },
+	
+	  goToSignIn: function () {
+	    hashHistory.push('/sign-in');
+	  },
+	
+	  goToSignUp: function () {
+	    hashHistory.push('/sign-up');
+	  },
+	
+	  goToDemoAccount: function () {
+	    ClientActions.login({ username: "guest", password: "password" });
+	    this.setState({ signUpInDemoModalOpen: false });
 	  },
 	
 	  render: function () {
@@ -36217,7 +36268,7 @@
 	        null,
 	        React.createElement(
 	          'li',
-	          { onClick: this.openShowtimeModal, className: 'event-list-item' },
+	          { onClick: this.goToShowtimeModal, className: 'event-list-item' },
 	          React.createElement(
 	            'h1',
 	            null,
@@ -36288,6 +36339,42 @@
 	              'button',
 	              { onClick: this.closeShowtimeModal },
 	              'Back'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	
+	            isOpen: this.state.signUpInDemoModalOpen,
+	            onRequestClose: this.closeSignUpInDemoModal,
+	            style: CUSTOM_STYLE },
+	          React.createElement(
+	            'h1',
+	            null,
+	            'Sign In to Buy Tickets!'
+	          ),
+	          React.createElement(
+	            'div',
+	            { id: 'menubuttons' },
+	            React.createElement(
+	              'ul',
+	              { className: 'index-item-menu-ul' },
+	              React.createElement(
+	                'li',
+	                { className: 'index-item-menu-li', onClick: this.goToSignIn },
+	                'Sign In'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'index-item-menu-li', onClick: this.goToSignUp },
+	                'Sign Up'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'index-item-menu-li', onClick: this.goToDemoAccount },
+	                'Use Demo Account'
+	              )
 	            )
 	          )
 	        )

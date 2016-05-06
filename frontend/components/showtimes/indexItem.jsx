@@ -2,6 +2,9 @@ var React = require('react');
 var Modal = require("react-modal");
 var ShowtimeModal = require('./showtimeModal');
 var EventsIndex = require('../events/indexItem.jsx');
+var UserStore = require('../../stores/user');
+var hashHistory = require("react-router").hashHistory;
+var ClientActions = require('../../actions/client_actions');
 
 var GET_TIX_STYLE = {
   content : {
@@ -29,14 +32,16 @@ var CUSTOM_STYLE = {
     // 'display' : 'flex',
     // 'justify-content' : 'center',
     // 'align-items' : 'center',
-    'zIndex': '100000',
-    'margin': '100px auto  auto',
+    // 'zIndex': '100000',
+    'background-color' : 'dodgerblue',
+    'text-align' : 'center',
+    'margin': '100px auto',
     'border': '0px solid dodgerblue',
     // 'display' : 'flex',
     // 'justify-content' : 'center',
-    // 'width' : '600px',
-    // 'height' : '350px',
-    'padding': '0px',
+    'width' : '600px',
+    'height' : '350px',
+    'padding': '100px',
     'box-shadow' : '0px 0px 15px grey'
     // 'background': 'grey'
     // 'background-image': 'url(http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg)'
@@ -49,7 +54,30 @@ module.exports = React.createClass({
   },
 
   getInitialState: function(){
-    return({ showtimeModalOpen: false });
+    return({ showtimeModalOpen: false,
+              signUpInDemoModalOpen: false,
+              currentUser: UserStore.user()
+           });
+  },
+
+  _userChanged: function(){
+    this.setState({currentUser: UserStore.user()});
+  },
+
+  componentDidMount: function(){
+    this.userStoreListener = UserStore.addListener(this._userChanged);
+  },
+
+  componentWillUnmount: function(){
+    this.userStoreListener.remove();
+  },
+
+  goToShowtimeModal: function(){
+    if (UserStore.loggedIn()){
+      this.openShowtimeModal();
+    } else {
+      this.openSignUpInDemoModal();
+    }
   },
 
   openShowtimeModal: function(){
@@ -61,6 +89,16 @@ module.exports = React.createClass({
     this.setState({ showtimeModalOpen: false });
   },
 
+  openSignUpInDemoModal: function(){
+    this.bigClickGo = false;
+    this.setState({ signUpInDemoModalOpen: true });
+  },
+
+  closeSignUpInDemoModal: function(){
+    this.setState({ signUpInDemoModalOpen: false });
+    this.bigClickGo = true;
+  },
+
   closeShowtimeAndEventModals: function(){
     this.closeShowtimeModal();
 
@@ -68,6 +106,20 @@ module.exports = React.createClass({
 
     // EventsIndex.closeEventDetailModal();
   },
+
+
+    goToSignIn: function(){
+      hashHistory.push('/sign-in');
+    },
+
+    goToSignUp: function(){
+      hashHistory.push('/sign-up');
+    },
+
+    goToDemoAccount: function(){
+      ClientActions.login({username: "guest", password: "password"});
+      this.setState({ signUpInDemoModalOpen: false });
+    },
 
 
   render: function () {
@@ -89,7 +141,7 @@ module.exports = React.createClass({
     return(
       <div className="event-list-item">
         <div>
-          <li onClick={this.openShowtimeModal} className="event-list-item">
+          <li onClick={this.goToShowtimeModal} className="event-list-item">
               <h1>{this.props.showtime.date}</h1>
               <h1>{this.props.showtime.time.slice(11, 19)}</h1>
 
@@ -121,6 +173,24 @@ module.exports = React.createClass({
                  </div>
 
            </Modal>
+           <Modal
+
+              isOpen={this.state.signUpInDemoModalOpen}
+              onRequestClose={this.closeSignUpInDemoModal}
+              style={CUSTOM_STYLE}>
+
+                <h1>Sign In to Buy Tickets!</h1>
+
+                  <div id="menubuttons">
+                    <ul className="index-item-menu-ul">
+                      <li className="index-item-menu-li"  onClick={this.goToSignIn}>Sign In</li>
+                      <li className="index-item-menu-li"  onClick={this.goToSignUp}>Sign Up</li>
+                     <li className="index-item-menu-li"  onClick={this.goToDemoAccount}>Use Demo Account</li>
+
+                    </ul>
+                  </div>
+
+            </Modal>
         </div>
       </div>
     );
