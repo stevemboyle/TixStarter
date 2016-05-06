@@ -34224,16 +34224,7 @@
 	            { className: 'header-li', onClick: this.goToCreateEvent },
 	            'Create Event'
 	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.goToCreateShowtime },
-	            'Create Showtime'
-	          ),
-	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.goToCreateTicket },
-	            'Create Ticket'
-	          ),
+	          hasEventsMenu,
 	          React.createElement(
 	            'li',
 	            { className: 'header-li', onClick: this.goToDashboard },
@@ -34253,9 +34244,28 @@
 	      )
 	    );
 	
+	    var hasEventsMenu;
+	
 	    var loggedInMessageForSteve;
 	
 	    if (UserStore.loggedIn()) {
+	      // debugger;
+	      if (UserStore.user().events[0]) {
+	        hasEventsMenu = React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.goToCreateShowtime },
+	            'Create Showtime'
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'header-li', onClick: this.goToCreateTicket },
+	            'Create Ticket'
+	          )
+	        );
+	      }
 	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
 	      menu = loggedInMenu;
 	    } else {
@@ -37423,9 +37433,9 @@
 	    // debugger;
 	
 	    return {
-	      events: myEvents,
+	      events: [],
 	      // event_id: myEvents[0].id,
-	      event_id: myEvents[0].id,
+	      event_id: "",
 	      date: "",
 	      time: "",
 	      location: ""
@@ -37437,16 +37447,19 @@
 	    // debugger;
 	    // var defaultEventId = UserStore.user().events[0].id;
 	    // this.setState({event_id: defaultEventId});
+	    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	    debugger;
 	    this.EventListener = EventStore.addListener(this._eventsChanged);
+	    // this.setState({events: myEvents, event_id: myEvents[0].id});
 	  },
 	
 	  _eventsChanged: function () {
 	    // debugger;
-	    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-	    // this.setState({
-	    //   events: myEvents,
-	    //   event_id: myEvents[0].id,
-	    // });
+	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	    this.setState({
+	      events: myEvents,
+	      event_id: myEvents[0].id
+	    });
 	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 	    console.log("Events Id: " + myEvents[0].id);
@@ -37506,20 +37519,7 @@
 	
 	  render: function () {
 	
-	    // debugger;
-	
-	    // <input type="text"
-	    //         value={this.state.event_id}
-	    //         onChange={this.eventIdChange}
-	    //   />
-	    // var eventOptions =
-	    //   UserStore.user().events.map(function(event){
-	    //     <option value={event.name}>{event.name}</option>
-	    //   });
-	
-	    var EventId = this.state.event_id;
-	
-	    return React.createElement(
+	    var CreateForm = React.createElement(
 	      'div',
 	      { className: 'create-event-background' },
 	      React.createElement(
@@ -37588,6 +37588,31 @@
 	        React.createElement('br', null)
 	      ),
 	      React.createElement('br', null)
+	    );
+	
+	    var DisplayForm;
+	
+	    if (EventStore.allEventsForUser(UserStore.user().id)) {
+	      DisplayForm = CreateForm;
+	    }
+	
+	    // debugger;
+	
+	    // <input type="text"
+	    //         value={this.state.event_id}
+	    //         onChange={this.eventIdChange}
+	    //   />
+	    // var eventOptions =
+	    //   UserStore.user().events.map(function(event){
+	    //     <option value={event.name}>{event.name}</option>
+	    //   });
+	
+	    var EventId = this.state.event_id;
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      DisplayForm
 	    );
 	  }
 	

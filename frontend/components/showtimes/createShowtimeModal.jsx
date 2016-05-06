@@ -17,9 +17,9 @@ module.exports = React.createClass({
     // debugger;
 
     return({
-      events: myEvents,
+      events: [],
       // event_id: myEvents[0].id,
-      event_id: myEvents[0].id,
+      event_id: "",
       date: "",
       time: "",
       location: ""
@@ -31,16 +31,19 @@ module.exports = React.createClass({
     // debugger;
     // var defaultEventId = UserStore.user().events[0].id;
     // this.setState({event_id: defaultEventId});
+    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    debugger;
     this.EventListener = EventStore.addListener(this._eventsChanged);
+    // this.setState({events: myEvents, event_id: myEvents[0].id});
   },
 
   _eventsChanged: function(){
     // debugger;
-    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-    // this.setState({
-    //   events: myEvents,
-    //   event_id: myEvents[0].id,
-    // });
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    this.setState({
+      events: myEvents,
+      event_id: myEvents[0].id,
+    });
 
     var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
     console.log("Events Id: " + myEvents[0].id);
@@ -104,22 +107,7 @@ module.exports = React.createClass({
 
   render: function(){
 
-
-
-    // debugger;
-
-    // <input type="text"
-    //         value={this.state.event_id}
-    //         onChange={this.eventIdChange}
-    //   />
-    // var eventOptions =
-    //   UserStore.user().events.map(function(event){
-    //     <option value={event.name}>{event.name}</option>
-    //   });
-
-    var EventId = this.state.event_id;
-
-    return(
+    var CreateForm = (
       <div className="create-event-background">
 
 
@@ -179,6 +167,31 @@ module.exports = React.createClass({
         <br></br>
 
       </div>
+    );
+
+    var DisplayForm;
+
+    if (EventStore.allEventsForUser(UserStore.user().id)){
+      DisplayForm = CreateForm;
+    }
+
+    // debugger;
+
+    // <input type="text"
+    //         value={this.state.event_id}
+    //         onChange={this.eventIdChange}
+    //   />
+    // var eventOptions =
+    //   UserStore.user().events.map(function(event){
+    //     <option value={event.name}>{event.name}</option>
+    //   });
+
+    var EventId = this.state.event_id;
+
+    return(
+    <div>
+      {DisplayForm}
+    </div>
     );
   }
 

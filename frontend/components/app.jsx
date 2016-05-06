@@ -256,8 +256,7 @@ module.exports = React.createClass({
         <div id="menubuttons">
           <ul className="header-ul">
             <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
-            <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
-            <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
+            {hasEventsMenu}
             <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
             <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
             <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
@@ -267,9 +266,22 @@ module.exports = React.createClass({
       </div>
     );
 
+    var hasEventsMenu;
+
+
+
     var loggedInMessageForSteve;
 
     if (UserStore.loggedIn()){
+      // debugger;
+      if (UserStore.user().events[0]){
+        hasEventsMenu = (
+          <div>
+            <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
+            <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
+          </div>
+        );
+      }
       loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
       menu = loggedInMenu;
     } else {
@@ -405,7 +417,7 @@ module.exports = React.createClass({
 
         <section id="footer"
           className="footer">
-          
+
         </section>
 
       </div>
