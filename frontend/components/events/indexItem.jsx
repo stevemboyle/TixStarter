@@ -190,6 +190,19 @@ module.exports = React.createClass({
     return roundedPercentage;
   },
 
+  goToSignIn: function(){
+    hashHistory.push('/sign-in');
+  },
+
+  goToSignUp: function(){
+    hashHistory.push('/sign-up');
+  },
+
+  goToDemoAccount: function(){
+    ClientActions.login({username: "guest", password: "password"});
+    this.setState({ signUpInDemoModalOpen: false });
+  },
+
   render: function () {
 
     var editOptionForLoggedInUsers;
@@ -285,7 +298,16 @@ module.exports = React.createClass({
                  onRequestClose={this.closeSignUpInDemoModal}
                  style={CUSTOM_STYLE}>
 
-                   <h1>Sign In!</h1>
+                   <h1>Sign In to Buy Tickets!</h1>
+
+                     <div id="menubuttons">
+                       <ul className="index-item-menu-ul">
+                         <li className="index-item-menu-li"  onClick={this.goToSignIn}>Sign In</li>
+                         <li className="index-item-menu-li"  onClick={this.goToSignUp}>Sign Up</li>
+                        <li className="index-item-menu-li"  onClick={this.goToDemoAccount}>Use Demo Account</li>
+
+                       </ul>
+                     </div>
 
                </Modal>
 

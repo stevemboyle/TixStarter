@@ -35788,6 +35788,19 @@
 	    return roundedPercentage;
 	  },
 	
+	  goToSignIn: function () {
+	    hashHistory.push('/sign-in');
+	  },
+	
+	  goToSignUp: function () {
+	    hashHistory.push('/sign-up');
+	  },
+	
+	  goToDemoAccount: function () {
+	    ClientActions.login({ username: "guest", password: "password" });
+	    this.setState({ signUpInDemoModalOpen: false });
+	  },
+	
 	  render: function () {
 	
 	    var editOptionForLoggedInUsers;
@@ -35967,7 +35980,30 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          'Sign In!'
+	          'Sign In to Buy Tickets!'
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'menubuttons' },
+	          React.createElement(
+	            'ul',
+	            { className: 'index-item-menu-ul' },
+	            React.createElement(
+	              'li',
+	              { className: 'index-item-menu-li', onClick: this.goToSignIn },
+	              'Sign In'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'index-item-menu-li', onClick: this.goToSignUp },
+	              'Sign Up'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'index-item-menu-li', onClick: this.goToDemoAccount },
+	              'Use Demo Account'
+	            )
+	          )
 	        )
 	      ),
 	      React.createElement(
