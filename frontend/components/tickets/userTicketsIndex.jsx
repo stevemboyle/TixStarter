@@ -63,15 +63,7 @@ module.exports = React.createClass({
             <h2 className="dashboard-title" font-size="15px">My Purchased Tickets:</h2>
         </div>
 
-        <p>There's a lot still to do here.</p>
-        <p>You'll want to change this.state.tickets to this.myTickets</p>
-        <p>You'll want to make sure the action
-          of clicking the ticket is different --</p>
-        <p>You don't want to buy it all over again!</p>
-
         <ul className="index-for-events">
-          <h2>My Purchased Tickets:</h2>
-          <br></br>
           {this.myTickets().map(function (ticket) {
 
             return <TicketIndexItem ticket={ticket} />;

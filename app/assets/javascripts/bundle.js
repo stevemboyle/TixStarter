@@ -35000,7 +35000,7 @@
 	      url: "api/events/" + id,
 	      type: "DELETE",
 	      success: function (event) {
-	        debugger;
+	        //  debugger;
 	        console.log("success function for Api Util!");
 	        ServerActions.removeEvent(event);
 	      }
@@ -35070,7 +35070,7 @@
 	      method: "POST",
 	      data: { ticket: data },
 	      success: function (ticket) {
-	        debugger;
+	        // debugger;
 	        hashHistory.push('/event/' + ticket.event.id);
 	        ServerActions.receiveSingleTicket(ticket);
 	        // callback && callback(ticket.id);
@@ -35419,7 +35419,7 @@
 	
 	  _onChange: function () {
 	    console.log('Event Index _onChange');
-	    debugger;
+	    // debugger;
 	    this.setState({ events: EventStore.all() });
 	  },
 	
@@ -35487,7 +35487,7 @@
 	var resetEvent = function (event) {
 	  console.log("reset Event!");
 	  _events[event.id] = event;
-	  debugger;
+	  // debugger;
 	};
 	
 	var removeEvent = function (event) {
@@ -35556,7 +35556,7 @@
 	      EventStore.__emitChange();
 	      break;
 	    case EventConstants.EVENT_RECEIVED:
-	      debugger;
+	      // debugger;
 	      resetEvent(payload.event);
 	      // _eventSuccess = true;
 	      // EventStore.setNewEventId(payload.event.id);
@@ -35567,7 +35567,7 @@
 	      // }, 2000);
 	      break;
 	    case EventConstants.EVENT_REMOVED:
-	      debugger;
+	      // debugger;
 	      console.log("event store case EVENT_REMOVED");
 	      removeEvent(payload.event);
 	      EventStore.__emitChange();
@@ -39426,15 +39426,24 @@
 	
 	  _seedChange: function () {
 	
+	    // debugger;
+	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	    var myNewEventId = myEvents[0].id;
+	
+	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+	
+	    var newEventsShowtimes = myShowtimes[myNewEventId];
+	    var newShowtime = newEventsShowtimes[0];
+	    var newShowtimeId = newShowtime.id;
 	
 	    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
 	    /// input myEvents[0].id
 	
 	    this.setState({
 	      events: myEvents,
-	      event_id: myEvents[0].id,
-	      showtime_id: myEvents[0].showtimes.reverse()[0]
+	      event_id: myNewEventId,
+	      showtime_id: newEventsShowtimes.reverse()[0].id
 	    });
 	  },
 	
@@ -39960,34 +39969,8 @@
 	        )
 	      ),
 	      React.createElement(
-	        'p',
-	        null,
-	        'There\'s a lot still to do here.'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You\'ll want to change this.state.tickets to this.myTickets'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You\'ll want to make sure the action of clicking the ticket is different --'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        'You don\'t want to buy it all over again!'
-	      ),
-	      React.createElement(
 	        'ul',
 	        { className: 'index-for-events' },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'My Purchased Tickets:'
-	        ),
-	        React.createElement('br', null),
 	        this.myTickets().map(function (ticket) {
 	
 	          return React.createElement(TicketIndexItem, { ticket: ticket });

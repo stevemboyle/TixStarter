@@ -50,7 +50,17 @@ module.exports = React.createClass({
 
   _seedChange: function(){
 
+    // debugger;
+
     var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    var myNewEventId = myEvents[0].id;
+
+
+    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+
+    var newEventsShowtimes = myShowtimes[myNewEventId];
+    var newShowtime = newEventsShowtimes[0];
+    var newShowtimeId = newShowtime.id;
 
     // TODO: Create function in Showtimes to fetch all Showtimes for an Event
     /// input myEvents[0].id
@@ -59,9 +69,9 @@ module.exports = React.createClass({
 
     this.setState({
       events: myEvents,
-      event_id: myEvents[0].id,
-      showtime_id: myEvents[0].showtimes.reverse()[0],
-    })
+      event_id: myNewEventId,
+      showtime_id: newEventsShowtimes.reverse()[0].id,
+    });
   },
 
   componentWillUnmount: function(){

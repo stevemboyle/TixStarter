@@ -82,7 +82,7 @@ var ApiUtil = {
      url: "api/events/" + id,
      type: "DELETE",
      success: function (event) {
-       debugger;
+      //  debugger;
        console.log("success function for Api Util!");
        ServerActions.removeEvent(event);
      }
@@ -152,7 +152,7 @@ var ApiUtil = {
       method: "POST",
       data: {ticket: data},
       success: function (ticket) {
-        debugger;
+        // debugger;
         hashHistory.push('/event/' + ticket.event.id);
         ServerActions.receiveSingleTicket(ticket);
         // callback && callback(ticket.id);
