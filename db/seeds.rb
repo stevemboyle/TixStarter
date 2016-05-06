@@ -47,7 +47,7 @@ Event.create({
         catchphrase: "First Event Catchphrase",
         description: "In 2012 we invited the world to visit us during our Globe to Globe festival, and who could have anticipated the sheer wild joy with which so many companies played within our wooden walls? Since the Festival in 2012, we've enjoyed welcoming back some of those companies to perform in the Globe and continue to do so each summer season. Having undertaken a ground-breaking tour of China in 2014 with A Midsummer Night's Dream, we are delighted to welcome the return of the National Theatre of China with Richard III in Mandarin, and of the great Tang-Shu Wing's company from Hong Kong with Macbeth in Cantonese.",
         image_url: "http://40.media.tumblr.com/afe8d5561a67f58230e5937a13d73fe0/tumblr_nyznqmwqVm1t96b19o1_1280.jpg",
-        video_url: "gKc31H6adR8",
+        video_url: "4YQGSYPATDI",
         user_id: 2,
         revenue_goal: 20000,
         revenue_status: 0
@@ -66,8 +66,8 @@ Event.create({
 
 Event.create({
         title: "'Per Se' San Francisco Pop-Up",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
+        catchphrase: "Delicious Come to You",
+        description: "Per Se is a New American and French restaurant located on the fourth floor of the Time Warner Center at 10 Columbus Circle (at West 60th Street and Broadway) in Manhattan in New York City, owned by chef Thomas Keller.[1] In 2011, it was called the best restaurant in New York City by the New York Times.",
         image_url: "http://www.trbimg.com/img-55d25a07/turbine/spiaggia-switches-to-prix-fixe-tasting-menu-only",
         video_url: "Yji20MJ5VaE",
         user_id: 1,
@@ -78,10 +78,10 @@ Event.create({
 
 Event.create({
         title: "World Hamlet",
-        catchphrase: "First Event Catchphrase",
+        catchphrase: "All the World's a Stage",
         description: "The Globe theatre is sending a production of Hamlet on the first genuine world tour in theatre history. Starting on 23 April 2014, the 450th anniversary of Shakespeare's birth, the company will spend two years travelling by planes, trains, boats and buses to visit every nation on Earth – 205 countries in all. The revered theatre director Peter Brook said it was 'a bold and dynamic project', and agreed with the choice of play. 'The six simplest words in the English language are 'to be or not to be'. There is hardly a corner of the planet where these words have not been translated. Even in English, those who can't speak the language will at once recognise the sound and exclaim 'Shakespeare!' The 204th and 205th stops are already decided: the Rift Valley in Kenya – 'where human life began on Earth', Dromgoole said – and Elsinore in Denmark, the castle where Shakespeare set his tragedy. They will be performing in theatres, in town squares, on beaches and in jungle clearings.",
         image_url: "http://www.todayonline.com/sites/default/files/styles/photo_gallery_image_lightbox/public/23531719_0.JPG?itok=Uox7_X3hs",
-        video_url: "gKc31H6adR8",
+        video_url: "-UiRi7AiSMo",
         user_id: 2,
         revenue_goal: 20000,
         revenue_status: 0
@@ -94,7 +94,7 @@ Event.create({
         catchphrase: "An American Musical",
         description: "Hamilton is a musical about Alexander Hamilton, with music, lyrics and book by Lin-Manuel Miranda. The show, inspired by the 2004 biography Alexander Hamilton, by historian Ron Chernow, has achieved both critical acclaim and box office success.",
         image_url: "http://www.trbimg.com/img-5665dfbe/turbine/ct-hamilton-tour-launch-chicago",
-        video_url: "Eq6ciU2iqW0",
+        video_url: "OmigjxG7KWI",
         user_id: 2,
         revenue_goal: 20000,
         revenue_status: 0
@@ -146,10 +146,10 @@ Event.create({
 
 Event.create({
         title: "Muse in Concert",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
+        catchphrase: "The Uprising Tour",
+        description: "Muse are an English rock band from Teignmouth, Devon, formed in 1994. The band consists of Matt Bellamy (lead vocals, guitar, piano, keyboards), Chris Wolstenholme (bass guitar, backing vocals) and Dominic Howard (drums, percussion).",
         image_url: "http://nepascene.com/wp-content/uploads/2015/05/muse-concert-review.jpg",
-        video_url: "gKc31H6adR8",
+        video_url: "Ek0SgwWmF9w",
         user_id: 2,
         revenue_goal: 20000,
         revenue_status: 0
@@ -157,10 +157,10 @@ Event.create({
 
 Event.create({
         title: "We Players' Ondine",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
+        catchphrase: "A Love Story Where Worlds Collide",
+        description: "Ondine is the tragicomic love story between a mystical creature of the deep and a hapless knight errant. A fable of the follies of love, Ondine also explores our own fraught relationship with Nature. Worlds collide, aquatic powers wreak havoc among men, who will be left standing?… Our story comes to life where Land’s End meets the multitudinous seas. At Sutro Baths and Sutro Heights Park, we experience the timeless depths as we traverse the cliffs, wander through the enchanting forest of cypress trees, and visit the decaying remains of a once regal mansion.",
         image_url: "http://media1.fdncms.com/sfweekly/imager/hybrid-place-hybrid-play-we-players/u/original/3584464/2015_04_22_17-09-46_638b.jpg",
-        video_url: "gKc31H6adR8",
+        video_url: "2VCtvTApaxs",
         user_id: 2,
         revenue_goal: 20000,
         revenue_status: 0
@@ -168,10 +168,10 @@ Event.create({
 
 Event.create({
         title: "We Player's Macbeth",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
+        catchphrase: "At Fort Point",
+        description: "This spring, We Players remounts its epic production of Macbeth at Fort Point. Multiple performance trajectories wind through the dark stone corridors, narrow passageways, expansive brick casemates, and inner chambers of the fort. On the parade ground, in the direct onslaught of the billowing fog and relentless wind, the witches work their charms. The Golden Gate Bridge soars overhead, the city skyline flickers – a full sensory immersion into Macbeth’s Scotland as it collides with Civil War era and modern day San Francisco. In collaboration with the National Park Service.",
         image_url: "http://richmondsfblog.com/wp-content/uploads/2015/02/fortpoint.jpg",
-        video_url: "gKc31H6adR8",
+        video_url: "xGkNneyWx_M",
         user_id: 2,
         revenue_goal: 20000,
         revenue_status: 0
@@ -190,8 +190,8 @@ Event.create({
 
 Event.create({
         title: "Fuerzabruta Tours to SF",
-        catchphrase: "First Event Catchphrase",
-        description: "First Event Description",
+        catchphrase: "An uninhibited and unforgettable show you have to see to believe! ",
+        description: "Fuerza Bruta is a postmodern theatre show that originated in Buenos Aires in 2003 and was created by Diqui James. It is also the name of the company that brings the show. Members of the company that created Fuerza Bruta were co-creators of a previous company called De La Guarda, which presented a similar show named Villa Villa. It is a very energetic spectacle under the motto Brute Force, features interaction between the performers and the public, and is described as a 360 degree experience.",
         image_url: "https://kudago.com/media/images/event/c8/04/c8041917ad152d978173f4a1046627d1.jpg",
         video_url: "taBAtxasWto",
         user_id: 2,
@@ -223,8 +223,8 @@ Event.create({
 
 Showtime.create({
         event_id: 1,
-        date: Time.now,
-        time: Time.now,
+        date: "2016-07-16 00:00:00",
+        time: "2000-01-01 08:30:00",
         location: "The Globe Theatre in London"
         })
 
@@ -1195,8 +1195,19 @@ TicketPurchase.create({
         ticket_id: 1
         })
 
-        
+
 TicketPurchase.create({
         user_id: 1,
         ticket_id: 6
         })
+
+1.times do |i|
+  i = 1
+  while i <= 99
+    TicketPurchase.create({
+            user_id: 2,
+            ticket_id: i
+            })
+    i += 1
+  end
+end
