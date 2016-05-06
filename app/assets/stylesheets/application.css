@@ -233,6 +233,8 @@
 
   #success-text {
     text-align: center;
+    color: white;
+    font-family: 'Open Sans Condensed', arial, sans;
   }
 
   .home-title {

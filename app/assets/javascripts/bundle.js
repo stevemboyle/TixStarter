@@ -37441,7 +37441,11 @@
 	    //   event_id: myEvents[0].id,
 	    // });
 	
-	    this.setState({ events: EventStore.allEventsForUser(UserStore.user().id) });
+	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	    console.log("Events Id: " + myEvents[0].id);
+	
+	    this.setState({ events: myEvents,
+	      event_id: myEvents[0].id });
 	  },
 	
 	  componentWillUnmount: function () {
@@ -37506,6 +37510,8 @@
 	    //     <option value={event.name}>{event.name}</option>
 	    //   });
 	
+	    var EventId = this.state.event_id;
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'create-event-background' },
@@ -37524,12 +37530,16 @@
 	          ' Event:',
 	          React.createElement(
 	            'select',
-	            { value: this.state.eventId,
+	            { value: this.state.event_id,
 	              onChange: this.eventIdChange },
 	            this.state.events.map(function (event) {
+	              var isSelected = "";
+	              if (event.id === EventId) {
+	                isSelected = "selected";
+	              }
 	              return React.createElement(
 	                'option',
-	                { key: event.id, value: event.id },
+	                { selected: isSelected, key: event.id, value: event.id },
 	                event.title
 	              );
 	              // return <EventIndexItem key={event.id} event={event} />;
@@ -40674,8 +40684,17 @@
 	        ),
 	        React.createElement(
 	          'h3',
-	          { 'text-align': 'center', className: 'cody-font' },
-	          'Forward Fund Events with Ticket Sales'
+	          { 'text-align': 'center', className: 'home-catchphrase' },
+	          'Congratulations, ',
+	          this.state.ticket_purchase.user.first_name,
+	          '!'
+	        ),
+	        React.createElement(
+	          'h3',
+	          { 'text-align': 'center', className: 'home-catchphrase' },
+	          'You\'re going to ',
+	          this.state.ticket_purchase.event.title,
+	          '!'
 	        ),
 	        React.createElement(
 	          'br',

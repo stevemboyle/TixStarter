@@ -37,7 +37,8 @@ module.exports = React.createClass({
 
       <div id="success-text">
         <h2 text-align="center" className="home-title">Success!</h2>
-        <h3 text-align="center" className="cody-font">Forward Fund Events with Ticket Sales</h3>
+        <h3 text-align="center" className="home-catchphrase">Congratulations, {this.state.ticket_purchase.user.first_name}!</h3>
+        <h3 text-align="center" className="home-catchphrase">You're going to {this.state.ticket_purchase.event.title}!</h3>
         <br>
           <div id="menubuttons">
             <ul className="index-item-menu-ul">

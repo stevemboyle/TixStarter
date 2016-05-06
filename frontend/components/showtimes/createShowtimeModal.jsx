@@ -42,7 +42,11 @@ module.exports = React.createClass({
     //   event_id: myEvents[0].id,
     // });
 
-    this.setState({events: EventStore.allEventsForUser(UserStore.user().id)});
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    console.log("Events Id: " + myEvents[0].id);
+
+    this.setState({events: myEvents,
+                  event_id: myEvents[0].id});
 
   },
 
@@ -95,7 +99,12 @@ module.exports = React.createClass({
   //   });
   // },
 
+
+
+
   render: function(){
+
+
 
     // debugger;
 
@@ -108,6 +117,8 @@ module.exports = React.createClass({
     //     <option value={event.name}>{event.name}</option>
     //   });
 
+    var EventId = this.state.event_id;
+
     return(
       <div className="create-event-background">
 
@@ -118,10 +129,14 @@ module.exports = React.createClass({
           <br></br>
 
             <label> Event:
-              <select value={this.state.eventId}
+              <select value={this.state.event_id}
               onChange={this.eventIdChange}>
                 {this.state.events.map(function (event) {
-                  return <option key={event.id} value={event.id}>{event.title}</option>;
+                  var isSelected = "";
+                  if (event.id === EventId){
+                    isSelected = "selected";
+                  }
+                  return <option selected={isSelected} key={event.id} value={event.id}>{event.title}</option>;
                   // return <EventIndexItem key={event.id} event={event} />;
                 })}
               </select>
