@@ -69,8 +69,9 @@ var ApiUtil = {
                         revenue_status: data.revenue_status
                       }
               },
-       success: function (post) {
+       success: function (event) {
          ServerActions.receiveSingleEvent(event);
+         hashHistory.push("/");
        }
     });
   },
@@ -81,6 +82,7 @@ var ApiUtil = {
      url: "api/events/" + id,
      type: "DELETE",
      success: function (event) {
+       debugger;
        console.log("success function for Api Util!");
        ServerActions.removeEvent(event);
      }

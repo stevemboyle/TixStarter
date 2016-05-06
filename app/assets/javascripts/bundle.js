@@ -34987,8 +34987,9 @@
 	          revenue_status: data.revenue_status
 	        }
 	      },
-	      success: function (post) {
+	      success: function (event) {
 	        ServerActions.receiveSingleEvent(event);
+	        hashHistory.push("/");
 	      }
 	    });
 	  },
@@ -34999,6 +35000,7 @@
 	      url: "api/events/" + id,
 	      type: "DELETE",
 	      success: function (event) {
+	        debugger;
 	        console.log("success function for Api Util!");
 	        ServerActions.removeEvent(event);
 	      }
@@ -35416,7 +35418,8 @@
 	  },
 	
 	  _onChange: function () {
-	    console.log('_onChange');
+	    console.log('Event Index _onChange');
+	    debugger;
 	    this.setState({ events: EventStore.all() });
 	  },
 	
@@ -35484,6 +35487,7 @@
 	var resetEvent = function (event) {
 	  console.log("reset Event!");
 	  _events[event.id] = event;
+	  debugger;
 	};
 	
 	var removeEvent = function (event) {
@@ -35552,6 +35556,7 @@
 	      EventStore.__emitChange();
 	      break;
 	    case EventConstants.EVENT_RECEIVED:
+	      debugger;
 	      resetEvent(payload.event);
 	      // _eventSuccess = true;
 	      // EventStore.setNewEventId(payload.event.id);
@@ -35562,8 +35567,10 @@
 	      // }, 2000);
 	      break;
 	    case EventConstants.EVENT_REMOVED:
+	      debugger;
 	      console.log("event store case EVENT_REMOVED");
 	      removeEvent(payload.event);
+	      EventStore.__emitChange();
 	      break;
 	  }
 	};

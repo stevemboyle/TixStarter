@@ -11,7 +11,8 @@ module.exports = React.createClass({
   },
 
   _onChange: function () {
-    console.log('_onChange');
+    console.log('Event Index _onChange');
+    debugger;
     this.setState({ events: EventStore.all() });
   },
 

@@ -22,6 +22,7 @@ var resetEvents = function (events) {
 var resetEvent = function (event) {
   console.log("reset Event!");
   _events[event.id] = event;
+  debugger;
 };
 
 var removeEvent = function(event){
@@ -91,6 +92,7 @@ EventStore.__onDispatch = function (payload) {
       EventStore.__emitChange();
       break;
     case EventConstants.EVENT_RECEIVED:
+      debugger;
       resetEvent(payload.event);
       // _eventSuccess = true;
       // EventStore.setNewEventId(payload.event.id);
@@ -101,8 +103,10 @@ EventStore.__onDispatch = function (payload) {
       // }, 2000);
       break;
     case EventConstants.EVENT_REMOVED:
+      debugger;
       console.log("event store case EVENT_REMOVED");
       removeEvent(payload.event);
+      EventStore.__emitChange();
       break;
   }
 };
