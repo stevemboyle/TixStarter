@@ -35823,7 +35823,7 @@
 	        ),
 	        React.createElement(
 	          'p',
-	          { color: 'white' },
+	          { className: 'k' },
 	          React.createElement(
 	            'em',
 	            null,
@@ -35832,9 +35832,9 @@
 	        ),
 	        React.createElement(
 	          'p',
-	          { color: 'white' },
+	          { className: 'c' },
 	          this.percentFunded(),
-	          '% Percent Funded'
+	          '% Funded'
 	        )
 	      ),
 	      React.createElement('br', null),
@@ -40142,8 +40142,8 @@
 	          ),
 	          React.createElement(
 	            'h3',
-	            { 'text-align': 'center', className: 'cody-font' },
-	            'Forward Fund Events with Ticket Sales'
+	            { 'text-align': 'center', className: 'home-dropphrase' },
+	            'Forward Fund Experiences with Ticket Sales'
 	          ),
 	          React.createElement(
 	            'div',
@@ -40157,7 +40157,7 @@
 	                React.createElement(
 	                  'a',
 	                  { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
-	                  'Browse Events'
+	                  'Browse Experiences'
 	                )
 	              )
 	            )

@@ -102,7 +102,7 @@ Event.create({
 
 Event.create({
         title: "Then She Fell",
-        catchphrase: "An immersive theater experience combining a hospital ward, the writings of Lewis Carroll, and only 15 audience members per show.",
+        catchphrase: "An immersive theater experience combining a hospital ward and the writings of Lewis Carroll.",
         description: "Then She Fell is a fully immersive, multi-sensory experience in which only 15 audience members per performance explore a dreamscape where every alcove, corner, and corridor has been transformed into a lushly designed world. Inspired by the life and writings of Lewis Carroll, it offers an Alice-like experience for audience members as they explore the rooms, often by themselves, in order to discover hidden scenes; encounter performers one-on-one; unearth clues that illuminate a shrouded history; use skeleton keys to gain access to guarded secrets; and imbibe elixirs custom designed by one of NYC’s foremost mixologists.",
         image_url: "http://www.maxamoo.com/wp-content/uploads/ThenSheFell3.jpg",
         video_url: "NJ0FKKfxygM",

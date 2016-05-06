@@ -203,8 +203,8 @@ module.exports = React.createClass({
             <img src={this.props.event.image_url} width="275px" height="200px"></img>
             <div className="title">
               <h1 color="white" text-align="center" className="change"><b>{this.props.event.title}</b></h1>
-              <p color="white"><em>{this.props.event.catchphrase}</em></p>
-              <p color="white">{this.percentFunded()}% Percent Funded</p>
+              <p className="k"><em>{this.props.event.catchphrase}</em></p>
+              <p className="c">{this.percentFunded()}% Funded</p>
             </div>
             <br></br>
               <div id="menubuttons">
