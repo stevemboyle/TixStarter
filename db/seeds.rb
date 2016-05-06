@@ -1189,8 +1189,14 @@ Ticket.create({
 #         })
 #
 
-#
-# TicketPurchase.create({
-#         user_id: 1,
-#         ticket_id: 1
-#         })
+
+TicketPurchase.create({
+        user_id: 1,
+        ticket_id: 1
+        })
+
+        
+TicketPurchase.create({
+        user_id: 1,
+        ticket_id: 6
+        })
