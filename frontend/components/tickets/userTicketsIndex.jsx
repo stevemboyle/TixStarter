@@ -13,6 +13,7 @@ module.exports = React.createClass({
   },
 
   _onChange: function () {
+    // debugger;
     console.log('_onChange');
     this.setState({ tickets: TicketStore.all(),
                     ticket_purchases: TicketPurchaseStore.all()});
@@ -34,6 +35,7 @@ module.exports = React.createClass({
   myTickets: function(){
     var result = [];
 
+    // debugger;
 
     this.state.ticket_purchases.map(function(ticketPurchase){
       if (ticketPurchase.user_id === window.userId){
@@ -55,20 +57,33 @@ module.exports = React.createClass({
       console.log(this.state.tickets);
     }
 
+    var content;
+
+    if (this.state.ticket_purchases){
+      content = (
+        <div>
+          <div className="tickets-divider">
+              <h2 className="dashboard-title" font-size="15px">My Purchased Tickets:</h2>
+          </div>
+
+          <ul className="index-for-events">
+            {this.myTickets().map(function (ticket) {
+
+              return <TicketIndexItem ticket={ticket} />;
+            })}
+          </ul>
+        </div>
+      );
+    }
+
+
+
+    //
+
 
     return(
       <div>
-
-        <div className="tickets-divider">
-            <h2 className="dashboard-title" font-size="15px">My Purchased Tickets:</h2>
-        </div>
-
-        <ul className="index-for-events">
-          {this.myTickets().map(function (ticket) {
-
-            return <TicketIndexItem ticket={ticket} />;
-          })}
-        </ul>
+        {content}
       </div>
     );
   }

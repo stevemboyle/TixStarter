@@ -36539,6 +36539,8 @@
 	
 	  render: function () {
 	
+	    // debugger;
+	
 	    // var attrs = ['name', 'happiness', 'price'].map(function (attr) {
 	    //   return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
 	    // }.bind(this));
@@ -40095,6 +40097,7 @@
 	  },
 	
 	  _onChange: function () {
+	    // debugger;
 	    console.log('_onChange');
 	    this.setState({ tickets: TicketStore.all(),
 	      ticket_purchases: TicketPurchaseStore.all() });
@@ -40116,6 +40119,8 @@
 	  myTickets: function () {
 	    var result = [];
 	
+	    // debugger;
+	
 	    this.state.ticket_purchases.map(function (ticketPurchase) {
 	      if (ticketPurchase.user_id === window.userId) {
 	        var ticket = TicketStore.find(ticketPurchase.ticket_id);
@@ -40136,26 +40141,38 @@
 	      console.log(this.state.tickets);
 	    }
 	
+	    var content;
+	
+	    if (this.state.ticket_purchases) {
+	      content = React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: 'tickets-divider' },
+	          React.createElement(
+	            'h2',
+	            { className: 'dashboard-title', 'font-size': '15px' },
+	            'My Purchased Tickets:'
+	          )
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'index-for-events' },
+	          this.myTickets().map(function (ticket) {
+	
+	            return React.createElement(TicketIndexItem, { ticket: ticket });
+	          })
+	        )
+	      );
+	    }
+	
+	    //
+	
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'tickets-divider' },
-	        React.createElement(
-	          'h2',
-	          { className: 'dashboard-title', 'font-size': '15px' },
-	          'My Purchased Tickets:'
-	        )
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'index-for-events' },
-	        this.myTickets().map(function (ticket) {
-	
-	          return React.createElement(TicketIndexItem, { ticket: ticket });
-	        })
-	      )
+	      content
 	    );
 	  }
 	});

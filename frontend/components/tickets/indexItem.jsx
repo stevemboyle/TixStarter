@@ -67,6 +67,8 @@ module.exports = React.createClass({
 
   render: function () {
 
+    // debugger;
+
     // var attrs = ['name', 'happiness', 'price'].map(function (attr) {
     //   return <p key={attr}>{attr}: {this.props.showtime[attr]}</p>;
     // }.bind(this));
