@@ -41041,63 +41041,25 @@
 	        React.createElement(
 	          'br',
 	          null,
-	          React.createElement(
-	            'div',
-	            { id: 'menubuttons' },
-	            React.createElement(
-	              'ul',
-	              { className: 'index-item-menu-ul' },
-	              React.createElement(
-	                'li',
-	                { className: 'home-splash-li' },
-	                React.createElement(
-	                  'a',
-	                  { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
-	                  'Browse Events'
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                { className: 'home-splash-li' },
-	                React.createElement(
-	                  'a',
-	                  { href: '#home-marketing', 'text-align': 'center', className: 'scroll-a' },
-	                  'Learn More'
-	                )
-	              )
-	            )
-	          ),
+	          React.createElement('br', null),
 	          React.createElement(
 	            'p',
-	            null,
-	            'Congratulations, ',
-	            this.state.ticket_purchase.user.first_name,
-	            '!'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
+	            { className: 'open-sans' },
 	            'You\'ve just purchased a ticket to:'
 	          ),
 	          React.createElement('br', null),
 	          React.createElement(
 	            'p',
-	            null,
+	            { className: 'open-sans' },
 	            this.state.ticket_purchase.event.title
 	          ),
 	          React.createElement(
 	            'p',
 	            null,
-	            this.state.ticket_purchase.showtime.date
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'p',
-	            null,
-	            this.state.ticket_purchase.event.title,
-	            ' is now ',
-	            this.state.ticket_purchase.event.revenue_status / this.state.ticket_purchase.event.revenue_goal,
-	            '% funded.'
+	            'on ',
+	            this.state.ticket_purchase.showtime.date,
+	            ' at ',
+	            this.state.ticket_purchase.showtime.time.slice(11, 19)
 	          ),
 	          React.createElement('br', null),
 	          '  '
@@ -41108,14 +41070,30 @@
 	          'What would you like to do now?'
 	        ),
 	        React.createElement(
-	          'p',
-	          null,
-	          'Buy More Tickets'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'See My Tickets'
+	          'div',
+	          { id: 'menubuttons' },
+	          React.createElement(
+	            'ul',
+	            { className: 'index-item-menu-ul' },
+	            React.createElement(
+	              'li',
+	              { className: 'home-splash-li' },
+	              React.createElement(
+	                'a',
+	                { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
+	                'Browse Events'
+	              )
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'home-splash-li' },
+	              React.createElement(
+	                'a',
+	                { href: '/#/mytickets', 'text-align': 'center', className: 'scroll-a' },
+	                'MyTickets'
+	              )
+	            )
+	          )
 	        )
 	      )
 	    );
