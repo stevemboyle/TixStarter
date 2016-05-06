@@ -70,7 +70,7 @@ Event.create({
         description: "First Event Description",
         image_url: "http://www.trbimg.com/img-55d25a07/turbine/spiaggia-switches-to-prix-fixe-tasting-menu-only",
         video_url: "Yji20MJ5VaE",
-        user_id: 2,
+        user_id: 1,
         revenue_goal: 20000,
         revenue_status: 0
         })
@@ -242,12 +242,225 @@ Showtime.create({
         location: "The McKittrick Hotel in New York"
         })
 
+
+  Showtime.create({
+          event_id: 3,
+          date: Time.now,
+          time: Time.now,
+          location: "Location TBA"
+          })
+
+          Showtime.create({
+                  event_id: 3,
+                  date: Time.now,
+                  time: Time.now,
+                  location: "Location TBA"
+                  })
+
+                  Showtime.create({
+                          event_id: 3,
+                          date: Time.now,
+                          time: Time.now,
+                          location: "Location TBA"
+                          })
+
+
+  Showtime.create({
+          event_id: 4,
+          date: Time.now,
+          time: Time.now,
+          location: "Location TBA"
+          })
+
+          Showtime.create({
+                  event_id: 4,
+                  date: Time.now,
+                  time: Time.now,
+                  location: "Location TBA"
+                  })
+
+                  Showtime.create({
+                          event_id: 4,
+                          date: Time.now,
+                          time: Time.now,
+                          location: "Location TBA"
+                          })
+
 Showtime.create({
-        event_id: 3,
+        event_id: 5,
         date: Time.now,
         time: Time.now,
         location: "Location TBA"
         })
+
+
+        Showtime.create({
+                event_id: 5,
+                date: Time.now,
+                time: Time.now,
+                location: "Location TBA"
+                })
+
+
+                Showtime.create({
+                        event_id: 5,
+                        date: Time.now,
+                        time: Time.now,
+                        location: "Location TBA"
+                        })
+
+Showtime.create({
+        event_id: 6,
+        date: Time.now,
+        time: Time.now,
+        location: "Location TBA"
+        })
+
+        Showtime.create({
+                event_id: 6,
+                date: Time.now,
+                time: Time.now,
+                location: "Location TBA"
+                })
+
+                Showtime.create({
+                        event_id: 6,
+                        date: Time.now,
+                        time: Time.now,
+                        location: "Location TBA"
+                        })
+
+Showtime.create({
+        event_id: 7,
+        date: Time.now,
+        time: Time.now,
+        location: "Location TBA"
+        })
+
+        Showtime.create({
+                event_id: 7,
+                date: Time.now,
+                time: Time.now,
+                location: "Location TBA"
+                })
+
+                Showtime.create({
+                        event_id: 7,
+                        date: Time.now,
+                        time: Time.now,
+                        location: "Location TBA"
+                        })
+
+Showtime.create({
+        event_id: 8,
+        date: Time.now,
+        time: Time.now,
+        location: "Location TBA"
+        })
+
+        Showtime.create({
+                event_id: 8,
+                date: Time.now,
+                time: Time.now,
+                location: "Location TBA"
+                })
+
+                Showtime.create({
+                        event_id: 8,
+                        date: Time.now,
+                        time: Time.now,
+                        location: "Location TBA"
+                        })
+
+Showtime.create({
+        event_id: 9,
+        date: Time.now,
+        time: Time.now,
+        location: "Location TBA"
+        })
+
+        Showtime.create({
+                event_id: 9,
+                date: Time.now,
+                time: Time.now,
+                location: "Location TBA"
+                })
+
+                Showtime.create({
+                        event_id: 9,
+                        date: Time.now,
+                        time: Time.now,
+                        location: "Location TBA"
+                        })
+
+Showtime.create({
+      event_id: 10,
+      date: Time.now,
+      time: Time.now,
+      location: "Location TBA"
+      })
+
+      Showtime.create({
+            event_id: 10,
+            date: Time.now,
+            time: Time.now,
+            location: "Location TBA"
+            })
+
+            Showtime.create({
+                  event_id: 10,
+                  date: Time.now,
+                  time: Time.now,
+                  location: "Location TBA"
+                  })
+
+Showtime.create({
+      event_id: 11,
+      date: Time.now,
+      time: Time.now,
+      location: "Location TBA"
+      })
+
+      Showtime.create({
+            event_id: 11,
+            date: Time.now,
+            time: Time.now,
+            location: "Location TBA"
+            })
+
+            Showtime.create({
+                  event_id: 11,
+                  date: Time.now,
+                  time: Time.now,
+                  location: "Location TBA"
+                  })
+
+Showtime.create({
+      event_id: 12,
+      date: Time.now,
+      time: Time.now,
+      location: "Location TBA"
+      })
+
+      Showtime.create({
+            event_id: 12,
+            date: Time.now,
+            time: Time.now,
+            location: "Location TBA"
+            })
+
+            Showtime.create({
+                  event_id: 12,
+                  date: Time.now,
+                  time: Time.now,
+                  location: "Location TBA"
+                  })
+
+
+
+
+
+
 
 
 #
@@ -347,9 +560,626 @@ Ticket.create({
         price: 225
         })
 
+Ticket.create({
+        showtime_id: 5,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 5,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 5,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 6,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 6,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 6,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 7,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 7,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 7,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 8,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 8,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 8,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 9,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 9,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 9,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 10,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 10,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 10,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 11,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 11,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 11,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 12,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 12,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 12,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 13,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 13,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 13,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 14,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 14,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 14,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 15,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 15,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 15,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+  Ticket.create({
+          showtime_id: 16,
+          tier: "General Admission",
+          description: "Entry into the Experience.",
+          price: 15
+          })
+
+          Ticket.create({
+                  showtime_id: 16,
+                  tier: "VIP Admission",
+                  description: "Entry into the Experience, plus Bonus Amenities",
+                  price: 45
+                  })
+
+                  Ticket.create({
+                          showtime_id: 16,
+                          tier: "VIP Admission and Dinner",
+                          description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                          price: 95
+                          })
+
+Ticket.create({
+        showtime_id: 17,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 17,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 17,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 18,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 18,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 18,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+
+Ticket.create({
+        showtime_id: 19,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 19,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 19,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 20,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 20,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 20,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 21,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 21,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 21,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+Ticket.create({
+        showtime_id: 22,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 22,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 22,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+
+Ticket.create({
+        showtime_id: 23,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 23,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 23,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
+
+
+Ticket.create({
+        showtime_id: 24,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 24,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 24,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                        })
 
 
 
+Ticket.create({
+      showtime_id: 25,
+      tier: "General Admission",
+      description: "Entry into the Experience.",
+      price: 15
+      })
+
+      Ticket.create({
+              showtime_id: 25,
+              tier: "VIP Admission",
+              description: "Entry into the Experience, plus Bonus Amenities",
+              price: 45
+              })
+
+              Ticket.create({
+                      showtime_id: 25,
+                      tier: "VIP Admission and Dinner",
+                      description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                      price: 95
+                      })
+
+
+  Ticket.create({
+          showtime_id: 26,
+          tier: "General Admission",
+          description: "Entry into the Experience.",
+          price: 15
+          })
+
+          Ticket.create({
+                  showtime_id: 26,
+                  tier: "VIP Admission",
+                  description: "Entry into the Experience, plus Bonus Amenities",
+                  price: 45
+                  })
+
+                  Ticket.create({
+                          showtime_id: 26,
+                          tier: "VIP Admission and Dinner",
+                          description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                          price: 95
+                                              })
+
+
+  Ticket.create({
+          showtime_id: 27,
+          tier: "General Admission",
+          description: "Entry into the Experience.",
+          price: 15
+          })
+
+          Ticket.create({
+                  showtime_id: 27,
+                  tier: "VIP Admission",
+                  description: "Entry into the Experience, plus Bonus Amenities",
+                  price: 45
+                  })
+
+                  Ticket.create({
+                          showtime_id: 27,
+                          tier: "VIP Admission and Dinner",
+                          description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                          price: 95
+                                              })
+
+
+Ticket.create({
+        showtime_id: 28,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 28,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 28,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                          })
+
+Ticket.create({
+      showtime_id: 29,
+      tier: "General Admission",
+      description: "Entry into the Experience.",
+      price: 15
+      })
+
+      Ticket.create({
+              showtime_id: 29,
+              tier: "VIP Admission",
+              description: "Entry into the Experience, plus Bonus Amenities",
+              price: 45
+              })
+
+              Ticket.create({
+                      showtime_id: 29,
+                      tier: "VIP Admission and Dinner",
+                      description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                      price: 95
+                        })
+
+
+  Ticket.create({
+        showtime_id: 30,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 30,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 30,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                          })
+
+
+    Ticket.create({
+          showtime_id: 31,
+          tier: "General Admission",
+          description: "Entry into the Experience.",
+          price: 15
+          })
+
+          Ticket.create({
+                  showtime_id: 31,
+                  tier: "VIP Admission",
+                  description: "Entry into the Experience, plus Bonus Amenities",
+                  price: 45
+                  })
+
+                  Ticket.create({
+                          showtime_id: 31,
+                          tier: "VIP Admission and Dinner",
+                          description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                          price: 95
+                            })
+
+
+  Ticket.create({
+        showtime_id: 32,
+        tier: "General Admission",
+        description: "Entry into the Experience.",
+        price: 15
+        })
+
+        Ticket.create({
+                showtime_id: 32,
+                tier: "VIP Admission",
+                description: "Entry into the Experience, plus Bonus Amenities",
+                price: 45
+                })
+
+                Ticket.create({
+                        showtime_id: 32,
+                        tier: "VIP Admission and Dinner",
+                        description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                        price: 95
+                          })
+
+
+    Ticket.create({
+          showtime_id: 33,
+          tier: "General Admission",
+          description: "Entry into the Experience.",
+          price: 15
+          })
+
+          Ticket.create({
+                  showtime_id: 33,
+                  tier: "VIP Admission",
+                  description: "Entry into the Experience, plus Bonus Amenities",
+                  price: 45
+                  })
+
+                  Ticket.create({
+                          showtime_id: 33,
+                          tier: "VIP Admission and Dinner",
+                          description: "Entry into the Experience, plus Bonus Amenities, Dinner, and Free Parking",
+                          price: 95
+                            })
 
 # # Blank Ticket_Purchase:
 #
