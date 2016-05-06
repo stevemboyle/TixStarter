@@ -269,24 +269,67 @@ module.exports = React.createClass({
     var hasEventsMenu;
 
 
-
     var loggedInMessageForSteve;
 
     if (UserStore.loggedIn()){
-      // debugger;
+      menu = (
+                <div id="othermenu">
+                  <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
+                  <br></br>
+                  <div id="menubuttons">
+                    <ul className="header-ul">
+                      <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
+                      {hasEventsMenu}
+                      <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
+                      <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
+                      <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
+                    </ul>
+
+                  </div>
+                </div>
+              );
+
       if (UserStore.user().events[0]){
-        hasEventsMenu = (
-          <div>
-            <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
-            <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
-          </div>
-        );
+        // hasEventsMenu = (
+        //   <div>
+        //     <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
+        //     <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
+        //   </div>
+        // );
+      // loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
+        menu = (
+                <div id="othermenu">
+                  <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
+                  <br></br>
+                  <div id="menubuttons">
+                    <ul className="header-ul">
+                      <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
+                      <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
+                      <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
+                      <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
+                      <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
+                      <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
+                    </ul>
+
+                  </div>
+                </div>
+            );
       }
-      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
-      menu = loggedInMenu;
+
     } else {
-      loggedInMessageForSteve = "NOT Logged In!";
-      menu = notLoggedInMenu;
+      menu = (
+              <div id="othermenu">
+                <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
+                <p>{loggedInMessageForSteve}</p>
+                <div id="menubuttons">
+                  <ul className="header-ul">
+                    <li className="header-li"  onClick={this.goToSignIn}>Sign In</li>
+                    <li className="header-li"  onClick={this.goToSignUp}>Sign Up</li>
+                    <li className="header-li"  onClick={this.signInWithDemoAccount}>Demo Account</li>
+                  </ul>
+                </div>
+            </div>
+            );
     }
 
     // <header id="home-menu" className="home-menu">

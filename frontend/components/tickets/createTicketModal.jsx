@@ -15,6 +15,8 @@ module.exports = React.createClass({
 
     var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 
+    // debugger;
+
     return({
       events: myEvents,
       event_id: myEvents[0].id,
@@ -31,6 +33,8 @@ module.exports = React.createClass({
     // this.EventListener = EventStore.addListener(this._seedChange);
     this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
 
+    // this.EventListener = ShowtimeStore.addListener(this._eventChange);
+
 
     // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
     var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
@@ -41,9 +45,11 @@ module.exports = React.createClass({
 
 
         // debugger;
+
+        // event_id: defaultEventId,
     //
-    // this.setState({event_id: defaultEventId,
-    //               showtime_id: defaultShowtime.id});
+    this.setState({
+                  showtime_id: defaultShowtime.id});
 
     // this.setState({showtime_id: m})
   },
@@ -67,16 +73,45 @@ module.exports = React.createClass({
 
 
 
+
+
     this.setState({
       events: myEvents,
       event_id: myNewEventId,
       showtime_id: newEventsShowtimes.reverse()[0].id,
     });
   },
+  //
+  // _eventChange: function(){
+  //   debugger;
+  //
+  //   // debugger;
+  //
+  //   var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+  //   var myNewEventId = myEvents[0].id;
+  //
+  //
+  //   var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+  //
+  //   var newEventsShowtimes = myShowtimes[myNewEventId];
+  //   var newShowtime = newEventsShowtimes[0];
+  //   var newShowtimeId = newShowtime.id;
+  //
+  //   // TODO: Create function in Showtimes to fetch all Showtimes for an Event
+  //   /// input myEvents[0].id
+  //
+  //   this.setState({
+  //     events: myEvents,
+  //     event_id: myNewEventId,
+  //     showtime_id: newEventsShowtimes.reverse()[0].id,
+  //   });
+  // },
+
 
   componentWillUnmount: function(){
     // this.EventListener.remove();
     this.ShowtimeListener.remove();
+    // this.EventListener.remove();
   },
 
   updateShowtimes: function(){
@@ -136,6 +171,8 @@ module.exports = React.createClass({
       tier: this.state.tier,
       description: this.state.description,
     };
+
+    // debugger;
 
     ClientActions.createTicket(ticketData);
   },

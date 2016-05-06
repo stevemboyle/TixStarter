@@ -34249,28 +34249,141 @@
 	    var loggedInMessageForSteve;
 	
 	    if (UserStore.loggedIn()) {
-	      // debugger;
-	      if (UserStore.user().events[0]) {
-	        hasEventsMenu = React.createElement(
+	      menu = React.createElement(
+	        'div',
+	        { id: 'othermenu' },
+	        React.createElement(
+	          'p',
+	          { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
+	          'TixStarter'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
 	          'div',
-	          null,
+	          { id: 'menubuttons' },
 	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.goToCreateShowtime },
-	            'Create Showtime'
+	            'ul',
+	            { className: 'header-ul' },
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.goToCreateEvent },
+	              'Create Event'
+	            ),
+	            hasEventsMenu,
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.goToDashboard },
+	              'My Dashboard'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.goToMyTickets },
+	              'My Tickets'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.justClickedLogOut },
+	              'Log Out'
+	            )
+	          )
+	        )
+	      );
+	
+	      if (UserStore.user().events[0]) {
+	        // hasEventsMenu = (
+	        //   <div>
+	        //     <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
+	        //     <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
+	        //   </div>
+	        // );
+	        // loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
+	        menu = React.createElement(
+	          'div',
+	          { id: 'othermenu' },
+	          React.createElement(
+	            'p',
+	            { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
+	            'TixStarter'
 	          ),
+	          React.createElement('br', null),
 	          React.createElement(
-	            'li',
-	            { className: 'header-li', onClick: this.goToCreateTicket },
-	            'Create Ticket'
+	            'div',
+	            { id: 'menubuttons' },
+	            React.createElement(
+	              'ul',
+	              { className: 'header-ul' },
+	              React.createElement(
+	                'li',
+	                { className: 'header-li', onClick: this.goToCreateEvent },
+	                'Create Event'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'header-li', onClick: this.goToCreateShowtime },
+	                'Create Showtime'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'header-li', onClick: this.goToCreateTicket },
+	                'Create Ticket'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'header-li', onClick: this.goToDashboard },
+	                'My Dashboard'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'header-li', onClick: this.goToMyTickets },
+	                'My Tickets'
+	              ),
+	              React.createElement(
+	                'li',
+	                { className: 'header-li', onClick: this.justClickedLogOut },
+	                'Log Out'
+	              )
+	            )
 	          )
 	        );
 	      }
-	      loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
-	      menu = loggedInMenu;
 	    } else {
-	      loggedInMessageForSteve = "NOT Logged In!";
-	      menu = notLoggedInMenu;
+	      menu = React.createElement(
+	        'div',
+	        { id: 'othermenu' },
+	        React.createElement(
+	          'p',
+	          { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
+	          'TixStarter'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          loggedInMessageForSteve
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'menubuttons' },
+	          React.createElement(
+	            'ul',
+	            { className: 'header-ul' },
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.goToSignIn },
+	              'Sign In'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.goToSignUp },
+	              'Sign Up'
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'header-li', onClick: this.signInWithDemoAccount },
+	              'Demo Account'
+	            )
+	          )
+	        )
+	      );
 	    }
 	
 	    // <header id="home-menu" className="home-menu">
@@ -37590,7 +37703,8 @@
 	    // debugger;
 	
 	    return {
-	      events: [],
+	      // events: myEvents,
+	      events: myEvents,
 	      // event_id: myEvents[0].id,
 	      event_id: "",
 	      date: "",
@@ -37605,7 +37719,7 @@
 	    // var defaultEventId = UserStore.user().events[0].id;
 	    // this.setState({event_id: defaultEventId});
 	    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-	    debugger;
+	    // debugger;
 	    this.EventListener = EventStore.addListener(this._eventsChanged);
 	    // this.setState({events: myEvents, event_id: myEvents[0].id});
 	  },
@@ -37749,7 +37863,8 @@
 	
 	    var DisplayForm;
 	
-	    if (EventStore.allEventsForUser(UserStore.user().id)) {
+	    if (this.state.events) {
+	      // debugger;
 	      DisplayForm = CreateForm;
 	    }
 	
@@ -39575,6 +39690,8 @@
 	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 	
+	    // debugger;
+	
 	    return {
 	      events: myEvents,
 	      event_id: myEvents[0].id,
@@ -39591,6 +39708,8 @@
 	    // this.EventListener = EventStore.addListener(this._seedChange);
 	    this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
 	
+	    // this.EventListener = ShowtimeStore.addListener(this._eventChange);
+	
 	    // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
 	    // var defaultEventId = UserStore.user().events[0].id;
@@ -39599,9 +39718,11 @@
 	    var defaultShowtime = defaultEventsShowtimes[0];
 	
 	    // debugger;
+	
+	    // event_id: defaultEventId,
 	    //
-	    // this.setState({event_id: defaultEventId,
-	    //               showtime_id: defaultShowtime.id});
+	    this.setState({
+	      showtime_id: defaultShowtime.id });
 	
 	    // this.setState({showtime_id: m})
 	  },
@@ -39628,10 +39749,36 @@
 	      showtime_id: newEventsShowtimes.reverse()[0].id
 	    });
 	  },
+	  //
+	  // _eventChange: function(){
+	  //   debugger;
+	  //
+	  //   // debugger;
+	  //
+	  //   var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	  //   var myNewEventId = myEvents[0].id;
+	  //
+	  //
+	  //   var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+	  //
+	  //   var newEventsShowtimes = myShowtimes[myNewEventId];
+	  //   var newShowtime = newEventsShowtimes[0];
+	  //   var newShowtimeId = newShowtime.id;
+	  //
+	  //   // TODO: Create function in Showtimes to fetch all Showtimes for an Event
+	  //   /// input myEvents[0].id
+	  //
+	  //   this.setState({
+	  //     events: myEvents,
+	  //     event_id: myNewEventId,
+	  //     showtime_id: newEventsShowtimes.reverse()[0].id,
+	  //   });
+	  // },
 	
 	  componentWillUnmount: function () {
 	    // this.EventListener.remove();
 	    this.ShowtimeListener.remove();
+	    // this.EventListener.remove();
 	  },
 	
 	  updateShowtimes: function () {
@@ -39689,6 +39836,8 @@
 	      tier: this.state.tier,
 	      description: this.state.description
 	    };
+	
+	    // debugger;
 	
 	    ClientActions.createTicket(ticketData);
 	  },

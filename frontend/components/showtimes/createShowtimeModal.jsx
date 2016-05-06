@@ -17,7 +17,8 @@ module.exports = React.createClass({
     // debugger;
 
     return({
-      events: [],
+      // events: myEvents,
+      events: myEvents,
       // event_id: myEvents[0].id,
       event_id: "",
       date: "",
@@ -32,7 +33,7 @@ module.exports = React.createClass({
     // var defaultEventId = UserStore.user().events[0].id;
     // this.setState({event_id: defaultEventId});
     // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-    debugger;
+    // debugger;
     this.EventListener = EventStore.addListener(this._eventsChanged);
     // this.setState({events: myEvents, event_id: myEvents[0].id});
   },
@@ -105,6 +106,7 @@ module.exports = React.createClass({
 
 
 
+
   render: function(){
 
     var CreateForm = (
@@ -171,7 +173,8 @@ module.exports = React.createClass({
 
     var DisplayForm;
 
-    if (EventStore.allEventsForUser(UserStore.user().id)){
+    if (this.state.events){
+      // debugger;
       DisplayForm = CreateForm;
     }
 
