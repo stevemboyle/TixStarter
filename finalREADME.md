@@ -24,54 +24,16 @@ TixStarter is a full-stack application. We utilize Ruby on Rails on the back-end
 
 ### Single-Page App
 
-FresherNote is truly a single-page; all content is delivered on one static page.  The root page listens to a `SessionStore` and renders content based on a call to `SessionStore.currentUser()`.  Sensitive information is kept out of the frontend of the app by making an API call to `SessionsController#get_user`.
+TixStarter is actually a single-page app, wherein all content is delivered from a single static page. The design is meant to suggest that we have navigate through a variety of splashes and windows as we follow our journey to tickets. Instead, TixStarter is based off of a single root page which listens to a `SessionStore`. This `SessionStore` delivers content based on a call to `SessionStore.currentUser()`. Users' sensitive information is kept away from the app's front-end.
 
-```ruby
-class Api::SessionsController < ApplicationController
-    def get_user
-      if current_user
-        render :current_user
-      else
-        render json: errors.full_messages
-      end
-    end
- end
-  ```
+### Events, Showtimes, and tickets
 
-### Note Rendering and Editing
+Users create and buy tickets to events through a three-step process, navigating Events, Showtimes, and Tickets. An event is a (potentially) recurring experience -- think Beyonce's Formation Tour, or San Francisco Giants baseball. A showtime is a specific day, time, and location -- think December 17th at the Warfield, or September 24th at AT&T Park. Tickets have a tier, a description, and a price. An example ticket be a $25 seat in the Upper Deck.
 
-  On the database side, the notes are stored in one table in the database, which contains columns for `id`, `user_id`, `content`, and `updated_at`.  Upon login, an API call is made to the database which joins the user table and the note table on `user_id` and filters by the current user's `id`.  These notes are held in the `NoteStore` until the user's session is destroyed.  
+### Get Tickets or Learn More?
 
-  Notes are rendered in two different components: the `CondensedNote` components, which show the title and first few words of the note content, and the `ExpandedNote` components, which are editable and show all note text.  The `NoteIndex` renders all of the `CondensedNote`s as subcomponents, as well as one `ExpandedNote` component, which renders based on `NoteStore.selectedNote()`. The UI of the `NoteIndex` is taken directly from Evernote for a professional, clean look:  
+On our home page, Users are greeted by an index of events. Different users will have different needs -- are they browsing and looking for inspiration, or are they in a hurry to get tickets? At any point on a visit to TixStarter, clicking "Get Tickets" will jumpstart the Ticket-buying process, which uses modals to narrow down our selection of Showtimes and Tickets. Or, clicking "Learn More" or the Event index item leads to a splash marketing page for the Event.
 
-![image of notebook index](https://github.com/appacademy/sample-project-proposal/blob/master/docs/noteIndex.png)
+### Splash Pages for Events
 
-Note editing is implemented using the Quill.js library, allowing for a Word-processor-like user experience.
-
-### Notebooks
-
-Implementing Notebooks started with a notebook table in the database.  The `Notebook` table contains two columns: `title` and `id`.  Additionally, a `notebook_id` column was added to the `Note` table.  
-
-The React component structure for notebooks mirrored that of notes: the `NotebookIndex` component renders a list of `CondensedNotebook`s as subcomponents, along with one `ExpandedNotebook`, kept track of by `NotebookStore.selectedNotebook()`.  
-
-`NotebookIndex` render method:
-
-```javascript
-render: function () {
-  return ({this.state.notebooks.map(function (notebook) {
-    return <CondensedNotebook notebook={notebook} />
-  }
-  <ExpandedNotebook notebook={this.state.selectedNotebook} />)
-}
-```
-## Future Directions for the Project
-
-In addition to the features already implemented, I plan to continue work on this project.  The next steps for FresherNote are outlined below.
-
-### Search
-
-Searching notes is a standard feature of Evernote.  I plan to utilize the Fuse.js library to create a fuzzy search of notes and notebooks.  This search will look go through tags, note titles, notebook titles, and note content.  
-
-### Direct Messaging
-
-Although this is less essential functionality, I also plan to implement messaging between FresherNote users.  To do this, I will use WebRTC so that notifications of messages happens seamlessly.  
+One longstanding frustration of mine has been how many ticketed events have inadequately attractive websites. This extends further than my frustrations with the aesthetics of ticketing websites; even individual theatres and venues have websites that seem ten years our of date. With TixStarter, I wanted to make sure that any event-creator could follow a handful of steps and then create a beautiful landing page for their event that they can link their fans to. On TixStarter, event-creators get a onepage design with a large splash image, a description, an embedded video, and clickable showtimes.
