@@ -44,7 +44,7 @@ module.exports = React.createClass({
     var defaultShowtime = defaultEventsShowtimes[0];
 
 
-        // debugger;
+        debugger;
 
         // event_id: defaultEventId,
     //

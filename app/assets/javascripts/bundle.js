@@ -35159,6 +35159,7 @@
 	      method: "POST",
 	      data: { showtime: showtime },
 	      success: function (showtime) {
+	        debugger;
 	        // hashHistory.push('/event/' + showtime.event_id);
 	        hashHistory.push("/wizard-ticket");
 	        ServerActions.receiveSingleShowtime(showtime);
@@ -37718,10 +37719,14 @@
 	    // debugger;
 	    // var defaultEventId = UserStore.user().events[0].id;
 	    // this.setState({event_id: defaultEventId});
-	    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 	    // debugger;
+	
+	    if (myEvents.length > 0) {
+	      this.setState({ events: myEvents, event_id: myEvents[0].id });
+	    }
+	
 	    this.EventListener = EventStore.addListener(this._eventsChanged);
-	    // this.setState({events: myEvents, event_id: myEvents[0].id});
 	  },
 	
 	  _eventsChanged: function () {
@@ -39717,7 +39722,7 @@
 	    var defaultEventsShowtimes = myShowtimes[this.state.event_id];
 	    var defaultShowtime = defaultEventsShowtimes[0];
 	
-	    // debugger;
+	    debugger;
 	
 	    // event_id: defaultEventId,
 	    //

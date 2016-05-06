@@ -32,10 +32,15 @@ module.exports = React.createClass({
     // debugger;
     // var defaultEventId = UserStore.user().events[0].id;
     // this.setState({event_id: defaultEventId});
-    // var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
     // debugger;
+
+    if (myEvents.length > 0){
+      this.setState({events: myEvents, event_id: myEvents[0].id});
+    }
+
     this.EventListener = EventStore.addListener(this._eventsChanged);
-    // this.setState({events: myEvents, event_id: myEvents[0].id});
+
   },
 
   _eventsChanged: function(){

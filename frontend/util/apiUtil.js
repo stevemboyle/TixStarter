@@ -118,6 +118,7 @@ var ApiUtil = {
       method: "POST",
       data: {showtime: showtime},
       success: function (showtime) {
+        debugger;
         // hashHistory.push('/event/' + showtime.event_id);
         hashHistory.push("/wizard-ticket");
         ServerActions.receiveSingleShowtime(showtime);
