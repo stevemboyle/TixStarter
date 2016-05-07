@@ -4,7 +4,7 @@ var ShowtimeModal = require('../showtimes/showtimeModal');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
-var ApiUtil = require('../../util/apiUtil');
+// var ApiUtil = require('../../util/apiUtil');
 
 module.exports = React.createClass({
 
@@ -31,14 +31,14 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    ApiUtil.fetchSingleEvent(parseInt(newProps.params.event.id));
+    ClientActions.fetchSingleEvent(parseInt(newProps.params.event.id));
   },
 
   componentDidMount: function () {
     // $(window).scrollTop(0);
     window.scrollTo(0, 0);
     this.eventListener = EventStore.addListener(this._onChange);
-    ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
+    ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
   },
 
   componentWillUnmount: function () {

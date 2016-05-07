@@ -92,10 +92,15 @@ var ApiUtil = {
   // // Showtime Functions
   //
   fetchAllShowtimes: function () {
+    // debugger;
     $.ajax({
-      url: "api/showtime",
+      url: "api/showtimes",
       success: function (showtimes) {
+        // debugger;
         ServerActions.receiveAllShowtimes(showtimes);
+      },
+      error: function(error){
+        // debugger;
       }
     });
   },
@@ -112,17 +117,18 @@ var ApiUtil = {
     });
   },
 
-  createShowtime: function (showtime, callback) {
+  createShowtime: function (showtime) {
     $.ajax({
       url: "api/showtimes",
       method: "POST",
       data: {showtime: showtime},
       success: function (showtime) {
+        console.log("sucess function of APiUtil Create Showtime");
         // debugger;
         // hashHistory.push('/event/' + showtime.event_id);
-        hashHistory.push("/wizard-ticket");
+
         ServerActions.receiveSingleShowtime(showtime);
-        callback && callback(showtime.id);
+        hashHistory.push("/wizard-ticket");
       }
     });
   },

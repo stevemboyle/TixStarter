@@ -1,7 +1,7 @@
 var React = require('react');
 var Modal = require("react-modal");
 var ShowtimeModal = require('./showtimeModal');
-var EventsIndex = require('../events/indexItem.jsx');
+// var EventsIndex = require('../events/indexItem.jsx');
 var UserStore = require('../../stores/user');
 var hashHistory = require("react-router").hashHistory;
 var ClientActions = require('../../actions/client_actions');

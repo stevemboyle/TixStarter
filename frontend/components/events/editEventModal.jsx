@@ -1,7 +1,7 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-var ShowtimesIndex = require('../showtimes/index.jsx');
-var Link = require('react-router').Link;
+// var ShowtimesIndex = require('../showtimes/index.jsx');
+// var Link = require('react-router').Link;
 var ClientActions = require('../../actions/client_actions.js');
 
 module.exports = React.createClass({

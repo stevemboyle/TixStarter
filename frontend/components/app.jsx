@@ -13,7 +13,7 @@ var ClientActions = require('../actions/client_actions');
 var UserStore = require('../stores/user');
 
 var Modal = require("react-modal");
-var UserApiUtil = require('../util/userApiUtil');
+// var UserApiUtil = require('../util/userApiUtil');
 var SignInModal = require('./users/signInModal');
 var MyDashboardModal = require('./events/userDashboardEventsIndex');
 var MyTicketsModal = require('./tickets/userTicketsIndex');
@@ -150,7 +150,7 @@ module.exports = React.createClass({
     },
 
     justClickedLogOut: function(){
-      UserApiUtil.logout();
+      ClientActions.logout();
     },
 
     signInWithDemoAccount: function(){

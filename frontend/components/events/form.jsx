@@ -1,9 +1,9 @@
 var React = require('react');
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
+// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var ClientActions = require('../../actions/client_actions.js');
 
 module.exports = React.createClass({
-  mixins: [LinkedStateMixin],
+  // mixins: [LinkedStateMixin],
 
   contextTypes: {
     router: React.PropTypes.object.isRequired

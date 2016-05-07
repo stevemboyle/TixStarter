@@ -10,6 +10,7 @@ var _showtimes = {};
 
 var resetShowtimes = function (showtimes) {
   _showtimes = {};
+  // debugger;
   showtimes.forEach(function (showtime) {
     _showtimes[showtime.id] = showtime;
   });
@@ -28,6 +29,23 @@ ShowtimeStore.all = function () {
   return showtimes;
 };
 
+
+ShowtimeStore.allShowtimesForEvent = function(eventId){
+  var result = [];
+
+  for (var showtimeId in _showtimes){
+
+    var currentShowtime = _showtimes[showtimeId];
+
+    if (currentShowtime.event_id === eventId){
+      result.push(currentShowtime);
+    }
+
+  }
+
+  return result;
+};
+
 ShowtimeStore.find = function (id) {
   // ClientActions.fetchAllShowtimes();
   return _showtimes[id];
@@ -41,6 +59,7 @@ ShowtimeStore.__onDispatch = function (payload) {
       ShowtimeStore.__emitChange();
       break;
     case ShowtimeConstants.SHOWTIME_RECEIVED:
+      // debugger;
       resetShowtime(payload.showtime);
       ShowtimeStore.__emitChange();
       break;

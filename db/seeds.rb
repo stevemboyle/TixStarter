@@ -1203,7 +1203,7 @@ TicketPurchase.create({
 
 1.times do |i|
   i = 1
-  while i <= 99
+  while i <= 53
     TicketPurchase.create({
             user_id: 2,
             ticket_id: i

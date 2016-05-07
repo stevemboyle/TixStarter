@@ -5,31 +5,43 @@ var ClientActions = require('../../actions/client_actions.js');
 var UserStore = require('../../stores/user');
 var ShowtimeStore = require('../../stores/showtime');
 // var SelectEventDropdown = require('./SelectEventDropdown');
-var Select = require('react-select');
+// var Select = require('react-select');
 
 // var ReactDropdown = require('react-dropdown');
 
 module.exports = React.createClass({
 
-  getInitialState: function(){
 
-    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+
+  getInitialState: function(){
 
     // debugger;
 
-    return({
-      events: myEvents,
-      event_id: myEvents[0].id,
-      showtime_id: "",
-      price: "",
-      tier: "",
-      description: "",
-      showtimes: ""
-    });
+      ClientActions.fetchAllShowtimes();
+
+      ClientActions.fetchAllEvents();
+
+
+
+
+
+
+    // debugger;
+
+          return({
+            events: "",
+            event_id: "",
+            showtime_id: "",
+            price: "",
+            tier: "",
+            description: "",
+            showtimes: "",
+            has_loaded: false
+          });
+
   },
 
   componentDidMount: function(){
-
 
 
     // this.EventListener = EventStore.addListener(this._seedChange);
@@ -37,20 +49,37 @@ module.exports = React.createClass({
 
     // this.EventListener = ShowtimeStore.addListener(this._eventChange);
 
+    // ClientActions.fetchAllEvents();
 
+
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+
+
+    //
+    // debugger;
+    // debugger;
     // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
-    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+
+    // var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+
     // var defaultEventId = UserStore.user().events[0].id;
     // debugger;
-    var defaultEventsShowtimes = myShowtimes[this.state.event_id];
-    var defaultShowtime = defaultEventsShowtimes[0];
+
+    // var defaultEventsShowtimes = myShowtimes[this.state.event_id];
+    // var defaultShowtime = defaultEventsShowtimes[0];
+
 
         // debugger;
-
         // event_id: defaultEventId,
     //
     this.setState({
-                  showtime_id: defaultShowtime.id});
+                  events: myEvents,
+                  event_id: myEvents[0].id,
+                  // event_id: ShowtimeStore.all()[0].event_id,
+                  // showtime_id: ShowtimeStore.all()[0].id
+                  // showtime_id: myEvents[0].id.showtimes.reverse()[0]
+                });
+
 
     // this.setState({showtime_id: m})
   },
@@ -69,11 +98,15 @@ module.exports = React.createClass({
     var myNewEventId = myEvents[0].id;
 
 
+    debugger;
+
     var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
 
+
+
     var newEventsShowtimes = myShowtimes[myNewEventId];
-    var newShowtime = newEventsShowtimes[0];
-    var newShowtimeId = newShowtime.id;
+    // var newShowtime = newEventsShowtimes[0];
+    // // var newShowtimeId = newShowtime.id;
 
     // TODO: Create function in Showtimes to fetch all Showtimes for an Event
     /// input myEvents[0].id
@@ -83,33 +116,33 @@ module.exports = React.createClass({
       events: myEvents,
       event_id: myNewEventId,
       showtime_id: newEventsShowtimes.reverse()[0].id,
+      has_loaded: true
     });
   },
-  //
-  // _eventChange: function(){
-  //   debugger;
-  //
-  //   // debugger;
-  //
-  //   var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-  //   var myNewEventId = myEvents[0].id;
-  //
-  //
-  //   var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
-  //
-  //   var newEventsShowtimes = myShowtimes[myNewEventId];
-  //   var newShowtime = newEventsShowtimes[0];
-  //   var newShowtimeId = newShowtime.id;
-  //
-  //   // TODO: Create function in Showtimes to fetch all Showtimes for an Event
-  //   /// input myEvents[0].id
-  //
-  //   this.setState({
-  //     events: myEvents,
-  //     event_id: myNewEventId,
-  //     showtime_id: newEventsShowtimes.reverse()[0].id,
-  //   });
-  // },
+
+  _eventChange: function(){
+
+    // debugger;
+
+    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
+    var myNewEventId = myEvents[0].id;
+
+
+    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
+
+    var newEventsShowtimes = myShowtimes[myNewEventId];
+    var newShowtime = newEventsShowtimes[0];
+    var newShowtimeId = newShowtime.id;
+
+    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
+    /// input myEvents[0].id
+
+    this.setState({
+      events: myEvents,
+      event_id: myNewEventId,
+      showtime_id: newEventsShowtimes.reverse()[0].id,
+    });
+  },
 
 
 
@@ -187,104 +220,111 @@ module.exports = React.createClass({
 
   render: function(){
 
+    // debugger;
 
-    var myHTML = (
-      <div></div>
-    );
+    var myHTML;
 
     // var showtimes = EventStore.findShowtimes(UserStore.user().id);
 
-    var ShowtimeSelector;
+    // var ShowtimeSelector;
 
-    if (this.state.event_id){
-      ShowtimeSelector = (
-        <div>
-          <br></br>
+    // if (this.state.has_loaded){
+    //   ShowtimeSelector = (
+    //     <div>
+    //
+    //     </div>
+    //   );
+    // }
 
-            <label> Showtime:
-              <select value={this.state.showtime_id}
-              onChange={this.showtimeIdChange}>
-                {EventStore.find(this.state.event_id).showtimes.map(function (showtime) {
-                  return <option key={showtime.id} value={showtime.id}>{showtime.date} at {showtime.location}</option>;
-                  // return <EventIndexItem key={event.id} event={event} />;
-                })}
-              </select>
-            </label>
+    if (UserStore.user() && this.state.has_loaded){
+      myHTML = (
+        <div className="create-event-background">
 
-          <br></br>
-        </div>
-      );
-    }
+          <form onSubmit={this.handleSubmit} className="form-style-8">
 
-        if (UserStore.user()){
-          myHTML = (
-            <div className="create-event-background">
+            <br></br>
 
-              <form onSubmit={this.handleSubmit} className="form-style-8">
+              <label> Event:
+                <select value={this.state.eventId}
+                onChange={this.eventIdChange}>
+                  {this.state.events.map(function (event) {
+                    return <option key={event.id} value={event.id}>{event.title}</option>;
+                    // return <EventIndexItem key={event.id} event={event} />;
+                  })}
+                </select>
+              </label>
+
+              <br></br>
 
                 <br></br>
 
-                  <label> Event:
-                    <select value={this.state.eventId}
-                    onChange={this.eventIdChange}>
-                      {this.state.events.map(function (event) {
-                        return <option key={event.id} value={event.id}>{event.title}</option>;
+                  <label> Showtime:
+                    <select value={this.state.showtime_id}
+                    onChange={this.showtimeIdChange}>
+                      {EventStore.find(this.state.event_id).showtimes.map(function (showtime) {
+                        return <option key={showtime.id} value={showtime.id}>{showtime.date} at {showtime.location}</option>;
                         // return <EventIndexItem key={event.id} event={event} />;
                       })}
                     </select>
                   </label>
 
-                  <br></br>
-
-                {ShowtimeSelector}
-
                 <br></br>
 
-                  <label> Price:
-                    <input type="text"
-                            value={this.state.price}
-                            onChange={this.priceChange}
-                      />
+            <br></br>
+
+              <label> Price:
+                <input type="text"
+                        value={this.state.price}
+                        onChange={this.priceChange}
+                  />
+              </label>
+
+
+            <br></br>
+            <br></br>
+
+                <label> Tier:
+                  <input type="text"
+                          value={this.state.tier}
+                          onChange={this.tierChange}
+                    />
+                </label>
+
+
+              <br></br>
+              <br></br>
+
+                  <label> Description:
+
+                    <textarea value={this.state.description}
+                    onChange={this.descriptionChange}
+                    rows="10" cols="50">Write something here</textarea>
+
                   </label>
 
 
                 <br></br>
-                <br></br>
 
-                    <label> Tier:
-                      <input type="text"
-                              value={this.state.tier}
-                              onChange={this.tierChange}
-                        />
-                    </label>
+            <br></br>
 
+          <input type="submit" value="Create Ticket" />
 
-                  <br></br>
-                  <br></br>
+          <br></br>
 
-                      <label> Description:
+          </form>
+          <br></br>
+        </div>
+      );
+    } else {
+      myHTML = (
+        <div>
 
-                        <textarea value={this.state.description}
-                        onChange={this.descriptionChange}
-                        rows="10" cols="50">Write something here</textarea>
+            <h3 className="home-catchphrase">Building your amazing event from scratch...</h3>
 
-                      </label>
-
-
-                    <br></br>
-
-                <br></br>
-
-              <input type="submit" value="Create Ticket" />
-
-              <br></br>
-
-              </form>
-              <br></br>
-              <p>To Do: <b>Change Date/Time, Add Dropdown for MyShows</b></p>
-            </div>
-          );
-        }
+          <br></br>
+        </div>
+      );
+    }
 
     // <input type="text"
     //         value={this.state.event_id}

@@ -1,5 +1,5 @@
 var React = require("react");
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
+// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var ClientActions = require('../../actions/client_actions');
 // var UserActions = require('../../actions/userActions');
 // var CurrentUserState = require('../../mixins/currentUserState');

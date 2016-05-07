@@ -54,8 +54,8 @@ module.exports = {
     ApiUtil.fetchAllShowtimes();
   },
 
-  createShowtime: function(showtime, callback) {
-    ApiUtil.createShowtime(showtime, callback);
+  createShowtime: function(showtime) {
+    ApiUtil.createShowtime(showtime);
   },
 
   fetchSingleShowtime: function(id) {

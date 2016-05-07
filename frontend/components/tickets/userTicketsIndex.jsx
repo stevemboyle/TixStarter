@@ -1,7 +1,7 @@
 var React = require('react');
 var TicketStore = require('../../stores/ticket');
 var TicketPurchaseStore = require('../../stores/ticketPurchase');
-var ClientActions = require('../../actions/client_actions.js');
+// var ClientActions = require('../../actions/client_actions.js');
 var TicketIndexItem = require('./indexItem.jsx');
 var UserStore = require('../../stores/user');
 
@@ -23,8 +23,8 @@ module.exports = React.createClass({
     console.log('componentDidMount');
     this.ticketListener = TicketStore.addListener(this._onChange);
     this.ticketPurchaseListener = TicketPurchaseStore.addListener(this._onChange);
-    ClientActions.fetchAllTickets();
-    ClientActions.fetchAllTicketPurchases();
+    // ClientActions.fetchAllTickets();
+    // ClientActions.fetchAllTicketPurchases();
   },
 
   compomentWillUnmount: function () {

@@ -1,9 +1,9 @@
 var React = require('react');
 var Modal = require("react-modal");
-var TicketsIndex = require('../tickets/indexItem.jsx');
+// var TicketsIndex = require('../tickets/indexItem.jsx');
 var UserStore = require('../../stores/user');
 var ClientActions = require('../../actions/client_actions.js');
-var ShowtimeStore = require('../../stores/showtime');
+// var ShowtimeStore = require('../../stores/showtime');
 var hashHistory = require("react-router").hashHistory;
 
 var CUSTOM_STYLE = {
