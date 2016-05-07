@@ -37748,9 +37748,15 @@
 	    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
 	    /// input myEvents[0].id
 	
-	    if (newEventsShowtimes) {
+	    var newShowtimeId;
+	
+	    // debugger;
+	
+	    if (newEventsShowtimes.length > 0) {
+	      // debugger;
 	      if (newEventsShowtimes[0].id) {
-	        var newShowtimeId = newEventsShowtimes.reverse()[0].id;
+	        // debugger;
+	        newShowtimeId = newEventsShowtimes[0].id;
 	
 	        this.setState({
 	          events: myEvents,
