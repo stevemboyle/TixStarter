@@ -2,6 +2,8 @@ var React = require('react');
 var TicketPurchaseStore = require('../../stores/ticketPurchase');
 var ClientActions = require('../../actions/client_actions');
 
+              // <li className="home-splash-li"><a href="/#/mytickets" text-align="center" className="scroll-a">MyTickets</a></li>
+
 module.exports = React.createClass({
 
   getInitialState: function(){
@@ -50,12 +52,9 @@ module.exports = React.createClass({
 
       <br></br>  </br>
 
-        <p>What would you like to do now?</p>
-
           <div id="menubuttons">
             <ul className="index-item-menu-ul">
               <li className="home-splash-li"><a href="#home-events-index" text-align="center" className="scroll-a">Browse Events</a></li>
-              <li className="home-splash-li"><a href="/#/mytickets" text-align="center" className="scroll-a">MyTickets</a></li>
             </ul>
           </div>
 

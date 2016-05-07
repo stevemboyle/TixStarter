@@ -41,7 +41,7 @@ ClientActions.fetchCurrentUser();
 // var LoginForm = require('./components/LoginForm');
 // Mixins
 
-var CurrentUserState = require('./mixins/currentUserState');
+// var CurrentUserState = require('./mixins/currentUserState');
 
 var routes = (
   <Route path="/" component={App}>

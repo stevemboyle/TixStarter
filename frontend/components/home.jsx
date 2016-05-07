@@ -16,7 +16,7 @@ var SignInModal = require('./users/signInModal');
 var MyDashboardModal = require('./events/userDashboardEventsIndex');
 
 //Mixins
-var CurrentUserState = require('.././mixins/currentUserState');
+// var CurrentUserState = require('.././mixins/currentUserState');
 
 module.exports = React.createClass({
 

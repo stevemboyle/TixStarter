@@ -2,11 +2,11 @@ var React = require("react");
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var ClientActions = require('../../actions/client_actions');
 // var UserActions = require('../../actions/userActions');
-var CurrentUserState = require('../../mixins/currentUserState');
+// var CurrentUserState = require('../../mixins/currentUserState');
 
 var LoginModal = React.createClass({
 
-	mixins: [LinkedStateMixin, CurrentUserState],
+	// mixins: [LinkedStateMixin, CurrentUserState],
 
 	// mixins: [CurrentUserState],
 

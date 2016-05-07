@@ -1,9 +1,10 @@
 var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var ShowtimeConstants = require('../constants/showtimeConstants.js');
+// var ClientActions = require('../actions/client_actions');
+// var ApiUtil = require('../util/apiUtil');
+
 var ShowtimeStore = new Store(AppDispatcher);
-var ClientActions = require('../actions/client_actions');
-var ApiUtil = require('../util/apiUtil');
 
 var _showtimes = {};
 
@@ -15,6 +16,7 @@ var resetShowtimes = function (showtimes) {
 };
 
 var resetShowtime = function (showtime) {
+  // debugger;
   _showtimes[showtime.id] = showtime;
 };
 

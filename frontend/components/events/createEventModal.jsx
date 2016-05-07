@@ -85,7 +85,6 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div className="create-event-background">
-        <h3>Create New Event</h3>
         <form id="create-event" onSubmit={this.handleSubmit} className="form-style-8">
 
           <br></br>

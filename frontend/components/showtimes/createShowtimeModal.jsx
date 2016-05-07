@@ -116,9 +116,6 @@ module.exports = React.createClass({
 
     var CreateForm = (
       <div className="create-event-background">
-
-
-        <h3>Create New Showtime</h3>
         <form onSubmit={this.handleSubmit} className="form-style-8">
 
           <br></br>

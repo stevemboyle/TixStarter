@@ -87,7 +87,7 @@
 	// var LoginForm = require('./components/LoginForm');
 	// Mixins
 	
-	var CurrentUserState = __webpack_require__(287);
+	// var CurrentUserState = require('./mixins/currentUserState');
 	
 	var routes = React.createElement(
 	  Route,
@@ -33951,7 +33951,7 @@
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	//Mixins
-	var CurrentUserState = __webpack_require__(287);
+	// var CurrentUserState = require('.././mixins/currentUserState');
 	
 	var CUSTOM_STYLE = {
 	  content: {
@@ -33976,7 +33976,7 @@
 	  displayName: 'exports',
 	
 	
-	  mixins: [CurrentUserState],
+	  // mixins: [CurrentUserState],
 	
 	  getInitialState: function () {
 	    return { signInModalOpen: false,
@@ -35042,7 +35042,7 @@
 
 	var ServerActions = __webpack_require__(269);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var app = __webpack_require__(261);
+	// var app = require('../components/app');
 	
 	var ApiUtil = {
 	
@@ -35159,7 +35159,7 @@
 	      method: "POST",
 	      data: { showtime: showtime },
 	      success: function (showtime) {
-	        debugger;
+	        // debugger;
 	        // hashHistory.push('/event/' + showtime.event_id);
 	        hashHistory.push("/wizard-ticket");
 	        ServerActions.receiveSingleShowtime(showtime);
@@ -36817,9 +36817,10 @@
 	var Store = __webpack_require__(219).Store;
 	var AppDispatcher = __webpack_require__(237);
 	var ShowtimeConstants = __webpack_require__(272);
+	// var ClientActions = require('../actions/client_actions');
+	// var ApiUtil = require('../util/apiUtil');
+	
 	var ShowtimeStore = new Store(AppDispatcher);
-	var ClientActions = __webpack_require__(267);
-	var ApiUtil = __webpack_require__(268);
 	
 	var _showtimes = {};
 	
@@ -36831,6 +36832,7 @@
 	};
 	
 	var resetShowtime = function (showtime) {
+	  // debugger;
 	  _showtimes[showtime.id] = showtime;
 	};
 	
@@ -36871,13 +36873,13 @@
 	var LinkedStateMixin = __webpack_require__(263);
 	var ClientActions = __webpack_require__(267);
 	// var UserActions = require('../../actions/userActions');
-	var CurrentUserState = __webpack_require__(287);
+	// var CurrentUserState = require('../../mixins/currentUserState');
 	
 	var LoginModal = React.createClass({
 		displayName: 'LoginModal',
 	
 	
-		mixins: [LinkedStateMixin, CurrentUserState],
+		// mixins: [LinkedStateMixin, CurrentUserState],
 	
 		// mixins: [CurrentUserState],
 	
@@ -37122,42 +37124,7 @@
 	module.exports = LoginModal;
 
 /***/ },
-/* 287 */
-/***/ function(module, exports) {
-
-	// var UserStore = require('../stores/user');
-	// // var UserActions = require('../actions/userActions');
-	// var UserApiUtil = require('../util/userApiUtil');
-	// // var ClientActions = require('../actions/client_actions');
-	//
-	// var CurrentUserState = {
-	//
-	//   getInitialState: function(){
-	//     return {
-	//       currentUser: UserStore.currentUser(),
-	//       userErrors: UserStore.errors()
-	//     };
-	//   },
-	//
-	//   componentDidMount: function(){
-	//     UserStore.addListener(this.updateUser);
-	//     // if (typeof UserStore.currentUser() === 'undefined'){
-	//     //   UserActions.fetchCurrentUser();
-	//     // }
-	//   },
-	//
-	//   updateUser: function(){
-	//     this.setState({
-	//       currentUser: UserStore.currentUser(),
-	//       userErrors: UserStore.errors()
-	//     });
-	//   }
-	//
-	// };
-	//
-	// module.exports = CurrentUserState;
-
-/***/ },
+/* 287 */,
 /* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -37565,11 +37532,6 @@
 	      'div',
 	      { className: 'create-event-background' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Create New Event'
-	      ),
-	      React.createElement(
 	        'form',
 	        { id: 'create-event', onSubmit: this.handleSubmit, className: 'form-style-8' },
 	        React.createElement('br', null),
@@ -37798,11 +37760,6 @@
 	    var CreateForm = React.createElement(
 	      'div',
 	      { className: 'create-event-background' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Create New Showtime'
-	      ),
 	      React.createElement(
 	        'form',
 	        { onSubmit: this.handleSubmit, className: 'form-style-8' },
@@ -39678,14 +39635,14 @@
 
 	var React = __webpack_require__(1);
 	var EventStore = __webpack_require__(276);
-	var TicketsIndex = __webpack_require__(282);
+	// var TicketsIndex = require('../tickets/index.jsx');
 	var ClientActions = __webpack_require__(267);
 	var UserStore = __webpack_require__(284);
 	var ShowtimeStore = __webpack_require__(285);
 	// var SelectEventDropdown = require('./SelectEventDropdown');
 	var Select = __webpack_require__(292);
 	
-	var ReactDropdown = __webpack_require__(299);
+	// var ReactDropdown = require('react-dropdown');
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -39722,7 +39679,7 @@
 	    var defaultEventsShowtimes = myShowtimes[this.state.event_id];
 	    var defaultShowtime = defaultEventsShowtimes[0];
 	
-	    debugger;
+	    // debugger;
 	
 	    // event_id: defaultEventId,
 	    //
@@ -39730,6 +39687,12 @@
 	      showtime_id: defaultShowtime.id });
 	
 	    // this.setState({showtime_id: m})
+	  },
+	
+	  componentWillUnmount: function () {
+	    // this.EventListener.remove();
+	    this.ShowtimeListener.remove();
+	    // this.EventListener.remove();
 	  },
 	
 	  _seedChange: function () {
@@ -39747,6 +39710,7 @@
 	
 	    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
 	    /// input myEvents[0].id
+	    // debugger;
 	
 	    this.setState({
 	      events: myEvents,
@@ -39779,12 +39743,6 @@
 	  //     showtime_id: newEventsShowtimes.reverse()[0].id,
 	  //   });
 	  // },
-	
-	  componentWillUnmount: function () {
-	    // this.EventListener.remove();
-	    this.ShowtimeListener.remove();
-	    // this.EventListener.remove();
-	  },
 	
 	  updateShowtimes: function () {
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
@@ -39896,11 +39854,6 @@
 	      myHTML = React.createElement(
 	        'div',
 	        { className: 'create-event-background' },
-	        React.createElement(
-	          'h3',
-	          null,
-	          'Create New Ticket'
-	        ),
 	        React.createElement(
 	          'form',
 	          { onSubmit: this.handleSubmit, className: 'form-style-8' },
@@ -40419,7 +40372,7 @@
 	var MyDashboardModal = __webpack_require__(304);
 	
 	//Mixins
-	var CurrentUserState = __webpack_require__(287);
+	// var CurrentUserState = require('.././mixins/currentUserState');
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -40981,6 +40934,8 @@
 	var TicketPurchaseStore = __webpack_require__(218);
 	var ClientActions = __webpack_require__(267);
 	
+	// <li className="home-splash-li"><a href="/#/mytickets" text-align="center" className="scroll-a">MyTickets</a></li>
+	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -41065,11 +41020,6 @@
 	          '  '
 	        ),
 	        React.createElement(
-	          'p',
-	          null,
-	          'What would you like to do now?'
-	        ),
-	        React.createElement(
 	          'div',
 	          { id: 'menubuttons' },
 	          React.createElement(
@@ -41082,15 +41032,6 @@
 	                'a',
 	                { href: '#home-events-index', 'text-align': 'center', className: 'scroll-a' },
 	                'Browse Events'
-	              )
-	            ),
-	            React.createElement(
-	              'li',
-	              { className: 'home-splash-li' },
-	              React.createElement(
-	                'a',
-	                { href: '/#/mytickets', 'text-align': 'center', className: 'scroll-a' },
-	                'MyTickets'
 	              )
 	            )
 	          )
@@ -41157,6 +41098,7 @@
 	var ClientActions = __webpack_require__(267);
 	var UserStore = __webpack_require__(284);
 	var CreateEventModal = __webpack_require__(290);
+	var WizardLanding = __webpack_require__(316);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -41170,7 +41112,7 @@
 	      React.createElement(
 	        'h1',
 	        { className: 'home-title' },
-	        'Welcome to the Event Creation Wizard'
+	        'The Event Creation Wizard'
 	      ),
 	      React.createElement(
 	        'div',
@@ -41242,7 +41184,7 @@
 	var React = __webpack_require__(1);
 	// var EventStore = require('../../stores/event.js');
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	var ClientActions = __webpack_require__(267);
+	// var ClientActions = require('../../actions/client_actions.js');
 	// var UserStore = require('../../stores/user');
 	var CreateTicketModal = __webpack_require__(301);
 	
@@ -41273,6 +41215,50 @@
 	          )
 	        ),
 	        React.createElement(CreateTicketModal, null)
+	      )
+	    );
+	  }
+	
+	});
+
+/***/ },
+/* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EventStore = __webpack_require__(276);
+	var ShowtimesIndex = __webpack_require__(279);
+	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(284);
+	var CreateEventModal = __webpack_require__(290);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'create-event-background' },
+	      React.createElement(
+	        'h1',
+	        { className: 'home-title' },
+	        'Welcome to the Event Creation Wizard'
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'menubuttons' },
+	        React.createElement(
+	          'ul',
+	          { className: 'header-ul' },
+	          React.createElement(
+	            'li',
+	            { className: 'header-li header-li-reverse', onClick: this.goToCreateEvent },
+	            'Get Started'
+	          )
+	        ),
+	        React.createElement(CreateEventModal, null)
 	      )
 	    );
 	  }

@@ -1,9 +1,9 @@
 var React = require('react');
-// var EventStore = require('../../stores/event.js');
-// var ShowtimesIndex = require('../showtimes/index.jsx');
-// var ClientActions = require('../../actions/client_actions.js');
-// var UserStore = require('../../stores/user');
-var CreateTicketModal = require('./createTicketModal');
+var EventStore = require('../../stores/event.js');
+var ShowtimesIndex = require('../showtimes/index.jsx');
+var ClientActions = require('../../actions/client_actions.js');
+var UserStore = require('../../stores/user');
+var CreateEventModal = require('./createEventModal');
 
 module.exports = React.createClass({
 
@@ -17,7 +17,7 @@ module.exports = React.createClass({
                 <li className="header-li header-li-reverse" onClick={this.goToCreateEvent}>Get Started</li>
               </ul>
 
-              <CreateTicketModal />
+              <CreateEventModal />
 
             </div>
         </div>

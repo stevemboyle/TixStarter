@@ -1,13 +1,13 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-var TicketsIndex = require('../tickets/index.jsx');
+// var TicketsIndex = require('../tickets/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
 var UserStore = require('../../stores/user');
 var ShowtimeStore = require('../../stores/showtime');
 // var SelectEventDropdown = require('./SelectEventDropdown');
 var Select = require('react-select');
 
-var ReactDropdown = require('react-dropdown');
+// var ReactDropdown = require('react-dropdown');
 
 module.exports = React.createClass({
 
@@ -30,6 +30,8 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
 
+
+
     // this.EventListener = EventStore.addListener(this._seedChange);
     this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
 
@@ -43,8 +45,7 @@ module.exports = React.createClass({
     var defaultEventsShowtimes = myShowtimes[this.state.event_id];
     var defaultShowtime = defaultEventsShowtimes[0];
 
-
-        debugger;
+        // debugger;
 
         // event_id: defaultEventId,
     //
@@ -52,6 +53,12 @@ module.exports = React.createClass({
                   showtime_id: defaultShowtime.id});
 
     // this.setState({showtime_id: m})
+  },
+
+  componentWillUnmount: function(){
+    // this.EventListener.remove();
+    this.ShowtimeListener.remove();
+    // this.EventListener.remove();
   },
 
   _seedChange: function(){
@@ -70,10 +77,7 @@ module.exports = React.createClass({
 
     // TODO: Create function in Showtimes to fetch all Showtimes for an Event
     /// input myEvents[0].id
-
-
-
-
+    // debugger;
 
     this.setState({
       events: myEvents,
@@ -108,11 +112,7 @@ module.exports = React.createClass({
   // },
 
 
-  componentWillUnmount: function(){
-    // this.EventListener.remove();
-    this.ShowtimeListener.remove();
-    // this.EventListener.remove();
-  },
+
 
   updateShowtimes: function(){
     var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
@@ -220,8 +220,6 @@ module.exports = React.createClass({
           myHTML = (
             <div className="create-event-background">
 
-
-              <h3>Create New Ticket</h3>
               <form onSubmit={this.handleSubmit} className="form-style-8">
 
                 <br></br>

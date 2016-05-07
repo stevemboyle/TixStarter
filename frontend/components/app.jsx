@@ -21,7 +21,7 @@ var hashHistory = require("react-router").hashHistory;
 
 
 //Mixins
-var CurrentUserState = require('.././mixins/currentUserState');
+// var CurrentUserState = require('.././mixins/currentUserState');
 
 var CUSTOM_STYLE = {
   content : {
@@ -44,7 +44,7 @@ var CUSTOM_STYLE = {
 
 module.exports = React.createClass({
 
-  mixins: [CurrentUserState],
+  // mixins: [CurrentUserState],
 
   getInitialState: function(){
      return({ signInModalOpen: false,
