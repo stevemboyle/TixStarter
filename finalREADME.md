@@ -19,8 +19,6 @@ TixStarter is a full-stack application. We utilize Ruby on Rails on the back-end
 
 + Users can track the Events they have created.
 
-+ Users can track the tickets they have purchased.
-
 
 ### Single-Page App
 

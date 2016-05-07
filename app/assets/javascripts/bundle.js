@@ -34150,6 +34150,8 @@
 	  //   );
 	  // },
 	
+	  // <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
+	
 	  // loggedInMenu: function(){
 	  //   return(
 	  //     <div id="othermenu">
@@ -34232,11 +34234,6 @@
 	          ),
 	          React.createElement(
 	            'li',
-	            { className: 'header-li', onClick: this.goToMyTickets },
-	            'My Tickets'
-	          ),
-	          React.createElement(
-	            'li',
 	            { className: 'header-li', onClick: this.justClickedLogOut },
 	            'Log Out'
 	          )
@@ -34274,11 +34271,6 @@
 	              'li',
 	              { className: 'header-li', onClick: this.goToDashboard },
 	              'My Dashboard'
-	            ),
-	            React.createElement(
-	              'li',
-	              { className: 'header-li', onClick: this.goToMyTickets },
-	              'My Tickets'
 	            ),
 	            React.createElement(
 	              'li',
@@ -34331,11 +34323,6 @@
 	                'li',
 	                { className: 'header-li', onClick: this.goToDashboard },
 	                'My Dashboard'
-	              ),
-	              React.createElement(
-	                'li',
-	                { className: 'header-li', onClick: this.goToMyTickets },
-	                'My Tickets'
 	              ),
 	              React.createElement(
 	                'li',

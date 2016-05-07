@@ -218,6 +218,8 @@ module.exports = React.createClass({
     //   );
     // },
 
+              // <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
+
     // loggedInMenu: function(){
     //   return(
     //     <div id="othermenu">
@@ -258,7 +260,6 @@ module.exports = React.createClass({
             <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
             {hasEventsMenu}
             <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
-            <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
             <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
           </ul>
 
@@ -281,7 +282,6 @@ module.exports = React.createClass({
                       <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
                       {hasEventsMenu}
                       <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
-                      <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
                       <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
                     </ul>
 
@@ -307,7 +307,6 @@ module.exports = React.createClass({
                       <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
                       <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
                       <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
-                      <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
                       <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
                     </ul>
 
