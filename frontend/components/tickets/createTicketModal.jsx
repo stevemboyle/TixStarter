@@ -98,7 +98,7 @@ module.exports = React.createClass({
     var myNewEventId = myEvents[0].id;
 
 
-    debugger;
+    // debugger;
 
     var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
 
@@ -110,14 +110,19 @@ module.exports = React.createClass({
 
     // TODO: Create function in Showtimes to fetch all Showtimes for an Event
     /// input myEvents[0].id
-    // debugger;
 
-    this.setState({
-      events: myEvents,
-      event_id: myNewEventId,
-      showtime_id: newEventsShowtimes.reverse()[0].id,
-      has_loaded: true
-    });
+
+    if (newEventsShowtimes){
+      var newShowtimeId = newEventsShowtimes.reverse()[0].id;
+
+      this.setState({
+        events: myEvents,
+        event_id: myNewEventId,
+        showtime_id: newShowtimeId,
+        has_loaded: true
+      });
+    }
+
   },
 
   _eventChange: function(){
