@@ -113,14 +113,16 @@ module.exports = React.createClass({
 
 
     if (newEventsShowtimes){
-      var newShowtimeId = newEventsShowtimes.reverse()[0].id;
+      if (newEventsShowtimes[0].id){
+        var newShowtimeId = newEventsShowtimes.reverse()[0].id;
 
-      this.setState({
-        events: myEvents,
-        event_id: myNewEventId,
-        showtime_id: newShowtimeId,
-        has_loaded: true
-      });
+        this.setState({
+          events: myEvents,
+          event_id: myNewEventId,
+          showtime_id: newShowtimeId,
+          has_loaded: true
+        });
+      }
     }
 
   },
