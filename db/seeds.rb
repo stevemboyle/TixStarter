@@ -230,230 +230,230 @@ Showtime.create({
 
 Showtime.create({
         event_id: 2,
-        date: Time.now,
-        time: Time.now,
+        date: "2016-08-24 00:00:00",
+        time: "2000-01-01 02:30:00",
         location: "The McKittrick Hotel in New York"
         })
 
 Showtime.create({
         event_id: 2,
-        date: Time.now,
-        time: Time.now,
+        date: "2016-09-08 00:00:00",
+        time: "2000-01-01 08:30:00",
         location: "The McKittrick Hotel in New York"
         })
 
 
   Showtime.create({
           event_id: 3,
-          date: Time.now,
-          time: Time.now,
-          location: "Location TBA"
+          date: "2016-06-12 00:00:00",
+          time: "2000-01-01 07:30:00",
+          location: "A Secret San Francisco Location Announced The Day Of"
           })
 
           Showtime.create({
                   event_id: 3,
-                  date: Time.now,
-                  time: Time.now,
-                  location: "Location TBA"
+                  date: "2016-07-14 00:00:00",
+                  time: "2000-01-01 06:30:00",
+                  location: "A Secret San Francisco Location Announced The Day Of"
                   })
 
                   Showtime.create({
                           event_id: 3,
-                          date: Time.now,
-                          time: Time.now,
-                          location: "Location TBA"
+                          date: "2016-02-13 00:00:00",
+                          time: "2000-01-01 08:30:00",
+                          location: "A Secret San Francisco Location Announced The Day Of"
                           })
 
 
   Showtime.create({
           event_id: 4,
-          date: Time.now,
-          time: Time.now,
-          location: "Location TBA"
+          date: "2016-06-15 00:00:00",
+          time: "2000-01-01 10:30:00",
+          location: "Portugal"
           })
 
           Showtime.create({
                   event_id: 4,
-                  date: Time.now,
-                  time: Time.now,
-                  location: "Location TBA"
+                  date: "2016-07-16 00:00:00",
+                  time: "2000-01-01 08:30:00",
+                  location: "Brazil"
                   })
 
                   Showtime.create({
                           event_id: 4,
-                          date: Time.now,
-                          time: Time.now,
-                          location: "Location TBA"
+                          date: "2016-08-21 00:00:00",
+                          time: "2000-01-01 08:30:00",
+                          location: "Cuba"
                           })
 
 Showtime.create({
         event_id: 5,
-        date: Time.now,
-        time: Time.now,
-        location: "Location TBA"
+        date: "2016-07-02 00:00:00",
+        time: "2000-01-01 08:30:00",
+        location: "The Roy Rodgers Theatre"
         })
 
 
         Showtime.create({
                 event_id: 5,
-                date: Time.now,
-                time: Time.now,
-                location: "Location TBA"
+                date: "2016-07-03 00:00:00",
+                time: "2000-01-01 08:00:00",
+                location: "The Roy Rodgers Theatre"
                 })
 
 
                 Showtime.create({
                         event_id: 5,
-                        date: Time.now,
-                        time: Time.now,
-                        location: "Location TBA"
+                        date: "2016-07-04 00:00:00",
+                        time: "2000-01-01 08:00:00",
+                        location: "The Roy Rodgers Theatre"
                         })
 
 Showtime.create({
         event_id: 6,
-        date: Time.now,
-        time: Time.now,
-        location: "Location TBA"
+        date: "2016-10-17 00:00:00",
+        time: "2000-01-01 08:30:00",
+        location: "Bushwick"
         })
 
         Showtime.create({
                 event_id: 6,
-                date: Time.now,
-                time: Time.now,
-                location: "Location TBA"
+                date: "2016-10-18 00:00:00",
+                time: "2000-01-01 08:30:00",
+                location: "Bushwick"
                 })
 
                 Showtime.create({
                         event_id: 6,
-                        date: Time.now,
-                        time: Time.now,
-                        location: "Location TBA"
+                        date: "2016-10-19 00:00:00",
+                        time: "2000-01-01 08:30:00",
+                        location: "Bushwick"
                         })
 
 Showtime.create({
         event_id: 7,
-        date: Time.now,
-        time: Time.now,
-        location: "Location TBA"
+        date: "2016-04-12 00:00:00",
+        time: "2000-01-01 08:30:00",
+        location: "San Francisco"
         })
 
         Showtime.create({
                 event_id: 7,
-                date: Time.now,
-                time: Time.now,
-                location: "Location TBA"
+                date: "2016-04-15 00:00:00",
+                time: "2000-01-01 08:30:00",
+                location: "San Francisco"
                 })
 
                 Showtime.create({
                         event_id: 7,
-                        date: Time.now,
-                        time: Time.now,
-                        location: "Location TBA"
+                        date: "2016-05-21 00:00:00",
+                        time: "2000-01-01 08:30:00",
+                        location: "San Francisco"
                         })
 
 Showtime.create({
         event_id: 8,
-        date: Time.now,
-        time: Time.now,
-        location: "Location TBA"
+        date: "2016-08-18 00:00:00",
+        time: "2000-01-01 08:30:00",
+        location: "The Warfield"
         })
 
         Showtime.create({
                 event_id: 8,
-                date: Time.now,
-                time: Time.now,
-                location: "Location TBA"
+                date: "2016-08-24 00:00:00",
+                time: "2000-01-01 08:30:00",
+                location: "The San Jose Arena"
                 })
 
                 Showtime.create({
                         event_id: 8,
-                        date: Time.now,
-                        time: Time.now,
-                        location: "Location TBA"
+                        date: "2016-08-27 00:00:00",
+                        time: "2000-01-01 08:30:00",
+                        location: "Madison Square Garden"
                         })
 
 Showtime.create({
         event_id: 9,
-        date: Time.now,
-        time: Time.now,
-        location: "Location TBA"
+        date: "2016-04-19 00:00:00",
+        time: "2000-01-01 08:30:00",
+        location: "Sutro Baths"
         })
 
         Showtime.create({
                 event_id: 9,
-                date: Time.now,
-                time: Time.now,
-                location: "Location TBA"
+                date: "2016-04-20 00:00:00",
+                time: "2000-01-01 08:30:00",
+                location: "Sutro Baths"
                 })
 
                 Showtime.create({
                         event_id: 9,
-                        date: Time.now,
-                        time: Time.now,
-                        location: "Location TBA"
+                        date: "2016-04-21 00:00:00",
+                        time: "2000-01-01 08:30:00",
+                        location: "Sutro Baths"
                         })
 
 Showtime.create({
       event_id: 10,
-      date: Time.now,
-      time: Time.now,
-      location: "Location TBA"
+      date: "2017-02-13 00:00:00",
+      time: "2000-01-01 08:30:00",
+      location: "Fort Point"
       })
 
       Showtime.create({
             event_id: 10,
-            date: Time.now,
-            time: Time.now,
-            location: "Location TBA"
+            date: "2017-02-14 00:00:00",
+            time: "2000-01-01 08:30:00",
+            location: "Fort Point"
             })
 
             Showtime.create({
                   event_id: 10,
-                  date: Time.now,
-                  time: Time.now,
-                  location: "Location TBA"
+                  date: "2017-02-15 00:00:00",
+                  time: "2000-01-01 08:30:00",
+                  location: "Fort Point"
                   })
 
 Showtime.create({
       event_id: 11,
-      date: Time.now,
-      time: Time.now,
-      location: "Location TBA"
+      date: "2016-06-08 00:00:00",
+      time: "2000-01-01 08:30:00",
+      location: "The Tobacco Warehouse in Brooklyn"
       })
 
       Showtime.create({
             event_id: 11,
-            date: Time.now,
-            time: Time.now,
-            location: "Location TBA"
+            date: "2016-06-09 00:00:00",
+            time: "2000-01-01 08:30:00",
+            location: "The Tobacco Warehouse in Brooklyn"
             })
 
             Showtime.create({
                   event_id: 11,
-                  date: Time.now,
-                  time: Time.now,
-                  location: "Location TBA"
+                  date: "2016-06-10 00:00:00",
+                  time: "2000-01-01 08:30:00",
+                  location: "The Tobacco Warehouse in Brooklyn"
                   })
 
 Showtime.create({
       event_id: 12,
-      date: Time.now,
-      time: Time.now,
-      location: "Location TBA"
+      date: "2016-07-16 00:00:00",
+      time: "2000-01-01 08:30:00",
+      location: "Dogpath Warehouse"
       })
 
       Showtime.create({
             event_id: 12,
-            date: Time.now,
-            time: Time.now,
-            location: "Location TBA"
+            date: "2016-07-17 00:00:00",
+            time: "2000-01-01 08:30:00",
+            location: "Dogpath Warehouse"
             })
 
             Showtime.create({
                   event_id: 12,
-                  date: Time.now,
-                  time: Time.now,
-                  location: "Location TBA"
+                  date: "2016-07-18 00:00:00",
+                  time: "2000-01-01 08:30:00",
+                  location: "Dogpath Warehouse"
                   })
 
 
@@ -506,14 +506,14 @@ Ticket.create({
 Ticket.create({
         showtime_id: 2,
         tier: "Maximilian's Guest",
-        description: "As Maximilian’s guest you will be welcome to go straight to the head of the line for priority entry. The doorman will escort you inside and assist you with complimentary coat check then you will be directed to your reserved table in our Manderley Bar.  This does not include food, drink or a reservation at The Heath. To enter Sleep No More as Maximilian's guest and have a dinner reservation please call 212-904-1883..",
+        description: "As Maximilian’s guest you will be welcome to go straight to the head of the line for priority entry. The doorman will escort you inside and assist you with complimentary coat check then you will be directed to your reserved table in our Manderley Bar.  This does not include food, drink or a reservation at The Heath. To enter Sleep No More as Maximilian's guest and have a dinner reservation please call 212-904-1883.",
         price: 180
         })
 
 Ticket.create({
         showtime_id: 2,
         tier: "With a Champagne Table",
-        description: "You will be welcome to go straight to the head of the line for priority entry to Sleep No More. The doorman will escort you inside and assist you with complimentary coat check then you will be directed to your reserved table in our Manderley Bar with a bottle of our finest champagne. There will be one seat reserved per Champagne Guest ticket purchased and the bottles of champagne will be included as follows: 1 bottle for 2-3 Guests, 2 bottles for 4 - 5 Guests, etc.)",
+        description: "You will be welcome to go straight to the head of the line for priority entry to Sleep No More. The doorman will escort you inside and assist you with complimentary coat check.",
         price: 295
         })
 
