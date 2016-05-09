@@ -7,20 +7,20 @@ var UserStore = require('../../stores/user');
 
 module.exports = React.createClass({
   getInitialState: function () {
-    console.log("getInitialState");
+    // console.log("getInitialState");
     return { tickets: TicketStore.all(),
               ticket_purchases: TicketPurchaseStore.all()};
   },
 
   _onChange: function () {
     // debugger;
-    console.log('_onChange');
+    // console.log('_onChange');
     this.setState({ tickets: TicketStore.all(),
                     ticket_purchases: TicketPurchaseStore.all()});
   },
 
   componentDidMount: function () {
-    console.log('componentDidMount');
+    // console.log('componentDidMount');
     this.ticketListener = TicketStore.addListener(this._onChange);
     this.ticketPurchaseListener = TicketPurchaseStore.addListener(this._onChange);
     // ClientActions.fetchAllTickets();
@@ -28,7 +28,7 @@ module.exports = React.createClass({
   },
 
   compomentWillUnmount: function () {
-    console.log('componentWillUnmount');
+    // console.log('componentWillUnmount');
     this.ticketListener.remove();
   },
 
@@ -54,7 +54,7 @@ module.exports = React.createClass({
     var test = "Nothing";
     if (this.state.tickets){
       test = this.state.tickets;
-      console.log(this.state.tickets);
+      // console.log(this.state.tickets);
     }
 
     var content;

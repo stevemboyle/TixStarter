@@ -13,13 +13,13 @@
 //   // },
 //
 //   // signup: function(data){
-//   //   console.log("We in User Actions sign up");
+//   //   // console.log("We in User Actions sign up");
 //   //   $.ajax({
 //   //     url: "/api/user",
 //   //     type: "post",
 //   //     data: {user: data},
 //   //     success: function(user){
-//   //       console.log("We're in the success function for SignUp");
+//   //       // console.log("We're in the success function for SignUp");
 //   //       UserActions.receiveCurrentUser(user);
 //   //     },
 //   //
@@ -29,14 +29,14 @@
 //   //     //   App.closeSignUpModal;
 //   //     // },
 //   //     error: function(error){
-//   //       console.log("We're in the error function for SignUp");
+//   //       // console.log("We're in the error function for SignUp");
 //   //       UserActions.handleError(error);
 //   //     }
 //   //   });
 //   // },
 //
 //   // login: function(data){
-//   //   console.log("useractions login called");
+//   //   // console.log("useractions login called");
 //   //   $.ajax({
 //   //     url: "/api/session",
 //   //     type: "post",
@@ -58,8 +58,8 @@
 //   // },
 //   //
 //   // receiveCurrentUser: function(user){
-//   //   console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-//   //   console.log(["user", user]);
+//   //   // console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+//   //   // console.log(["user", user]);
 //   //   AppDispatcher.dispatch({
 //   //     actionType: UserConstants.LOGIN,
 //   //     user: user
@@ -67,7 +67,7 @@
 //   // },
 //
 //   // handleError: function(error) {
-//   //   console.log("Handle Error Function in User Actions!");
+//   //   // console.log("Handle Error Function in User Actions!");
 //   //   AppDispatcher.dispatch({
 //   //     actionType: UserConstants.ERROR,
 //   //     errors: error.responseJSON.errors

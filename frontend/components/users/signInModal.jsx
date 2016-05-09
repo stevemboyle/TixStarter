@@ -14,13 +14,13 @@ var SignInModal = React.createClass({
   usernameChange: function(keyboardEvent){
     var newUsername = keyboardEvent.target.value;
     this.setState({ username: newUsername });
-    console.log("Username: " + this.state.username);
+    // console.log("Username: " + this.state.username);
   },
 
   passwordChange: function(keyboardEvent){
     var newPassword = keyboardEvent.target.value;
     this.setState({ password: newPassword });
-    console.log("Password: " + this.state.password);
+    // console.log("Password: " + this.state.password);
   },
 
   handleSubmit: function(keyboardEvent){
@@ -30,7 +30,7 @@ var SignInModal = React.createClass({
       password: this.state.password
     };
 
-    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
+    // console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 
     ClientActions.login(userData);
   },

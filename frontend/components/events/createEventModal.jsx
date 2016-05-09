@@ -22,7 +22,7 @@ module.exports = React.createClass({
   titleChange: function(keyboardEvent){
     var newTitle = keyboardEvent.target.value;
     this.setState({ title: newTitle });
-    console.log("Title: " + this.state.title);
+    // console.log("Title: " + this.state.title);
   },
 
   catchphraseChange: function(keyboardEvent){
@@ -32,7 +32,7 @@ module.exports = React.createClass({
 
   descriptionChange: function(keyboardEvent){
     var newDescription = keyboardEvent.target.value;
-      console.log(newDescription);
+      // console.log(newDescription);
     this.setState({ description: newDescription});
   },
 

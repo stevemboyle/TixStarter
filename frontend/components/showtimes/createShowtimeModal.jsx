@@ -52,7 +52,7 @@ module.exports = React.createClass({
     });
 
     var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-    console.log("Events Id: " + myEvents[0].id);
+    // console.log("Events Id: " + myEvents[0].id);
 
     this.setState({events: myEvents,
                   event_id: myEvents[0].id});
@@ -66,25 +66,25 @@ module.exports = React.createClass({
   eventIdChange: function(keyboardEvent){
     var newEventId = keyboardEvent.target.value;
     this.setState({ event_id: newEventId });
-    console.log("EventId: " + this.state.event_id);
+    // console.log("EventId: " + this.state.event_id);
   },
 
   dateChange: function(keyboardEvent){
     var newDate = keyboardEvent.target.value;
     this.setState({ date: newDate });
-    console.log("Date: " + this.state.date);
+    // console.log("Date: " + this.state.date);
   },
 
   timeChange: function(keyboardEvent){
     var newTime = keyboardEvent.target.value;
     this.setState({ time: newTime });
-    console.log("Time: " + this.state.time);
+    // console.log("Time: " + this.state.time);
   },
 
   locationChange: function(keyboardEvent){
     var newLocation = keyboardEvent.target.value;
     this.setState({ location: newLocation });
-    console.log("Location: " + this.state.location);
+    // console.log("Location: " + this.state.location);
   },
 
   handleSubmit: function(keyboardEvent){

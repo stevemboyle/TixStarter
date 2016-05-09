@@ -25154,13 +25154,13 @@
 	var _ticketPurchases = {};
 	
 	var resetTicketPurchases = function (ticketPurchases) {
-	  console.log('resetTicketPurchases');
-	  console.log(["ticketPurchases", ticketPurchases]);
+	  // console.log('resetTicketPurchases');
+	  // console.log(["ticketPurchases", ticketPurchases]);
 	  _ticketPurchases = {};
 	  ticketPurchases.forEach(function (ticketPurchase) {
 	    _ticketPurchases[ticketPurchase.id] = ticketPurchase;
 	  });
-	  console.log(["_ticketPurchases", _ticketPurchases]);
+	  // console.log(["_ticketPurchases", _ticketPurchases]);
 	};
 	
 	var resetTicketPurchase = function (ticketPurchase) {
@@ -25169,7 +25169,7 @@
 	};
 	
 	var removeTicketPurchase = function (ticketPurchase) {
-	  console.log("ticketPurchasestore removeTicketPurchase");
+	  // console.log("ticketPurchasestore removeTicketPurchase");
 	  delete _ticketPurchases[ticketPurchase.id];
 	};
 	
@@ -25188,17 +25188,17 @@
 	TicketPurchaseStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
-	      console.log("ticket purchases received");
+	      // console.log("ticket purchases received");
 	      resetTicketPurchases(payload.ticketPurchases);
 	      TicketPurchaseStore.__emitChange();
 	      break;
 	    case TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED:
-	      console.log("ticket purchase received");
+	      // console.log("ticket purchase received");
 	      resetTicketPurchase(payload.ticketPurchase);
 	      TicketPurchaseStore.__emitChange();
 	      break;
 	    case TicketPurchaseConstants.TICKET_PURCHASE_REMOVED:
-	      console.log("ticketPurchase store case EVENT_REMOVED");
+	      // console.log("ticketPurchase store case EVENT_REMOVED");
 	      removeTicketPurchase(payload.ticketPurchase);
 	      break;
 	  }
@@ -34085,7 +34085,7 @@
 	  },
 	
 	  signInWithDemoAccount: function () {
-	    console.log("app: sign in with demo account");
+	    // console.log("app: sign in with demo account");
 	    ClientActions.login({ username: "guest", password: "password" });
 	  },
 	
@@ -34713,7 +34713,7 @@
 	  },
 	
 	  signup: function (data) {
-	    console.log("Client Actions, Sign Up");
+	    // console.log("Client Actions, Sign Up");
 	    UserApiUtil.signup(data);
 	  },
 	
@@ -34762,8 +34762,8 @@
 	  },
 	
 	  fetchSingleShowtime: function (id) {
-	    console.log("ClientActions.fetchSingleShowtime");
-	    console.log("Id is " + id);
+	    // console.log("ClientActions.fetchSingleShowtime");
+	    // console.log("Id is " + id);
 	    ApiUtil.fetchSingleShowtime(id);
 	  },
 	
@@ -34879,13 +34879,13 @@
 	  },
 	
 	  deleteEvent: function (id) {
-	    console.log("Api Util delete event");
+	    // console.log("Api Util delete event");
 	    $.ajax({
 	      url: "api/events/" + id,
 	      type: "DELETE",
 	      success: function (event) {
 	        //  debugger;
-	        console.log("success function for Api Util!");
+	        // console.log("success function for Api Util!");
 	        ServerActions.removeEvent(event);
 	      }
 	    });
@@ -34908,12 +34908,12 @@
 	  },
 	
 	  fetchSingleShowtime: function (id) {
-	    console.log("api util fetch single showtime");
-	    console.log("id is " + id);
+	    // console.log("api util fetch single showtime");
+	    // console.log("id is " + id);
 	    $.ajax({
 	      url: "api/showtimes/" + id,
 	      success: function (showtime) {
-	        console.log("success function!");
+	        // console.log("success function!");
 	        ServerActions.receiveSingleShowtime(showtime);
 	      }
 	    });
@@ -34925,7 +34925,7 @@
 	      method: "POST",
 	      data: { showtime: showtime },
 	      success: function (showtime) {
-	        console.log("sucess function of APiUtil Create Showtime");
+	        // console.log("sucess function of APiUtil Create Showtime");
 	        // debugger;
 	        // hashHistory.push('/event/' + showtime.event_id);
 	
@@ -34991,14 +34991,14 @@
 	  },
 	
 	  createTicketPurchase: function (data) {
-	    console.log("create ticket purchase");
+	    // console.log("create ticket purchase");
 	    $.ajax({
 	      url: "api/ticket_purchases",
 	      // Changed "event" to "events"
 	      method: "POST",
 	      data: { ticket_purchase: data },
 	      success: function (ticketPurchase) {
-	        console.log('create ticket purchase success');
+	        // console.log('create ticket purchase success');
 	        // hashHistory.push('/success');
 	        ServerActions.receiveSingleTicketPurchase(ticketPurchase);
 	        // callback && callback(event.id);
@@ -35029,8 +35029,8 @@
 	  // User Functions:
 	
 	  receiveCurrentUser: function (user) {
-	    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-	    console.log(["user", user]);
+	    // console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+	    // console.log(["user", user]);
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.LOGIN,
 	      user: user
@@ -35038,7 +35038,7 @@
 	  },
 	
 	  handleError: function (error) {
-	    console.log("Handle Error Function in User Actions!");
+	    // console.log("Handle Error Function in User Actions!");
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.ERROR,
 	      errors: error.responseJSON.errors
@@ -35078,7 +35078,7 @@
 	  // Showtimes Functions:
 	
 	  receiveAllShowtimes: function (showtimes) {
-	    console.log("receiveAllShowtime called");
+	    // console.log("receiveAllShowtime called");
 	    Dispatcher.dispatch({
 	      actionType: ShowtimeConstants.SHOWTIMES_RECEIVED,
 	      showtimes: showtimes
@@ -35086,7 +35086,7 @@
 	  },
 	
 	  receiveSingleShowtime: function (showtime) {
-	    console.log("receiveSingleShowtime called");
+	    // console.log("receiveSingleShowtime called");
 	    Dispatcher.dispatch({
 	      actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
 	      showtime: showtime
@@ -35126,7 +35126,7 @@
 	  },
 	
 	  receiveSingleTicketPurchase: function (ticketPurchase) {
-	    console.log("server actions receive single ticket purchase");
+	    // console.log("server actions receive single ticket purchase");
 	    Dispatcher.dispatch({
 	      actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
 	      ticketPurchase: ticketPurchase
@@ -35197,7 +35197,7 @@
 	      success: function (user) {
 	        hashHistory.push('/home');
 	        // debugger;
-	        console.log("We're in the success function for SignUp");
+	        // console.log("We're in the success function for SignUp");
 	        ServerActions.receiveCurrentUser(user);
 	      },
 	
@@ -35207,14 +35207,14 @@
 	      //   App.closeSignUpModal;
 	      // },
 	      error: function (error) {
-	        console.log("We're in the error function for SignUp");
+	        // console.log("We're in the error function for SignUp");
 	        ServerActions.handleError(error);
 	      }
 	    });
 	  },
 	
 	  login: function (data) {
-	    console.log("useractions login called");
+	    // console.log("useractions login called");
 	    $.ajax({
 	      url: "/api/session",
 	      type: "post",
@@ -35262,18 +35262,18 @@
 	  // Server Actions method, rather than passed in
 	
 	  fetchCurrentUser: function () {
-	    console.log("Fetch Current User");
+	    // console.log("Fetch Current User");
 	    $.ajax({
 	      url: "/api/session",
 	      method: "get",
 	      success: function (user) {
-	        console.log('success function for fetch current user');
+	        // console.log('success function for fetch current user');
 	        // So, right now, UserActions is an empty {} object
 	        // Why, I have no idea.
 	        ServerActions.receiveCurrentUser(user);
 	      }.bind(this),
 	      error: function (error) {
-	        console.log('error function for fetch current user');
+	        // console.log('error function for fetch current user');
 	        ServerActions.handleError(error);
 	      }
 	    });
@@ -35303,25 +35303,25 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    console.log("getInitialState");
+	    // console.log("getInitialState");
 	
 	    return { events: EventStore.all() };
 	  },
 	
 	  _onChange: function () {
-	    console.log('Event Index _onChange');
+	    // console.log('Event Index _onChange');
 	    // debugger;
 	    this.setState({ events: EventStore.all() });
 	  },
 	
 	  componentDidMount: function () {
-	    console.log('componentDidMount');
+	    // console.log('componentDidMount');
 	    this.eventListener = EventStore.addListener(this._onChange);
 	    ClientActions.fetchAllEvents();
 	  },
 	
 	  compomentWillUnmount: function () {
-	    console.log('componentWillUnmount');
+	    // console.log('componentWillUnmount');
 	    this.eventListener.remove();
 	  },
 	
@@ -35330,7 +35330,7 @@
 	    var test = "Nothing";
 	    if (this.state.events) {
 	      test = this.state.events;
-	      console.log(this.state.events);
+	      // console.log(this.state.events);
 	    }
 	
 	    return React.createElement(
@@ -35366,23 +35366,23 @@
 	var newEventId;
 	
 	var resetEvents = function (events) {
-	  console.log('resetEvents');
-	  console.log(["events", events]);
+	  // console.log('resetEvents');
+	  // console.log(["events", events]);
 	  _events = {};
 	  events.forEach(function (event) {
 	    _events[event.id] = event;
 	  });
-	  console.log(["_events", _events]);
+	  // console.log(["_events", _events]);
 	};
 	
 	var resetEvent = function (event) {
-	  console.log("reset Event!");
+	  // console.log("reset Event!");
 	  _events[event.id] = event;
 	  // debugger;
 	};
 	
 	var removeEvent = function (event) {
-	  console.log("eventstore removeEvent");
+	  // console.log("eventstore removeEvent");
 	  delete _events[event.id];
 	};
 	
@@ -35459,7 +35459,7 @@
 	      break;
 	    case EventConstants.EVENT_REMOVED:
 	      // debugger;
-	      console.log("event store case EVENT_REMOVED");
+	      // console.log("event store case EVENT_REMOVED");
 	      removeEvent(payload.event);
 	      EventStore.__emitChange();
 	      break;
@@ -35611,7 +35611,7 @@
 	  },
 	
 	  openEditEventModal: function () {
-	    console.log("small click");
+	    // console.log("small click");
 	    this.bigClickGo = false;
 	    this.setState({ editEventModalOpen: true });
 	  },
@@ -35636,8 +35636,8 @@
 	  },
 	
 	  activateDeleteProcess: function () {
-	    console.log("activateDeleteProcess");
-	    console.log(this.props.event.id);
+	    // console.log("activateDeleteProcess");
+	    // console.log(this.props.event.id);
 	    ClientActions.deleteEvent(this.props.event.id);
 	    this.setState({ deleteEventModalOpen: false });
 	  },
@@ -35646,7 +35646,7 @@
 	    if (this.bigClickGo) {
 	      var destination = "/event/" + this.props.event.id;
 	      hashHistory.push(destination);
-	      // console.log("Big Click Event");
+	      // // console.log("Big Click Event");
 	    }
 	  },
 	
@@ -35686,7 +35686,7 @@
 	
 	    var editOptionForLoggedInUsers;
 	
-	    console.log("Is the user logged in?" + UserStore.loggedIn());
+	    // console.log("Is the user logged in?" + UserStore.loggedIn());
 	    // debugger;
 	    if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id) {
 	      editOptionForLoggedInUsers = React.createElement(
@@ -36635,7 +36635,7 @@
 	ShowtimeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case ShowtimeConstants.SHOWTIMES_RECEIVED:
-	      console.log("SHOWTIMES_RECEIVED");
+	      // console.log("SHOWTIMES_RECEIVED");
 	      resetShowtimes(payload.showtimes);
 	      ShowtimeStore.__emitChange();
 	      break;
@@ -36792,45 +36792,45 @@
 		// usernameChange: function(keyboardEvent){
 		// 	var newUsername = keyboardEvent.target.value;
 		// 	this.setState({ username: newUsername});
-		// 	console.log("");
-		// 	console.log("Username: " + this.state.username);
-		// 	console.log("Password: " + this.state.password);
-		// 	console.log("First Name: " + this.state.firstName);
-		// 	console.log("Last Name: " + this.state.lastName);
-		// 	console.log("");
+		// 	// console.log("");
+		// 	// console.log("Username: " + this.state.username);
+		// 	// console.log("Password: " + this.state.password);
+		// 	// console.log("First Name: " + this.state.firstName);
+		// 	// console.log("Last Name: " + this.state.lastName);
+		// 	// console.log("");
 		// },
 		//
 		// passwordChange: function(keyboardEvent){
 		// 	var newPassword = keyboardEvent.target.value;
 		// 	this.setState({ password: newPassword});
-		// 	console.log("");
-		// 	console.log("Username: " + this.state.username);
-		// 	console.log("Password: " + this.state.password);
-		// 	console.log("First Name: " + this.state.firstName);
-		// 	console.log("Last Name: " + this.state.lastName);
-		// 	console.log("");
+		// 	// console.log("");
+		// 	// console.log("Username: " + this.state.username);
+		// 	// console.log("Password: " + this.state.password);
+		// 	// console.log("First Name: " + this.state.firstName);
+		// 	// console.log("Last Name: " + this.state.lastName);
+		// 	// console.log("");
 		// },
 		//
 		// firstNameChange: function(keyboardEvent){
 		// 	var newFirstName= keyboardEvent.target.value;
 		// 	this.setState({ firstName: newFirstName});
-		// 	console.log("");
-		// 	console.log("Username: " + this.state.username);
-		// 	console.log("Password: " + this.state.password);
-		// 	console.log("First Name: " + this.state.firstName);
-		// 	console.log("Last Name: " + this.state.lastName);
-		// 	console.log("");
+		// 	// console.log("");
+		// 	// console.log("Username: " + this.state.username);
+		// 	// console.log("Password: " + this.state.password);
+		// 	// console.log("First Name: " + this.state.firstName);
+		// 	// console.log("Last Name: " + this.state.lastName);
+		// 	// console.log("");
 		// },
 		//
 		// lastNameChange: function(keyboardEvent){
 		// 	var newLastName= keyboardEvent.target.value;
 		// 	this.setState({ lastName: newLastName});
-		// 	console.log("");
-		// 	console.log("Username: " + this.state.username);
-		// 	console.log("Password: " + this.state.password);
-		// 	console.log("First Name: " + this.state.firstName);
-		// 	console.log("Last Name: " + this.state.lastName);
-		// 	console.log("");
+		// 	// console.log("");
+		// 	// console.log("Username: " + this.state.username);
+		// 	// console.log("Password: " + this.state.password);
+		// 	// console.log("First Name: " + this.state.firstName);
+		// 	// console.log("Last Name: " + this.state.lastName);
+		// 	// console.log("");
 		// },
 		//
 		// handleSubmit: function(keyboardEvent){
@@ -37067,7 +37067,7 @@
 	  titleChange: function (keyboardEvent) {
 	    var newTitle = keyboardEvent.target.value;
 	    this.setState({ title: newTitle });
-	    console.log("Title: " + this.state.title);
+	    // console.log("Title: " + this.state.title);
 	  },
 	
 	  catchphraseChange: function (keyboardEvent) {
@@ -37116,7 +37116,7 @@
 	  // },
 	
 	  handleSubmit: function (keyboardEvent) {
-	    console.log("handle submit!");
+	    // console.log("handle submit!");
 	    keyboardEvent.preventDefault();
 	    var eventData = {
 	      // TODO: id (eventID?)
@@ -37251,7 +37251,7 @@
 	  titleChange: function (keyboardEvent) {
 	    var newTitle = keyboardEvent.target.value;
 	    this.setState({ title: newTitle });
-	    console.log("Title: " + this.state.title);
+	    // console.log("Title: " + this.state.title);
 	  },
 	
 	  catchphraseChange: function (keyboardEvent) {
@@ -37261,7 +37261,7 @@
 	
 	  descriptionChange: function (keyboardEvent) {
 	    var newDescription = keyboardEvent.target.value;
-	    console.log(newDescription);
+	    // console.log(newDescription);
 	    this.setState({ description: newDescription });
 	  },
 	
@@ -37484,7 +37484,7 @@
 	    });
 	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
-	    console.log("Events Id: " + myEvents[0].id);
+	    // console.log("Events Id: " + myEvents[0].id);
 	
 	    this.setState({ events: myEvents,
 	      event_id: myEvents[0].id });
@@ -37497,25 +37497,25 @@
 	  eventIdChange: function (keyboardEvent) {
 	    var newEventId = keyboardEvent.target.value;
 	    this.setState({ event_id: newEventId });
-	    console.log("EventId: " + this.state.event_id);
+	    // console.log("EventId: " + this.state.event_id);
 	  },
 	
 	  dateChange: function (keyboardEvent) {
 	    var newDate = keyboardEvent.target.value;
 	    this.setState({ date: newDate });
-	    console.log("Date: " + this.state.date);
+	    // console.log("Date: " + this.state.date);
 	  },
 	
 	  timeChange: function (keyboardEvent) {
 	    var newTime = keyboardEvent.target.value;
 	    this.setState({ time: newTime });
-	    console.log("Time: " + this.state.time);
+	    // console.log("Time: " + this.state.time);
 	  },
 	
 	  locationChange: function (keyboardEvent) {
 	    var newLocation = keyboardEvent.target.value;
 	    this.setState({ location: newLocation });
-	    console.log("Location: " + this.state.location);
+	    // console.log("Location: " + this.state.location);
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
@@ -37807,8 +37807,8 @@
 	    var newEventsShowtimes = myShowtimes[newEventId];
 	    var newShowtime = newEventsShowtimes[0];
 	
-	    console.log("EventId: " + this.state.event_id);
-	    console.log("ShowtimeId: " + this.state.showtime_id);
+	    // console.log("EventId: " + this.state.event_id);
+	    // console.log("ShowtimeId: " + this.state.showtime_id);
 	
 	    this.setState({ event_id: newEventId, showtime_id: newShowtime.id });
 	  },
@@ -37816,24 +37816,24 @@
 	  showtimeIdChange: function (keyboardEvent) {
 	    var newShowtimeId = keyboardEvent.target.value;
 	    this.setState({ showtime_id: newShowtimeId });
-	    console.log("ShowtimeId: " + this.state.showtime_id);
+	    // console.log("ShowtimeId: " + this.state.showtime_id);
 	  },
 	
 	  priceChange: function (keyboardEvent) {
 	    var newPrice = keyboardEvent.target.value;
 	    this.setState({ price: newPrice });
-	    console.log("Price: " + this.state.price);
+	    // console.log("Price: " + this.state.price);
 	  },
 	
 	  tierChange: function (keyboardEvent) {
 	    var newTier = keyboardEvent.target.value;
 	    this.setState({ tier: newTier });
-	    console.log("Tier: " + this.state.tier);
+	    // console.log("Tier: " + this.state.tier);
 	  },
 	
 	  descriptionChange: function (keyboardEvent) {
 	    var newDescription = keyboardEvent.target.value;
-	    console.log(newDescription);
+	    // console.log(newDescription);
 	    this.setState({ description: newDescription });
 	  },
 	
@@ -38022,13 +38022,13 @@
 	  usernameChange: function (keyboardEvent) {
 	    var newUsername = keyboardEvent.target.value;
 	    this.setState({ username: newUsername });
-	    console.log("Username: " + this.state.username);
+	    // console.log("Username: " + this.state.username);
 	  },
 	
 	  passwordChange: function (keyboardEvent) {
 	    var newPassword = keyboardEvent.target.value;
 	    this.setState({ password: newPassword });
-	    console.log("Password: " + this.state.password);
+	    // console.log("Password: " + this.state.password);
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
@@ -38038,7 +38038,7 @@
 	      password: this.state.password
 	    };
 	
-	    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
+	    // console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 	
 	    ClientActions.signup(userData);
 	  },
@@ -38100,13 +38100,13 @@
 	  usernameChange: function (keyboardEvent) {
 	    var newUsername = keyboardEvent.target.value;
 	    this.setState({ username: newUsername });
-	    console.log("Username: " + this.state.username);
+	    // console.log("Username: " + this.state.username);
 	  },
 	
 	  passwordChange: function (keyboardEvent) {
 	    var newPassword = keyboardEvent.target.value;
 	    this.setState({ password: newPassword });
-	    console.log("Password: " + this.state.password);
+	    // console.log("Password: " + this.state.password);
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
@@ -38116,7 +38116,7 @@
 	      password: this.state.password
 	    };
 	
-	    console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
+	    // console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 	
 	    ClientActions.login(userData);
 	  },
@@ -38170,23 +38170,23 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    console.log("getInitialState");
+	    // console.log("getInitialState");
 	    return { events: EventStore.all() };
 	  },
 	
 	  _onChange: function () {
-	    console.log('_onChange');
+	    // console.log('_onChange');
 	    this.setState({ events: EventStore.all() });
 	  },
 	
 	  componentDidMount: function () {
-	    console.log('componentDidMount');
+	    // console.log('componentDidMount');
 	    this.eventListener = EventStore.addListener(this._onChange);
 	    ClientActions.fetchAllEvents();
 	  },
 	
 	  compomentWillUnmount: function () {
-	    console.log('componentWillUnmount');
+	    // console.log('componentWillUnmount');
 	    this.eventListener.remove();
 	  },
 	
@@ -38205,7 +38205,7 @@
 	    var test = "Nothing";
 	    if (this.state.events) {
 	      test = this.state.events;
-	      console.log(this.state.events);
+	      // console.log(this.state.events);
 	    }
 	
 	    return React.createElement(
@@ -38248,20 +38248,20 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    console.log("getInitialState");
+	    // console.log("getInitialState");
 	    return { tickets: TicketStore.all(),
 	      ticket_purchases: TicketPurchaseStore.all() };
 	  },
 	
 	  _onChange: function () {
 	    // debugger;
-	    console.log('_onChange');
+	    // console.log('_onChange');
 	    this.setState({ tickets: TicketStore.all(),
 	      ticket_purchases: TicketPurchaseStore.all() });
 	  },
 	
 	  componentDidMount: function () {
-	    console.log('componentDidMount');
+	    // console.log('componentDidMount');
 	    this.ticketListener = TicketStore.addListener(this._onChange);
 	    this.ticketPurchaseListener = TicketPurchaseStore.addListener(this._onChange);
 	    // ClientActions.fetchAllTickets();
@@ -38269,7 +38269,7 @@
 	  },
 	
 	  compomentWillUnmount: function () {
-	    console.log('componentWillUnmount');
+	    // console.log('componentWillUnmount');
 	    this.ticketListener.remove();
 	  },
 	
@@ -38295,7 +38295,7 @@
 	    var test = "Nothing";
 	    if (this.state.tickets) {
 	      test = this.state.tickets;
-	      console.log(this.state.tickets);
+	      // console.log(this.state.tickets);
 	    }
 	
 	    var content;
@@ -38347,13 +38347,13 @@
 	var _tickets = {};
 	
 	var resetTickets = function (tickets) {
-	  console.log('resetTickets');
-	  console.log(["tickets", tickets]);
+	  // console.log('resetTickets');
+	  // console.log(["tickets", tickets]);
 	  _tickets = {};
 	  tickets.forEach(function (ticket) {
 	    _tickets[ticket.id] = ticket;
 	  });
-	  console.log(["_tickets", _tickets]);
+	  // console.log(["_tickets", _tickets]);
 	};
 	
 	var resetTicket = function (ticket) {
@@ -38361,7 +38361,7 @@
 	};
 	
 	var removeTicket = function (ticket) {
-	  console.log("ticketstore removeTicket");
+	  // console.log("ticketstore removeTicket");
 	  delete _tickets[ticket.id];
 	};
 	
@@ -38389,7 +38389,7 @@
 	      TicketStore.__emitChange();
 	      break;
 	    case TicketConstants.TICKET_REMOVED:
-	      console.log("ticket store case EVENT_REMOVED");
+	      // console.log("ticket store case EVENT_REMOVED");
 	      removeTicket(payload.ticket);
 	      break;
 	  }
@@ -38430,6 +38430,10 @@
 	
 	  componentDidMount: function () {
 	    window.scrollTo(0, 0);
+	    console.log("Hello!");
+	    console.log("Welcome to TixStarter.io");
+	    console.log("For more information about the creator of this site:");
+	    console.log("Email Steve@SteveMBoyle.com");
 	  },
 	
 	  render: function () {

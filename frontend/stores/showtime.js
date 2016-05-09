@@ -54,7 +54,7 @@ ShowtimeStore.find = function (id) {
 ShowtimeStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case ShowtimeConstants.SHOWTIMES_RECEIVED:
-      console.log("SHOWTIMES_RECEIVED");
+      // console.log("SHOWTIMES_RECEIVED");
       resetShowtimes(payload.showtimes);
       ShowtimeStore.__emitChange();
       break;

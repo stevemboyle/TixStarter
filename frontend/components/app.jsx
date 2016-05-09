@@ -154,7 +154,7 @@ module.exports = React.createClass({
     },
 
     signInWithDemoAccount: function(){
-      console.log("app: sign in with demo account");
+      // console.log("app: sign in with demo account");
       ClientActions.login({username: "guest", password: "password"});
     },
 

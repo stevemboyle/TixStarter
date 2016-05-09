@@ -10,23 +10,23 @@ var _eventSuccess = false;
 var newEventId;
 
 var resetEvents = function (events) {
-  console.log('resetEvents');
-  console.log(["events", events]);
+  // console.log('resetEvents');
+  // console.log(["events", events]);
   _events = {};
   events.forEach(function (event) {
     _events[event.id] = event;
   });
-  console.log(["_events", _events]);
+  // console.log(["_events", _events]);
 };
 
 var resetEvent = function (event) {
-  console.log("reset Event!");
+  // console.log("reset Event!");
   _events[event.id] = event;
   // debugger;
 };
 
 var removeEvent = function(event){
-  console.log("eventstore removeEvent");
+  // console.log("eventstore removeEvent");
   delete _events[event.id];
 };
 
@@ -104,7 +104,7 @@ EventStore.__onDispatch = function (payload) {
       break;
     case EventConstants.EVENT_REMOVED:
       // debugger;
-      console.log("event store case EVENT_REMOVED");
+      // console.log("event store case EVENT_REMOVED");
       removeEvent(payload.event);
       EventStore.__emitChange();
       break;

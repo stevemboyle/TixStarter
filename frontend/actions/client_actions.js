@@ -10,7 +10,7 @@ module.exports = {
   },
 
   signup: function(data){
-    console.log("Client Actions, Sign Up");
+    // console.log("Client Actions, Sign Up");
     UserApiUtil.signup(data);
   },
 
@@ -59,8 +59,8 @@ module.exports = {
   },
 
   fetchSingleShowtime: function(id) {
-    console.log("ClientActions.fetchSingleShowtime");
-    console.log("Id is " + id);
+    // console.log("ClientActions.fetchSingleShowtime");
+    // console.log("Id is " + id);
     ApiUtil.fetchSingleShowtime(id);
   },
 

@@ -5,25 +5,25 @@ var EventIndexItem = require('./indexItem.jsx');
 
 module.exports = React.createClass({
   getInitialState: function () {
-    console.log("getInitialState");
+    // console.log("getInitialState");
 
     return { events: EventStore.all() };
   },
 
   _onChange: function () {
-    console.log('Event Index _onChange');
+    // console.log('Event Index _onChange');
     // debugger;
     this.setState({ events: EventStore.all() });
   },
 
   componentDidMount: function () {
-    console.log('componentDidMount');
+    // console.log('componentDidMount');
     this.eventListener = EventStore.addListener(this._onChange);
     ClientActions.fetchAllEvents();
   },
 
   compomentWillUnmount: function () {
-    console.log('componentWillUnmount');
+    // console.log('componentWillUnmount');
     this.eventListener.remove();
   },
 
@@ -32,7 +32,7 @@ module.exports = React.createClass({
     var test = "Nothing";
     if (this.state.events){
       test = this.state.events;
-      console.log(this.state.events);
+      // console.log(this.state.events);
     }
 
     return(

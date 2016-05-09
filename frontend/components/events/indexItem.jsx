@@ -132,7 +132,7 @@ module.exports = React.createClass({
   },
 
   openEditEventModal: function(){
-    console.log("small click");
+    // console.log("small click");
     this.bigClickGo = false;
     this.setState({ editEventModalOpen: true });
   },
@@ -157,8 +157,8 @@ module.exports = React.createClass({
   },
 
   activateDeleteProcess: function(){
-    console.log("activateDeleteProcess");
-    console.log(this.props.event.id);
+    // console.log("activateDeleteProcess");
+    // console.log(this.props.event.id);
     ClientActions.deleteEvent(this.props.event.id);
     this.setState({ deleteEventModalOpen: false });
   },
@@ -167,7 +167,7 @@ module.exports = React.createClass({
     if (this.bigClickGo){
       var destination = "/event/" + this.props.event.id;
       hashHistory.push(destination);
-      // console.log("Big Click Event");
+      // // console.log("Big Click Event");
     }
   },
 
@@ -207,7 +207,7 @@ module.exports = React.createClass({
 
     var editOptionForLoggedInUsers;
 
-    console.log("Is the user logged in?" + UserStore.loggedIn());
+    // console.log("Is the user logged in?" + UserStore.loggedIn());
     // debugger;
     if (UserStore.loggedIn() && UserStore.user().id === this.props.event.user_id){
       editOptionForLoggedInUsers =(

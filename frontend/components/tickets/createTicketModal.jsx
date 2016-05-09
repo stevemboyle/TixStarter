@@ -175,8 +175,8 @@ module.exports = React.createClass({
     var newEventsShowtimes = myShowtimes[newEventId];
     var newShowtime = newEventsShowtimes[0];
 
-    console.log("EventId: " + this.state.event_id);
-    console.log("ShowtimeId: " + this.state.showtime_id);
+    // console.log("EventId: " + this.state.event_id);
+    // console.log("ShowtimeId: " + this.state.showtime_id);
 
     this.setState({ event_id: newEventId, showtime_id: newShowtime.id});
 
@@ -186,24 +186,24 @@ module.exports = React.createClass({
   showtimeIdChange: function(keyboardEvent){
     var newShowtimeId = keyboardEvent.target.value;
     this.setState({ showtime_id: newShowtimeId });
-    console.log("ShowtimeId: " + this.state.showtime_id);
+    // console.log("ShowtimeId: " + this.state.showtime_id);
   },
 
   priceChange: function(keyboardEvent){
     var newPrice = keyboardEvent.target.value;
     this.setState({ price: newPrice });
-    console.log("Price: " + this.state.price);
+    // console.log("Price: " + this.state.price);
   },
 
   tierChange: function(keyboardEvent){
     var newTier = keyboardEvent.target.value;
     this.setState({ tier: newTier });
-    console.log("Tier: " + this.state.tier);
+    // console.log("Tier: " + this.state.tier);
   },
 
   descriptionChange: function(keyboardEvent){
     var newDescription = keyboardEvent.target.value;
-      console.log(newDescription);
+      // console.log(newDescription);
     this.setState({ description: newDescription});
   },
 

@@ -8,13 +8,13 @@ var TicketPurchaseStore = new Store(AppDispatcher);
 var _ticketPurchases = {};
 
 var resetTicketPurchases = function (ticketPurchases) {
-  console.log('resetTicketPurchases');
-  console.log(["ticketPurchases", ticketPurchases]);
+  // console.log('resetTicketPurchases');
+  // console.log(["ticketPurchases", ticketPurchases]);
   _ticketPurchases = {};
   ticketPurchases.forEach(function (ticketPurchase) {
     _ticketPurchases[ticketPurchase.id] = ticketPurchase;
   });
-  console.log(["_ticketPurchases", _ticketPurchases]);
+  // console.log(["_ticketPurchases", _ticketPurchases]);
 };
 
 var resetTicketPurchase = function (ticketPurchase) {
@@ -23,7 +23,7 @@ var resetTicketPurchase = function (ticketPurchase) {
 };
 
 var removeTicketPurchase = function(ticketPurchase){
-  console.log("ticketPurchasestore removeTicketPurchase");
+  // console.log("ticketPurchasestore removeTicketPurchase");
   delete _ticketPurchases[ticketPurchase.id];
 };
 
@@ -42,17 +42,17 @@ TicketPurchaseStore.find = function (id) {
 TicketPurchaseStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case TicketPurchaseConstants.TICKET_PURCHASES_RECEIVED:
-      console.log("ticket purchases received");
+      // console.log("ticket purchases received");
       resetTicketPurchases(payload.ticketPurchases);
       TicketPurchaseStore.__emitChange();
       break;
     case TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED:
-      console.log("ticket purchase received");
+      // console.log("ticket purchase received");
       resetTicketPurchase(payload.ticketPurchase);
       TicketPurchaseStore.__emitChange();
       break;
     case TicketPurchaseConstants.TICKET_PURCHASE_REMOVED:
-      console.log("ticketPurchase store case EVENT_REMOVED");
+      // console.log("ticketPurchase store case EVENT_REMOVED");
       removeTicketPurchase(payload.ticketPurchase);
       break;
   }

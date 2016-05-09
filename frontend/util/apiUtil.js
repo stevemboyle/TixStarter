@@ -77,13 +77,13 @@ var ApiUtil = {
   },
 
   deleteEvent: function(id){
-    console.log("Api Util delete event");
+    // console.log("Api Util delete event");
     $.ajax({
      url: "api/events/" + id,
      type: "DELETE",
      success: function (event) {
       //  debugger;
-       console.log("success function for Api Util!");
+       // console.log("success function for Api Util!");
        ServerActions.removeEvent(event);
      }
    });
@@ -106,12 +106,12 @@ var ApiUtil = {
   },
 
   fetchSingleShowtime: function (id) {
-    console.log("api util fetch single showtime");
-    console.log("id is " + id);
+    // console.log("api util fetch single showtime");
+    // console.log("id is " + id);
     $.ajax({
       url: "api/showtimes/" + id,
       success: function (showtime) {
-        console.log("success function!");
+        // console.log("success function!");
         ServerActions.receiveSingleShowtime(showtime);
       }
     });
@@ -123,7 +123,7 @@ var ApiUtil = {
       method: "POST",
       data: {showtime: showtime},
       success: function (showtime) {
-        console.log("sucess function of APiUtil Create Showtime");
+        // console.log("sucess function of APiUtil Create Showtime");
         // debugger;
         // hashHistory.push('/event/' + showtime.event_id);
 
@@ -189,14 +189,14 @@ var ApiUtil = {
   },
 
   createTicketPurchase: function (data) {
-    console.log("create ticket purchase");
+    // console.log("create ticket purchase");
     $.ajax({
       url: "api/ticket_purchases",
       // Changed "event" to "events"
       method: "POST",
       data: {ticket_purchase: data},
       success: function (ticketPurchase) {
-        console.log('create ticket purchase success');
+        // console.log('create ticket purchase success');
         // hashHistory.push('/success');
         ServerActions.receiveSingleTicketPurchase(ticketPurchase);
         // callback && callback(event.id);

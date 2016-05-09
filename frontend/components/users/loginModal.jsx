@@ -113,45 +113,45 @@ var LoginModal = React.createClass({
 	// usernameChange: function(keyboardEvent){
 	// 	var newUsername = keyboardEvent.target.value;
 	// 	this.setState({ username: newUsername});
-	// 	console.log("");
-	// 	console.log("Username: " + this.state.username);
-	// 	console.log("Password: " + this.state.password);
-	// 	console.log("First Name: " + this.state.firstName);
-	// 	console.log("Last Name: " + this.state.lastName);
-	// 	console.log("");
+	// 	// console.log("");
+	// 	// console.log("Username: " + this.state.username);
+	// 	// console.log("Password: " + this.state.password);
+	// 	// console.log("First Name: " + this.state.firstName);
+	// 	// console.log("Last Name: " + this.state.lastName);
+	// 	// console.log("");
 	// },
 	//
 	// passwordChange: function(keyboardEvent){
 	// 	var newPassword = keyboardEvent.target.value;
 	// 	this.setState({ password: newPassword});
-	// 	console.log("");
-	// 	console.log("Username: " + this.state.username);
-	// 	console.log("Password: " + this.state.password);
-	// 	console.log("First Name: " + this.state.firstName);
-	// 	console.log("Last Name: " + this.state.lastName);
-	// 	console.log("");
+	// 	// console.log("");
+	// 	// console.log("Username: " + this.state.username);
+	// 	// console.log("Password: " + this.state.password);
+	// 	// console.log("First Name: " + this.state.firstName);
+	// 	// console.log("Last Name: " + this.state.lastName);
+	// 	// console.log("");
 	// },
 	//
 	// firstNameChange: function(keyboardEvent){
 	// 	var newFirstName= keyboardEvent.target.value;
 	// 	this.setState({ firstName: newFirstName});
-	// 	console.log("");
-	// 	console.log("Username: " + this.state.username);
-	// 	console.log("Password: " + this.state.password);
-	// 	console.log("First Name: " + this.state.firstName);
-	// 	console.log("Last Name: " + this.state.lastName);
-	// 	console.log("");
+	// 	// console.log("");
+	// 	// console.log("Username: " + this.state.username);
+	// 	// console.log("Password: " + this.state.password);
+	// 	// console.log("First Name: " + this.state.firstName);
+	// 	// console.log("Last Name: " + this.state.lastName);
+	// 	// console.log("");
 	// },
 	//
 	// lastNameChange: function(keyboardEvent){
 	// 	var newLastName= keyboardEvent.target.value;
 	// 	this.setState({ lastName: newLastName});
-	// 	console.log("");
-	// 	console.log("Username: " + this.state.username);
-	// 	console.log("Password: " + this.state.password);
-	// 	console.log("First Name: " + this.state.firstName);
-	// 	console.log("Last Name: " + this.state.lastName);
-	// 	console.log("");
+	// 	// console.log("");
+	// 	// console.log("Username: " + this.state.username);
+	// 	// console.log("Password: " + this.state.password);
+	// 	// console.log("First Name: " + this.state.firstName);
+	// 	// console.log("Last Name: " + this.state.lastName);
+	// 	// console.log("");
 	// },
 	//
 	// handleSubmit: function(keyboardEvent){

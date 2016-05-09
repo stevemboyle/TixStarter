@@ -6,13 +6,13 @@ var TicketStore = new Store(AppDispatcher);
 var _tickets = {};
 
 var resetTickets = function (tickets) {
-  console.log('resetTickets');
-  console.log(["tickets", tickets]);
+  // console.log('resetTickets');
+  // console.log(["tickets", tickets]);
   _tickets = {};
   tickets.forEach(function (ticket) {
     _tickets[ticket.id] = ticket;
   });
-  console.log(["_tickets", _tickets]);
+  // console.log(["_tickets", _tickets]);
 };
 
 var resetTicket = function (ticket) {
@@ -20,7 +20,7 @@ var resetTicket = function (ticket) {
 };
 
 var removeTicket = function(ticket){
-  console.log("ticketstore removeTicket");
+  // console.log("ticketstore removeTicket");
   delete _tickets[ticket.id];
 };
 
@@ -48,7 +48,7 @@ TicketStore.__onDispatch = function (payload) {
       TicketStore.__emitChange();
       break;
     case TicketConstants.TICKET_REMOVED:
-      console.log("ticket store case EVENT_REMOVED");
+      // console.log("ticket store case EVENT_REMOVED");
       removeTicket(payload.ticket);
       break;
   }

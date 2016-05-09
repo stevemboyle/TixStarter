@@ -10,8 +10,8 @@ module.exports = {
   // User Functions:
 
   receiveCurrentUser: function(user){
-    console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
-    console.log(["user", user]);
+    // console.log("Okay, now we're in receiveCurrentUser with our user as " + user);
+    // console.log(["user", user]);
     Dispatcher.dispatch({
       actionType: UserConstants.LOGIN,
       user: user
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   handleError: function(error) {
-    console.log("Handle Error Function in User Actions!");
+    // console.log("Handle Error Function in User Actions!");
     Dispatcher.dispatch({
       actionType: UserConstants.ERROR,
       errors: error.responseJSON.errors
@@ -59,7 +59,7 @@ module.exports = {
   // Showtimes Functions:
 
   receiveAllShowtimes: function (showtimes) {
-    console.log("receiveAllShowtime called");
+    // console.log("receiveAllShowtime called");
     Dispatcher.dispatch({
       actionType: ShowtimeConstants.SHOWTIMES_RECEIVED,
       showtimes: showtimes
@@ -67,7 +67,7 @@ module.exports = {
   },
 
   receiveSingleShowtime: function (showtime) {
-    console.log("receiveSingleShowtime called");
+    // console.log("receiveSingleShowtime called");
     Dispatcher.dispatch({
       actionType: ShowtimeConstants.SHOWTIME_RECEIVED,
       showtime: showtime
@@ -109,7 +109,7 @@ module.exports = {
     },
 
     receiveSingleTicketPurchase: function (ticketPurchase) {
-      console.log("server actions receive single ticket purchase");
+      // console.log("server actions receive single ticket purchase");
       Dispatcher.dispatch({
         actionType: TicketPurchaseConstants.TICKET_PURCHASE_RECEIVED,
         ticketPurchase: ticketPurchase

@@ -22,6 +22,10 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
     window.scrollTo(0, 0);
+    console.log("Hello!");
+    console.log("Welcome to TixStarter.io");
+    console.log("For more information about the creator of this site:");
+    console.log("Email Steve@SteveMBoyle.com");
   },
 
   render: function () {

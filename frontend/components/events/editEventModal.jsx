@@ -32,7 +32,7 @@ module.exports = React.createClass({
     titleChange: function(keyboardEvent){
       var newTitle = keyboardEvent.target.value;
       this.setState({ title: newTitle });
-      console.log("Title: " + this.state.title);
+      // console.log("Title: " + this.state.title);
     },
 
     catchphraseChange: function(keyboardEvent){
@@ -81,7 +81,7 @@ module.exports = React.createClass({
     // },
 
     handleSubmit: function(keyboardEvent){
-      console.log("handle submit!");
+      // console.log("handle submit!");
       keyboardEvent.preventDefault();
       var eventData = {
         // TODO: id (eventID?)

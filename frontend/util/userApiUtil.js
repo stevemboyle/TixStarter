@@ -13,7 +13,7 @@ var UserApiUtil = {
       success: function(user){
         hashHistory.push('/home');
         // debugger;
-        console.log("We're in the success function for SignUp");
+        // console.log("We're in the success function for SignUp");
         ServerActions.receiveCurrentUser(user);
       },
 
@@ -23,14 +23,14 @@ var UserApiUtil = {
       //   App.closeSignUpModal;
       // },
       error: function(error){
-        console.log("We're in the error function for SignUp");
+        // console.log("We're in the error function for SignUp");
         ServerActions.handleError(error);
       }
     });
   },
 
   login: function(data){
-    console.log("useractions login called");
+    // console.log("useractions login called");
     $.ajax({
       url: "/api/session",
       type: "post",
@@ -78,18 +78,18 @@ var UserApiUtil = {
   // Server Actions method, rather than passed in
 
   fetchCurrentUser: function(){
-    console.log("Fetch Current User");
+    // console.log("Fetch Current User");
     $.ajax({
       url: "/api/session",
       method: "get",
       success: function(user){
-        console.log('success function for fetch current user');
+        // console.log('success function for fetch current user');
         // So, right now, UserActions is an empty {} object
         // Why, I have no idea.
         ServerActions.receiveCurrentUser(user);
       }.bind(this),
       error: function(error){
-        console.log('error function for fetch current user');
+        // console.log('error function for fetch current user');
         ServerActions.handleError(error);
       }
     });
