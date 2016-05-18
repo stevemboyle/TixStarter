@@ -22,7 +22,6 @@ module.exports = React.createClass({
   titleChange: function(keyboardEvent){
     var newTitle = keyboardEvent.target.value;
     this.setState({ title: newTitle });
-    // console.log("Title: " + this.state.title);
   },
 
   catchphraseChange: function(keyboardEvent){
@@ -32,7 +31,6 @@ module.exports = React.createClass({
 
   descriptionChange: function(keyboardEvent){
     var newDescription = keyboardEvent.target.value;
-      // console.log(newDescription);
     this.setState({ description: newDescription});
   },
 
@@ -45,11 +43,6 @@ module.exports = React.createClass({
     var newVideoUrl = keyboardEvent.target.value;
     this.setState({ video_url: newVideoUrl});
   },
-
-  // userIdChange: function(keyboardEvent){
-  //   var newUserId = keyboardEvent.target.value;
-  //   this.setState({ user_id: newUserId});
-  // },
 
   revenueGoalChange: function(keyboardEvent){
     var newRevenueGoal = keyboardEvent.target.value;
@@ -70,16 +63,6 @@ module.exports = React.createClass({
     };
 
     ClientActions.createEvent(eventData);
-    // this.setState({
-    //   title: "",
-    //   catchphrase: "",
-    //   description: "",
-    //   imageUrl: "",
-    //   videoUrl: "",
-    //   userId: "",
-    //   revenueGoal: "",
-    //   revenueStatus: 0,
-    // });
   },
 
   render: function(){
@@ -160,7 +143,6 @@ module.exports = React.createClass({
         </form>
 
         <br></br>
-        <p>To Do: <b>Add Deadlines</b></p>
       </div>
     );
   }

@@ -1,10 +1,5 @@
 var React = require('react');
-// var EventStore = require('../../stores/event.js');
-// var ShowtimesIndex = require('../showtimes/index.jsx');
-// var ClientActions = require('../../actions/client_actions.js');
-// var UserStore = require('../../stores/user');
 var CreateEventModal = require('./createEventModal');
-// var WizardLanding = require('./WizardLanding');
 
 module.exports = React.createClass({
 

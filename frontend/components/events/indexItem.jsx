@@ -322,6 +322,3 @@ module.exports = React.createClass({
     );
   }
 });
-
-
-//  <EventDetail event={this.props.event} />

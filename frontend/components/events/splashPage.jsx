@@ -1,25 +1,12 @@
 var React = require('react');
-var Modal = require("react-modal");
-var ShowtimeModal = require('../showtimes/showtimeModal');
 var EventStore = require('../../stores/event.js');
 var ShowtimesIndex = require('../showtimes/index.jsx');
 var ClientActions = require('../../actions/client_actions.js');
-// var ApiUtil = require('../../util/apiUtil');
 
 module.exports = React.createClass({
 
   getStateFromStore: function () {
-    // ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
-    return { event: EventStore.find(parseInt(this.props.params.eventId)),
-              showtimeModalOpen: false   };
-  },
-
-  openShowtimeModal: function(){
-    this.setState({ showtimeModalOpen: true });
-  },
-
-  closeShowtimeModal: function(){
-    this.setState({ showtimeModalOpen: false });
+    return { event: EventStore.find(parseInt(this.props.params.eventId))};
   },
 
   _onChange: function () {
@@ -35,7 +22,6 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function () {
-    // $(window).scrollTop(0);
     window.scrollTo(0, 0);
     this.eventListener = EventStore.addListener(this._onChange);
     ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
@@ -48,8 +34,8 @@ module.exports = React.createClass({
   setEventBackgroundImage: function(){
     return({
       backgroundImage: 'url(' + this.state.event.image_url + ')',
-      WebkitTransition: 'all', // note the capital 'W' here
-      msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+      WebkitTransition: 'all',
+      msTransition: 'all'
     });
   },
 
@@ -58,8 +44,6 @@ module.exports = React.createClass({
   },
 
   revenueStatus: function(){
-  // debugger;
-    // return this.giveNumberCommas(this.state.event.revenue_status);
     return this.giveNumberCommas(this.getUpToDateRevenueStatus());
   },
 
@@ -86,14 +70,7 @@ module.exports = React.createClass({
     return roundedPercentage;
   },
 
-
   render: function(){
-
-    // <div className="header-section">
-    //   Let's Get Tickets! Start by Picking Your Showtime
-    // </div>
-
-    // var percentFunded = (this.state.event.revenue_status / this.state.event.revenue_goal);
 
     if(this.state.event === undefined) { return <div></div>; }
 
@@ -167,27 +144,11 @@ module.exports = React.createClass({
       <br></br>
 
     </section>
+
         <section id="event-page-showtimes">
-      <h2 className="events-index-header">Showtimes:</h2>
+          <h2 className="events-index-header">Showtimes:</h2>
           <ShowtimesIndex showtimes={this.state.event.showtimes} />
-
         </section>
-
-        <Modal
-           isOpen={this.state.showtimeModalOpen}
-           onRequestClose={this.closeShowtimeAndEventModals}>
-
-             <h2>Im supposed to be a modal!</h2>
-
-            <ShowtimeModal showtime={this.props.showtime}/>
-
-            <button onClick={this.closeShowtimeModal}>Back</button>
-
-             <p>modal modal modal modal modal</p>
-             <p>mooooooooodal!</p>
-
-         </Modal>
-
 
       </div>
 

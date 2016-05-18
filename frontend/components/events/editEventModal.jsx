@@ -1,7 +1,5 @@
 var React = require('react');
 var EventStore = require('../../stores/event.js');
-// var ShowtimesIndex = require('../showtimes/index.jsx');
-// var Link = require('react-router').Link;
 var ClientActions = require('../../actions/client_actions.js');
 
 module.exports = React.createClass({
@@ -32,7 +30,6 @@ module.exports = React.createClass({
     titleChange: function(keyboardEvent){
       var newTitle = keyboardEvent.target.value;
       this.setState({ title: newTitle });
-      // console.log("Title: " + this.state.title);
     },
 
     catchphraseChange: function(keyboardEvent){

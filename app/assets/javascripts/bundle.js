@@ -35197,25 +35197,19 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    // console.log("getInitialState");
-	
 	    return { events: EventStore.all() };
 	  },
 	
 	  _onChange: function () {
-	    // console.log('Event Index _onChange');
-	    // debugger;
 	    this.setState({ events: EventStore.all() });
 	  },
 	
 	  componentDidMount: function () {
-	    // console.log('componentDidMount');
 	    this.eventListener = EventStore.addListener(this._onChange);
 	    ClientActions.fetchAllEvents();
 	  },
 	
 	  compomentWillUnmount: function () {
-	    // console.log('componentWillUnmount');
 	    this.eventListener.remove();
 	  },
 	
@@ -35224,7 +35218,6 @@
 	    var test = "Nothing";
 	    if (this.state.events) {
 	      test = this.state.events;
-	      // console.log(this.state.events);
 	    }
 	
 	    return React.createElement(
@@ -35788,8 +35781,6 @@
 	    );
 	  }
 	});
-	
-	//  <EventDetail event={this.props.event} />
 
 /***/ },
 /* 274 */
@@ -36791,8 +36782,6 @@
 
 	var React = __webpack_require__(1);
 	var EventStore = __webpack_require__(272);
-	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	// var Link = require('react-router').Link;
 	var ClientActions = __webpack_require__(263);
 	
 	module.exports = React.createClass({
@@ -36825,7 +36814,6 @@
 	  titleChange: function (keyboardEvent) {
 	    var newTitle = keyboardEvent.target.value;
 	    this.setState({ title: newTitle });
-	    // console.log("Title: " + this.state.title);
 	  },
 	
 	  catchphraseChange: function (keyboardEvent) {
@@ -37009,7 +36997,6 @@
 	  titleChange: function (keyboardEvent) {
 	    var newTitle = keyboardEvent.target.value;
 	    this.setState({ title: newTitle });
-	    // console.log("Title: " + this.state.title);
 	  },
 	
 	  catchphraseChange: function (keyboardEvent) {
@@ -37019,7 +37006,6 @@
 	
 	  descriptionChange: function (keyboardEvent) {
 	    var newDescription = keyboardEvent.target.value;
-	    // console.log(newDescription);
 	    this.setState({ description: newDescription });
 	  },
 	
@@ -37032,11 +37018,6 @@
 	    var newVideoUrl = keyboardEvent.target.value;
 	    this.setState({ video_url: newVideoUrl });
 	  },
-	
-	  // userIdChange: function(keyboardEvent){
-	  //   var newUserId = keyboardEvent.target.value;
-	  //   this.setState({ user_id: newUserId});
-	  // },
 	
 	  revenueGoalChange: function (keyboardEvent) {
 	    var newRevenueGoal = keyboardEvent.target.value;
@@ -37057,16 +37038,6 @@
 	    };
 	
 	    ClientActions.createEvent(eventData);
-	    // this.setState({
-	    //   title: "",
-	    //   catchphrase: "",
-	    //   description: "",
-	    //   imageUrl: "",
-	    //   videoUrl: "",
-	    //   userId: "",
-	    //   revenueGoal: "",
-	    //   revenueStatus: 0,
-	    // });
 	  },
 	
 	  render: function () {
@@ -37167,17 +37138,7 @@
 	        React.createElement('input', { type: 'submit', value: 'Create Event' }),
 	        React.createElement('br', null)
 	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'To Do: ',
-	        React.createElement(
-	          'b',
-	          null,
-	          'Add Deadlines'
-	        )
-	      )
+	      React.createElement('br', null)
 	    );
 	  }
 	
@@ -37832,23 +37793,19 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    // console.log("getInitialState");
 	    return { events: EventStore.all() };
 	  },
 	
 	  _onChange: function () {
-	    // console.log('_onChange');
 	    this.setState({ events: EventStore.all() });
 	  },
 	
 	  componentDidMount: function () {
-	    // console.log('componentDidMount');
 	    this.eventListener = EventStore.addListener(this._onChange);
 	    ClientActions.fetchAllEvents();
 	  },
 	
 	  compomentWillUnmount: function () {
-	    // console.log('componentWillUnmount');
 	    this.eventListener.remove();
 	  },
 	
@@ -37867,7 +37824,6 @@
 	    var test = "Nothing";
 	    if (this.state.events) {
 	      test = this.state.events;
-	      // console.log(this.state.events);
 	    }
 	
 	    return React.createElement(
@@ -38154,29 +38110,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var Modal = __webpack_require__(241);
-	var ShowtimeModal = __webpack_require__(277);
 	var EventStore = __webpack_require__(272);
 	var ShowtimesIndex = __webpack_require__(275);
 	var ClientActions = __webpack_require__(263);
-	// var ApiUtil = require('../../util/apiUtil');
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
 	
 	  getStateFromStore: function () {
-	    // ApiUtil.fetchSingleEvent(parseInt(this.props.params.eventId));
-	    return { event: EventStore.find(parseInt(this.props.params.eventId)),
-	      showtimeModalOpen: false };
-	  },
-	
-	  openShowtimeModal: function () {
-	    this.setState({ showtimeModalOpen: true });
-	  },
-	
-	  closeShowtimeModal: function () {
-	    this.setState({ showtimeModalOpen: false });
+	    return { event: EventStore.find(parseInt(this.props.params.eventId)) };
 	  },
 	
 	  _onChange: function () {
@@ -38192,7 +38135,6 @@
 	  },
 	
 	  componentDidMount: function () {
-	    // $(window).scrollTop(0);
 	    window.scrollTo(0, 0);
 	    this.eventListener = EventStore.addListener(this._onChange);
 	    ClientActions.fetchSingleEvent(parseInt(this.props.params.eventId));
@@ -38205,8 +38147,8 @@
 	  setEventBackgroundImage: function () {
 	    return {
 	      backgroundImage: 'url(' + this.state.event.image_url + ')',
-	      WebkitTransition: 'all', // note the capital 'W' here
-	      msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+	      WebkitTransition: 'all',
+	      msTransition: 'all'
 	    };
 	  },
 	
@@ -38215,8 +38157,6 @@
 	  },
 	
 	  revenueStatus: function () {
-	    // debugger;
-	    // return this.giveNumberCommas(this.state.event.revenue_status);
 	    return this.giveNumberCommas(this.getUpToDateRevenueStatus());
 	  },
 	
@@ -38244,12 +38184,6 @@
 	  },
 	
 	  render: function () {
-	
-	    // <div className="header-section">
-	    //   Let's Get Tickets! Start by Picking Your Showtime
-	    // </div>
-	
-	    // var percentFunded = (this.state.event.revenue_status / this.state.event.revenue_goal);
 	
 	    if (this.state.event === undefined) {
 	      return React.createElement('div', null);
@@ -38430,33 +38364,6 @@
 	          'Showtimes:'
 	        ),
 	        React.createElement(ShowtimesIndex, { showtimes: this.state.event.showtimes })
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.showtimeModalOpen,
-	          onRequestClose: this.closeShowtimeAndEventModals },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Im supposed to be a modal!'
-	        ),
-	        React.createElement(ShowtimeModal, { showtime: this.props.showtime }),
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeShowtimeModal },
-	          'Back'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'modal modal modal modal modal'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'mooooooooodal!'
-	        )
 	      )
 	    );
 	  }
@@ -38719,9 +38626,6 @@
 
 	var React = __webpack_require__(1);
 	var EventStore = __webpack_require__(272);
-	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	// var ClientActions = require('../../actions/client_actions.js');
-	// var UserStore = require('../../stores/user');
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	module.exports = React.createClass({
@@ -38765,12 +38669,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	// var EventStore = require('../../stores/event.js');
-	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	// var ClientActions = require('../../actions/client_actions.js');
-	// var UserStore = require('../../stores/user');
 	var CreateEventModal = __webpack_require__(285);
-	// var WizardLanding = require('./WizardLanding');
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
