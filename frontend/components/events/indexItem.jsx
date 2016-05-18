@@ -4,7 +4,6 @@
 var React = require('react');
 var Modal = require("react-modal");
 var EventDetail = require('./detail');
-// var EventsIndex = require('./index');
 var LoginModal = require('../users/loginModal');
 var EventModal = require('./eventModal');
 var ClientActions = require('../../actions/client_actions');
