@@ -169,7 +169,6 @@ module.exports = React.createClass({
                    <div style={{background: "dodgerblue"}}>
                        <h3 className="home-catchphrase">{this.props.showtime.date} at {this.props.showtime.location}</h3>
                    </div>
-                     <button onClick={this.closeShowtimeModal}>Back</button>
                  </div>
 
            </Modal>
