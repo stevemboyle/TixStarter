@@ -36211,11 +36211,6 @@
 	                ' at ',
 	                this.props.showtime.location
 	              )
-	            ),
-	            React.createElement(
-	              'button',
-	              { onClick: this.closeShowtimeModal },
-	              'Back'
 	            )
 	          )
 	        ),
