@@ -57,26 +57,26 @@
 	var Modal = __webpack_require__(241);
 	
 	var App = __webpack_require__(261);
-	var Home = __webpack_require__(307);
+	var Home = __webpack_require__(293);
 	
-	var EventSplash = __webpack_require__(308);
-	var ClientActions = __webpack_require__(267);
-	var EventDetail = __webpack_require__(278);
-	var ShowtimeDetail = __webpack_require__(309);
-	var Success = __webpack_require__(310);
-	var TicketPurchase = __webpack_require__(311);
-	var UserDashboardEventsIndex = __webpack_require__(304);
-	var UserTicketsIndex = __webpack_require__(305);
-	var CreateEvent = __webpack_require__(290);
-	var CreateShowtime = __webpack_require__(291);
-	var CreateTicket = __webpack_require__(301);
-	var SignIn = __webpack_require__(303);
-	var SignUp = __webpack_require__(302);
-	var TicketIndex = __webpack_require__(282);
-	var NewEventWizard = __webpack_require__(312);
-	var EventWizardForm = __webpack_require__(313);
-	var ShowtimeWizardForm = __webpack_require__(314);
-	var TicketWizardForm = __webpack_require__(315);
+	var EventSplash = __webpack_require__(294);
+	var ClientActions = __webpack_require__(263);
+	var EventDetail = __webpack_require__(274);
+	var ShowtimeDetail = __webpack_require__(295);
+	var Success = __webpack_require__(296);
+	var TicketPurchase = __webpack_require__(297);
+	var UserDashboardEventsIndex = __webpack_require__(290);
+	var UserTicketsIndex = __webpack_require__(291);
+	var CreateEvent = __webpack_require__(285);
+	var CreateShowtime = __webpack_require__(286);
+	var CreateTicket = __webpack_require__(287);
+	var SignIn = __webpack_require__(289);
+	var SignUp = __webpack_require__(288);
+	var TicketIndex = __webpack_require__(278);
+	var NewEventWizard = __webpack_require__(298);
+	var EventWizardForm = __webpack_require__(299);
+	var ShowtimeWizardForm = __webpack_require__(300);
+	var TicketWizardForm = __webpack_require__(301);
 	// var ApiUtil = require('./util/apiUtil');
 	// var UserApiUtil = require('./util/userApiUtil');
 	
@@ -33931,27 +33931,21 @@
 
 	var React = __webpack_require__(1);
 	var EventForm = __webpack_require__(262);
-	var EventIndex = __webpack_require__(275);
-	var EventStore = __webpack_require__(276);
-	// var LoginForm = require('./users/usersLoginForm');
-	var LoginModal = __webpack_require__(286);
-	var CreateEventModal = __webpack_require__(290);
-	var CreateShowtimeModal = __webpack_require__(291);
-	var CreateTicketModal = __webpack_require__(301);
-	// var UserActions = require('../actions/userActions');
-	var SignUpModal = __webpack_require__(302);
-	var ClientActions = __webpack_require__(267);
-	var UserStore = __webpack_require__(284);
+	var EventIndex = __webpack_require__(271);
+	var EventStore = __webpack_require__(272);
+	var LoginModal = __webpack_require__(282);
+	var CreateEventModal = __webpack_require__(285);
+	var CreateShowtimeModal = __webpack_require__(286);
+	var CreateTicketModal = __webpack_require__(287);
+	var SignUpModal = __webpack_require__(288);
+	var ClientActions = __webpack_require__(263);
+	var UserStore = __webpack_require__(280);
 	
 	var Modal = __webpack_require__(241);
-	// var UserApiUtil = require('../util/userApiUtil');
-	var SignInModal = __webpack_require__(303);
-	var MyDashboardModal = __webpack_require__(304);
-	var MyTicketsModal = __webpack_require__(305);
+	var SignInModal = __webpack_require__(289);
+	var MyDashboardModal = __webpack_require__(290);
+	var MyTicketsModal = __webpack_require__(291);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	
-	//Mixins
-	// var CurrentUserState = require('.././mixins/currentUserState');
 	
 	var CUSTOM_STYLE = {
 	  content: {
@@ -33976,17 +33970,9 @@
 	  displayName: 'exports',
 	
 	
-	  // mixins: [CurrentUserState],
-	
 	  getInitialState: function () {
 	    return { signInModalOpen: false,
 	      signUpModalOpen: false,
-	      demoAccountModalOpen: false,
-	      createEventModalOpen: false,
-	      createShowtimeModalOpen: false,
-	      myDashboardModalOpen: false,
-	      myTicketsModalOpen: false,
-	      createTicketModalOpen: false,
 	      currentUser: UserStore.user()
 	    };
 	  },
@@ -34007,9 +33993,7 @@
 	  },
 	
 	  _eventCreated: function () {
-	    //  debugger;
 	    if (EventStore.createSuccess()) {
-	      //  debugger;
 	      var id = EventStore.showNewEventId();
 	      this.closeCreateEventModal();
 	      hashHistory.push("/event/" + id);
@@ -34032,60 +34016,11 @@
 	    this.setState({ signUpModalOpen: false });
 	  },
 	
-	  openDemoAccountModal: function () {
-	    this.setState({ demoAccountModalOpen: true });
-	  },
-	
-	  closeDemoAccountModal: function () {
-	    this.setState({ demoAccountModalOpen: false });
-	  },
-	
-	  openCreateEventModal: function () {
-	    this.setState({ createEventModalOpen: true });
-	  },
-	
-	  closeCreateEventModal: function () {
-	    this.setState({ createEventModalOpen: false });
-	  },
-	
-	  openCreateShowtimeModal: function () {
-	    this.setState({ createShowtimeModalOpen: true });
-	  },
-	
-	  closeCreateShowtimeModal: function () {
-	    this.setState({ createShowtimeModalOpen: false });
-	  },
-	
-	  openCreateTicketModal: function () {
-	    this.setState({ createTicketModalOpen: true });
-	  },
-	
-	  closeCreateTicketModal: function () {
-	    this.setState({ createTicketModalOpen: false });
-	  },
-	
-	  openMyDashboardModal: function () {
-	    this.setState({ myDashboardModalOpen: true });
-	  },
-	
-	  closeMyDashboardModal: function () {
-	    this.setState({ myDashboardModalOpen: false });
-	  },
-	
-	  openMyTicketsModal: function () {
-	    this.setState({ myTicketsModalOpen: true });
-	  },
-	
-	  closeMyTicketsModal: function () {
-	    this.setState({ myTicketsModalOpen: false });
-	  },
-	
 	  justClickedLogOut: function () {
 	    ClientActions.logout();
 	  },
 	
 	  signInWithDemoAccount: function () {
-	    // console.log("app: sign in with demo account");
 	    ClientActions.login({ username: "guest", password: "password" });
 	  },
 	
@@ -34118,7 +34053,6 @@
 	  },
 	
 	  goToCreateEvent: function () {
-	    // hashHistory.push("/create-event");
 	    hashHistory.push("/wizard");
 	  },
 	
@@ -34137,32 +34071,6 @@
 	  goToSignIn: function () {
 	    hashHistory.push("/sign-in");
 	  },
-	
-	  // notLoggedInMenu: function(){
-	  //   return(
-	  //     <div id="othermenu">
-	  //       <p>hello</p>
-	  //       <button onClick={this.openSignInModal}>Sign In</button>
-	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
-	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
-	  //     </div>
-	  //   );
-	  // },
-	
-	  // <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
-	
-	  // loggedInMenu: function(){
-	  //   return(
-	  //     <div id="othermenu">
-	  //       <p>hello</p>
-	  //       <button onClick={this.openSignInModal}>Sign In</button>
-	  //       <button onClick={this.openSignUpModal}>Sign Up</button>
-	  //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-	  //       <button onClick={this.openCreateEventModal}>Create Event</button>
-	  //     </div>
-	  //   );
-	  // },
 	
 	  render: function () {
 	
@@ -34282,13 +34190,6 @@
 	      );
 	
 	      if (UserStore.user().events[0]) {
-	        // hasEventsMenu = (
-	        //   <div>
-	        //     <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
-	        //     <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
-	        //   </div>
-	        // );
-	        // loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
 	        menu = React.createElement(
 	          'div',
 	          { id: 'othermenu' },
@@ -34372,16 +34273,6 @@
 	        )
 	      );
 	    }
-	
-	    // <header id="home-menu" className="home-menu">
-	    //   <h1 class="header-logo">
-	    //     TixStarter
-	    //   </h1>
-	    //   <ul class="header-list group">
-	    //     <li>Sample Button</li>
-	    //     <li>Sample Button</li>
-	    //   </ul>
-	    // </header>
 	
 	    return React.createElement(
 	      'div',
@@ -34549,7 +34440,7 @@
 
 	var React = __webpack_require__(1);
 	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -34694,15 +34585,11 @@
 	});
 
 /***/ },
-/* 263 */,
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ApiUtil = __webpack_require__(268);
-	var UserApiUtil = __webpack_require__(274);
+	var ApiUtil = __webpack_require__(264);
+	var UserApiUtil = __webpack_require__(270);
 	
 	module.exports = {
 	
@@ -34798,10 +34685,10 @@
 	};
 
 /***/ },
-/* 268 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ServerActions = __webpack_require__(269);
+	var ServerActions = __webpack_require__(265);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	// var app = require('../components/app');
 	
@@ -35014,15 +34901,15 @@
 	module.exports = ApiUtil;
 
 /***/ },
-/* 269 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(237);
-	var EventConstants = __webpack_require__(270);
-	var UserConstants = __webpack_require__(271);
-	var ShowtimeConstants = __webpack_require__(272);
+	var EventConstants = __webpack_require__(266);
+	var UserConstants = __webpack_require__(267);
+	var ShowtimeConstants = __webpack_require__(268);
 	var TicketPurchaseConstants = __webpack_require__(240);
-	var TicketConstants = __webpack_require__(273);
+	var TicketConstants = __webpack_require__(269);
 	
 	module.exports = {
 	
@@ -35136,7 +35023,7 @@
 	};
 
 /***/ },
-/* 270 */
+/* 266 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35146,7 +35033,7 @@
 	};
 
 /***/ },
-/* 271 */
+/* 267 */
 /***/ function(module, exports) {
 
 	var UserConstants = {
@@ -35160,7 +35047,7 @@
 	module.exports = UserConstants;
 
 /***/ },
-/* 272 */
+/* 268 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35169,7 +35056,7 @@
 	};
 
 /***/ },
-/* 273 */
+/* 269 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -35179,13 +35066,13 @@
 	};
 
 /***/ },
-/* 274 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppDispatcher = __webpack_require__(237);
 	// var ServerActions = require('../actions/userActions');
-	var UserConstants = __webpack_require__(271);
-	var ServerActions = __webpack_require__(269);
+	var UserConstants = __webpack_require__(267);
+	var ServerActions = __webpack_require__(265);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	var UserApiUtil = {
 	
@@ -35291,13 +35178,13 @@
 	module.exports = UserApiUtil;
 
 /***/ },
-/* 275 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
-	var ClientActions = __webpack_require__(267);
-	var EventIndexItem = __webpack_require__(277);
+	var EventStore = __webpack_require__(272);
+	var ClientActions = __webpack_require__(263);
+	var EventIndexItem = __webpack_require__(273);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35351,12 +35238,12 @@
 	});
 
 /***/ },
-/* 276 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(219).Store;
 	var AppDispatcher = __webpack_require__(237);
-	var EventConstants = __webpack_require__(270);
+	var EventConstants = __webpack_require__(266);
 	var EventStore = new Store(AppDispatcher);
 	
 	var _events = {};
@@ -35472,22 +35359,18 @@
 	module.exports = EventStore;
 
 /***/ },
-/* 277 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// TODO: Right now, the Edit Event option is based on being logged in.
-	// TODO: It SHOULD be based on the Event's User-Id being the User's
-	
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(241);
-	var EventDetail = __webpack_require__(278);
-	// var EventsIndex = require('./index');
-	var LoginModal = __webpack_require__(286);
-	var EventModal = __webpack_require__(288);
-	var ClientActions = __webpack_require__(267);
-	var UserStore = __webpack_require__(284);
+	var EventDetail = __webpack_require__(274);
+	var LoginModal = __webpack_require__(282);
+	var EventModal = __webpack_require__(283);
+	var ClientActions = __webpack_require__(263);
+	var UserStore = __webpack_require__(280);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var EditEventModal = __webpack_require__(289);
+	var EditEventModal = __webpack_require__(284);
 	
 	// <div style={{backgroundImage: "url(" + this.props.event.image_url + ")"}}>
 	
@@ -35902,13 +35785,13 @@
 	//  <EventDetail event={this.props.event} />
 
 /***/ },
-/* 278 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
-	var ShowtimesIndex = __webpack_require__(279);
-	var ClientActions = __webpack_require__(267);
+	var EventStore = __webpack_require__(272);
+	var ShowtimesIndex = __webpack_require__(275);
+	var ClientActions = __webpack_require__(263);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -35975,11 +35858,11 @@
 	});
 
 /***/ },
-/* 279 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ShowtimeIndexItem = __webpack_require__(280);
+	var ShowtimeIndexItem = __webpack_require__(276);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36000,16 +35883,16 @@
 	});
 
 /***/ },
-/* 280 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(241);
-	var ShowtimeModal = __webpack_require__(281);
+	var ShowtimeModal = __webpack_require__(277);
 	// var EventsIndex = require('../events/indexItem.jsx');
-	var UserStore = __webpack_require__(284);
+	var UserStore = __webpack_require__(280);
 	var hashHistory = __webpack_require__(159).hashHistory;
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	
 	var GET_TIX_STYLE = {
 	  content: {
@@ -36265,15 +36148,15 @@
 	});
 
 /***/ },
-/* 281 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	// var EventStore = require('../../stores/event.js');
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	var ClientActions = __webpack_require__(267);
-	var TicketsIndex = __webpack_require__(282);
-	var ShowtimeStore = __webpack_require__(285);
+	var ClientActions = __webpack_require__(263);
+	var TicketsIndex = __webpack_require__(278);
+	var ShowtimeStore = __webpack_require__(281);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36320,11 +36203,11 @@
 	});
 
 /***/ },
-/* 282 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TicketIndexItem = __webpack_require__(283);
+	var TicketIndexItem = __webpack_require__(279);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -36347,14 +36230,14 @@
 	});
 
 /***/ },
-/* 283 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(241);
 	// var TicketsIndex = require('../tickets/indexItem.jsx');
-	var UserStore = __webpack_require__(284);
-	var ClientActions = __webpack_require__(267);
+	var UserStore = __webpack_require__(280);
+	var ClientActions = __webpack_require__(263);
 	// var ShowtimeStore = require('../../stores/showtime');
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
@@ -36499,7 +36382,7 @@
 	});
 
 /***/ },
-/* 284 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(219).Store;
@@ -36578,12 +36461,12 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 285 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(219).Store;
 	var AppDispatcher = __webpack_require__(237);
-	var ShowtimeConstants = __webpack_require__(272);
+	var ShowtimeConstants = __webpack_require__(268);
 	// var ClientActions = require('../actions/client_actions');
 	// var ApiUtil = require('../util/apiUtil');
 	
@@ -36650,12 +36533,12 @@
 	module.exports = ShowtimeStore;
 
 /***/ },
-/* 286 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	// var UserActions = require('../../actions/userActions');
 	// var CurrentUserState = require('../../mixins/currentUserState');
 	
@@ -36908,20 +36791,19 @@
 	module.exports = LoginModal;
 
 /***/ },
-/* 287 */,
-/* 288 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// TODO: Right now, the Edit Event option is based on being logged in.
 	// TODO: It SHOULD be based on the Event's User-Id being the User's
 	
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
-	var ShowtimesIndex = __webpack_require__(279);
-	var ClientActions = __webpack_require__(267);
+	var EventStore = __webpack_require__(272);
+	var ShowtimesIndex = __webpack_require__(275);
+	var ClientActions = __webpack_require__(263);
 	var Modal = __webpack_require__(241);
-	var EditEventModal = __webpack_require__(289);
-	var UserStore = __webpack_require__(284);
+	var EditEventModal = __webpack_require__(284);
+	var UserStore = __webpack_require__(280);
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	module.exports = React.createClass({
@@ -37028,14 +36910,14 @@
 	});
 
 /***/ },
-/* 289 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
+	var EventStore = __webpack_require__(272);
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
 	// var Link = require('react-router').Link;
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -37222,14 +37104,14 @@
 	});
 
 /***/ },
-/* 290 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
+	var EventStore = __webpack_require__(272);
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	var ClientActions = __webpack_require__(267);
-	var UserStore = __webpack_require__(284);
+	var ClientActions = __webpack_require__(263);
+	var UserStore = __webpack_require__(280);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -37426,14 +37308,14 @@
 	});
 
 /***/ },
-/* 291 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
+	var EventStore = __webpack_require__(272);
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
-	var ClientActions = __webpack_require__(267);
-	var UserStore = __webpack_require__(284);
+	var ClientActions = __webpack_require__(263);
+	var UserStore = __webpack_require__(280);
 	// var SelectEventDropdown = require('./SelectEventDropdown');
 	// var Select = require('react-select');
 	
@@ -37637,24 +37519,15 @@
 	});
 
 /***/ },
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
+	var EventStore = __webpack_require__(272);
 	// var TicketsIndex = require('../tickets/index.jsx');
-	var ClientActions = __webpack_require__(267);
-	var UserStore = __webpack_require__(284);
-	var ShowtimeStore = __webpack_require__(285);
+	var ClientActions = __webpack_require__(263);
+	var UserStore = __webpack_require__(280);
+	var ShowtimeStore = __webpack_require__(281);
 	// var SelectEventDropdown = require('./SelectEventDropdown');
 	// var Select = require('react-select');
 	
@@ -38001,12 +37874,12 @@
 	});
 
 /***/ },
-/* 302 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	// var UserActions = require('../../actions/userActions');
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	
 	var SignUpModal = React.createClass({
 	  displayName: "SignUpModal",
@@ -38079,11 +37952,11 @@
 	module.exports = SignUpModal;
 
 /***/ },
-/* 303 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	// var UserActions = require('../../actions/userActions');
 	
 	var SignInModal = React.createClass({
@@ -38157,14 +38030,14 @@
 	module.exports = SignInModal;
 
 /***/ },
-/* 304 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
-	var ClientActions = __webpack_require__(267);
-	var EventIndexItem = __webpack_require__(277);
-	var UserStore = __webpack_require__(284);
+	var EventStore = __webpack_require__(272);
+	var ClientActions = __webpack_require__(263);
+	var EventIndexItem = __webpack_require__(273);
+	var UserStore = __webpack_require__(280);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -38234,15 +38107,15 @@
 	});
 
 /***/ },
-/* 305 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TicketStore = __webpack_require__(306);
+	var TicketStore = __webpack_require__(292);
 	var TicketPurchaseStore = __webpack_require__(218);
 	// var ClientActions = require('../../actions/client_actions.js');
-	var TicketIndexItem = __webpack_require__(283);
-	var UserStore = __webpack_require__(284);
+	var TicketIndexItem = __webpack_require__(279);
+	var UserStore = __webpack_require__(280);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -38336,12 +38209,12 @@
 	});
 
 /***/ },
-/* 306 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(219).Store;
 	var AppDispatcher = __webpack_require__(237);
-	var TicketConstants = __webpack_require__(273);
+	var TicketConstants = __webpack_require__(269);
 	var TicketStore = new Store(AppDispatcher);
 	
 	var _tickets = {};
@@ -38401,12 +38274,12 @@
 	module.exports = TicketStore;
 
 /***/ },
-/* 307 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	// var EventForm = require('./events/form');
-	var EventIndex = __webpack_require__(275);
+	var EventIndex = __webpack_require__(271);
 	// var LoginForm = require('./users/usersLoginForm');
 	// var LoginModal = require('./users/loginModal');
 	// var CreateEventModal = require('./events/createEventModal');
@@ -38527,15 +38400,15 @@
 	});
 
 /***/ },
-/* 308 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Modal = __webpack_require__(241);
-	var ShowtimeModal = __webpack_require__(281);
-	var EventStore = __webpack_require__(276);
-	var ShowtimesIndex = __webpack_require__(279);
-	var ClientActions = __webpack_require__(267);
+	var ShowtimeModal = __webpack_require__(277);
+	var EventStore = __webpack_require__(272);
+	var ShowtimesIndex = __webpack_require__(275);
+	var ClientActions = __webpack_require__(263);
 	// var ApiUtil = require('../../util/apiUtil');
 	
 	module.exports = React.createClass({
@@ -38841,11 +38714,11 @@
 	});
 
 /***/ },
-/* 309 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
+	var EventStore = __webpack_require__(272);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -38934,7 +38807,7 @@
 	});
 
 /***/ },
-/* 310 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -38981,12 +38854,12 @@
 	});
 
 /***/ },
-/* 311 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var TicketPurchaseStore = __webpack_require__(218);
-	var ClientActions = __webpack_require__(267);
+	var ClientActions = __webpack_require__(263);
 	
 	// <li className="home-splash-li"><a href="/#/mytickets" text-align="center" className="scroll-a">MyTickets</a></li>
 	
@@ -39096,11 +38969,11 @@
 	});
 
 /***/ },
-/* 312 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EventStore = __webpack_require__(276);
+	var EventStore = __webpack_require__(272);
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
 	// var ClientActions = require('../../actions/client_actions.js');
 	// var UserStore = require('../../stores/user');
@@ -39143,7 +39016,7 @@
 	});
 
 /***/ },
-/* 313 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -39151,7 +39024,7 @@
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
 	// var ClientActions = require('../../actions/client_actions.js');
 	// var UserStore = require('../../stores/user');
-	var CreateEventModal = __webpack_require__(290);
+	var CreateEventModal = __webpack_require__(285);
 	// var WizardLanding = require('./WizardLanding');
 	
 	module.exports = React.createClass({
@@ -39188,7 +39061,7 @@
 	});
 
 /***/ },
-/* 314 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -39196,7 +39069,7 @@
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
 	// var ClientActions = require('../../actions/client_actions.js');
 	// var UserStore = require('../../stores/user');
-	var CreateShowtimeModal = __webpack_require__(291);
+	var CreateShowtimeModal = __webpack_require__(286);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -39232,7 +39105,7 @@
 	});
 
 /***/ },
-/* 315 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -39240,7 +39113,7 @@
 	// var ShowtimesIndex = require('../showtimes/index.jsx');
 	// var ClientActions = require('../../actions/client_actions.js');
 	// var UserStore = require('../../stores/user');
-	var CreateTicketModal = __webpack_require__(301);
+	var CreateTicketModal = __webpack_require__(287);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',

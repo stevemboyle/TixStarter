@@ -2,26 +2,19 @@ var React = require('react');
 var EventForm = require('./events/form');
 var EventIndex = require('./events/index');
 var EventStore = require('../stores/event');
-// var LoginForm = require('./users/usersLoginForm');
 var LoginModal = require('./users/loginModal');
 var CreateEventModal = require('./events/createEventModal');
 var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
 var CreateTicketModal = require('./tickets/createTicketModal');
-// var UserActions = require('../actions/userActions');
 var SignUpModal = require('./users/signUpModal');
 var ClientActions = require('../actions/client_actions');
 var UserStore = require('../stores/user');
 
 var Modal = require("react-modal");
-// var UserApiUtil = require('../util/userApiUtil');
 var SignInModal = require('./users/signInModal');
 var MyDashboardModal = require('./events/userDashboardEventsIndex');
 var MyTicketsModal = require('./tickets/userTicketsIndex');
 var hashHistory = require("react-router").hashHistory;
-
-
-//Mixins
-// var CurrentUserState = require('.././mixins/currentUserState');
 
 var CUSTOM_STYLE = {
   content : {
@@ -44,17 +37,9 @@ var CUSTOM_STYLE = {
 
 module.exports = React.createClass({
 
-  // mixins: [CurrentUserState],
-
   getInitialState: function(){
      return({ signInModalOpen: false,
               signUpModalOpen: false,
-              demoAccountModalOpen: false,
-              createEventModalOpen: false,
-              createShowtimeModalOpen: false,
-              myDashboardModalOpen: false,
-              myTicketsModalOpen: false,
-              createTicketModalOpen: false,
               currentUser: UserStore.user()
             });
    },
@@ -75,9 +60,7 @@ module.exports = React.createClass({
    },
 
    _eventCreated: function(){
-    //  debugger;
      if (EventStore.createSuccess()){
-      //  debugger;
        var id = EventStore.showNewEventId();
        this.closeCreateEventModal();
        hashHistory.push("/event/" + id);
@@ -100,61 +83,11 @@ module.exports = React.createClass({
      this.setState({ signUpModalOpen: false });
    },
 
-   openDemoAccountModal: function(){
-     this.setState({ demoAccountModalOpen: true });
-   },
-
-   closeDemoAccountModal: function(){
-     this.setState({ demoAccountModalOpen: false });
-   },
-
-    openCreateEventModal: function(){
-        this.setState({ createEventModalOpen: true });
-    },
-
-    closeCreateEventModal: function(){
-      this.setState({ createEventModalOpen: false });
-    },
-
-    openCreateShowtimeModal: function(){
-        this.setState({ createShowtimeModalOpen: true });
-    },
-
-    closeCreateShowtimeModal: function(){
-      this.setState({ createShowtimeModalOpen: false });
-    },
-
-    openCreateTicketModal: function(){
-        this.setState({ createTicketModalOpen: true });
-    },
-
-    closeCreateTicketModal: function(){
-      this.setState({ createTicketModalOpen: false });
-    },
-
-
-    openMyDashboardModal: function(){
-        this.setState({ myDashboardModalOpen: true });
-    },
-
-    closeMyDashboardModal: function(){
-      this.setState({ myDashboardModalOpen: false });
-    },
-
-    openMyTicketsModal: function(){
-        this.setState({ myTicketsModalOpen: true });
-    },
-
-    closeMyTicketsModal: function(){
-      this.setState({ myTicketsModalOpen: false });
-    },
-
     justClickedLogOut: function(){
       ClientActions.logout();
     },
 
     signInWithDemoAccount: function(){
-      // console.log("app: sign in with demo account");
       ClientActions.login({username: "guest", password: "password"});
     },
 
@@ -185,7 +118,6 @@ module.exports = React.createClass({
     },
 
     goToCreateEvent: function(){
-      // hashHistory.push("/create-event");
       hashHistory.push("/wizard");
     },
 
@@ -205,37 +137,9 @@ module.exports = React.createClass({
       hashHistory.push("/sign-in");
     },
 
-
-    // notLoggedInMenu: function(){
-    //   return(
-    //     <div id="othermenu">
-    //       <p>hello</p>
-    //       <button onClick={this.openSignInModal}>Sign In</button>
-    //       <button onClick={this.openSignUpModal}>Sign Up</button>
-    //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-    //       <button onClick={this.openCreateEventModal}>Create Event</button>
-    //     </div>
-    //   );
-    // },
-
-              // <li className="header-li" onClick={this.goToMyTickets}>My Tickets</li>
-
-    // loggedInMenu: function(){
-    //   return(
-    //     <div id="othermenu">
-    //       <p>hello</p>
-    //       <button onClick={this.openSignInModal}>Sign In</button>
-    //       <button onClick={this.openSignUpModal}>Sign Up</button>
-    //       <button onClick={this.openDemoAccountModal}>Demo Account</button>
-    //       <button onClick={this.openCreateEventModal}>Create Event</button>
-    //     </div>
-    //   );
-    // },
-
   render: function () {
 
     var menu;
-
 
     var notLoggedInMenu =(
       <div id="othermenu">
@@ -269,14 +173,15 @@ module.exports = React.createClass({
 
     var hasEventsMenu;
 
-
     var loggedInMessageForSteve;
 
     if (UserStore.loggedIn()){
       menu = (
                 <div id="othermenu">
                   <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
+
                   <br></br>
+
                   <div id="menubuttons">
                     <ul className="header-ul">
                       <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
@@ -290,17 +195,12 @@ module.exports = React.createClass({
               );
 
       if (UserStore.user().events[0]){
-        // hasEventsMenu = (
-        //   <div>
-        //     <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
-        //     <li className="header-li" onClick={this.goToCreateTicket}>Create Ticket</li>
-        //   </div>
-        // );
-      // loggedInMessageForSteve = "Hello, " + UserStore.user().first_name + ". You are logged In!";
         menu = (
                 <div id="othermenu">
                   <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
+
                   <br></br>
+
                   <div id="menubuttons">
                     <ul className="header-ul">
                       <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
@@ -309,8 +209,8 @@ module.exports = React.createClass({
                       <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
                       <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
                     </ul>
-
                   </div>
+
                 </div>
             );
       }
@@ -330,16 +230,6 @@ module.exports = React.createClass({
             </div>
             );
     }
-
-    // <header id="home-menu" className="home-menu">
-    //   <h1 class="header-logo">
-    //     TixStarter
-    //   </h1>
-    //   <ul class="header-list group">
-    //     <li>Sample Button</li>
-    //     <li>Sample Button</li>
-    //   </ul>
-    // </header>
 
     return(
 
