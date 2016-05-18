@@ -2,3 +2,4 @@ node_modules
 bundle.js*
 tmp
 log
+app/assets/javascripts/bundle.js

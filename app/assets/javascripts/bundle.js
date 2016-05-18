@@ -37404,17 +37404,7 @@
 	        React.createElement('input', { type: 'submit', value: 'Create Event' }),
 	        React.createElement('br', null)
 	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'p',
-	        null,
-	        'To Do: ',
-	        React.createElement(
-	          'b',
-	          null,
-	          'Add Deadlines'
-	        )
-	      )
+	      React.createElement('br', null)
 	    );
 	  }
 	
