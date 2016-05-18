@@ -38796,11 +38796,6 @@
 	        ),
 	        React.createElement(ShowtimeModal, { showtime: this.props.showtime }),
 	        React.createElement(
-	          'button',
-	          { onClick: this.closeShowtimeModal },
-	          'Back'
-	        ),
-	        React.createElement(
 	          'p',
 	          null,
 	          'modal modal modal modal modal'

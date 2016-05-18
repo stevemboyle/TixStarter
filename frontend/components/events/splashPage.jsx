@@ -181,8 +181,6 @@ module.exports = React.createClass({
 
             <ShowtimeModal showtime={this.props.showtime}/>
 
-            <button onClick={this.closeShowtimeModal}>Back</button>
-
              <p>modal modal modal modal modal</p>
              <p>mooooooooodal!</p>
 
