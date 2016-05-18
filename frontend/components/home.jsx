@@ -1,22 +1,5 @@
 var React = require('react');
-// var EventForm = require('./events/form');
 var EventIndex = require('./events/index');
-// var LoginForm = require('./users/usersLoginForm');
-// var LoginModal = require('./users/loginModal');
-// var CreateEventModal = require('./events/createEventModal');
-// var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
-// var UserActions = require('../actions/userActions');
-// var SignUpModal = require('./users/signUpModal');
-
-// var UserStore = require('../stores/user');
-
-// var Modal = require("react-modal");
-// var UserApiUtil = require('../util/userApiUtil');
-// var SignInModal = require('./users/signInModal');
-// var MyDashboardModal = require('./events/userDashboardEventsIndex');
-
-//Mixins
-// var CurrentUserState = require('.././mixins/currentUserState');
 
 module.exports = React.createClass({
 
@@ -25,32 +8,10 @@ module.exports = React.createClass({
     console.log("Hello!");
     console.log("Welcome to TixStarter.io");
     console.log("For more information about the creator of this site:");
-    console.log("Email Steve@SteveMBoyle.com");
+    console.log("Email Steve@CoderBoyle.io");
   },
 
   render: function () {
-
-    //TODO: Add Marketing Content (Commented Out Below) Back IN
-
-      // <li className="home-splash-li"><a href="#home-marketing" text-align="center" className="scroll-a">Learn More</a></li>
-
-      // <section id="home-marketing">
-      //
-      //     <h1>Welcome to TixStarter</h1>
-      //     <h3>Forward Fund Events with Ticket Sales</h3>
-      //
-      //     <h4>Scroll down for More</h4>
-      //   </section><section id="lower-menu">
-      //
-      //   <br></br>
-      //
-      // </section><section  id="home-whitespace"
-      //     className="white-bg padding-top-bottom"
-      //     >
-      //
-      //     <h1>Text!</h1>
-      //
-      //   </section>
 
     return(
 

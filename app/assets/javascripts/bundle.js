@@ -34274,162 +34274,169 @@
 	      );
 	    }
 	
-	    return React.createElement(
-	      'div',
-	      null,
-	      menu,
+	    return(
+	
+	      // =====================
+	      // MENUS
+	      // =====================
+	
 	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.signInModalOpen,
-	          onRequestClose: this.closeSignInModal,
-	          style: CUSTOM_STYLE },
+	        'div',
+	        null,
+	        menu,
 	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(SignInModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.signUpModalOpen,
-	          onRequestClose: this.closeSignUpModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(SignUpModal, null)
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.demoAccountModalOpen,
-	          onRequestClose: this.closeDemoAccountModal,
-	          style: CUSTOM_STYLE },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
+	          Modal,
+	          {
+	            isOpen: this.state.signInModalOpen,
+	            onRequestClose: this.closeSignInModal,
+	            style: CUSTOM_STYLE },
 	          React.createElement(
-	            'h2',
-	            null,
-	            'Demo Account'
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'This feature has not been built yet!'
-	          ),
-	          React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
-	            width: '480',
-	            height: '305',
-	            frameBorder: '0',
-	            'class': 'giphy-embed',
-	            allowFullScreen: true }),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Here, distract yourself with Hamilton until I finish:'
-	          ),
-	          React.createElement('iframe', { width: '{854/1.2}',
-	            height: '{480/1.2}',
-	            src: 'https://www.youtube.com/embed/6ibySV-saJ8',
-	            frameborder: '0',
-	            allowfullscreen: true }),
-	          React.createElement(
-	            'p',
-	            null,
-	            'mooooooooodal!'
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(SignInModal, null)
 	          )
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createEventModalOpen,
-	          onRequestClose: this.closeCreateEventModal,
-	          style: CUSTOM_STYLE
-	        },
+	        ),
 	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
-	          React.createElement(
-	            'h2',
-	            null,
-	            'CreateEventModal'
-	          ),
-	          React.createElement(CreateEventModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createShowtimeModalOpen,
-	          onRequestClose: this.closeCreateShowtimeModal,
-	          style: CUSTOM_STYLE },
+	          Modal,
+	          {
+	            isOpen: this.state.signUpModalOpen,
+	            onRequestClose: this.closeSignUpModal,
+	            style: CUSTOM_STYLE },
+	          React.createElement(SignUpModal, null)
+	        ),
 	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
+	          Modal,
+	          {
+	            isOpen: this.state.demoAccountModalOpen,
+	            onRequestClose: this.closeDemoAccountModal,
+	            style: CUSTOM_STYLE },
 	          React.createElement(
-	            'h2',
-	            null,
-	            'CreateShowtimeModal'
-	          ),
-	          React.createElement(CreateShowtimeModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.createTicketModalOpen,
-	          onRequestClose: this.closeCreateTicketModal,
-	          style: CUSTOM_STYLE },
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'Demo Account'
+	            ),
+	            React.createElement(
+	              'p',
+	              null,
+	              'This feature has not been built yet!'
+	            ),
+	            React.createElement('iframe', { src: '//giphy.com/embed/xTiTnJ3BooiDs8dL7W',
+	              width: '480',
+	              height: '305',
+	              frameBorder: '0',
+	              'class': 'giphy-embed',
+	              allowFullScreen: true }),
+	            React.createElement('br', null),
+	            React.createElement(
+	              'p',
+	              null,
+	              'Here, distract yourself with Hamilton until I finish:'
+	            ),
+	            React.createElement('iframe', { width: '{854/1.2}',
+	              height: '{480/1.2}',
+	              src: 'https://www.youtube.com/embed/6ibySV-saJ8',
+	              frameborder: '0',
+	              allowfullscreen: true }),
+	            React.createElement(
+	              'p',
+	              null,
+	              'mooooooooodal!'
+	            )
+	          )
+	        ),
 	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
+	          Modal,
+	          {
+	            isOpen: this.state.createEventModalOpen,
+	            onRequestClose: this.closeCreateEventModal,
+	            style: CUSTOM_STYLE
+	          },
 	          React.createElement(
-	            'h2',
-	            null,
-	            'CreateTicketModal'
-	          ),
-	          React.createElement(CreateTicketModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.myDashboardModalOpen,
-	          onRequestClose: this.closeMyDashboardModal,
-	          style: CUSTOM_STYLE },
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'CreateEventModal'
+	            ),
+	            React.createElement(CreateEventModal, null)
+	          )
+	        ),
 	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
+	          Modal,
+	          {
+	            isOpen: this.state.createShowtimeModalOpen,
+	            onRequestClose: this.closeCreateShowtimeModal,
+	            style: CUSTOM_STYLE },
 	          React.createElement(
-	            'h2',
-	            null,
-	            'MyDashboard'
-	          ),
-	          React.createElement(MyDashboardModal, null)
-	        )
-	      ),
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.myTicketsModalOpen,
-	          onRequestClose: this.closeMyTicketsModal,
-	          style: CUSTOM_STYLE },
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'CreateShowtimeModal'
+	            ),
+	            React.createElement(CreateShowtimeModal, null)
+	          )
+	        ),
 	        React.createElement(
-	          'div',
-	          { className: 'sign-in-modal-splash' },
+	          Modal,
+	          {
+	            isOpen: this.state.createTicketModalOpen,
+	            onRequestClose: this.closeCreateTicketModal,
+	            style: CUSTOM_STYLE },
 	          React.createElement(
-	            'h2',
-	            null,
-	            'MyTickets'
-	          ),
-	          React.createElement(MyTicketsModal, null)
-	        )
-	      ),
-	      this.props.children,
-	      React.createElement('section', { id: 'footer',
-	        className: 'footer' })
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'CreateTicketModal'
+	            ),
+	            React.createElement(CreateTicketModal, null)
+	          )
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.myDashboardModalOpen,
+	            onRequestClose: this.closeMyDashboardModal,
+	            style: CUSTOM_STYLE },
+	          React.createElement(
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'MyDashboard'
+	            ),
+	            React.createElement(MyDashboardModal, null)
+	          )
+	        ),
+	        React.createElement(
+	          Modal,
+	          {
+	            isOpen: this.state.myTicketsModalOpen,
+	            onRequestClose: this.closeMyTicketsModal,
+	            style: CUSTOM_STYLE },
+	          React.createElement(
+	            'div',
+	            { className: 'sign-in-modal-splash' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'MyTickets'
+	            ),
+	            React.createElement(MyTicketsModal, null)
+	          )
+	        ),
+	        this.props.children,
+	        React.createElement('section', { id: 'footer',
+	          className: 'footer' })
+	      )
 	    );
 	  }
 	});
@@ -36537,18 +36544,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 	var ClientActions = __webpack_require__(263);
-	// var UserActions = require('../../actions/userActions');
-	// var CurrentUserState = require('../../mixins/currentUserState');
 	
 	var LoginModal = React.createClass({
 		displayName: "LoginModal",
 	
-	
-		// mixins: [LinkedStateMixin, CurrentUserState],
-	
-		// mixins: [CurrentUserState],
 	
 		getInitialState: function () {
 			return { form: "login" };
@@ -36662,130 +36662,6 @@
 				this.form()
 			);
 		}
-	
-		//
-		// getInitialState: function(){
-		// 	return ({ username: "",
-		// 						password: "",
-		// 						firstName: "",
-		// 						lastName: ""
-		// 					});
-		// },
-		//
-		// usernameChange: function(keyboardEvent){
-		// 	var newUsername = keyboardEvent.target.value;
-		// 	this.setState({ username: newUsername});
-		// 	// console.log("");
-		// 	// console.log("Username: " + this.state.username);
-		// 	// console.log("Password: " + this.state.password);
-		// 	// console.log("First Name: " + this.state.firstName);
-		// 	// console.log("Last Name: " + this.state.lastName);
-		// 	// console.log("");
-		// },
-		//
-		// passwordChange: function(keyboardEvent){
-		// 	var newPassword = keyboardEvent.target.value;
-		// 	this.setState({ password: newPassword});
-		// 	// console.log("");
-		// 	// console.log("Username: " + this.state.username);
-		// 	// console.log("Password: " + this.state.password);
-		// 	// console.log("First Name: " + this.state.firstName);
-		// 	// console.log("Last Name: " + this.state.lastName);
-		// 	// console.log("");
-		// },
-		//
-		// firstNameChange: function(keyboardEvent){
-		// 	var newFirstName= keyboardEvent.target.value;
-		// 	this.setState({ firstName: newFirstName});
-		// 	// console.log("");
-		// 	// console.log("Username: " + this.state.username);
-		// 	// console.log("Password: " + this.state.password);
-		// 	// console.log("First Name: " + this.state.firstName);
-		// 	// console.log("Last Name: " + this.state.lastName);
-		// 	// console.log("");
-		// },
-		//
-		// lastNameChange: function(keyboardEvent){
-		// 	var newLastName= keyboardEvent.target.value;
-		// 	this.setState({ lastName: newLastName});
-		// 	// console.log("");
-		// 	// console.log("Username: " + this.state.username);
-		// 	// console.log("Password: " + this.state.password);
-		// 	// console.log("First Name: " + this.state.firstName);
-		// 	// console.log("Last Name: " + this.state.lastName);
-		// 	// console.log("");
-		// },
-		//
-		// handleSubmit: function(keyboardEvent){
-		// 	keyboardEvent.preventDefault();
-		// 	var userData = {
-		// 		username: this.state.username,
-		// 		password: this.state.password,
-		// 		firstName: this.state.firstName,
-		// 		lastName: this.state.lastName
-		// 	};
-		// 	ClientActions.createUser(userData);
-		// },
-		//
-		// render: function(){
-		// 	return (
-		// 		<div id="login-form">
-		//
-		// 		<iframe src="//giphy.com/embed/OF0yOAufcWLfi" width="480" height="237" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-		//
-		// 			<form onSubmit={this.handleSubmit}>
-		//
-		// 				<br></br>
-		//
-		// 					<label> Username:
-		// 						<input
-		// 								type="text"
-		// 								value={this.state.username}
-		// 								onChange={this.usernameChange}
-		// 						/>
-		// 					</label>
-		//
-		// 					<br></br>
-		//
-		// 					<label> Password:
-		// 						<input
-		// 								type="password"
-		// 								value={this.state.password}
-		// 								onChange={this.passwordChange}
-		// 						/>
-		// 					</label>
-		//
-		// 					<br></br>
-		//
-		// 					<label> First Name:
-		// 						<input
-		// 								type="text"
-		// 								value={this.state.firstName}
-		// 								onChange={this.firstNameChange}
-		// 						/>
-		// 					</label>
-		//
-		// 					<br></br>
-		//
-		// 					<label> Last Name:
-		// 						<input
-		// 								type="text"
-		// 								value={this.state.lastName}
-		// 								onChange={this.lastNameChange}
-		// 						/>
-		// 					</label>
-		//
-		// 					<br></br>
-		//
-		// 					<br></br>
-		//
-		// 					<br></br>
-		//
-		// 				<input type="Submit" value="Submit"/>
-		// 			</form>
-		// 		</div>
-		// 	);
-		// }
 	});
 	
 	module.exports = LoginModal;
@@ -37524,14 +37400,9 @@
 
 	var React = __webpack_require__(1);
 	var EventStore = __webpack_require__(272);
-	// var TicketsIndex = require('../tickets/index.jsx');
 	var ClientActions = __webpack_require__(263);
 	var UserStore = __webpack_require__(280);
 	var ShowtimeStore = __webpack_require__(281);
-	// var SelectEventDropdown = require('./SelectEventDropdown');
-	// var Select = require('react-select');
-	
-	// var ReactDropdown = require('react-dropdown');
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -37539,13 +37410,8 @@
 	
 	  getInitialState: function () {
 	
-	    // debugger;
-	
 	    ClientActions.fetchAllShowtimes();
-	
 	    ClientActions.fetchAllEvents();
-	
-	    // debugger;
 	
 	    return {
 	      events: "",
@@ -37565,30 +37431,20 @@
 	    this.ShowtimeListener = ShowtimeStore.addListener(this._seedChange);
 	
 	    // this.EventListener = ShowtimeStore.addListener(this._eventChange);
-	
 	    // ClientActions.fetchAllEvents();
 	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 	
-	    //
-	    // debugger;
-	    // debugger;
 	    // this.eventStoreListener = EventStore.addListener(this.updateShowtimes);
-	
 	    // var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
-	
 	    // var defaultEventId = UserStore.user().events[0].id;
-	    // debugger;
-	
 	    // var defaultEventsShowtimes = myShowtimes[this.state.event_id];
 	    // var defaultShowtime = defaultEventsShowtimes[0];
 	
-	    // debugger;
-	    // event_id: defaultEventId,
-	    //
 	    this.setState({
 	      events: myEvents,
 	      event_id: myEvents[0].id
+	
 	    });
 	
 	    // this.setState({showtime_id: m})
@@ -37597,38 +37453,30 @@
 	  // event_id: ShowtimeStore.all()[0].event_id,
 	  // showtime_id: ShowtimeStore.all()[0].id
 	  // showtime_id: myEvents[0].id.showtimes.reverse()[0]
+	
 	  componentWillUnmount: function () {
+	
 	    // this.EventListener.remove();
+	
 	    this.ShowtimeListener.remove();
+	
 	    // this.EventListener.remove();
 	  },
 	
 	  _seedChange: function () {
 	
-	    // debugger;
-	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 	    var myNewEventId = myEvents[0].id;
-	
-	    // debugger;
-	
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
-	
 	    var newEventsShowtimes = myShowtimes[myNewEventId];
+	
 	    // var newShowtime = newEventsShowtimes[0];
 	    // // var newShowtimeId = newShowtime.id;
 	
-	    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
-	    /// input myEvents[0].id
-	
 	    var newShowtimeId;
 	
-	    // debugger;
-	
 	    if (newEventsShowtimes.length > 0) {
-	      // debugger;
 	      if (newEventsShowtimes[0].id) {
-	        // debugger;
 	        newShowtimeId = newEventsShowtimes[0].id;
 	
 	        this.setState({
@@ -37643,19 +37491,12 @@
 	
 	  _eventChange: function () {
 	
-	    // debugger;
-	
 	    var myEvents = EventStore.allEventsForUser(UserStore.user().id).reverse();
 	    var myNewEventId = myEvents[0].id;
-	
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
-	
 	    var newEventsShowtimes = myShowtimes[myNewEventId];
 	    var newShowtime = newEventsShowtimes[0];
 	    var newShowtimeId = newShowtime.id;
-	
-	    // TODO: Create function in Showtimes to fetch all Showtimes for an Event
-	    /// input myEvents[0].id
 	
 	    this.setState({
 	      events: myEvents,
@@ -37668,45 +37509,36 @@
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
 	    this.setState({ showtimes: myShowtimes });
 	  },
-	  //
+	
 	  // componentWillUnmount: function(){
 	  //   // this.eventStoreListener.remove();
 	  // },
 	
 	  eventIdChange: function (keyboardEvent) {
 	    var newEventId = keyboardEvent.target.value;
-	
 	    var myShowtimes = EventStore.findShowtimes(UserStore.user().id);
 	    var newEventsShowtimes = myShowtimes[newEventId];
 	    var newShowtime = newEventsShowtimes[0];
-	
-	    // console.log("EventId: " + this.state.event_id);
-	    // console.log("ShowtimeId: " + this.state.showtime_id);
-	
 	    this.setState({ event_id: newEventId, showtime_id: newShowtime.id });
 	  },
 	
 	  showtimeIdChange: function (keyboardEvent) {
 	    var newShowtimeId = keyboardEvent.target.value;
 	    this.setState({ showtime_id: newShowtimeId });
-	    // console.log("ShowtimeId: " + this.state.showtime_id);
 	  },
 	
 	  priceChange: function (keyboardEvent) {
 	    var newPrice = keyboardEvent.target.value;
 	    this.setState({ price: newPrice });
-	    // console.log("Price: " + this.state.price);
 	  },
 	
 	  tierChange: function (keyboardEvent) {
 	    var newTier = keyboardEvent.target.value;
 	    this.setState({ tier: newTier });
-	    // console.log("Tier: " + this.state.tier);
 	  },
 	
 	  descriptionChange: function (keyboardEvent) {
 	    var newDescription = keyboardEvent.target.value;
-	    // console.log(newDescription);
 	    this.setState({ description: newDescription });
 	  },
 	
@@ -37720,36 +37552,12 @@
 	      description: this.state.description
 	    };
 	
-	    // debugger;
-	
 	    ClientActions.createTicket(ticketData);
 	  },
 	
-	  // eventOptions: function(){
-	  //   UserStore.user.events.map(function(event){
-	  //     <div>
-	  //       <option value=event.title>event.title}</option>
-	  //     </div>
-	  //   });
-	  // },
-	
 	  render: function () {
 	
-	    // debugger;
-	
 	    var myHTML;
-	
-	    // var showtimes = EventStore.findShowtimes(UserStore.user().id);
-	
-	    // var ShowtimeSelector;
-	
-	    // if (this.state.has_loaded){
-	    //   ShowtimeSelector = (
-	    //     <div>
-	    //
-	    //     </div>
-	    //   );
-	    // }
 	
 	    if (UserStore.user() && this.state.has_loaded) {
 	      myHTML = React.createElement(
@@ -37855,15 +37663,6 @@
 	      );
 	    }
 	
-	    // <input type="text"
-	    //         value={this.state.event_id}
-	    //         onChange={this.eventIdChange}
-	    //   />
-	    // var eventOptions =
-	    //   UserStore.user().events.map(function(event){
-	    //     <option value={event.name}>{event.name}</option>
-	    //   });
-	
 	    return React.createElement(
 	      'div',
 	      null,
@@ -37878,7 +37677,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	// var UserActions = require('../../actions/userActions');
 	var ClientActions = __webpack_require__(263);
 	
 	var SignUpModal = React.createClass({
@@ -37895,13 +37693,11 @@
 	  usernameChange: function (keyboardEvent) {
 	    var newUsername = keyboardEvent.target.value;
 	    this.setState({ username: newUsername });
-	    // console.log("Username: " + this.state.username);
 	  },
 	
 	  passwordChange: function (keyboardEvent) {
 	    var newPassword = keyboardEvent.target.value;
 	    this.setState({ password: newPassword });
-	    // console.log("Password: " + this.state.password);
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
@@ -37910,8 +37706,6 @@
 	      username: this.state.username,
 	      password: this.state.password
 	    };
-	
-	    // console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 	
 	    ClientActions.signup(userData);
 	  },
@@ -37957,7 +37751,6 @@
 
 	var React = __webpack_require__(1);
 	var ClientActions = __webpack_require__(263);
-	// var UserActions = require('../../actions/userActions');
 	
 	var SignInModal = React.createClass({
 	  displayName: "SignInModal",
@@ -37973,13 +37766,11 @@
 	  usernameChange: function (keyboardEvent) {
 	    var newUsername = keyboardEvent.target.value;
 	    this.setState({ username: newUsername });
-	    // console.log("Username: " + this.state.username);
 	  },
 	
 	  passwordChange: function (keyboardEvent) {
 	    var newPassword = keyboardEvent.target.value;
 	    this.setState({ password: newPassword });
-	    // console.log("Password: " + this.state.password);
 	  },
 	
 	  handleSubmit: function (keyboardEvent) {
@@ -37988,8 +37779,6 @@
 	      username: this.state.username,
 	      password: this.state.password
 	    };
-	
-	    // console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 	
 	    ClientActions.login(userData);
 	  },
@@ -38278,24 +38067,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	// var EventForm = require('./events/form');
 	var EventIndex = __webpack_require__(271);
-	// var LoginForm = require('./users/usersLoginForm');
-	// var LoginModal = require('./users/loginModal');
-	// var CreateEventModal = require('./events/createEventModal');
-	// var CreateShowtimeModal = require('./showtimes/createShowtimeModal');
-	// var UserActions = require('../actions/userActions');
-	// var SignUpModal = require('./users/signUpModal');
-	
-	// var UserStore = require('../stores/user');
-	
-	// var Modal = require("react-modal");
-	// var UserApiUtil = require('../util/userApiUtil');
-	// var SignInModal = require('./users/signInModal');
-	// var MyDashboardModal = require('./events/userDashboardEventsIndex');
-	
-	//Mixins
-	// var CurrentUserState = require('.././mixins/currentUserState');
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -38306,32 +38078,10 @@
 	    console.log("Hello!");
 	    console.log("Welcome to TixStarter.io");
 	    console.log("For more information about the creator of this site:");
-	    console.log("Email Steve@SteveMBoyle.com");
+	    console.log("Email Steve@CoderBoyle.io");
 	  },
 	
 	  render: function () {
-	
-	    //TODO: Add Marketing Content (Commented Out Below) Back IN
-	
-	    // <li className="home-splash-li"><a href="#home-marketing" text-align="center" className="scroll-a">Learn More</a></li>
-	
-	    // <section id="home-marketing">
-	    //
-	    //     <h1>Welcome to TixStarter</h1>
-	    //     <h3>Forward Fund Events with Ticket Sales</h3>
-	    //
-	    //     <h4>Scroll down for More</h4>
-	    //   </section><section id="lower-menu">
-	    //
-	    //   <br></br>
-	    //
-	    // </section><section  id="home-whitespace"
-	    //     className="white-bg padding-top-bottom"
-	    //     >
-	    //
-	    //     <h1>Text!</h1>
-	    //
-	    //   </section>
 	
 	    return React.createElement(
 	      'div',
@@ -38861,8 +38611,6 @@
 	var TicketPurchaseStore = __webpack_require__(218);
 	var ClientActions = __webpack_require__(263);
 	
-	// <li className="home-splash-li"><a href="/#/mytickets" text-align="center" className="scroll-a">MyTickets</a></li>
-	
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
@@ -38881,11 +38629,8 @@
 	  componentWillUnmount: function () {
 	    this.myListener.remove();
 	  },
-	  //
-	  render: function () {
 	
-	    // debugger;
-	    // <p>{this.state.ticket_purchase.id}</p>
+	  render: function () {
 	
 	    return React.createElement(
 	      'div',

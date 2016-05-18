@@ -2,8 +2,6 @@ var React = require('react');
 var TicketPurchaseStore = require('../../stores/ticketPurchase');
 var ClientActions = require('../../actions/client_actions');
 
-              // <li className="home-splash-li"><a href="/#/mytickets" text-align="center" className="scroll-a">MyTickets</a></li>
-
 module.exports = React.createClass({
 
   getInitialState: function(){
@@ -20,11 +18,8 @@ module.exports = React.createClass({
   componentWillUnmount: function(){
     this.myListener.remove();
   },
-//
+  
   render: function () {
-
-    // debugger;
-        // <p>{this.state.ticket_purchase.id}</p>
 
     return(
       <div id="success-page">

@@ -1,5 +1,4 @@
 var React = require("react");
-// var UserActions = require('../../actions/userActions');
 var ClientActions = require('../../actions/client_actions');
 
 var SignUpModal = React.createClass({
@@ -14,13 +13,11 @@ var SignUpModal = React.createClass({
   usernameChange: function(keyboardEvent){
     var newUsername = keyboardEvent.target.value;
     this.setState({ username: newUsername });
-    // console.log("Username: " + this.state.username);
   },
 
   passwordChange: function(keyboardEvent){
     var newPassword = keyboardEvent.target.value;
     this.setState({ password: newPassword });
-    // console.log("Password: " + this.state.password);
   },
 
   handleSubmit: function(keyboardEvent){
@@ -29,8 +26,6 @@ var SignUpModal = React.createClass({
       username: this.state.username,
       password: this.state.password
     };
-
-    // console.log("We're in Handle Submit, and about to call UserActions.sign up using " + userData + " as our userData");
 
     ClientActions.signup(userData);
   },
