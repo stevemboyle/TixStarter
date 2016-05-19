@@ -145,7 +145,7 @@ module.exports = React.createClass({
       <div id="othermenu">
         <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
         <p>{loggedInMessageForSteve}</p>
-        <div id="menubuttons">
+        <div id="navbarbuttons">
           <ul className="header-ul">
             <li className="header-li"  onClick={this.goToSignIn}>Sign In</li>
             <li className="header-li"  onClick={this.goToSignUp}>Sign Up</li>
@@ -159,7 +159,7 @@ module.exports = React.createClass({
       <div id="othermenu">
         <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
         <br></br>
-        <div id="menubuttons">
+        <div id="navbarbuttons">
           <ul className="header-ul">
             <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
             {hasEventsMenu}
@@ -182,15 +182,14 @@ module.exports = React.createClass({
 
                   <br></br>
 
-                  <div id="menubuttons">
+                  <div id="navbarbuttons">
                     <ul className="header-ul">
                       <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
-                      {hasEventsMenu}
                       <li className="header-li" onClick={this.goToDashboard}>My Dashboard</li>
                       <li className="header-li" onClick={this.justClickedLogOut}>Log Out</li>
                     </ul>
-
                   </div>
+
                 </div>
               );
 
@@ -201,7 +200,7 @@ module.exports = React.createClass({
 
                   <br></br>
 
-                  <div id="menubuttons">
+                  <div id="navbarbuttons">
                     <ul className="header-ul">
                       <li className="header-li" onClick={this.goToCreateEvent}>Create Event</li>
                       <li className="header-li" onClick={this.goToCreateShowtime}>Create Showtime</li>
@@ -219,14 +218,17 @@ module.exports = React.createClass({
       menu = (
               <div id="othermenu">
                 <p onClick={this.returnHome} className="hover-pointer cody-font home-title">TixStarter</p>
-                <p>{loggedInMessageForSteve}</p>
-                <div id="menubuttons">
+
+                <br></br>
+
+                <div id="navbarbuttons">
                   <ul className="header-ul">
                     <li className="header-li"  onClick={this.goToSignIn}>Sign In</li>
                     <li className="header-li"  onClick={this.goToSignUp}>Sign Up</li>
                     <li className="header-li"  onClick={this.signInWithDemoAccount}>Demo Account</li>
                   </ul>
                 </div>
+
             </div>
             );
     }

@@ -34091,7 +34091,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { id: 'menubuttons' },
+	        { id: 'navbarbuttons' },
 	        React.createElement(
 	          'ul',
 	          { className: 'header-ul' },
@@ -34125,7 +34125,7 @@
 	      React.createElement('br', null),
 	      React.createElement(
 	        'div',
-	        { id: 'menubuttons' },
+	        { id: 'navbarbuttons' },
 	        React.createElement(
 	          'ul',
 	          { className: 'header-ul' },
@@ -34165,7 +34165,7 @@
 	        React.createElement('br', null),
 	        React.createElement(
 	          'div',
-	          { id: 'menubuttons' },
+	          { id: 'navbarbuttons' },
 	          React.createElement(
 	            'ul',
 	            { className: 'header-ul' },
@@ -34174,7 +34174,6 @@
 	              { className: 'header-li', onClick: this.goToCreateEvent },
 	              'Create Event'
 	            ),
-	            hasEventsMenu,
 	            React.createElement(
 	              'li',
 	              { className: 'header-li', onClick: this.goToDashboard },
@@ -34201,7 +34200,7 @@
 	          React.createElement('br', null),
 	          React.createElement(
 	            'div',
-	            { id: 'menubuttons' },
+	            { id: 'navbarbuttons' },
 	            React.createElement(
 	              'ul',
 	              { className: 'header-ul' },
@@ -34243,14 +34242,10 @@
 	          { onClick: this.returnHome, className: 'hover-pointer cody-font home-title' },
 	          'TixStarter'
 	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          loggedInMessageForSteve
-	        ),
+	        React.createElement('br', null),
 	        React.createElement(
 	          'div',
-	          { id: 'menubuttons' },
+	          { id: 'navbarbuttons' },
 	          React.createElement(
 	            'ul',
 	            { className: 'header-ul' },

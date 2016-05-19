@@ -531,6 +531,14 @@ h1 {
   align-items: flex-end;
 }
 
+#navbarbuttons {
+  float: right;
+  /*display: flex;
+  justify-content: center;
+  align-items: flex-end;*/
+  width: 60%;
+}
+
  #tixstarter {
    /* height: 100%; */
    width: 95%;
@@ -751,7 +759,9 @@ input[type=time]:focus {
 }*/
 
  .header-ul {
-
+   float: right;
+   /*display: flex;
+   justify-content: flex-end;*/
  }
 
  .events-index-header {
