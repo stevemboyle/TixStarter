@@ -285,8 +285,8 @@ module.exports = React.createClass({
             <iframe width="{854/1.2}"
                     height="{480/1.2}"
                     src="https://www.youtube.com/embed/6ibySV-saJ8"
-                    frameborder="0"
-                    allowfullscreen>
+                    frameBorder="0"
+                    allowFullScreen>
             </iframe>
 
             <p>mooooooooodal!</p>

@@ -34338,8 +34338,8 @@
 	            React.createElement('iframe', { width: '{854/1.2}',
 	              height: '{480/1.2}',
 	              src: 'https://www.youtube.com/embed/6ibySV-saJ8',
-	              frameborder: '0',
-	              allowfullscreen: true }),
+	              frameBorder: '0',
+	              allowFullScreen: true }),
 	            React.createElement(
 	              'p',
 	              null,
@@ -38341,8 +38341,8 @@
 	          React.createElement('iframe', { width: '854',
 	            height: '480',
 	            src: "https://www.youtube.com/embed/" + this.state.event.video_url,
-	            frameborder: '0',
-	            allowfullscreen: true })
+	            frameBorder: '0',
+	            allowFullScreen: true })
 	        )
 	      ),
 	      React.createElement(

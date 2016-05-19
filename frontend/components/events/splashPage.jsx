@@ -133,8 +133,8 @@ module.exports = React.createClass({
             <iframe width="854"
               height="480"
               src={"https://www.youtube.com/embed/" + this.state.event.video_url}
-              frameborder="0"
-              allowfullscreen>
+              frameBorder="0"
+              allowFullScreen>
             </iframe>
           </div>
 
