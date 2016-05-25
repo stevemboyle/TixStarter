@@ -532,11 +532,9 @@ h1 {
 }
 
 #navbarbuttons {
-  float: right;
   /*display: flex;
   justify-content: center;
   align-items: flex-end;*/
-  width: 60%;
 }
 
  #tixstarter {
@@ -759,9 +757,8 @@ input[type=time]:focus {
 }*/
 
  .header-ul {
+   /*display: flex;*/
    float: right;
-   /*display: flex;
-   justify-content: flex-end;*/
  }
 
  .events-index-header {
